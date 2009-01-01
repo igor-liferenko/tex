@@ -1,10 +1,11 @@
+Allow to use bigger values in constants.ch
+
 @x
 @d max_quarterword	255 /*largest allowable value in a |quarterword|*/
 @y
 @d max_quarterword 65535 /*largest allowable value in a |quarterword|*/
 @z
 
-Must be less than 2^30.
 @x
 @d max_halfword	65535 /*largest allowable value in a |halfword|*/
 @y
