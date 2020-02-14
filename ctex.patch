@@ -56,8 +56,8 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  known as `\TeX' [cf.~Stanford Computer Science report CS1027,
  November 1984].
 
--@d banner	"This is TeX, Version 3.14159265" /*printed when \TeX\ starts*/
-+@d banner	"This is TeX, Version 3.14159265 (HINT)" /*printed when \TeX\ starts*/
+-@d banner	L"This is TeX, Version 3.14159265" /*printed when \TeX\ starts*/
++@d banner	L"This is TeX, Version 3.14159265 (HINT)" /*printed when \TeX\ starts*/
 
  @ Different \PASCAL s have slightly different conventions, and the present
  @!@:PASCAL H}{\ph@>
@@ -114,37 +114,37 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 
  @p bool a_open_in(alpha_file *f)
     /*open a text file for input*/
--{@+reset((*f), name_of_file,"/O");return reset_OK((*f));
+-{@+reset((*f), name_of_file,L"/O");return reset_OK((*f));
 +{@+reset((*f), name_of_file,"r");return reset_OK((*f));
  }
  @#
  bool a_open_out(alpha_file *f)
     /*open a text file for output*/
--{@+rewrite((*f), name_of_file,"/O");return rewrite_OK((*f));
+-{@+rewrite((*f), name_of_file,L"/O");return rewrite_OK((*f));
 +{@+rewrite((*f), name_of_file,"w");return rewrite_OK((*f));
  }
  @#
  bool b_open_in(byte_file *f)
     /*open a binary file for input*/
--{@+reset((*f), name_of_file,"/O");return reset_OK((*f));
+-{@+reset((*f), name_of_file,L"/O");return reset_OK((*f));
 +{@+reset((*f), name_of_file,"rb");return reset_OK((*f));
  }
  @#
  bool b_open_out(byte_file *f)
     /*open a binary file for output*/
--{@+rewrite((*f), name_of_file,"/O");return rewrite_OK((*f));
+-{@+rewrite((*f), name_of_file,L"/O");return rewrite_OK((*f));
 +{@+rewrite((*f), name_of_file,"wb");return rewrite_OK((*f));
  }
  @#
  bool w_open_in(word_file *f)
     /*open a word file for input*/
--{@+reset((*f), name_of_file,"/O");return reset_OK((*f));
+-{@+reset((*f), name_of_file,L"/O");return reset_OK((*f));
 +{@+reset((*f), name_of_file,"rb");return reset_OK((*f));
  }
  @#
  bool w_open_out(word_file *f)
     /*open a word file for output*/
--{@+rewrite((*f), name_of_file,"/O");return rewrite_OK((*f));
+-{@+rewrite((*f), name_of_file,L"/O");return rewrite_OK((*f));
 +{@+rewrite((*f), name_of_file,"wb");return rewrite_OK((*f));
  }
 
@@ -153,8 +153,8 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  @:PASCAL H}{\ph@>
  @^system dependencies@>
 
--@d t_open_in	reset(term_in,"TTY:","/O/I") /*open the terminal for text input*/
--@d t_open_out	rewrite(term_out,"TTY:","/O") /*open the terminal for text output*/
+-@d t_open_in	reset(term_in,L"TTY:",L"/O/I") /*open the terminal for text input*/
+-@d t_open_out	rewrite(term_out,L"TTY:",L"/O") /*open the terminal for text output*/
 +@d t_open_in	term_in.f=stdin /*open the terminal for text input*/
 +@d t_open_out   term_out.f=stdout /*open the terminal for text output*/
 
@@ -213,11 +213,11 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
    @/do@+{@<Read one string, but return |false| if the string memory space is getting
 @@ -1303,7 +1336,7 @@
  @ @<Read one string...@>=
- {@+if (eof(pool_file)) bad_pool("! TEX.POOL has no check sum.");
+ {@+if (eof(pool_file)) bad_pool(L"! TEX.POOL has no check sum.");
  @.TEX.POOL has no check sum@>
 -read(pool_file, m, n); /*read two digits of string length*/
 +read(pool_file, m);@+read(pool_file, n); /*read two digits of string length*/
- if (m== '*' ) @<Check the pool check sum@>@;
+ if (m== L'*' ) @<Check the pool check sum@>@;
  else{@+if ((xord[m] < '0')||(xord[m] > '9')||@|
        (xord[n] < '0')||(xord[n] > '9'))
 @@ -1411,12 +1444,30 @@
@@ -303,8 +303,8 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 
  @<Initialize the output...@>=
 -wterm(banner);
-+wterm("%s",banner);
- if (format_ident==0) wterm_ln(" (no format preloaded)");
++wterm(L"%ls",banner);
+ if (format_ident==0) wterm_ln(L" (no format preloaded)");
  else{@+slow_print(format_ident);print_ln();
    }
 @@ -1541,10 +1596,10 @@
@@ -369,13 +369,13 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  @ Here now is the general |error| routine.
 @@ -1972,7 +2027,7 @@
  else{@+if (help_ptr==0)
-     help2("Sorry, I don't know how to help in this situation.")@/
-     @t\kern1em@>("Maybe you should try asking a human?");
+     help2(L"Sorry, I don't know how to help in this situation.")@/
+     @t\kern1em@>(L"Maybe you should try asking a human?");
 -  @/do@+{decr(help_ptr);print(help_line[help_ptr]);print_ln();
 +  @/do@+{decr(help_ptr);print_str(help_line[help_ptr]);print_ln();
    }@+ while (!(help_ptr==0));
    }
- help4("Sorry, I already gave what help I could...")@/
+ help4(L"Sorry, I already gave what help I could...")@/
 @@ -2017,16 +2072,12 @@
  @d succumb	{@+if (interaction==error_stop_mode)
      interaction=scroll_mode; /*no more interaction*/
@@ -391,23 +391,23 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 
  @<Error hand...@>=
 -void fatal_error(str_number @!s) /*prints |s|, and that's it*/
-+void fatal_error(char *@!s) /*prints |s|, and that's it*/
++void fatal_error(wchar_t *@!s) /*prints |s|, and that's it*/
  {@+normalize_selector();@/
- print_err("Emergency stop");help1(s);succumb;
+ print_err(L"Emergency stop");help1(s);succumb;
  @.Emergency stop@>
 @@ -2035,11 +2086,11 @@
  @ Here is the most dreaded error message.
 
  @<Error hand...@>=
 -void overflow(str_number @!s, int @!n) /*stop due to finiteness*/
-+void overflow(char *@!s, int @!n) /*stop due to finiteness*/
++void overflow(wchar_t *@!s, int @!n) /*stop due to finiteness*/
  {@+normalize_selector();
- print_err("TeX capacity exceeded, sorry [");
+ print_err(L"TeX capacity exceeded, sorry [");
  @.TeX capacity exceeded ...@>
 -print(s);print_char('=');print_int(n);print_char(']');
 +print_str(s);print_char('=');print_int(n);print_char(']');
- help2("If you really absolutely need more capacity,")@/
-   ("you can ask a wizard to enlarge me.");
+ help2(L"If you really absolutely need more capacity,")@/
+   (L"you can ask a wizard to enlarge me.");
  succumb;
 @@ -2202,7 +2253,7 @@
  The present implementation of \TeX\ does not check for overflow when
@@ -511,8 +511,8 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  incr(n);
  if (tracing_macros > 0)
 -  {@+begin_diagnostic();print_nl(match_chr);print_int(n);
-+  {@+begin_diagnostic();print_nl("");print(match_chr);print_int(n);
-   print_str("<-");show_token_list(pstack[n-1], null, 1000);
++  {@+begin_diagnostic();print_nl(L"");print(match_chr);print_int(n);
+   print_str(L"<-");show_token_list(pstack[n-1], null, 1000);
    end_diagnostic(false);
    }
 @@ -9997,10 +10045,7 @@
@@ -530,7 +530,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
--for (k=name_length+1; k<=file_name_size; k++) name_of_file[k]= ' ' ;
+-for (k=name_length+1; k<=file_name_size; k++) name_of_file[k]= L' ' ;
 +name_of_file[name_length+1]=0;
  }
 
@@ -546,7 +546,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 -uint8_t @!TEX_format_default0[format_default_length], *const @!TEX_format_default = @!TEX_format_default0-1;
 -
 -@ @<Set init...@>=
--TEX_format_default="TeXformats:plain.fmt";
+-TEX_format_default=L"TeXformats:plain.fmt";
 +ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
  @.TeXformats@>
  @.plain@>
@@ -555,7 +555,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++)
    append_to_name(xord[TEX_format_default[j]]);
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
--for (k=name_length+1; k<=file_name_size; k++) name_of_file[k]= ' ' ;
+-for (k=name_length+1; k<=file_name_size; k++) name_of_file[k]= L' ' ;
 +name_of_file[name_length+1]=0;
  }
 
@@ -564,8 +564,8 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
       /*now try the system format file area*/
    if (w_open_in(&fmt_file)) goto found;
    wake_up_terminal;
--  wterm_ln("Sorry, I can't find that format;"," will try PLAIN.");
-+  wterm_ln("Sorry, I can't find that format; will try PLAIN.");
+-  wterm_ln(L"Sorry, I can't find that format;",L" will try PLAIN.");
++  wterm_ln(L"Sorry, I can't find that format; will try PLAIN.");
  @.Sorry, I can't find...@>
    update_terminal;
    }
@@ -574,22 +574,22 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  ready for another attempt at file opening.
 
 -@p void prompt_file_name(str_number @!s, str_number @!e)
-+@p void prompt_file_name(char *@!s, str_number @!e)
++@p void prompt_file_name(wchar_t *@!s, str_number @!e)
  {@+
  uint16_t k; /*index into |buffer|*/
  if (interaction==scroll_mode) wake_up_terminal;
--if (s==@[@<|"input file name"|@>@]) print_err("I can't find file `")@;
-+if (strcmp(s,"input file name")==0) print_err("I can't find file `")@;
+-if (s==@[@<|"input file name"|@>@]) print_err(L"I can't find file `")@;
++if (wcscmp(s,L"input file name")==0) print_err(L"I can't find file `")@;
  @.I can't find file x@>
- else print_err("I can't write on file `");
+ else print_err(L"I can't write on file `");
  @.I can't write on file x@>
- print_file_name(cur_name, cur_area, cur_ext);print_str("'.");
+ print_file_name(cur_name, cur_area, cur_ext);print_str(L"'.");
  if (e==@[@<|".tex"|@>@]) show_context();
--print_nl("Please type another ");print(s);
-+print_nl("Please type another ");print_str(s);
+-print_nl(L"Please type another ");print(s);
++print_nl(L"Please type another ");print_str(s);
  @.Please type...@>
  if (interaction < scroll_mode)
-   fatal_error("*** (job aborted, file error in nonstop mode)");
+   fatal_error(L"*** (job aborted, file error in nonstop mode)");
 @@ -10286,9 +10328,10 @@
  }
 
@@ -626,12 +626,12 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 
  @ @<Print the banner...@>=
 -{@+wlog(banner);
-+{@+wlog("%s",banner);
- slow_print(format_ident);print_str("  ");
++{@+wlog(L"%ls",banner);
+ slow_print(format_ident);print_str(L"  ");
  print_int(day);print_char(' ');
--months="JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC";
+-months=L"JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC";
 -for (k=3*month-2; k<=3*month; k++) wlog(months[k]);
-+for (k=3*month-2; k<=3*month; k++) wlog("%c",months[k]);
++for (k=3*month-2; k<=3*month; k++) wlog(L"%lc",months[k]);
  print_char(' ');print_int(year);print_char(' ');
  print_two(time/60);print_char(':');print_two(time%60);
  }
@@ -686,7 +686,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 +@d math_spacing_str	@;@/
  @t\hskip-35pt@>
 -math_spacing
-+"math_spacing"
++L"math_spacing"
  @t$ \hskip-35pt$@>
 
  @<Glob...@>=
@@ -722,8 +722,8 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  incompatible with the present \TeX\ table sizes, etc.
 
  @d too_small(X)	{@+wake_up_terminal;
--  wterm_ln("---! Must increase the ", X);
-+  wterm_ln("---! Must increase the %s", X);
+-  wterm_ln(L"---! Must increase the ", X);
++  wterm_ln(L"---! Must increase the %s", X);
  @.Must increase the x@>
    goto bad_fmt;
    }
@@ -731,10 +731,10 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  if (ready_already==314159) goto start_of_TEX;
  @<Check the ``constant'' values...@>@;
  if (bad > 0)
--  {@+wterm_ln("Ouch---my internal constants have been clobbered!",
--    "---case ", bad: 1);
-+  {@+wterm_ln("Ouch---my internal constants have been clobbered!"
-+    "---case %d", bad);
+-  {@+wterm_ln(L"Ouch---my internal constants have been clobbered!",
+-    L"---case ", bad: 1);
++  {@+wterm_ln(L"Ouch---my internal constants have been clobbered!"
++    L"---case %d", bad);
  @.Ouch...clobbered@>
    exit(0);
    }
@@ -757,51 +757,51 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 
  @<Output statistics...@>=
  if (log_opened)
--  {@+wlog_ln( ' ' );
--  wlog_ln("Here is how much of TeX's memory"," you used:");
-+  {@+wlog_ln(" ");
-+  wlog_ln("Here is how much of TeX's memory you used:");
+-  {@+wlog_ln( L' ' );
+-  wlog_ln(L"Here is how much of TeX's memory",L" you used:");
++  {@+wlog_ln(L" ");
++  wlog_ln(L"Here is how much of TeX's memory you used:");
  @.Here is how much...@>
--  wlog( ' ' , str_ptr-init_str_ptr: 1," string");
--  if (str_ptr!=init_str_ptr+1) wlog( 's' );
--  wlog_ln(" out of ", max_strings-init_str_ptr: 1);@/
--  wlog_ln( ' ' , pool_ptr-init_pool_ptr: 1," string characters out of ",
+-  wlog( L' ' , str_ptr-init_str_ptr: 1,L" string");
+-  if (str_ptr!=init_str_ptr+1) wlog( L's' );
+-  wlog_ln(L" out of ", max_strings-init_str_ptr: 1);@/
+-  wlog_ln( L' ' , pool_ptr-init_pool_ptr: 1,L" string characters out of ",
 -    pool_size-init_pool_ptr: 1);@/
--  wlog_ln( ' ' , lo_mem_max-mem_min+mem_end-hi_mem_min+2: 1,@|
--    " words of memory out of ", mem_end+1-mem_min: 1);@/
--  wlog_ln( ' ' , cs_count: 1," multiletter control sequences out of ",
+-  wlog_ln( L' ' , lo_mem_max-mem_min+mem_end-hi_mem_min+2: 1,@|
+-    L" words of memory out of ", mem_end+1-mem_min: 1);@/
+-  wlog_ln( L' ' , cs_count: 1,L" multiletter control sequences out of ",
 -    hash_size: 1);@/
--  wlog( ' ' , fmem_ptr: 1," words of font info for ",
--    font_ptr-font_base: 1," font");
--  if (font_ptr!=font_base+1) wlog( 's' );
--  wlog_ln(", out of ", font_mem_size: 1," for ", font_max-font_base: 1);@/
--  wlog( ' ' , hyph_count: 1," hyphenation exception");
--  if (hyph_count!=1) wlog( 's' );
--  wlog_ln(" out of ", hyph_size: 1);@/
--  wlog_ln( ' ' , max_in_stack: 1,"i,", max_nest_stack: 1,"n,",@|
--    max_param_stack: 1,"p,",@|
--    max_buf_stack+1: 1,"b,",@|
--    max_save_stack+6: 1,"s stack positions out of ",@|
--    stack_size: 1,"i,",
--    nest_size: 1,"n,",
--    param_size: 1,"p,",
--    buf_size: 1,"b,",
--    save_size: 1, 's' );
-+  wlog(" %d string", str_ptr-init_str_ptr);
-+  if (str_ptr!=init_str_ptr+1) wlog( "s" );
-+  wlog_ln( " out of %d", max_strings-init_str_ptr);@/
-+  wlog_ln( " %d string characters out of %d", pool_ptr-init_pool_ptr,
+-  wlog( L' ' , fmem_ptr: 1,L" words of font info for ",
+-    font_ptr-font_base: 1,L" font");
+-  if (font_ptr!=font_base+1) wlog( L's' );
+-  wlog_ln(L", out of ", font_mem_size: 1,L" for ", font_max-font_base: 1);@/
+-  wlog( L' ' , hyph_count: 1,L" hyphenation exception");
+-  if (hyph_count!=1) wlog( L's' );
+-  wlog_ln(L" out of ", hyph_size: 1);@/
+-  wlog_ln( L' ' , max_in_stack: 1,L"i,", max_nest_stack: 1,L"n,",@|
+-    max_param_stack: 1,L"p,",@|
+-    max_buf_stack+1: 1,L"b,",@|
+-    max_save_stack+6: 1,L"s stack positions out of ",@|
+-    stack_size: 1,L"i,",
+-    nest_size: 1,L"n,",
+-    param_size: 1,L"p,",
+-    buf_size: 1,L"b,",
+-    save_size: 1, L's' );
++  wlog(L" %d string", str_ptr-init_str_ptr);
++  if (str_ptr!=init_str_ptr+1) wlog( L"s" );
++  wlog_ln( L" out of %d", max_strings-init_str_ptr);@/
++  wlog_ln( L" %d string characters out of %d", pool_ptr-init_pool_ptr,
 +    pool_size-init_pool_ptr);@/
-+  wlog_ln(" %d words of memory out of %d", lo_mem_max-mem_min+mem_end-hi_mem_min+2,@|
++  wlog_ln(L" %d words of memory out of %d", lo_mem_max-mem_min+mem_end-hi_mem_min+2,@|
 +    mem_end+1-mem_min);@/
-+  wlog_ln(" %d multiletter control sequences out of %d", cs_count, hash_size);@/
-+  wlog(" %d words of font info for %d font", fmem_ptr, font_ptr-font_base);
-+  if (font_ptr!=font_base+1) wlog("s");
-+  wlog_ln( ", out of %d for %d", font_mem_size, font_max-font_base);@/
-+  wlog(" %d hyphenation exception", hyph_count);
-+  if (hyph_count!=1) wlog("s");
-+  wlog_ln( " out of %d", hyph_size);@/
-+  wlog_ln(" %di,%dn,%dp,%db,%ds stack positions out of %di,%dn,%dp,%db,%ds",
++  wlog_ln(L" %d multiletter control sequences out of %d", cs_count, hash_size);@/
++  wlog(L" %d words of font info for %d font", fmem_ptr, font_ptr-font_base);
++  if (font_ptr!=font_base+1) wlog(L"s");
++  wlog_ln( L", out of %d for %d", font_mem_size, font_max-font_base);@/
++  wlog(L" %d hyphenation exception", hyph_count);
++  if (hyph_count!=1) wlog(L"s");
++  wlog_ln( L" out of %d", hyph_size);@/
++  wlog_ln(L" %di,%dn,%dp,%db,%ds stack positions out of %di,%dn,%dp,%db,%ds",
 +    max_in_stack, max_nest_stack,@|
 +    max_param_stack,@|
 +    max_buf_stack+1,@|
@@ -816,7 +816,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  @ We get to the |final_cleanup| routine when \.{\\end} or \.{\\dump} has
 @@ -24452,13 +24496,13 @@
  loop{@+wake_up_terminal;
-   print_nl("debug # (-1 to exit):");update_terminal;
+   print_nl(L"debug # (-1 to exit):");update_terminal;
  @.debug \#@>
 -  read(term_in, m);
 -  if (m < 0) return;
@@ -830,7 +830,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 +  else{@+fscanf(term_in.f," %d",&n);
      switch (m) {
      @t\4@>@<Numbered cases for |debug_help|@>@;
-     default:print_str("?");
+     default:print_str(L"?");
 @@ -24484,7 +24528,7 @@
  case 10: slow_print(n);@+break;
  case 11: check_mem(n > 0);@+break; /*check wellformedness; print new busy locations if |n > 0|*/
@@ -875,18 +875,18 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  @d str_0_255 	"^^@@^^A^^B^^C^^D^^E^^F^^G^^H^^I^^J^^K^^L^^M^^N^^O"@/
  	"^^P^^Q^^R^^S^^T^^U^^V^^W^^X^^Y^^Z^^[^^\\^^]^^^^^_"@/
 @@ -25757,10 +25785,10 @@
- @d str_505 "else"
+ @d str_505 L"else"
  @<|"else"|@>=@+505
  @
--@d str_506 "TeXinputs:"
-+@d str_506 "TeXinputs/"
+-@d str_506 L"TeXinputs:"
++@d str_506 L"TeXinputs/"
  @d TEX_area 506
  @
--@d str_507 "TeXfonts:"
-+@d str_507 "TeXfonts/"
+-@d str_507 L"TeXfonts:"
++@d str_507 L"TeXfonts/"
  @d TEX_font_area 507
  @
- @d str_508 ".fmt"
+ @d str_508 L".fmt"
 @@ -26827,3 +26855,19 @@
  @ @<|pool_ptr| initialization@>= str_start_668
 
