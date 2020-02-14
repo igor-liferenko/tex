@@ -1,5 +1,5 @@
 all:
-	ctie -m ctex.w tex.w utf.ch
-	patch ctex.w <ctex.patch
+	patch -s -o ctex.w tex.w ctex.patch
 	ctangle ctex
+	gcc -DINIT -o initex ctex.c -lm
 	gcc -o virtex ctex.c -lm
