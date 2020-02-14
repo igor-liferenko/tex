@@ -1,3 +1,7 @@
+Move tex repo to web2c repo and do the following steps again and on each step
+review and create diffs and initialize tex repo with the diffs and tex.w and ctex.patch
+in the state before last item below.
+
 After initial import:
 
     sed -i 's/ \+$//' tex.w ctex.patch
