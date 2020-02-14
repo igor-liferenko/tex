@@ -1,1 +1,12 @@
-sed -i 's/ \+$//' tex.w
+After initial import:
+
+    sed -i 's/ \+$//' tex.w ctex.patch
+
+After processing with modified web2w.w:
+
+    sed -i 's/ \+$//' tex.w
+    perl -i -pe 's/@d str_(\d+) L"/@d str_$1 "/' tex.w
+
+Then make ctex.patch apply to new tex.w
+
+Then change tex.w to add UTF-8 support and change ctex.patch accordingly.
