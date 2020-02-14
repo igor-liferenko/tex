@@ -61,7 +61,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 
  @ Different \PASCAL s have slightly different conventions, and the present
  @!@:PASCAL H}{\ph@>
-@@ -318,12 +329,35 @@
+@@ -318,12 +331,37 @@
  @^system dependencies@>
  @^overflow in arithmetic@>
 
@@ -83,6 +83,8 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 +#include <stdlib.h>
 +#include <string.h>
 +#include <math.h>
++#include <wchar.h>
++#include <locale.h>
 +
 +#define odd(X)       ((X)&1)
 +#define chr(X)       ((unsigned char)(X))
@@ -115,7 +117,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  @p bool a_open_in(alpha_file *f)
     /*open a text file for input*/
 -{@+reset((*f), name_of_file,L"/O");return reset_OK((*f));
-+{@+reset((*f), name_of_file,"r");return reset_OK((*f));
++{@+a_reset((*f), name_of_file,"r");return reset_OK((*f));
  }
  @#
  bool a_open_out(alpha_file *f)
@@ -217,10 +219,10 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  @.TEX.POOL has no check sum@>
 -read(pool_file, m, n); /*read two digits of string length*/
 +read(pool_file, m);@+read(pool_file, n); /*read two digits of string length*/
- if (m== L'*' ) @<Check the pool check sum@>@;
- else{@+if ((xord[m] < '0')||(xord[m] > '9')||@|
-       (xord[n] < '0')||(xord[n] > '9'))
-@@ -1411,12 +1444,30 @@
+ if (m== '*' ) @<Check the pool check sum@>@;
+ else{@+if ((m < '0')||(m > '9')||@|
+       (n < '0')||(n > '9'))
+@@ -1411,12 +1450,36 @@
  by changing |wterm|, |wterm_ln|, and |wterm_cr| in this section.
  @^system dependencies@>
 
@@ -231,29 +233,35 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 -@d wlog_ln(...)	write_ln(log_file,__VA_ARGS__)
 -@d wlog_cr	write_ln(log_file)
 +@<Compiler directives@>=
-+#define put(file)    @[fwrite(&((file).d),sizeof((file).d),1,(file).f)@]
-+#define get(file)    @[fread(&((file).d),sizeof((file).d),1,(file).f)@]
++#define put(file)    @[fwprintf((file).f,L"%lc",(file).d)@]
++#define b_put(file)  @[fwrite(&((file).d),sizeof((file).d),1,(file).f)@]
++#define get          a_get
++#define a_get(file)  @[a_read(&((file).d), (file).f)@]
++#define b_get(file)  @[fread(&((file).d),sizeof((file).d),1,(file).f)@]
 +
 +#define reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
++                                 (file).f!=NULL?b_get(file):0)@]
++#define a_reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
 +                                 (file).f!=NULL?get(file):0)@]
 +#define rewrite(file,name,mode) @[((file).f=fopen((char *)(name)+1,mode))@]
 +#define close(file)    @[fclose((file).f)@]
 +#define eof(file)    @[feof((file).f)@]
-+#define eoln(file)    @[((file).d=='\n'||eof(file))@]
++#define eoln(file)    @[((file).d==L'\n'||eof(file))@]
 +#define erstat(file)   @[((file).f==NULL?-1:ferror((file).f))@]
 +
 +#define read(file,x) @[((x)=(file).d,get(file))@]
 +#define read_ln(file)  @[do get(file); while (!eoln(file))@]
 +
-+#define write(file, format,...)    @[fprintf(file.f,format,## __VA_ARGS__)@]
-+#define write_ln(file,...)	   @[write(file,__VA_ARGS__"\n")@]
++#define write(file, format,...)    @[fwprintf(file.f,format,## __VA_ARGS__)@]
++#define b_write(file, format,...) @[fprintf(file.f,format,## __VA_ARGS__)@]
++#define write_ln(file,...)	   @[write(file,__VA_ARGS__ L"\n")@]
 +
 +#define wterm(format,...)	@[write(term_out,format, ## __VA_ARGS__)@]
-+#define wterm_ln(format,...)	@[wterm(format "\n", ## __VA_ARGS__)@]
-+#define wterm_cr	        @[write(term_out,"\n")@]
++#define wterm_ln(format,...)	@[wterm(format L"\n", ## __VA_ARGS__)@]
++#define wterm_cr	        @[write(term_out,L"\n")@]
 +#define wlog(format, ...)	@[write(log_file,format, ## __VA_ARGS__)@]
-+#define wlog_ln(format, ...)   @[wlog(format "\n", ## __VA_ARGS__)@]
-+#define wlog_cr	        @[write(log_file,"\n")@]
++#define wlog_ln(format, ...)   @[wlog(format L"\n", ## __VA_ARGS__)@]
++#define wlog_cr	        @[write(log_file,L"\n")@]
 
  @ To end a line of text output, we call |print_ln|.
 
@@ -262,7 +270,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
    }
  switch (selector) {
 -case term_and_log: {@+wterm(xchr[s]);wlog(xchr[s]);
-+case term_and_log: {@+wterm("%c",xchr[s]);wlog("%c",xchr[s]);
++case term_and_log: {@+wterm(L"%lc",xchr[s]);wlog(L"%lc",xchr[s]);
    incr(term_offset);incr(file_offset);
    if (term_offset==max_print_line)
      {@+wterm_cr;term_offset=0;
@@ -271,11 +279,11 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
      }
    } @+break;
 -case log_only: {@+wlog(xchr[s]);incr(file_offset);
-+case log_only: {@+wlog("%c",xchr[s]);incr(file_offset);
++case log_only: {@+wlog(L"%lc",xchr[s]);incr(file_offset);
    if (file_offset==max_print_line) print_ln();
    } @+break;
 -case term_only: {@+wterm(xchr[s]);incr(term_offset);
-+case term_only: {@+wterm("%c",xchr[s]);incr(term_offset);
++case term_only: {@+wterm(L"%lc",xchr[s]);incr(term_offset);
    if (term_offset==max_print_line) print_ln();
    } @+break;
  case no_print: do_nothing;@+break;
@@ -283,16 +291,21 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  case new_string: {@+if (pool_ptr < pool_size) append_char(s);
    } @+break; /*we drop characters if the string space is full*/
 -default:write(write_file[selector], xchr[s]);
-+default:write(write_file[selector],"%c", xchr[s]);
++default:write(write_file[selector],L"%lc", xchr[s]);
  } @/
  incr(tally);
  }
-@@ -1509,6 +1560,10 @@
+@@ -1509,6 +1565,15 @@
    }
  }
 
-+void print_str(char *s) /* the simple version */
-+{while (*s!=0) print_char(*s++);@+
++void print_str(wchar_t *s) /* the simple version */
++{while (*s!=0) print_char(xord(*s++));@+
++}
++
++void a_read(wchar_t *c, FILE *f)
++{
++  *c = fgetwc(f);
 +}
 +
  @ Control sequence names, file names, and strings constructed with
@@ -312,7 +325,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 
  @<Basic print...@>=
 -void print_nl(str_number @!s) /*prints string |s| at beginning of line*/
-+void print_nl(char *@!s) /*prints string |s| at beginning of line*/
++void print_nl(wchar_t *@!s) /*prints string |s| at beginning of line*/
  {@+if (((term_offset > 0)&&(odd(selector)))||@|
    ((file_offset > 0)&&(selector >= log_only))) print_ln();
 -print(s);
@@ -354,7 +367,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 
  @<Glob...@>=
 -str_number @!help_line[6]; /*helps for the next |error|*/
-+char *@!help_line[6]; /*helps for the next |error|*/
++wchar_t *@!help_line[6]; /*helps for the next |error|*/
  uint8_t @!help_ptr; /*the number of help lines present*/
  bool @!use_err_help; /*should the |err_help| list be shown?*/
 
@@ -535,8 +548,12 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  }
 
  @ A messier routine is also needed, since format file names must be scanned
-@@ -10088,13 +10133,10 @@
- @d format_default_length	20 /*length of the |TEX_format_default| string*/
+@@ -10085,16 +10130,13 @@
+ and extensions related to format files.
+ @^system dependencies@>
+ 
+-@d format_default_length	20 /*length of the |TEX_format_default| string*/
++@d format_default_length       20 /*length of the |TEX_format_default| string*/
  @d format_area_length	11 /*length of its area part*/
  @d format_ext_length	4 /*length of its `\.{.fmt}' part*/
 -@d format_extension	format_extension /*the extension, as a \.{WEB} constant*/
@@ -546,14 +563,14 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 -uint8_t @!TEX_format_default0[format_default_length], *const @!TEX_format_default = @!TEX_format_default0-1;
 -
 -@ @<Set init...@>=
--TEX_format_default=L"TeXformats:plain.fmt";
+-TEX_format_default="TeXformats:plain.fmt";
 +ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
  @.TeXformats@>
  @.plain@>
  @^system dependencies@>
 @@ -10125,7 +10167,7 @@
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++)
-   append_to_name(xord[TEX_format_default[j]]);
+   append_to_name(TEX_format_default[j]);
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
 -for (k=name_length+1; k<=file_name_size; k++) name_of_file[k]= L' ' ;
 +name_of_file[name_length+1]=0;
@@ -617,7 +634,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  int @!k; /*index into |months| and |buffer|*/
  uint16_t @!l; /*end of first input line*/
 -uint8_t @!months0[36], *const @!months = @!months0-1; /*abbreviations of month names*/
-+@!ASCII_code @!months[]=" JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC"; /*abbreviations of month names*/
++@!wchar_t @!months[]=L" JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC"; /*abbreviations of month names*/
  old_setting=selector;
  if (job_name==0) job_name=@[@<|"texput"|@>@];
  @.texput@>
@@ -650,7 +667,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  @p void write_dvi(dvi_index @!a, dvi_index @!b)
  {@+int k;
 -for (k=a; k<=b; k++) write(dvi_file, dvi_buf[k]);
-+for (k=a; k<=b; k++) write(dvi_file, "%c", dvi_buf[k]);
++for (k=a; k<=b; k++) b_write(dvi_file, "%c", dvi_buf[k]);
  }
 
  @ To put a byte in the buffer without paying the cost of invoking a procedure
@@ -875,18 +892,18 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  @d str_0_255 	"^^@@^^A^^B^^C^^D^^E^^F^^G^^H^^I^^J^^K^^L^^M^^N^^O"@/
  	"^^P^^Q^^R^^S^^T^^U^^V^^W^^X^^Y^^Z^^[^^\\^^]^^^^^_"@/
 @@ -25757,10 +25785,10 @@
- @d str_505 L"else"
+ @d str_505 "else"
  @<|"else"|@>=@+505
  @
--@d str_506 L"TeXinputs:"
-+@d str_506 L"TeXinputs/"
+-@d str_506 "TeXinputs:"
++@d str_506 "TeXinputs/"
  @d TEX_area 506
  @
--@d str_507 L"TeXfonts:"
-+@d str_507 L"TeXfonts/"
+-@d str_507 "TeXfonts:"
++@d str_507 "TeXfonts/"
  @d TEX_font_area 507
  @
- @d str_508 L".fmt"
+ @d str_508 ".fmt"
 @@ -26827,3 +26855,19 @@
  @ @<|pool_ptr| initialization@>= str_start_668
 

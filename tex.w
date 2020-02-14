@@ -398,7 +398,7 @@ enum {@+@!trie_size=8000@+}; /*space for hyphenation patterns; should be larger 
 enum {@+@!trie_op_size=500@+}; /*space for ``opcodes'' in the hyphenation patterns*/
 enum {@+@!dvi_buf_size=800@+}; /*size of the output buffer; must be a multiple of 8*/
 enum {@+@!file_name_size=40@+}; /*file names shouldn't be longer than this*/
-const char *@!pool_name=L"TeXformats:TEX.POOL                     ";
+const char *@!pool_name="TeXformats:TEX.POOL                     ";
    /*string of length |file_name_size|; tells where the string pool appears*/
 @.TeXformats@>
 
@@ -533,9 +533,7 @@ that |text_char| consists of the elements |chr(first_text_char)| through
 adjusted if necessary.
 @^system dependencies@>
 
-@d text_char	unsigned char /*the data type of characters in text files*/
-@d first_text_char	0 /*ordinal number of the smallest element of |text_char|*/
-@d last_text_char	255 /*ordinal number of the largest element of |text_char|*/
+@d text_char	wchar_t /*the data type of characters in text files*/
 
 @<Local variables for init...@>=
 int @!i;
@@ -545,10 +543,24 @@ the user's external character set by means of arrays |xord| and |xchr|
 that are analogous to \PASCAL's |ord| and |chr| functions.
 
 @<Glob...@>=
-ASCII_code @!xord[256];
-   /*specifies conversion of input characters*/
-uint8_t @!xchr[256];
+wchar_t @!xchr[256];
    /*specifies conversion of output characters*/
+unsigned char xord(wchar_t wc)
+{
+  char mb[MB_CUR_MAX];
+  if (wctomb(mb, wc) == 1) {
+    if (*mb < 32) return 127;
+    return (unsigned char) *mb;
+  }
+
+  int z;
+  for (z = 0x80; z <= 0xff; z++)
+    if (xchr[z] == wc)
+      break;
+  if (z == 256) return 127;
+  return (unsigned char) z;
+}
+   /*specifies conversion of input characters*/
 
 @ Since we are assuming that our \PASCAL\ system is able to read and
 write the visible characters of standard ASCII (although not
@@ -656,6 +668,76 @@ xchr[0174]= L'|' ;
 xchr[0175]= L'}' ;
 xchr[0176]= L'~' ;@/
 
+  for (int i = 128; i < 256; i++)
+    xchr[i] = L' ';
+  xchr[0x80] = L'А';
+  xchr[0xa0] = L'а';
+  xchr[0x81] = L'Б';
+  xchr[0xa1] = L'б';
+  xchr[0x82] = L'В';
+  xchr[0xa2] = L'в';
+  xchr[0x83] = L'Г';
+  xchr[0xa3] = L'г';
+  xchr[0x84] = L'Д';
+  xchr[0xa4] = L'д';
+  xchr[0x85] = L'Е';
+  xchr[0xa5] = L'е';
+  xchr[0xf0] = L'Ё';
+  xchr[0xf1] = L'ё';
+  xchr[0x86] = L'Ж';
+  xchr[0xa6] = L'ж';
+  xchr[0x87] = L'З';
+  xchr[0xa7] = L'з';
+  xchr[0x88] = L'И';
+  xchr[0xa8] = L'и';
+  xchr[0x89] = L'Й';
+  xchr[0xa9] = L'й';
+  xchr[0x8a] = L'К';
+  xchr[0xaa] = L'к';
+  xchr[0x8b] = L'Л';
+  xchr[0xab] = L'л';
+  xchr[0x8c] = L'М';
+  xchr[0xac] = L'м';
+  xchr[0x8d] = L'Н';
+  xchr[0xad] = L'н';
+  xchr[0x8e] = L'О';
+  xchr[0xae] = L'о';
+  xchr[0x8f] = L'П';
+  xchr[0xaf] = L'п';
+  xchr[0x90] = L'Р';
+  xchr[0xe0] = L'р';
+  xchr[0x91] = L'С';
+  xchr[0xe1] = L'с';
+  xchr[0x92] = L'Т';
+  xchr[0xe2] = L'т';
+  xchr[0x93] = L'У';
+  xchr[0xe3] = L'у';
+  xchr[0x94] = L'Ф';
+  xchr[0xe4] = L'ф';
+  xchr[0x95] = L'Х';
+  xchr[0xe5] = L'х';
+  xchr[0x96] = L'Ц';
+  xchr[0xe6] = L'ц';
+  xchr[0x97] = L'Ч';
+  xchr[0xe7] = L'ч';
+  xchr[0x98] = L'Ш';
+  xchr[0xe8] = L'ш';
+  xchr[0x99] = L'Щ';
+  xchr[0xe9] = L'щ';
+  xchr[0x9a] = L'Ъ';
+  xchr[0xea] = L'ъ';
+  xchr[0x9b] = L'Ы';
+  xchr[0xeb] = L'ы';
+  xchr[0x9c] = L'Ь';
+  xchr[0xec] = L'ь';
+  xchr[0x9d] = L'Э';
+  xchr[0xed] = L'э';
+  xchr[0x9e] = L'Ю';
+  xchr[0xee] = L'ю';
+  xchr[0x9f] = L'Я';
+  xchr[0xef] = L'я';
+  xchr[0xfc] = L'№';
+
 @ Some of the ASCII codes without visible characters have been given symbolic
 names in this program because they are used with a special meaning.
 
@@ -691,8 +773,7 @@ right of these assignment statements to |chr(i)|.
 @^system dependencies@>
 
 @<Set init...@>=
-for (i=0; i<=037; i++) xchr[i]= L' ' ;
-for (i=0177; i<=0377; i++) xchr[i]= L' ' ;
+/* this is handled in |xord| function */
 
 @ The following system-independent code makes the |xord| array contain a
 suitable inverse to the information in |xchr|. Note that if |xchr[i]==xchr[j]|
@@ -701,9 +782,7 @@ where |i < j < 0177|, the value of |xord[xchr[i]]| will turn out to be
 codes below 040 in case there is a coincidence.
 
 @<Set init...@>=
-for (i=first_text_char; i<=last_text_char; i++) xord[chr(i)]=invalid_code;
-for (i=0200; i<=0377; i++) xord[xchr[i]]=i;
-for (i=0; i<=0176; i++) xord[xchr[i]]=i;
+/* this is handled in |xord| function */
 
 @* Input and output.
 The bane of portability is the fact that different operating systems treat
@@ -916,7 +995,7 @@ else{@+last_nonblank=first;
       if (max_buf_stack==buf_size)
         @<Report overflow of the input buffer, and abort@>;
       }
-    buffer[last]=xord[(*f).d];get((*f));incr(last);
+    buffer[last]=xord((*f).d);get((*f));incr(last);
     if (buffer[last-1]!=' ') last_nonblank=last;
     }
   last=last_nonblank;return true;
@@ -1304,18 +1383,18 @@ else bad_pool(L"! I can't read TEX.POOL.")
 {@+if (eof(pool_file)) bad_pool(L"! TEX.POOL has no check sum.");
 @.TEX.POOL has no check sum@>
 read(pool_file, m, n); /*read two digits of string length*/
-if (m== L'*' ) @<Check the pool check sum@>@;
-else{@+if ((xord[m] < '0')||(xord[m] > '9')||@|
-      (xord[n] < '0')||(xord[n] > '9'))
+if (m== '*' ) @<Check the pool check sum@>@;
+else{@+if ((m < '0')||(m > '9')||@|
+      (n < '0')||(n > '9'))
     bad_pool(L"! TEX.POOL line doesn't begin with two digits.");
 @.TEX.POOL line doesn't...@>
-  l=xord[m]*10+xord[n]-'0'*11; /*compute the length*/
+  l=m*10+n-'0'*11; /*compute the length*/
   if (pool_ptr+l+string_vacancies > pool_size)
     bad_pool(L"! You have to increase POOLSIZE.");
 @.You have to increase POOLSIZE@>
   for (k=1; k<=l; k++)
-    {@+if (eoln(pool_file)) m= L' ' ;@+else read(pool_file, m);
-    append_char(xord[m]);
+    {@+if (eoln(pool_file)) m= ' ' ;@+else read(pool_file, m);
+    append_char(m);
     }
   read_ln(pool_file);g=make_string();
   }
@@ -1328,10 +1407,10 @@ file has been loaded.
 
 @<Check the pool check sum@>=
 {@+a=0;k=1;
-loop@+{@+if ((xord[n] < '0')||(xord[n] > '9'))
+loop@+{@+if ((xord(n) < '0')||(xord(n) > '9'))
   bad_pool(L"! TEX.POOL check sum doesn't have nine digits.");
 @.TEX.POOL check sum...@>
-  a=10*a+xord[n]-'0';
+  a=10*a+xord(n)-'0';
   if (k==9) goto done;
   incr(k);read(pool_file, n);
   }
@@ -10064,7 +10143,7 @@ allows both lowercase and uppercase letters in the file name.
 @^system dependencies@>
 
 @d append_to_name(X)	{@+c=X;incr(k);
-  if (k <= file_name_size) name_of_file[k]=xchr[c];
+  if (k <= file_name_size) name_of_file[k]=c;
   }
 
 @p void pack_file_name(str_number @!n, str_number @!a, str_number @!e)
@@ -10094,7 +10173,7 @@ and extensions related to format files.
 uint8_t @!TEX_format_default0[format_default_length], *const @!TEX_format_default = @!TEX_format_default0-1;
 
 @ @<Set init...@>=
-TEX_format_default=L"TeXformats:plain.fmt";
+TEX_format_default="TeXformats:plain.fmt";
 @.TeXformats@>
 @.plain@>
 @^system dependencies@>
@@ -10120,10 +10199,10 @@ int @!j; /*index into |buffer| or |TEX_format_default|*/
 if (n+b-a+1+format_ext_length > file_name_size)
   b=a+file_name_size-n-1-format_ext_length;
 k=0;
-for (j=1; j<=n; j++) append_to_name(xord[TEX_format_default[j]]);
+for (j=1; j<=n; j++) append_to_name(TEX_format_default[j]);
 for (j=a; j<=b; j++) append_to_name(buffer[j]);
 for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++)
-  append_to_name(xord[TEX_format_default[j]]);
+  append_to_name(TEX_format_default[j]);
 if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
 for (k=name_length+1; k<=file_name_size; k++) name_of_file[k]= L' ' ;
 }
@@ -10180,7 +10259,7 @@ we dare not use `|str_room|'.
 if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
  (cur_length > 0))
   return'?';
-else{@+for (k=1; k<=name_length; k++) append_char(xord[name_of_file[k]]);
+else{@+for (k=1; k<=name_length; k++) append_char(name_of_file[k]);
   return make_string();
   }
 }
@@ -10980,7 +11059,7 @@ for example by defining |fget| to be `\ignorespaces|{@+get(tfm_file);|
 |if (eof(tfm_file)) abort;} |\unskip'.
 @^system dependencies@>
 
-@d fget	get(tfm_file)
+@d fget        b_get(tfm_file)
 @d fbyte	tfm_file.d
 @d read_sixteen(X)	{@+X=fbyte;
   if (X > 127) abort;
@@ -23773,10 +23852,10 @@ if (save_ptr!=0)
 @ Format files consist of |memory_word| items, and we use the following
 macros to dump words of different types:
 
-@d dump_wd(X)	{@+fmt_file.d=X;put(fmt_file);@+}
-@d dump_int(X)	{@+fmt_file.d.i=X;put(fmt_file);@+}
-@d dump_hh(X)	{@+fmt_file.d.hh=X;put(fmt_file);@+}
-@d dump_qqqq(X)	{@+fmt_file.d.qqqq=X;put(fmt_file);@+}
+@d dump_wd(X)	{@+fmt_file.d=X;b_put(fmt_file);@+}
+@d dump_int(X)	{@+fmt_file.d.i=X;b_put(fmt_file);@+}
+@d dump_hh(X)	{@+fmt_file.d.hh=X;b_put(fmt_file);@+}
+@d dump_qqqq(X)	{@+fmt_file.d.qqqq=X;b_put(fmt_file);@+}
 
 @<Glob...@>=
 word_file @!fmt_file; /*for input or output of format information*/
@@ -23785,10 +23864,10 @@ word_file @!fmt_file; /*for input or output of format information*/
 the range of the values we are reading in. We say `|undump(a)(b)(x)|' to
 read an integer value |x| that is supposed to be in the range |a <= x <= b|.
 
-@d undump_wd(X)	{@+get(fmt_file);X=fmt_file.d;@+}
-@d undump_int(X)	{@+get(fmt_file);X=fmt_file.d.i;@+}
-@d undump_hh(X)	{@+get(fmt_file);X=fmt_file.d.hh;@+}
-@d undump_qqqq(X)	{@+get(fmt_file);X=fmt_file.d.qqqq;@+}
+@d undump_wd(X)	{@+b_get(fmt_file);X=fmt_file.d;@+}
+@d undump_int(X)	{@+b_get(fmt_file);X=fmt_file.d.i;@+}
+@d undump_hh(X)	{@+b_get(fmt_file);X=fmt_file.d.hh;@+}
+@d undump_qqqq(X)	{@+b_get(fmt_file);X=fmt_file.d.qqqq;@+}
 @d undump_end_end(X)	X=x;@+}
 @d undump_end(X)	(x > X)) goto bad_fmt;@+else undump_end_end
 @d undump(X)	{@+undump_int(x);if ((x < X)||undump_end
@@ -24241,6 +24320,7 @@ The initial test involving |ready_already| should be deleted if the
 @^system dependencies@>
 
 @p int main(void) {@! /*|start_here|*/
+setlocale(LC_CTYPE, "C.UTF-8");
 history=fatal_error_stop; /*in case we quit during initialization*/
 t_open_out; /*open the terminal for output*/
 if (ready_already==314159) goto start_of_TEX;
@@ -25007,1240 +25087,1240 @@ exclusive of input and output.
 	578, 582, 586, 590, 594, 598, 602, 606, 610, 614, 618, 622, 626, 630, 634, 638,@/
 	642, 646, 650, 654, 658, 662, 666, 670, 674, 678, 682, 686, 690, 694, 698, 702,@/
 @
-@d str_256 L"???"
+@d str_256 "???"
 @<|"???"|@>=@+256
 @
-@d str_257 L"m2d5c2l5x2v5i"
+@d str_257 "m2d5c2l5x2v5i"
 @<|"m2d5c2l5x2v5i"|@>=@+257
 @
-@d str_258 L"batchmode"
+@d str_258 "batchmode"
 @<|"batchmode"|@>=@+258
 @
-@d str_259 L"nonstopmode"
+@d str_259 "nonstopmode"
 @<|"nonstopmode"|@>=@+259
 @
-@d str_260 L"scrollmode"
+@d str_260 "scrollmode"
 @<|"scrollmode"|@>=@+260
 @
-@d str_261 L"CLOBBERED."
+@d str_261 "CLOBBERED."
 @<|"CLOBBERED."|@>=@+261
 @
-@d str_262 L"fil"
+@d str_262 "fil"
 @<|"fil"|@>=@+262
 @
-@d str_263 L"unset"
+@d str_263 "unset"
 @<|"unset"|@>=@+263
 @
-@d str_264 L"rule("
+@d str_264 "rule("
 @<|"rule("|@>=@+264
 @
-@d str_265 L"insert"
+@d str_265 "insert"
 @<|"insert"|@>=@+265
 @
-@d str_266 L"glue"
+@d str_266 "glue"
 @<|"glue"|@>=@+266
 @
-@d str_267 L"nonscript"
+@d str_267 "nonscript"
 @<|"nonscript"|@>=@+267
 @
-@d str_268 L"mskip"
+@d str_268 "mskip"
 @<|"mskip"|@>=@+268
 @
-@d str_269 L"mu"
+@d str_269 "mu"
 @<|"mu"|@>=@+269
 @
-@d str_270 L""
+@d str_270 ""
 @d empty_string 270
 @
-@d str_271 L"kern"
+@d str_271 "kern"
 @<|"kern"|@>=@+271
 @
-@d str_272 L"mkern"
+@d str_272 "mkern"
 @<|"mkern"|@>=@+272
 @
-@d str_273 L"math"
+@d str_273 "math"
 @<|"math"|@>=@+273
 @
-@d str_274 L"penalty "
+@d str_274 "penalty "
 @<|"penalty "|@>=@+274
 @
-@d str_275 L"discretionary"
+@d str_275 "discretionary"
 @<|"discretionary"|@>=@+275
 @
-@d str_276 L"mark"
+@d str_276 "mark"
 @<|"mark"|@>=@+276
 @
-@d str_277 L"vadjust"
+@d str_277 "vadjust"
 @<|"vadjust"|@>=@+277
 @
-@d str_278 L"flushing"
+@d str_278 "flushing"
 @<|"flushing"|@>=@+278
 @
-@d str_279 L"copying"
+@d str_279 "copying"
 @<|"copying"|@>=@+279
 @
-@d str_280 L"lineskip"
+@d str_280 "lineskip"
 @<|"lineskip"|@>=@+280
 @
-@d str_281 L"baselineskip"
+@d str_281 "baselineskip"
 @<|"baselineskip"|@>=@+281
 @
-@d str_282 L"parskip"
+@d str_282 "parskip"
 @<|"parskip"|@>=@+282
 @
-@d str_283 L"abovedisplayskip"
+@d str_283 "abovedisplayskip"
 @<|"abovedisplayskip"|@>=@+283
 @
-@d str_284 L"belowdisplayskip"
+@d str_284 "belowdisplayskip"
 @<|"belowdisplayskip"|@>=@+284
 @
-@d str_285 L"abovedisplayshortskip"
+@d str_285 "abovedisplayshortskip"
 @<|"abovedisplayshortskip"|@>=@+285
 @
-@d str_286 L"belowdisplayshortskip"
+@d str_286 "belowdisplayshortskip"
 @<|"belowdisplayshortskip"|@>=@+286
 @
-@d str_287 L"leftskip"
+@d str_287 "leftskip"
 @<|"leftskip"|@>=@+287
 @
-@d str_288 L"rightskip"
+@d str_288 "rightskip"
 @<|"rightskip"|@>=@+288
 @
-@d str_289 L"topskip"
+@d str_289 "topskip"
 @<|"topskip"|@>=@+289
 @
-@d str_290 L"splittopskip"
+@d str_290 "splittopskip"
 @<|"splittopskip"|@>=@+290
 @
-@d str_291 L"tabskip"
+@d str_291 "tabskip"
 @<|"tabskip"|@>=@+291
 @
-@d str_292 L"spaceskip"
+@d str_292 "spaceskip"
 @<|"spaceskip"|@>=@+292
 @
-@d str_293 L"xspaceskip"
+@d str_293 "xspaceskip"
 @<|"xspaceskip"|@>=@+293
 @
-@d str_294 L"parfillskip"
+@d str_294 "parfillskip"
 @<|"parfillskip"|@>=@+294
 @
-@d str_295 L"thinmuskip"
+@d str_295 "thinmuskip"
 @<|"thinmuskip"|@>=@+295
 @
-@d str_296 L"medmuskip"
+@d str_296 "medmuskip"
 @<|"medmuskip"|@>=@+296
 @
-@d str_297 L"thickmuskip"
+@d str_297 "thickmuskip"
 @<|"thickmuskip"|@>=@+297
 @
-@d str_298 L"skip"
+@d str_298 "skip"
 @<|"skip"|@>=@+298
 @
-@d str_299 L"muskip"
+@d str_299 "muskip"
 @<|"muskip"|@>=@+299
 @
-@d str_300 L"pt"
+@d str_300 "pt"
 @<|"pt"|@>=@+300
 @
-@d str_301 L"output"
+@d str_301 "output"
 @<|"output"|@>=@+301
 @
-@d str_302 L"everypar"
+@d str_302 "everypar"
 @<|"everypar"|@>=@+302
 @
-@d str_303 L"everymath"
+@d str_303 "everymath"
 @<|"everymath"|@>=@+303
 @
-@d str_304 L"everydisplay"
+@d str_304 "everydisplay"
 @<|"everydisplay"|@>=@+304
 @
-@d str_305 L"everyhbox"
+@d str_305 "everyhbox"
 @<|"everyhbox"|@>=@+305
 @
-@d str_306 L"everyvbox"
+@d str_306 "everyvbox"
 @<|"everyvbox"|@>=@+306
 @
-@d str_307 L"everyjob"
+@d str_307 "everyjob"
 @<|"everyjob"|@>=@+307
 @
-@d str_308 L"everycr"
+@d str_308 "everycr"
 @<|"everycr"|@>=@+308
 @
-@d str_309 L"errhelp"
+@d str_309 "errhelp"
 @<|"errhelp"|@>=@+309
 @
-@d str_310 L"toks"
+@d str_310 "toks"
 @<|"toks"|@>=@+310
 @
-@d str_311 L"parshape"
+@d str_311 "parshape"
 @<|"parshape"|@>=@+311
 @
-@d str_312 L"box"
+@d str_312 "box"
 @<|"box"|@>=@+312
 @
-@d str_313 L"textfont"
+@d str_313 "textfont"
 @<|"textfont"|@>=@+313
 @
-@d str_314 L"scriptfont"
+@d str_314 "scriptfont"
 @<|"scriptfont"|@>=@+314
 @
-@d str_315 L"scriptscriptfont"
+@d str_315 "scriptscriptfont"
 @<|"scriptscriptfont"|@>=@+315
 @
-@d str_316 L"catcode"
+@d str_316 "catcode"
 @<|"catcode"|@>=@+316
 @
-@d str_317 L"lccode"
+@d str_317 "lccode"
 @<|"lccode"|@>=@+317
 @
-@d str_318 L"uccode"
+@d str_318 "uccode"
 @<|"uccode"|@>=@+318
 @
-@d str_319 L"sfcode"
+@d str_319 "sfcode"
 @<|"sfcode"|@>=@+319
 @
-@d str_320 L"mathcode"
+@d str_320 "mathcode"
 @<|"mathcode"|@>=@+320
 @
-@d str_321 L"pretolerance"
+@d str_321 "pretolerance"
 @<|"pretolerance"|@>=@+321
 @
-@d str_322 L"tolerance"
+@d str_322 "tolerance"
 @<|"tolerance"|@>=@+322
 @
-@d str_323 L"linepenalty"
+@d str_323 "linepenalty"
 @<|"linepenalty"|@>=@+323
 @
-@d str_324 L"hyphenpenalty"
+@d str_324 "hyphenpenalty"
 @<|"hyphenpenalty"|@>=@+324
 @
-@d str_325 L"exhyphenpenalty"
+@d str_325 "exhyphenpenalty"
 @<|"exhyphenpenalty"|@>=@+325
 @
-@d str_326 L"clubpenalty"
+@d str_326 "clubpenalty"
 @<|"clubpenalty"|@>=@+326
 @
-@d str_327 L"widowpenalty"
+@d str_327 "widowpenalty"
 @<|"widowpenalty"|@>=@+327
 @
-@d str_328 L"displaywidowpenalty"
+@d str_328 "displaywidowpenalty"
 @<|"displaywidowpenalty"|@>=@+328
 @
-@d str_329 L"brokenpenalty"
+@d str_329 "brokenpenalty"
 @<|"brokenpenalty"|@>=@+329
 @
-@d str_330 L"binoppenalty"
+@d str_330 "binoppenalty"
 @<|"binoppenalty"|@>=@+330
 @
-@d str_331 L"relpenalty"
+@d str_331 "relpenalty"
 @<|"relpenalty"|@>=@+331
 @
-@d str_332 L"predisplaypenalty"
+@d str_332 "predisplaypenalty"
 @<|"predisplaypenalty"|@>=@+332
 @
-@d str_333 L"postdisplaypenalty"
+@d str_333 "postdisplaypenalty"
 @<|"postdisplaypenalty"|@>=@+333
 @
-@d str_334 L"interlinepenalty"
+@d str_334 "interlinepenalty"
 @<|"interlinepenalty"|@>=@+334
 @
-@d str_335 L"doublehyphendemerits"
+@d str_335 "doublehyphendemerits"
 @<|"doublehyphendemerits"|@>=@+335
 @
-@d str_336 L"finalhyphendemerits"
+@d str_336 "finalhyphendemerits"
 @<|"finalhyphendemerits"|@>=@+336
 @
-@d str_337 L"adjdemerits"
+@d str_337 "adjdemerits"
 @<|"adjdemerits"|@>=@+337
 @
-@d str_338 L"mag"
+@d str_338 "mag"
 @<|"mag"|@>=@+338
 @
-@d str_339 L"delimiterfactor"
+@d str_339 "delimiterfactor"
 @<|"delimiterfactor"|@>=@+339
 @
-@d str_340 L"looseness"
+@d str_340 "looseness"
 @<|"looseness"|@>=@+340
 @
-@d str_341 L"time"
+@d str_341 "time"
 @<|"time"|@>=@+341
 @
-@d str_342 L"day"
+@d str_342 "day"
 @<|"day"|@>=@+342
 @
-@d str_343 L"month"
+@d str_343 "month"
 @<|"month"|@>=@+343
 @
-@d str_344 L"year"
+@d str_344 "year"
 @<|"year"|@>=@+344
 @
-@d str_345 L"showboxbreadth"
+@d str_345 "showboxbreadth"
 @<|"showboxbreadth"|@>=@+345
 @
-@d str_346 L"showboxdepth"
+@d str_346 "showboxdepth"
 @<|"showboxdepth"|@>=@+346
 @
-@d str_347 L"hbadness"
+@d str_347 "hbadness"
 @<|"hbadness"|@>=@+347
 @
-@d str_348 L"vbadness"
+@d str_348 "vbadness"
 @<|"vbadness"|@>=@+348
 @
-@d str_349 L"pausing"
+@d str_349 "pausing"
 @<|"pausing"|@>=@+349
 @
-@d str_350 L"tracingonline"
+@d str_350 "tracingonline"
 @<|"tracingonline"|@>=@+350
 @
-@d str_351 L"tracingmacros"
+@d str_351 "tracingmacros"
 @<|"tracingmacros"|@>=@+351
 @
-@d str_352 L"tracingstats"
+@d str_352 "tracingstats"
 @<|"tracingstats"|@>=@+352
 @
-@d str_353 L"tracingparagraphs"
+@d str_353 "tracingparagraphs"
 @<|"tracingparagraphs"|@>=@+353
 @
-@d str_354 L"tracingpages"
+@d str_354 "tracingpages"
 @<|"tracingpages"|@>=@+354
 @
-@d str_355 L"tracingoutput"
+@d str_355 "tracingoutput"
 @<|"tracingoutput"|@>=@+355
 @
-@d str_356 L"tracinglostchars"
+@d str_356 "tracinglostchars"
 @<|"tracinglostchars"|@>=@+356
 @
-@d str_357 L"tracingcommands"
+@d str_357 "tracingcommands"
 @<|"tracingcommands"|@>=@+357
 @
-@d str_358 L"tracingrestores"
+@d str_358 "tracingrestores"
 @<|"tracingrestores"|@>=@+358
 @
-@d str_359 L"uchyph"
+@d str_359 "uchyph"
 @<|"uchyph"|@>=@+359
 @
-@d str_360 L"outputpenalty"
+@d str_360 "outputpenalty"
 @<|"outputpenalty"|@>=@+360
 @
-@d str_361 L"maxdeadcycles"
+@d str_361 "maxdeadcycles"
 @<|"maxdeadcycles"|@>=@+361
 @
-@d str_362 L"hangafter"
+@d str_362 "hangafter"
 @<|"hangafter"|@>=@+362
 @
-@d str_363 L"floatingpenalty"
+@d str_363 "floatingpenalty"
 @<|"floatingpenalty"|@>=@+363
 @
-@d str_364 L"globaldefs"
+@d str_364 "globaldefs"
 @<|"globaldefs"|@>=@+364
 @
-@d str_365 L"fam"
+@d str_365 "fam"
 @<|"fam"|@>=@+365
 @
-@d str_366 L"escapechar"
+@d str_366 "escapechar"
 @<|"escapechar"|@>=@+366
 @
-@d str_367 L"defaulthyphenchar"
+@d str_367 "defaulthyphenchar"
 @<|"defaulthyphenchar"|@>=@+367
 @
-@d str_368 L"defaultskewchar"
+@d str_368 "defaultskewchar"
 @<|"defaultskewchar"|@>=@+368
 @
-@d str_369 L"endlinechar"
+@d str_369 "endlinechar"
 @<|"endlinechar"|@>=@+369
 @
-@d str_370 L"newlinechar"
+@d str_370 "newlinechar"
 @<|"newlinechar"|@>=@+370
 @
-@d str_371 L"language"
+@d str_371 "language"
 @<|"language"|@>=@+371
 @
-@d str_372 L"lefthyphenmin"
+@d str_372 "lefthyphenmin"
 @<|"lefthyphenmin"|@>=@+372
 @
-@d str_373 L"righthyphenmin"
+@d str_373 "righthyphenmin"
 @<|"righthyphenmin"|@>=@+373
 @
-@d str_374 L"holdinginserts"
+@d str_374 "holdinginserts"
 @<|"holdinginserts"|@>=@+374
 @
-@d str_375 L"errorcontextlines"
+@d str_375 "errorcontextlines"
 @<|"errorcontextlines"|@>=@+375
 @
-@d str_376 L"count"
+@d str_376 "count"
 @<|"count"|@>=@+376
 @
-@d str_377 L"delcode"
+@d str_377 "delcode"
 @<|"delcode"|@>=@+377
 @
-@d str_378 L"parindent"
+@d str_378 "parindent"
 @<|"parindent"|@>=@+378
 @
-@d str_379 L"mathsurround"
+@d str_379 "mathsurround"
 @<|"mathsurround"|@>=@+379
 @
-@d str_380 L"lineskiplimit"
+@d str_380 "lineskiplimit"
 @<|"lineskiplimit"|@>=@+380
 @
-@d str_381 L"hsize"
+@d str_381 "hsize"
 @<|"hsize"|@>=@+381
 @
-@d str_382 L"vsize"
+@d str_382 "vsize"
 @<|"vsize"|@>=@+382
 @
-@d str_383 L"maxdepth"
+@d str_383 "maxdepth"
 @<|"maxdepth"|@>=@+383
 @
-@d str_384 L"splitmaxdepth"
+@d str_384 "splitmaxdepth"
 @<|"splitmaxdepth"|@>=@+384
 @
-@d str_385 L"boxmaxdepth"
+@d str_385 "boxmaxdepth"
 @<|"boxmaxdepth"|@>=@+385
 @
-@d str_386 L"hfuzz"
+@d str_386 "hfuzz"
 @<|"hfuzz"|@>=@+386
 @
-@d str_387 L"vfuzz"
+@d str_387 "vfuzz"
 @<|"vfuzz"|@>=@+387
 @
-@d str_388 L"delimitershortfall"
+@d str_388 "delimitershortfall"
 @<|"delimitershortfall"|@>=@+388
 @
-@d str_389 L"nulldelimiterspace"
+@d str_389 "nulldelimiterspace"
 @<|"nulldelimiterspace"|@>=@+389
 @
-@d str_390 L"scriptspace"
+@d str_390 "scriptspace"
 @<|"scriptspace"|@>=@+390
 @
-@d str_391 L"predisplaysize"
+@d str_391 "predisplaysize"
 @<|"predisplaysize"|@>=@+391
 @
-@d str_392 L"displaywidth"
+@d str_392 "displaywidth"
 @<|"displaywidth"|@>=@+392
 @
-@d str_393 L"displayindent"
+@d str_393 "displayindent"
 @<|"displayindent"|@>=@+393
 @
-@d str_394 L"overfullrule"
+@d str_394 "overfullrule"
 @<|"overfullrule"|@>=@+394
 @
-@d str_395 L"hangindent"
+@d str_395 "hangindent"
 @<|"hangindent"|@>=@+395
 @
-@d str_396 L"hoffset"
+@d str_396 "hoffset"
 @<|"hoffset"|@>=@+396
 @
-@d str_397 L"voffset"
+@d str_397 "voffset"
 @<|"voffset"|@>=@+397
 @
-@d str_398 L"emergencystretch"
+@d str_398 "emergencystretch"
 @<|"emergencystretch"|@>=@+398
 @
-@d str_399 L"dimen"
+@d str_399 "dimen"
 @<|"dimen"|@>=@+399
 @
-@d str_400 L"notexpanded:"
+@d str_400 "notexpanded:"
 @<|"notexpanded:"|@>=@+400
 @
-@d str_401 L"csname"
+@d str_401 "csname"
 @<|"csname"|@>=@+401
 @
-@d str_402 L"endcsname"
+@d str_402 "endcsname"
 @<|"endcsname"|@>=@+402
 @
-@d str_403 L"IMPOSSIBLE."
+@d str_403 "IMPOSSIBLE."
 @<|"IMPOSSIBLE."|@>=@+403
 @
-@d str_404 L"NONEXISTENT."
+@d str_404 "NONEXISTENT."
 @<|"NONEXISTENT."|@>=@+404
 @
-@d str_405 L"accent"
+@d str_405 "accent"
 @<|"accent"|@>=@+405
 @
-@d str_406 L"advance"
+@d str_406 "advance"
 @<|"advance"|@>=@+406
 @
-@d str_407 L"afterassignment"
+@d str_407 "afterassignment"
 @<|"afterassignment"|@>=@+407
 @
-@d str_408 L"aftergroup"
+@d str_408 "aftergroup"
 @<|"aftergroup"|@>=@+408
 @
-@d str_409 L"begingroup"
+@d str_409 "begingroup"
 @<|"begingroup"|@>=@+409
 @
-@d str_410 L"char"
+@d str_410 "char"
 @<|"char"|@>=@+410
 @
-@d str_411 L"delimiter"
+@d str_411 "delimiter"
 @<|"delimiter"|@>=@+411
 @
-@d str_412 L"divide"
+@d str_412 "divide"
 @<|"divide"|@>=@+412
 @
-@d str_413 L"endgroup"
+@d str_413 "endgroup"
 @<|"endgroup"|@>=@+413
 @
-@d str_414 L"expandafter"
+@d str_414 "expandafter"
 @<|"expandafter"|@>=@+414
 @
-@d str_415 L"font"
+@d str_415 "font"
 @<|"font"|@>=@+415
 @
-@d str_416 L"fontdimen"
+@d str_416 "fontdimen"
 @<|"fontdimen"|@>=@+416
 @
-@d str_417 L"halign"
+@d str_417 "halign"
 @<|"halign"|@>=@+417
 @
-@d str_418 L"hrule"
+@d str_418 "hrule"
 @<|"hrule"|@>=@+418
 @
-@d str_419 L"ignorespaces"
+@d str_419 "ignorespaces"
 @<|"ignorespaces"|@>=@+419
 @
-@d str_420 L"mathaccent"
+@d str_420 "mathaccent"
 @<|"mathaccent"|@>=@+420
 @
-@d str_421 L"mathchar"
+@d str_421 "mathchar"
 @<|"mathchar"|@>=@+421
 @
-@d str_422 L"mathchoice"
+@d str_422 "mathchoice"
 @<|"mathchoice"|@>=@+422
 @
-@d str_423 L"multiply"
+@d str_423 "multiply"
 @<|"multiply"|@>=@+423
 @
-@d str_424 L"noalign"
+@d str_424 "noalign"
 @<|"noalign"|@>=@+424
 @
-@d str_425 L"noboundary"
+@d str_425 "noboundary"
 @<|"noboundary"|@>=@+425
 @
-@d str_426 L"noexpand"
+@d str_426 "noexpand"
 @<|"noexpand"|@>=@+426
 @
-@d str_427 L"omit"
+@d str_427 "omit"
 @<|"omit"|@>=@+427
 @
-@d str_428 L"penalty"
+@d str_428 "penalty"
 @<|"penalty"|@>=@+428
 @
-@d str_429 L"prevgraf"
+@d str_429 "prevgraf"
 @<|"prevgraf"|@>=@+429
 @
-@d str_430 L"radical"
+@d str_430 "radical"
 @<|"radical"|@>=@+430
 @
-@d str_431 L"read"
+@d str_431 "read"
 @<|"read"|@>=@+431
 @
-@d str_432 L"relax"
+@d str_432 "relax"
 @<|"relax"|@>=@+432
 @
-@d str_433 L"setbox"
+@d str_433 "setbox"
 @<|"setbox"|@>=@+433
 @
-@d str_434 L"the"
+@d str_434 "the"
 @<|"the"|@>=@+434
 @
-@d str_435 L"valign"
+@d str_435 "valign"
 @<|"valign"|@>=@+435
 @
-@d str_436 L"vcenter"
+@d str_436 "vcenter"
 @<|"vcenter"|@>=@+436
 @
-@d str_437 L"vrule"
+@d str_437 "vrule"
 @<|"vrule"|@>=@+437
 @
-@d str_438 L"curlevel"
+@d str_438 "curlevel"
 @<|"curlevel"|@>=@+438
 @
-@d str_439 L"retaining"
+@d str_439 "retaining"
 @<|"retaining"|@>=@+439
 @
-@d str_440 L"restoring"
+@d str_440 "restoring"
 @<|"restoring"|@>=@+440
 @
-@d str_441 L"ETC."
+@d str_441 "ETC."
 @<|"ETC."|@>=@+441
 @
-@d str_442 L"BAD."
+@d str_442 "BAD."
 @<|"BAD."|@>=@+442
 @
-@d str_443 L"write"
+@d str_443 "write"
 @<|"write"|@>=@+443
 @
-@d str_444 L"par"
+@d str_444 "par"
 @<|"par"|@>=@+444
 @
-@d str_445 L"input"
+@d str_445 "input"
 @<|"input"|@>=@+445
 @
-@d str_446 L"endinput"
+@d str_446 "endinput"
 @<|"endinput"|@>=@+446
 @
-@d str_447 L"topmark"
+@d str_447 "topmark"
 @<|"topmark"|@>=@+447
 @
-@d str_448 L"firstmark"
+@d str_448 "firstmark"
 @<|"firstmark"|@>=@+448
 @
-@d str_449 L"botmark"
+@d str_449 "botmark"
 @<|"botmark"|@>=@+449
 @
-@d str_450 L"splitfirstmark"
+@d str_450 "splitfirstmark"
 @<|"splitfirstmark"|@>=@+450
 @
-@d str_451 L"splitbotmark"
+@d str_451 "splitbotmark"
 @<|"splitbotmark"|@>=@+451
 @
-@d str_452 L"spacefactor"
+@d str_452 "spacefactor"
 @<|"spacefactor"|@>=@+452
 @
-@d str_453 L"prevdepth"
+@d str_453 "prevdepth"
 @<|"prevdepth"|@>=@+453
 @
-@d str_454 L"deadcycles"
+@d str_454 "deadcycles"
 @<|"deadcycles"|@>=@+454
 @
-@d str_455 L"insertpenalties"
+@d str_455 "insertpenalties"
 @<|"insertpenalties"|@>=@+455
 @
-@d str_456 L"wd"
+@d str_456 "wd"
 @<|"wd"|@>=@+456
 @
-@d str_457 L"ht"
+@d str_457 "ht"
 @<|"ht"|@>=@+457
 @
-@d str_458 L"dp"
+@d str_458 "dp"
 @<|"dp"|@>=@+458
 @
-@d str_459 L"lastpenalty"
+@d str_459 "lastpenalty"
 @<|"lastpenalty"|@>=@+459
 @
-@d str_460 L"lastkern"
+@d str_460 "lastkern"
 @<|"lastkern"|@>=@+460
 @
-@d str_461 L"lastskip"
+@d str_461 "lastskip"
 @<|"lastskip"|@>=@+461
 @
-@d str_462 L"inputlineno"
+@d str_462 "inputlineno"
 @<|"inputlineno"|@>=@+462
 @
-@d str_463 L"badness"
+@d str_463 "badness"
 @<|"badness"|@>=@+463
 @
-@d str_464 L"true"
+@d str_464 "true"
 @<|"true"|@>=@+464
 @
-@d str_465 L"em"
+@d str_465 "em"
 @<|"em"|@>=@+465
 @
-@d str_466 L"ex"
+@d str_466 "ex"
 @<|"ex"|@>=@+466
 @
-@d str_467 L"in"
+@d str_467 "in"
 @<|"in"|@>=@+467
 @
-@d str_468 L"pc"
+@d str_468 "pc"
 @<|"pc"|@>=@+468
 @
-@d str_469 L"cm"
+@d str_469 "cm"
 @<|"cm"|@>=@+469
 @
-@d str_470 L"mm"
+@d str_470 "mm"
 @<|"mm"|@>=@+470
 @
-@d str_471 L"bp"
+@d str_471 "bp"
 @<|"bp"|@>=@+471
 @
-@d str_472 L"dd"
+@d str_472 "dd"
 @<|"dd"|@>=@+472
 @
-@d str_473 L"cc"
+@d str_473 "cc"
 @<|"cc"|@>=@+473
 @
-@d str_474 L"sp"
+@d str_474 "sp"
 @<|"sp"|@>=@+474
 @
-@d str_475 L"plus"
+@d str_475 "plus"
 @<|"plus"|@>=@+475
 @
-@d str_476 L"minus"
+@d str_476 "minus"
 @<|"minus"|@>=@+476
 @
-@d str_477 L"width"
+@d str_477 "width"
 @<|"width"|@>=@+477
 @
-@d str_478 L"height"
+@d str_478 "height"
 @<|"height"|@>=@+478
 @
-@d str_479 L"depth"
+@d str_479 "depth"
 @<|"depth"|@>=@+479
 @
-@d str_480 L"number"
+@d str_480 "number"
 @<|"number"|@>=@+480
 @
-@d str_481 L"romannumeral"
+@d str_481 "romannumeral"
 @<|"romannumeral"|@>=@+481
 @
-@d str_482 L"string"
+@d str_482 "string"
 @<|"string"|@>=@+482
 @
-@d str_483 L"meaning"
+@d str_483 "meaning"
 @<|"meaning"|@>=@+483
 @
-@d str_484 L"fontname"
+@d str_484 "fontname"
 @<|"fontname"|@>=@+484
 @
-@d str_485 L"jobname"
+@d str_485 "jobname"
 @<|"jobname"|@>=@+485
 @
-@d str_486 L"if"
+@d str_486 "if"
 @<|"if"|@>=@+486
 @
-@d str_487 L"ifcat"
+@d str_487 "ifcat"
 @<|"ifcat"|@>=@+487
 @
-@d str_488 L"ifnum"
+@d str_488 "ifnum"
 @<|"ifnum"|@>=@+488
 @
-@d str_489 L"ifdim"
+@d str_489 "ifdim"
 @<|"ifdim"|@>=@+489
 @
-@d str_490 L"ifodd"
+@d str_490 "ifodd"
 @<|"ifodd"|@>=@+490
 @
-@d str_491 L"ifvmode"
+@d str_491 "ifvmode"
 @<|"ifvmode"|@>=@+491
 @
-@d str_492 L"ifhmode"
+@d str_492 "ifhmode"
 @<|"ifhmode"|@>=@+492
 @
-@d str_493 L"ifmmode"
+@d str_493 "ifmmode"
 @<|"ifmmode"|@>=@+493
 @
-@d str_494 L"ifinner"
+@d str_494 "ifinner"
 @<|"ifinner"|@>=@+494
 @
-@d str_495 L"ifvoid"
+@d str_495 "ifvoid"
 @<|"ifvoid"|@>=@+495
 @
-@d str_496 L"ifhbox"
+@d str_496 "ifhbox"
 @<|"ifhbox"|@>=@+496
 @
-@d str_497 L"ifvbox"
+@d str_497 "ifvbox"
 @<|"ifvbox"|@>=@+497
 @
-@d str_498 L"ifx"
+@d str_498 "ifx"
 @<|"ifx"|@>=@+498
 @
-@d str_499 L"ifeof"
+@d str_499 "ifeof"
 @<|"ifeof"|@>=@+499
 @
-@d str_500 L"iftrue"
+@d str_500 "iftrue"
 @<|"iftrue"|@>=@+500
 @
-@d str_501 L"iffalse"
+@d str_501 "iffalse"
 @<|"iffalse"|@>=@+501
 @
-@d str_502 L"ifcase"
+@d str_502 "ifcase"
 @<|"ifcase"|@>=@+502
 @
-@d str_503 L"fi"
+@d str_503 "fi"
 @<|"fi"|@>=@+503
 @
-@d str_504 L"or"
+@d str_504 "or"
 @<|"or"|@>=@+504
 @
-@d str_505 L"else"
+@d str_505 "else"
 @<|"else"|@>=@+505
 @
-@d str_506 L"TeXinputs:"
+@d str_506 "TeXinputs:"
 @d TEX_area 506
 @
-@d str_507 L"TeXfonts:"
+@d str_507 "TeXfonts:"
 @d TEX_font_area 507
 @
-@d str_508 L".fmt"
+@d str_508 ".fmt"
 @d format_extension 508
 @
-@d str_509 L".log"
+@d str_509 ".log"
 @<|".log"|@>=@+509
 @
-@d str_510 L".dvi"
+@d str_510 ".dvi"
 @<|".dvi"|@>=@+510
 @
-@d str_511 L"input file name"
+@d str_511 "input file name"
 @<|"input file name"|@>=@+511
 @
-@d str_512 L".tex"
+@d str_512 ".tex"
 @<|".tex"|@>=@+512
 @
-@d str_513 L"texput"
+@d str_513 "texput"
 @<|"texput"|@>=@+513
 @
-@d str_514 L"nullfont"
+@d str_514 "nullfont"
 @<|"nullfont"|@>=@+514
 @
-@d str_515 L".tfm"
+@d str_515 ".tfm"
 @<|".tfm"|@>=@+515
 @
-@d str_516 L"vlistout"
+@d str_516 "vlistout"
 @<|"vlistout"|@>=@+516
 @
-@d str_517 L"to"
+@d str_517 "to"
 @<|"to"|@>=@+517
 @
-@d str_518 L"spread"
+@d str_518 "spread"
 @<|"spread"|@>=@+518
 @
-@d str_519 L"vpack"
+@d str_519 "vpack"
 @<|"vpack"|@>=@+519
 @
-@d str_520 L"displaystyle"
+@d str_520 "displaystyle"
 @<|"displaystyle"|@>=@+520
 @
-@d str_521 L"textstyle"
+@d str_521 "textstyle"
 @<|"textstyle"|@>=@+521
 @
-@d str_522 L"scriptstyle"
+@d str_522 "scriptstyle"
 @<|"scriptstyle"|@>=@+522
 @
-@d str_523 L"scriptscriptstyle"
+@d str_523 "scriptscriptstyle"
 @<|"scriptscriptstyle"|@>=@+523
 @
-@d str_524 L"mathord"
+@d str_524 "mathord"
 @<|"mathord"|@>=@+524
 @
-@d str_525 L"mathop"
+@d str_525 "mathop"
 @<|"mathop"|@>=@+525
 @
-@d str_526 L"mathbin"
+@d str_526 "mathbin"
 @<|"mathbin"|@>=@+526
 @
-@d str_527 L"mathrel"
+@d str_527 "mathrel"
 @<|"mathrel"|@>=@+527
 @
-@d str_528 L"mathopen"
+@d str_528 "mathopen"
 @<|"mathopen"|@>=@+528
 @
-@d str_529 L"mathclose"
+@d str_529 "mathclose"
 @<|"mathclose"|@>=@+529
 @
-@d str_530 L"mathpunct"
+@d str_530 "mathpunct"
 @<|"mathpunct"|@>=@+530
 @
-@d str_531 L"mathinner"
+@d str_531 "mathinner"
 @<|"mathinner"|@>=@+531
 @
-@d str_532 L"overline"
+@d str_532 "overline"
 @<|"overline"|@>=@+532
 @
-@d str_533 L"underline"
+@d str_533 "underline"
 @<|"underline"|@>=@+533
 @
-@d str_534 L"left"
+@d str_534 "left"
 @<|"left"|@>=@+534
 @
-@d str_535 L"right"
+@d str_535 "right"
 @<|"right"|@>=@+535
 @
-@d str_536 L"limits"
+@d str_536 "limits"
 @<|"limits"|@>=@+536
 @
-@d str_537 L"nolimits"
+@d str_537 "nolimits"
 @<|"nolimits"|@>=@+537
 @
-@d str_538 L"fraction, thickness "
+@d str_538 "fraction, thickness "
 @<|"fraction, thickness "|@>=@+538
 @
-@d str_539 L"mlist1"
+@d str_539 "mlist1"
 @<|"mlist1"|@>=@+539
 @
-@d str_540 L"mlist2"
+@d str_540 "mlist2"
 @<|"mlist2"|@>=@+540
 @
-@d str_541 L"mlist3"
+@d str_541 "mlist3"
 @<|"mlist3"|@>=@+541
 @
-@d str_542 L"0234000122*4000133**3**344*0400400*000000234000111*1111112341011"
+@d str_542 "0234000122*4000133**3**344*0400400*000000234000111*1111112341011"
 @d math_spacing 542
 @
-@d str_543 L"mlist4"
+@d str_543 "mlist4"
 @<|"mlist4"|@>=@+543
 @
-@d str_544 L"span"
+@d str_544 "span"
 @<|"span"|@>=@+544
 @
-@d str_545 L"cr"
+@d str_545 "cr"
 @<|"cr"|@>=@+545
 @
-@d str_546 L"crcr"
+@d str_546 "crcr"
 @<|"crcr"|@>=@+546
 @
-@d str_547 L"endtemplate"
+@d str_547 "endtemplate"
 @<|"endtemplate"|@>=@+547
 @
-@d str_548 L"endv"
+@d str_548 "endv"
 @<|"endv"|@>=@+548
 @
-@d str_549 L"256 spans"
+@d str_549 "256 spans"
 @<|"256 spans"|@>=@+549
 @
-@d str_550 L"align1"
+@d str_550 "align1"
 @<|"align1"|@>=@+550
 @
-@d str_551 L"align0"
+@d str_551 "align0"
 @<|"align0"|@>=@+551
 @
-@d str_552 L"disc1"
+@d str_552 "disc1"
 @<|"disc1"|@>=@+552
 @
-@d str_553 L"disc2"
+@d str_553 "disc2"
 @<|"disc2"|@>=@+553
 @
-@d str_554 L"paragraph"
+@d str_554 "paragraph"
 @<|"paragraph"|@>=@+554
 @
-@d str_555 L"disc3"
+@d str_555 "disc3"
 @<|"disc3"|@>=@+555
 @
-@d str_556 L"disc4"
+@d str_556 "disc4"
 @<|"disc4"|@>=@+556
 @
-@d str_557 L"line breaking"
+@d str_557 "line breaking"
 @<|"line breaking"|@>=@+557
 @
-@d str_558 L"hyphenation"
+@d str_558 "hyphenation"
 @<|"hyphenation"|@>=@+558
 @
-@d str_559 L"patterns"
+@d str_559 "patterns"
 @<|"patterns"|@>=@+559
 @
-@d str_560 L"pruning"
+@d str_560 "pruning"
 @<|"pruning"|@>=@+560
 @
-@d str_561 L"vertbreak"
+@d str_561 "vertbreak"
 @<|"vertbreak"|@>=@+561
 @
-@d str_562 L"vsplit"
+@d str_562 "vsplit"
 @<|"vsplit"|@>=@+562
 @
-@d str_563 L"vbox"
+@d str_563 "vbox"
 @<|"vbox"|@>=@+563
 @
-@d str_564 L"pagegoal"
+@d str_564 "pagegoal"
 @<|"pagegoal"|@>=@+564
 @
-@d str_565 L"pagetotal"
+@d str_565 "pagetotal"
 @<|"pagetotal"|@>=@+565
 @
-@d str_566 L"pagestretch"
+@d str_566 "pagestretch"
 @<|"pagestretch"|@>=@+566
 @
-@d str_567 L"pagefilstretch"
+@d str_567 "pagefilstretch"
 @<|"pagefilstretch"|@>=@+567
 @
-@d str_568 L"pagefillstretch"
+@d str_568 "pagefillstretch"
 @<|"pagefillstretch"|@>=@+568
 @
-@d str_569 L"pagefilllstretch"
+@d str_569 "pagefilllstretch"
 @<|"pagefilllstretch"|@>=@+569
 @
-@d str_570 L"pageshrink"
+@d str_570 "pageshrink"
 @<|"pageshrink"|@>=@+570
 @
-@d str_571 L"pagedepth"
+@d str_571 "pagedepth"
 @<|"pagedepth"|@>=@+571
 @
-@d str_572 L"page"
+@d str_572 "page"
 @<|"page"|@>=@+572
 @
-@d str_573 L"end"
+@d str_573 "end"
 @<|"end"|@>=@+573
 @
-@d str_574 L"dump"
+@d str_574 "dump"
 @<|"dump"|@>=@+574
 @
-@d str_575 L"hskip"
+@d str_575 "hskip"
 @<|"hskip"|@>=@+575
 @
-@d str_576 L"hfil"
+@d str_576 "hfil"
 @<|"hfil"|@>=@+576
 @
-@d str_577 L"hfill"
+@d str_577 "hfill"
 @<|"hfill"|@>=@+577
 @
-@d str_578 L"hss"
+@d str_578 "hss"
 @<|"hss"|@>=@+578
 @
-@d str_579 L"hfilneg"
+@d str_579 "hfilneg"
 @<|"hfilneg"|@>=@+579
 @
-@d str_580 L"vskip"
+@d str_580 "vskip"
 @<|"vskip"|@>=@+580
 @
-@d str_581 L"vfil"
+@d str_581 "vfil"
 @<|"vfil"|@>=@+581
 @
-@d str_582 L"vfill"
+@d str_582 "vfill"
 @<|"vfill"|@>=@+582
 @
-@d str_583 L"vss"
+@d str_583 "vss"
 @<|"vss"|@>=@+583
 @
-@d str_584 L"vfilneg"
+@d str_584 "vfilneg"
 @<|"vfilneg"|@>=@+584
 @
-@d str_585 L"right."
+@d str_585 "right."
 @<|"right."|@>=@+585
 @
-@d str_586 L"rightbrace"
+@d str_586 "rightbrace"
 @<|"rightbrace"|@>=@+586
 @
-@d str_587 L"moveleft"
+@d str_587 "moveleft"
 @<|"moveleft"|@>=@+587
 @
-@d str_588 L"moveright"
+@d str_588 "moveright"
 @<|"moveright"|@>=@+588
 @
-@d str_589 L"raise"
+@d str_589 "raise"
 @<|"raise"|@>=@+589
 @
-@d str_590 L"lower"
+@d str_590 "lower"
 @<|"lower"|@>=@+590
 @
-@d str_591 L"copy"
+@d str_591 "copy"
 @<|"copy"|@>=@+591
 @
-@d str_592 L"lastbox"
+@d str_592 "lastbox"
 @<|"lastbox"|@>=@+592
 @
-@d str_593 L"vtop"
+@d str_593 "vtop"
 @<|"vtop"|@>=@+593
 @
-@d str_594 L"hbox"
+@d str_594 "hbox"
 @<|"hbox"|@>=@+594
 @
-@d str_595 L"shipout"
+@d str_595 "shipout"
 @<|"shipout"|@>=@+595
 @
-@d str_596 L"leaders"
+@d str_596 "leaders"
 @<|"leaders"|@>=@+596
 @
-@d str_597 L"cleaders"
+@d str_597 "cleaders"
 @<|"cleaders"|@>=@+597
 @
-@d str_598 L"xleaders"
+@d str_598 "xleaders"
 @<|"xleaders"|@>=@+598
 @
-@d str_599 L"indent"
+@d str_599 "indent"
 @<|"indent"|@>=@+599
 @
-@d str_600 L"noindent"
+@d str_600 "noindent"
 @<|"noindent"|@>=@+600
 @
-@d str_601 L"unpenalty"
+@d str_601 "unpenalty"
 @<|"unpenalty"|@>=@+601
 @
-@d str_602 L"unkern"
+@d str_602 "unkern"
 @<|"unkern"|@>=@+602
 @
-@d str_603 L"unskip"
+@d str_603 "unskip"
 @<|"unskip"|@>=@+603
 @
-@d str_604 L"unhbox"
+@d str_604 "unhbox"
 @<|"unhbox"|@>=@+604
 @
-@d str_605 L"unhcopy"
+@d str_605 "unhcopy"
 @<|"unhcopy"|@>=@+605
 @
-@d str_606 L"unvbox"
+@d str_606 "unvbox"
 @<|"unvbox"|@>=@+606
 @
-@d str_607 L"unvcopy"
+@d str_607 "unvcopy"
 @<|"unvcopy"|@>=@+607
 @
-@d str_608 L"eqno"
+@d str_608 "eqno"
 @<|"eqno"|@>=@+608
 @
-@d str_609 L"leqno"
+@d str_609 "leqno"
 @<|"leqno"|@>=@+609
 @
-@d str_610 L"displaylimits"
+@d str_610 "displaylimits"
 @<|"displaylimits"|@>=@+610
 @
-@d str_611 L"above"
+@d str_611 "above"
 @<|"above"|@>=@+611
 @
-@d str_612 L"over"
+@d str_612 "over"
 @<|"over"|@>=@+612
 @
-@d str_613 L"atop"
+@d str_613 "atop"
 @<|"atop"|@>=@+613
 @
-@d str_614 L"abovewithdelims"
+@d str_614 "abovewithdelims"
 @<|"abovewithdelims"|@>=@+614
 @
-@d str_615 L"overwithdelims"
+@d str_615 "overwithdelims"
 @<|"overwithdelims"|@>=@+615
 @
-@d str_616 L"atopwithdelims"
+@d str_616 "atopwithdelims"
 @<|"atopwithdelims"|@>=@+616
 @
-@d str_617 L"display"
+@d str_617 "display"
 @<|"display"|@>=@+617
 @
-@d str_618 L"long"
+@d str_618 "long"
 @<|"long"|@>=@+618
 @
-@d str_619 L"outer"
+@d str_619 "outer"
 @<|"outer"|@>=@+619
 @
-@d str_620 L"global"
+@d str_620 "global"
 @<|"global"|@>=@+620
 @
-@d str_621 L"def"
+@d str_621 "def"
 @<|"def"|@>=@+621
 @
-@d str_622 L"gdef"
+@d str_622 "gdef"
 @<|"gdef"|@>=@+622
 @
-@d str_623 L"edef"
+@d str_623 "edef"
 @<|"edef"|@>=@+623
 @
-@d str_624 L"xdef"
+@d str_624 "xdef"
 @<|"xdef"|@>=@+624
 @
-@d str_625 L"prefix"
+@d str_625 "prefix"
 @<|"prefix"|@>=@+625
 @
-@d str_626 L"inaccessible"
+@d str_626 "inaccessible"
 @<|"inaccessible"|@>=@+626
 @
-@d str_627 L"let"
+@d str_627 "let"
 @<|"let"|@>=@+627
 @
-@d str_628 L"futurelet"
+@d str_628 "futurelet"
 @<|"futurelet"|@>=@+628
 @
-@d str_629 L"chardef"
+@d str_629 "chardef"
 @<|"chardef"|@>=@+629
 @
-@d str_630 L"mathchardef"
+@d str_630 "mathchardef"
 @<|"mathchardef"|@>=@+630
 @
-@d str_631 L"countdef"
+@d str_631 "countdef"
 @<|"countdef"|@>=@+631
 @
-@d str_632 L"dimendef"
+@d str_632 "dimendef"
 @<|"dimendef"|@>=@+632
 @
-@d str_633 L"skipdef"
+@d str_633 "skipdef"
 @<|"skipdef"|@>=@+633
 @
-@d str_634 L"muskipdef"
+@d str_634 "muskipdef"
 @<|"muskipdef"|@>=@+634
 @
-@d str_635 L"toksdef"
+@d str_635 "toksdef"
 @<|"toksdef"|@>=@+635
 @
-@d str_636 L"by"
+@d str_636 "by"
 @<|"by"|@>=@+636
 @
-@d str_637 L"hyphenchar"
+@d str_637 "hyphenchar"
 @<|"hyphenchar"|@>=@+637
 @
-@d str_638 L"skewchar"
+@d str_638 "skewchar"
 @<|"skewchar"|@>=@+638
 @
-@d str_639 L"FONT"
+@d str_639 "FONT"
 @<|"FONT"|@>=@+639
 @
-@d str_640 L"at"
+@d str_640 "at"
 @<|"at"|@>=@+640
 @
-@d str_641 L"scaled"
+@d str_641 "scaled"
 @<|"scaled"|@>=@+641
 @
-@d str_642 L"errorstopmode"
+@d str_642 "errorstopmode"
 @<|"errorstopmode"|@>=@+642
 @
-@d str_643 L"openin"
+@d str_643 "openin"
 @<|"openin"|@>=@+643
 @
-@d str_644 L"closein"
+@d str_644 "closein"
 @<|"closein"|@>=@+644
 @
-@d str_645 L"message"
+@d str_645 "message"
 @<|"message"|@>=@+645
 @
-@d str_646 L"errmessage"
+@d str_646 "errmessage"
 @<|"errmessage"|@>=@+646
 @
-@d str_647 L"lowercase"
+@d str_647 "lowercase"
 @<|"lowercase"|@>=@+647
 @
-@d str_648 L"uppercase"
+@d str_648 "uppercase"
 @<|"uppercase"|@>=@+648
 @
-@d str_649 L"show"
+@d str_649 "show"
 @<|"show"|@>=@+649
 @
-@d str_650 L"showbox"
+@d str_650 "showbox"
 @<|"showbox"|@>=@+650
 @
-@d str_651 L"showthe"
+@d str_651 "showthe"
 @<|"showthe"|@>=@+651
 @
-@d str_652 L"showlists"
+@d str_652 "showlists"
 @<|"showlists"|@>=@+652
 @
-@d str_653 L"long macro"
+@d str_653 "long macro"
 @<|"long macro"|@>=@+653
 @
-@d str_654 L"outer macro"
+@d str_654 "outer macro"
 @<|"outer macro"|@>=@+654
 @
-@d str_655 L"outer endtemplate"
+@d str_655 "outer endtemplate"
 @<|"outer endtemplate"|@>=@+655
 @
-@d str_656 L" (INITEX)"
+@d str_656 " (INITEX)"
 @<|" (INITEX)"|@>=@+656
 @
-@d str_657 L"end occurred "
+@d str_657 "end occurred "
 @<|"end occurred "|@>=@+657
 @
-@d str_658 L"openout"
+@d str_658 "openout"
 @<|"openout"|@>=@+658
 @
-@d str_659 L"closeout"
+@d str_659 "closeout"
 @<|"closeout"|@>=@+659
 @
-@d str_660 L"special"
+@d str_660 "special"
 @<|"special"|@>=@+660
 @
-@d str_661 L"immediate"
+@d str_661 "immediate"
 @<|"immediate"|@>=@+661
 @
-@d str_662 L"setlanguage"
+@d str_662 "setlanguage"
 @<|"setlanguage"|@>=@+662
 @
-@d str_663 L"ext1"
+@d str_663 "ext1"
 @<|"ext1"|@>=@+663
 @
-@d str_664 L"ext2"
+@d str_664 "ext2"
 @<|"ext2"|@>=@+664
 @
-@d str_665 L"ext3"
+@d str_665 "ext3"
 @<|"ext3"|@>=@+665
 @
-@d str_666 L"endwrite"
+@d str_666 "endwrite"
 @<|"endwrite"|@>=@+666
 @
-@d str_667 L"ext4"
+@d str_667 "ext4"
 @<|"ext4"|@>=@+667
 
 @ All the above strings together make up the string pool.
