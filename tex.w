@@ -188,7 +188,7 @@ helping to determine whether a particular implementation deserves to be
 known as `\TeX' [cf.~Stanford Computer Science report CS1027,
 November 1984].
 
-@d banner	"This is TeX, Version 3.14159265" /*printed when \TeX\ starts*/
+@d banner	L"This is TeX, Version 3.14159265" /*printed when \TeX\ starts*/
 
 @ Different \PASCAL s have slightly different conventions, and the present
 @!@:PASCAL H}{\ph@>
@@ -398,7 +398,7 @@ enum {@+@!trie_size=8000@+}; /*space for hyphenation patterns; should be larger 
 enum {@+@!trie_op_size=500@+}; /*space for ``opcodes'' in the hyphenation patterns*/
 enum {@+@!dvi_buf_size=800@+}; /*size of the output buffer; must be a multiple of 8*/
 enum {@+@!file_name_size=40@+}; /*file names shouldn't be longer than this*/
-const char *@!pool_name="TeXformats:TEX.POOL                     ";
+const char *@!pool_name=L"TeXformats:TEX.POOL                     ";
    /*string of length |file_name_size|; tells where the string pool appears*/
 @.TeXformats@>
 
@@ -560,101 +560,101 @@ sets, and in such cases it will be necessary to change something here.
 @^system dependencies@>
 
 @<Set init...@>=
-xchr[040]= ' ' ;
-xchr[041]= '!' ;
-xchr[042]= '"' ;
-xchr[043]= '#' ;
-xchr[044]= '$' ;
-xchr[045]= '%' ;
-xchr[046]= '&' ;
-xchr[047]= '\'' ;@/
-xchr[050]= '(' ;
-xchr[051]= ')' ;
-xchr[052]= '*' ;
-xchr[053]= '+' ;
-xchr[054]= ',' ;
-xchr[055]= '-' ;
-xchr[056]= '.' ;
-xchr[057]= '/' ;@/
-xchr[060]= '0' ;
-xchr[061]= '1' ;
-xchr[062]= '2' ;
-xchr[063]= '3' ;
-xchr[064]= '4' ;
-xchr[065]= '5' ;
-xchr[066]= '6' ;
-xchr[067]= '7' ;@/
-xchr[070]= '8' ;
-xchr[071]= '9' ;
-xchr[072]= ':' ;
-xchr[073]= ';' ;
-xchr[074]= '<' ;
-xchr[075]= '=' ;
-xchr[076]= '>' ;
-xchr[077]= '?' ;@/
-xchr[0100]= '@@' ;
-xchr[0101]= 'A' ;
-xchr[0102]= 'B' ;
-xchr[0103]= 'C' ;
-xchr[0104]= 'D' ;
-xchr[0105]= 'E' ;
-xchr[0106]= 'F' ;
-xchr[0107]= 'G' ;@/
-xchr[0110]= 'H' ;
-xchr[0111]= 'I' ;
-xchr[0112]= 'J' ;
-xchr[0113]= 'K' ;
-xchr[0114]= 'L' ;
-xchr[0115]= 'M' ;
-xchr[0116]= 'N' ;
-xchr[0117]= 'O' ;@/
-xchr[0120]= 'P' ;
-xchr[0121]= 'Q' ;
-xchr[0122]= 'R' ;
-xchr[0123]= 'S' ;
-xchr[0124]= 'T' ;
-xchr[0125]= 'U' ;
-xchr[0126]= 'V' ;
-xchr[0127]= 'W' ;@/
-xchr[0130]= 'X' ;
-xchr[0131]= 'Y' ;
-xchr[0132]= 'Z' ;
-xchr[0133]= '[' ;
-xchr[0134]= '\\' ;
-xchr[0135]= ']' ;
-xchr[0136]= '^' ;
-xchr[0137]= '_' ;@/
-xchr[0140]= '`' ;
-xchr[0141]= 'a' ;
-xchr[0142]= 'b' ;
-xchr[0143]= 'c' ;
-xchr[0144]= 'd' ;
-xchr[0145]= 'e' ;
-xchr[0146]= 'f' ;
-xchr[0147]= 'g' ;@/
-xchr[0150]= 'h' ;
-xchr[0151]= 'i' ;
-xchr[0152]= 'j' ;
-xchr[0153]= 'k' ;
-xchr[0154]= 'l' ;
-xchr[0155]= 'm' ;
-xchr[0156]= 'n' ;
-xchr[0157]= 'o' ;@/
-xchr[0160]= 'p' ;
-xchr[0161]= 'q' ;
-xchr[0162]= 'r' ;
-xchr[0163]= 's' ;
-xchr[0164]= 't' ;
-xchr[0165]= 'u' ;
-xchr[0166]= 'v' ;
-xchr[0167]= 'w' ;@/
-xchr[0170]= 'x' ;
-xchr[0171]= 'y' ;
-xchr[0172]= 'z' ;
-xchr[0173]= '{' ;
-xchr[0174]= '|' ;
-xchr[0175]= '}' ;
-xchr[0176]= '~' ;@/
+xchr[040]= L' ' ;
+xchr[041]= L'!' ;
+xchr[042]= L'"' ;
+xchr[043]= L'#' ;
+xchr[044]= L'$' ;
+xchr[045]= L'%' ;
+xchr[046]= L'&' ;
+xchr[047]= L'\'' ;@/
+xchr[050]= L'(' ;
+xchr[051]= L')' ;
+xchr[052]= L'*' ;
+xchr[053]= L'+' ;
+xchr[054]= L',' ;
+xchr[055]= L'-' ;
+xchr[056]= L'.' ;
+xchr[057]= L'/' ;@/
+xchr[060]= L'0' ;
+xchr[061]= L'1' ;
+xchr[062]= L'2' ;
+xchr[063]= L'3' ;
+xchr[064]= L'4' ;
+xchr[065]= L'5' ;
+xchr[066]= L'6' ;
+xchr[067]= L'7' ;@/
+xchr[070]= L'8' ;
+xchr[071]= L'9' ;
+xchr[072]= L':' ;
+xchr[073]= L';' ;
+xchr[074]= L'<' ;
+xchr[075]= L'=' ;
+xchr[076]= L'>' ;
+xchr[077]= L'?' ;@/
+xchr[0100]= L'@@' ;
+xchr[0101]= L'A' ;
+xchr[0102]= L'B' ;
+xchr[0103]= L'C' ;
+xchr[0104]= L'D' ;
+xchr[0105]= L'E' ;
+xchr[0106]= L'F' ;
+xchr[0107]= L'G' ;@/
+xchr[0110]= L'H' ;
+xchr[0111]= L'I' ;
+xchr[0112]= L'J' ;
+xchr[0113]= L'K' ;
+xchr[0114]= L'L' ;
+xchr[0115]= L'M' ;
+xchr[0116]= L'N' ;
+xchr[0117]= L'O' ;@/
+xchr[0120]= L'P' ;
+xchr[0121]= L'Q' ;
+xchr[0122]= L'R' ;
+xchr[0123]= L'S' ;
+xchr[0124]= L'T' ;
+xchr[0125]= L'U' ;
+xchr[0126]= L'V' ;
+xchr[0127]= L'W' ;@/
+xchr[0130]= L'X' ;
+xchr[0131]= L'Y' ;
+xchr[0132]= L'Z' ;
+xchr[0133]= L'[' ;
+xchr[0134]= L'\\' ;
+xchr[0135]= L']' ;
+xchr[0136]= L'^' ;
+xchr[0137]= L'_' ;@/
+xchr[0140]= L'`' ;
+xchr[0141]= L'a' ;
+xchr[0142]= L'b' ;
+xchr[0143]= L'c' ;
+xchr[0144]= L'd' ;
+xchr[0145]= L'e' ;
+xchr[0146]= L'f' ;
+xchr[0147]= L'g' ;@/
+xchr[0150]= L'h' ;
+xchr[0151]= L'i' ;
+xchr[0152]= L'j' ;
+xchr[0153]= L'k' ;
+xchr[0154]= L'l' ;
+xchr[0155]= L'm' ;
+xchr[0156]= L'n' ;
+xchr[0157]= L'o' ;@/
+xchr[0160]= L'p' ;
+xchr[0161]= L'q' ;
+xchr[0162]= L'r' ;
+xchr[0163]= L's' ;
+xchr[0164]= L't' ;
+xchr[0165]= L'u' ;
+xchr[0166]= L'v' ;
+xchr[0167]= L'w' ;@/
+xchr[0170]= L'x' ;
+xchr[0171]= L'y' ;
+xchr[0172]= L'z' ;
+xchr[0173]= L'{' ;
+xchr[0174]= L'|' ;
+xchr[0175]= L'}' ;
+xchr[0176]= L'~' ;@/
 
 @ Some of the ASCII codes without visible characters have been given symbolic
 names in this program because they are used with a special meaning.
@@ -685,14 +685,14 @@ It is best to make the codes correspond to the intended interpretations as
 shown in Appendix~C whenever possible; but this is not necessary. For
 example, in countries with an alphabet of more than 26 letters, it is
 usually best to map the additional letters into codes less than~040.
-To get the most ``permissive'' character set, change | ' ' | on the
+To get the most ``permissive'' character set, change | L' ' | on the
 right of these assignment statements to |chr(i)|.
 @^character set dependencies@>
 @^system dependencies@>
 
 @<Set init...@>=
-for (i=0; i<=037; i++) xchr[i]= ' ' ;
-for (i=0177; i<=0377; i++) xchr[i]= ' ' ;
+for (i=0; i<=037; i++) xchr[i]= L' ' ;
+for (i=0177; i<=0377; i++) xchr[i]= L' ' ;
 
 @ The following system-independent code makes the |xord| array contain a
 suitable inverse to the information in |xchr|. Note that if |xchr[i]==xchr[j]|
@@ -766,8 +766,8 @@ uint8_t @!name_length;@/ /*this many characters are actually
 extended the rules of \PASCAL\ in a very convenient way. To open file~|f|,
 we can write
 $$\vbox{\halign{#\hfil\qquad&#\hfil\cr
-|reset(f,@t\\{name}@>,"/O")|&for input;\cr
-|rewrite(f,@t\\{name}@>,"/O")|&for output.\cr}}$$
+|reset(f,@t\\{name}@>,L"/O")|&for input;\cr
+|rewrite(f,@t\\{name}@>,L"/O")|&for output.\cr}}$$
 The `\\{name}' parameter, which is of type `{\bf packed array
 $[\langle\\{any}\rangle]$ of \\{char}}', stands for the name of
 the external file that is being opened for input or output.
@@ -790,32 +790,32 @@ cannot be found, or if such a file cannot be opened for some other reason
 
 @p bool a_open_in(alpha_file *f)
    /*open a text file for input*/
-{@+reset((*f), name_of_file,"/O");return reset_OK((*f));
+{@+reset((*f), name_of_file,L"/O");return reset_OK((*f));
 }
 @#
 bool a_open_out(alpha_file *f)
    /*open a text file for output*/
-{@+rewrite((*f), name_of_file,"/O");return rewrite_OK((*f));
+{@+rewrite((*f), name_of_file,L"/O");return rewrite_OK((*f));
 }
 @#
 bool b_open_in(byte_file *f)
    /*open a binary file for input*/
-{@+reset((*f), name_of_file,"/O");return reset_OK((*f));
+{@+reset((*f), name_of_file,L"/O");return reset_OK((*f));
 }
 @#
 bool b_open_out(byte_file *f)
    /*open a binary file for output*/
-{@+rewrite((*f), name_of_file,"/O");return rewrite_OK((*f));
+{@+rewrite((*f), name_of_file,L"/O");return rewrite_OK((*f));
 }
 @#
 bool w_open_in(word_file *f)
    /*open a word file for input*/
-{@+reset((*f), name_of_file,"/O");return reset_OK((*f));
+{@+reset((*f), name_of_file,L"/O");return reset_OK((*f));
 }
 @#
 bool w_open_out(word_file *f)
    /*open a word file for output*/
-{@+rewrite((*f), name_of_file,"/O");return rewrite_OK((*f));
+{@+rewrite((*f), name_of_file,L"/O");return rewrite_OK((*f));
 }
 
 @ Files can be closed with the \ph\ routine `|close(f)|', which
@@ -938,8 +938,8 @@ in \ph. The `\.{/I}' switch suppresses the first |get|.
 @:PASCAL H}{\ph@>
 @^system dependencies@>
 
-@d t_open_in	reset(term_in,"TTY:","/O/I") /*open the terminal for text input*/
-@d t_open_out	rewrite(term_out,"TTY:","/O") /*open the terminal for text output*/
+@d t_open_in	reset(term_in,L"TTY:",L"/O/I") /*open the terminal for text input*/
+@d t_open_out	rewrite(term_out,L"TTY:",L"/O") /*open the terminal for text output*/
 
 @ Sometimes it is necessary to synchronize the input/output mixture that
 happens on the user's terminal, and three system-dependent
@@ -990,11 +990,11 @@ quietly terminates the program.)
 
 @<Report overflow of the input buffer, and abort@>=
 if (format_ident==0)
-  {@+write_ln(term_out,"Buffer size exceeded!");exit(0);
+  {@+write_ln(term_out,L"Buffer size exceeded!");exit(0);
 @.Buffer size exceeded@>
   }
 else{@+cur_input.loc_field=first;cur_input.limit_field=last-1;
-  overflow("buffer size", buf_size);
+  overflow(L"buffer size", buf_size);
 @:TeX capacity exceeded buffer size}{\quad buffer size@>
   }
 
@@ -1035,11 +1035,11 @@ if the system permits them.
 @p bool init_terminal(void) /*gets the terminal input started*/
 {@+
 t_open_in;
-loop@+{@+wake_up_terminal;write(term_out,"**");update_terminal;
+loop@+{@+wake_up_terminal;write(term_out,L"**");update_terminal;
 @.**@>
   if (!input_ln(&term_in, true))  /*this shouldn't happen*/
     {@+write_ln(term_out);
-    write(term_out,"! End of file on the terminal... why?");
+    write(term_out,L"! End of file on the terminal... why?");
 @.End of file on the terminal@>
     return false;
     }
@@ -1049,7 +1049,7 @@ loop@+{@+wake_up_terminal;write(term_out,"**");update_terminal;
     {@+return true;
      /*return unless the line was all blank*/
     }
-  write_ln(term_out,"Please type the name of your input file.");
+  write_ln(term_out,L"Please type the name of your input file.");
   }
 }
 
@@ -1140,7 +1140,7 @@ apologetic error message if there isn't enough room.
 @d flush_char	decr(pool_ptr) /*forget the last character in the pool*/
 @d str_room(X)	 /*make sure that the pool hasn't overflowed*/
   {@+if (pool_ptr+X > pool_size)
-  overflow("pool size", pool_size-init_pool_ptr);
+  overflow(L"pool size", pool_size-init_pool_ptr);
 @:TeX capacity exceeded pool size}{\quad pool size@>
   }
 
@@ -1151,7 +1151,7 @@ value.
 
 @p str_number make_string(void) /*current string enters the pool*/
 {@+if (str_ptr==max_strings)
-  overflow("number of strings", max_strings-init_str_ptr);
+  overflow(L"number of strings", max_strings-init_str_ptr);
 @:TeX capacity exceeded number of strings}{\quad number of strings@>
 incr(str_ptr);str_start[str_ptr]=pool_ptr;
 return str_ptr-1;
@@ -1297,24 +1297,24 @@ too tight for comfort@>;
   }@+ while (!(c));
   a_close(&pool_file);return true;
   }
-else bad_pool("! I can't read TEX.POOL.")
+else bad_pool(L"! I can't read TEX.POOL.")
 @.I can't read TEX.POOL@>
 
 @ @<Read one string...@>=
-{@+if (eof(pool_file)) bad_pool("! TEX.POOL has no check sum.");
+{@+if (eof(pool_file)) bad_pool(L"! TEX.POOL has no check sum.");
 @.TEX.POOL has no check sum@>
 read(pool_file, m, n); /*read two digits of string length*/
-if (m== '*' ) @<Check the pool check sum@>@;
+if (m== L'*' ) @<Check the pool check sum@>@;
 else{@+if ((xord[m] < '0')||(xord[m] > '9')||@|
       (xord[n] < '0')||(xord[n] > '9'))
-    bad_pool("! TEX.POOL line doesn't begin with two digits.");
+    bad_pool(L"! TEX.POOL line doesn't begin with two digits.");
 @.TEX.POOL line doesn't...@>
   l=xord[m]*10+xord[n]-'0'*11; /*compute the length*/
   if (pool_ptr+l+string_vacancies > pool_size)
-    bad_pool("! You have to increase POOLSIZE.");
+    bad_pool(L"! You have to increase POOLSIZE.");
 @.You have to increase POOLSIZE@>
   for (k=1; k<=l; k++)
-    {@+if (eoln(pool_file)) m= ' ' ;@+else read(pool_file, m);
+    {@+if (eoln(pool_file)) m= L' ' ;@+else read(pool_file, m);
     append_char(xord[m]);
     }
   read_ln(pool_file);g=make_string();
@@ -1329,13 +1329,13 @@ file has been loaded.
 @<Check the pool check sum@>=
 {@+a=0;k=1;
 loop@+{@+if ((xord[n] < '0')||(xord[n] > '9'))
-  bad_pool("! TEX.POOL check sum doesn't have nine digits.");
+  bad_pool(L"! TEX.POOL check sum doesn't have nine digits.");
 @.TEX.POOL check sum...@>
   a=10*a+xord[n]-'0';
   if (k==9) goto done;
   incr(k);read(pool_file, n);
   }
-done: if (a!=0) bad_pool("! TEX.POOL doesn't match; TANGLE me again.");
+done: if (a!=0) bad_pool(L"! TEX.POOL doesn't match; TANGLE me again.");
 @.TEX.POOL doesn't match@>
 c=true;
 }
@@ -1532,7 +1532,7 @@ character positions.
 
 @<Initialize the output...@>=
 wterm(banner);
-if (format_ident==0) wterm_ln(" (no format preloaded)");
+if (format_ident==0) wterm_ln(L" (no format preloaded)");
 else{@+slow_print(format_ident);print_ln();
   }
 update_terminal;
@@ -1670,7 +1670,7 @@ This procedure is never called when |interaction < scroll_mode|.
 @p void term_input(void) /*gets a line from the terminal*/
 {@+int k; /*index into |buffer|*/
 update_terminal; /*now the user sees the prompt for sure*/
-if (!input_ln(&term_in, true)) fatal_error("End of file on the terminal!");
+if (!input_ln(&term_in, true)) fatal_error(L"End of file on the terminal!");
 @.End of file on the terminal@>
 term_offset=0; /*the user's line ended with \<\rm return>*/
 decr(selector); /*prepare to echo the input*/
@@ -1709,7 +1709,7 @@ amounts of user interaction:
 @d scroll_mode	2 /*omits error stops*/
 @d error_stop_mode	3 /*stops at every opportunity to interact*/
 @d print_err(X)	{@+if (interaction==error_stop_mode) wake_up_terminal;
-  print_nl("! ");print_str(X);
+  print_nl(L"! ");print_str(X);
   }
 
 @<Glob...@>=
@@ -1848,7 +1848,7 @@ print_char('.');show_context();
 if (interaction==error_stop_mode) @<Get user's advice and |return|@>;
 incr(error_count);
 if (error_count==100)
-  {@+print_nl("(That makes 100 errors; please try again.)");
+  {@+print_nl(L"(That makes 100 errors; please try again.)");
 @.That makes 100 errors...@>
   history=fatal_error_stop;jump_out();
   }
@@ -1856,7 +1856,7 @@ if (error_count==100)
 }
 
 @ @<Get user's advice...@>=
-loop@+{@+resume: clear_for_error_prompt();prompt_input("? ");
+loop@+{@+resume: clear_for_error_prompt();prompt_input(L"? ");
 @.?\relax@>
   if (last==first) return;
   c=buffer[first];
@@ -1885,10 +1885,10 @@ case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': 
 case 'D': {@+debug_help();goto resume;@+}
 #endif
 case 'E': if (base_ptr > 0)
-  {@+print_nl("You want to edit file ");
+  {@+print_nl(L"You want to edit file ");
 @.You want to edit file x@>
   slow_print(input_stack[base_ptr].name_field);
-  print_str(" at line ");print_int(line);
+  print_str(L" at line ");print_int(line);
   interaction=scroll_mode;jump_out();
   } @+break;
 case 'H': @<Print the help information and |goto continue|@>@;
@@ -1901,14 +1901,14 @@ default:do_nothing;
 @<Print the menu of available options@>@;
 
 @ @<Print the menu...@>=
-{@+print_str("Type <return> to proceed, S to scroll future error messages,");@/
+{@+print_str(L"Type <return> to proceed, S to scroll future error messages,");@/
 @.Type <return> to proceed...@>
-print_nl("R to run without stopping, Q to run quietly,");@/
-print_nl("I to insert something, ");
-if (base_ptr > 0) print_str("E to edit your file,");
+print_nl(L"R to run without stopping, Q to run quietly,");@/
+print_nl(L"I to insert something, ");
+if (base_ptr > 0) print_str(L"E to edit your file,");
 if (deletions_allowed)
-  print_nl("1 or ... or 9 to ignore the next 1 to 9 tokens of input,");
-print_nl("H for help, X to quit.");
+  print_nl(L"1 or ... or 9 to ignore the next 1 to 9 tokens of input,");
+print_nl(L"H for help, X to quit.");
 }
 
 @ Here the author of \TeX\ apologizes for making use of the numerical
@@ -1918,14 +1918,14 @@ relation between |'Q'|, |'R'|, |'S'|, and the desired interaction settings
 
 @<Change the interaction...@>=
 {@+error_count=0;interaction=batch_mode+c-'Q';
-print_str("OK, entering ");
+print_str(L"OK, entering ");
 switch (c) {
 case 'Q': {@+print_esc(@[@<|"batchmode"|@>@]);decr(selector);
   } @+break;
 case 'R': print_esc(@[@<|"nonstopmode"|@>@]);@+break;
 case 'S': print_esc(@[@<|"scrollmode"|@>@]);
 }  /*there are no other cases*/
-print_str("...");print_ln();update_terminal;return;
+print_str(L"...");print_ln();update_terminal;return;
 }
 
 @ When the following code is executed, |buffer[(first+1)dotdot(last-1)]| may
@@ -1939,7 +1939,7 @@ to be familiar with \TeX's input stacks.
 if (last > first+1)
   {@+loc=first+1;buffer[first]=' ';
   }
-else{@+prompt_input("insert>");loc=first;
+else{@+prompt_input(L"insert>");loc=first;
 @.insert>@>
   }
 first=last;
@@ -1960,8 +1960,8 @@ while (c > 0)
   decr(c);
   }
 cur_tok=s1;cur_cmd=s2;cur_chr=s3;align_state=s4;OK_to_interrupt=true;
-help2("I have just deleted some text, as you asked.")@/
-("You can now delete more, or insert, or whatever.");
+help2(L"I have just deleted some text, as you asked.")@/
+(L"You can now delete more, or insert, or whatever.");
 show_context();goto resume;
 }
 
@@ -1970,15 +1970,15 @@ show_context();goto resume;
   {@+give_err_help();use_err_help=false;
   }
 else{@+if (help_ptr==0)
-    help2("Sorry, I don't know how to help in this situation.")@/
-    @t\kern1em@>("Maybe you should try asking a human?");
+    help2(L"Sorry, I don't know how to help in this situation.")@/
+    @t\kern1em@>(L"Maybe you should try asking a human?");
   @/do@+{decr(help_ptr);print(help_line[help_ptr]);print_ln();
   }@+ while (!(help_ptr==0));
   }
-help4("Sorry, I already gave what help I could...")@/
-  ("Maybe you should try asking a human?")@/
-  ("An error might have occurred before I noticed any problems.")@/
-  ("``If all else fails, read the instructions.'");@/
+help4(L"Sorry, I already gave what help I could...")@/
+  (L"Maybe you should try asking a human?")@/
+  (L"An error might have occurred before I noticed any problems.")@/
+  (L"``If all else fails, read the instructions.'");@/
 goto resume;
 }
 
@@ -1998,7 +1998,7 @@ print_ln()
 save a teeny bit of program space by declaring the following procedure:
 
 @p void int_error(int @!n)
-{@+print_str(" (");print_int(n);print_char(')');error();
+{@+print_str(L" (");print_int(n);print_char(')');error();
 }
 
 @ In anomalous cases, the print selector might be in an unknown state;
@@ -2028,7 +2028,7 @@ if (interaction > batch_mode) debug_help();
 @<Error hand...@>=
 void fatal_error(str_number @!s) /*prints |s|, and that's it*/
 {@+normalize_selector();@/
-print_err("Emergency stop");help1(s);succumb;
+print_err(L"Emergency stop");help1(s);succumb;
 @.Emergency stop@>
 }
 
@@ -2037,11 +2037,11 @@ print_err("Emergency stop");help1(s);succumb;
 @<Error hand...@>=
 void overflow(str_number @!s, int @!n) /*stop due to finiteness*/
 {@+normalize_selector();
-print_err("TeX capacity exceeded, sorry [");
+print_err(L"TeX capacity exceeded, sorry [");
 @.TeX capacity exceeded ...@>
 print(s);print_char('=');print_int(n);print_char(']');
-help2("If you really absolutely need more capacity,")@/
-  ("you can ask a wizard to enlarge me.");
+help2(L"If you really absolutely need more capacity,")@/
+  (L"you can ask a wizard to enlarge me.");
 succumb;
 }
 
@@ -2058,14 +2058,14 @@ void confusion(str_number @!s)
    /*consistency check violated; |s| tells where*/
 {@+normalize_selector();
 if (history < error_message_issued)
-  {@+print_err("This can't happen (");print(s);print_char(')');
+  {@+print_err(L"This can't happen (");print(s);print_char(')');
 @.This can't happen@>
-  help1("I'm broken. Please show this to someone who can fix can fix");
+  help1(L"I'm broken. Please show this to someone who can fix can fix");
   }
-else{@+print_err("I can't go on meeting you like this");
+else{@+print_err(L"I can't go on meeting you like this");
 @.I can't go on...@>
-  help2("One of your faux pas seems to have wounded me deeply...")@/
-    ("in fact, I'm barely conscious. Please fix it and try again.");
+  help2(L"One of your faux pas seems to have wounded me deeply...")@/
+    (L"in fact, I'm barely conscious. Please fix it and try again.");
   }
 succumb;
 }
@@ -2098,11 +2098,11 @@ safe to do this.
   {@+interaction=error_stop_mode;
   if ((selector==log_only)||(selector==no_print))
     incr(selector);
-  print_err("Interruption");
+  print_err(L"Interruption");
 @.Interruption@>
-  help3("You rang?")@/
-  ("Try to insert some instructions for me (e.g.,`I\\showlists'),")@/
-  ("unless you just want to quit by typing `X'.");
+  help3(L"You rang?")@/
+  (L"Try to insert some instructions for me (e.g.,`I\\showlists'),")@/
+  (L"unless you just want to quit by typing `X'.");
   deletions_allowed=false;error();deletions_allowed=true;
   interrupt=0;
   }
@@ -2593,7 +2593,7 @@ else if (mem_end < mem_max)  /*or go into virgin territory*/
 else{@+decr(hi_mem_min);p=hi_mem_min;
   if (hi_mem_min <= lo_mem_max)
     {@+runaway(); /*if memory is exhausted, display possible runaway text*/
-    overflow("main memory size", mem_max+1-mem_min);
+    overflow(L"main memory size", mem_max+1-mem_min);
        /*quit; all one-word nodes are busy*/
 @:TeX capacity exceeded main memory size}{\quad main memory size@>
     }
@@ -2702,7 +2702,7 @@ if (s==010000000000)
   }
 if (lo_mem_max+2 < hi_mem_min) if (lo_mem_max+2 <= mem_bot+max_halfword)
   @<Grow more variable-size memory and |goto restart|@>;
-overflow("main memory size", mem_max+1-mem_min);
+overflow(L"main memory size", mem_max+1-mem_min);
    /*sorry, nothing satisfactory is left*/
 @:TeX capacity exceeded main memory size}{\quad main memory size@>
 found: link(r)=null; /*this node is now nonempty*/
@@ -3424,7 +3424,7 @@ while (p!=null)
   {@+if ((p > mem_end)||(p < hi_mem_min)) clobbered=true;
   else if (is_free[p]) clobbered=true;
   if (clobbered)
-    {@+print_nl("AVAIL list clobbered at ");
+    {@+print_nl(L"AVAIL list clobbered at ");
 @.AVAIL list clobbered...@>
     print_int(q);goto done1;
     }
@@ -3439,12 +3439,12 @@ p=rover;q=null;clobbered=false;
   else if (!(is_empty(p))||(node_size(p) < 2)||@|
    (p+node_size(p) > lo_mem_max)||@|(llink(rlink(p))!=p)) clobbered=true;
   if (clobbered)
-  {@+print_nl("Double-AVAIL list clobbered at ");
+  {@+print_nl(L"Double-AVAIL list clobbered at ");
   print_int(q);goto done2;
   }
 for (q=p; q<=p+node_size(p)-1; q++)  /*mark all locations free*/
   {@+if (is_free[q])
-    {@+print_nl("Doubly free location at ");
+    {@+print_nl(L"Doubly free location at ");
 @.Doubly free location...@>
     print_int(q);goto done2;
     }
@@ -3458,7 +3458,7 @@ done2:
 p=mem_min;
 while (p <= lo_mem_max)  /*node |p| should not be empty*/
   {@+if (is_empty(p))
-    {@+print_nl("Bad flag at ");print_int(p);
+    {@+print_nl(L"Bad flag at ");print_int(p);
 @.Bad flag...@>
     }
   while ((p <= lo_mem_max)&&!is_free[p]) incr(p);
@@ -3466,7 +3466,7 @@ while (p <= lo_mem_max)  /*node |p| should not be empty*/
   }
 
 @ @<Print newly busy...@>=
-{@+print_nl("New busy locs:");
+{@+print_nl(L"New busy locs:");
 for (p=mem_min; p<=lo_mem_max; p++)
   if (!is_free[p]&&((p > was_lo_max)||was_free[p]))
     {@+print_char(' ');print_int(p);
@@ -3493,18 +3493,18 @@ void search_mem(pointer @!p) /*look for pointers to |p|*/
 {@+int q; /*current position being searched*/
 for (q=mem_min; q<=lo_mem_max; q++)
   {@+if (link(q)==p)
-    {@+print_nl("LINK(");print_int(q);print_char(')');
+    {@+print_nl(L"LINK(");print_int(q);print_char(')');
     }
   if (info(q)==p)
-    {@+print_nl("INFO(");print_int(q);print_char(')');
+    {@+print_nl(L"INFO(");print_int(q);print_char(')');
     }
   }
 for (q=hi_mem_min; q<=mem_end; q++)
   {@+if (link(q)==p)
-    {@+print_nl("LINK(");print_int(q);print_char(')');
+    {@+print_nl(L"LINK(");print_int(q);print_char(')');
     }
   if (info(q)==p)
-    {@+print_nl("INFO(");print_int(q);print_char(')');
+    {@+print_nl(L"INFO(");print_int(q);print_char(')');
     }
   }
 @<Search |eqtb| for equivalents equal to |p|@>;
@@ -3560,7 +3560,7 @@ while (p > mem_min)
 @ @<Print a short indication of the contents of node |p|@>=
 switch (type(p)) {
 case hlist_node: case vlist_node: case ins_node: case whatsit_node: case mark_node: case adjust_node:
-  case unset_node: print_str("[]");@+break;
+  case unset_node: print_str(L"[]");@+break;
 case rule_node: print_char('|');@+break;
 case glue_node: if (glue_ptr(p)!=zero_glue) print_char(' ');@+break;
 case math_node: print_char('$');@+break;
@@ -3607,9 +3607,9 @@ followed by the name of finite units:
 @p void print_glue(scaled @!d, int @!order, str_number @!s)
    /*prints a glue component*/
 {@+print_scaled(d);
-if ((order < normal)||(order > filll)) print_str("foul");
+if ((order < normal)||(order > filll)) print_str(L"foul");
 else if (order > normal)
-  {@+print_str("fil");
+  {@+print_str(L"fil");
   while (order > fil)
     {@+print_char('l');decr(order);
     }
@@ -3626,10 +3626,10 @@ else if (s!=0) print(s);
 else{@+print_scaled(width(p));
   if (s!=0) print(s);
   if (stretch(p)!=0)
-    {@+print_str(" plus ");print_glue(stretch(p), stretch_order(p), s);
+    {@+print_str(L" plus ");print_glue(stretch(p), stretch_order(p), s);
     }
   if (shrink(p)!=0)
-    {@+print_str(" minus ");print_glue(shrink(p), shrink_order(p), s);
+    {@+print_str(L" minus ");print_glue(shrink(p), shrink_order(p), s);
     }
   }
 }
@@ -3680,7 +3680,7 @@ clobbered or chosen at random.
 int n; /*the number of items already printed at this level*/
 double @!g; /*a glue ratio, as a floating point number*/
 if (cur_length > depth_threshold)
-  {@+if (p > null) print_str(" []");
+  {@+if (p > null) print_str(L" []");
      /*indicate that there's been some truncation*/
   return;
   }
@@ -3688,11 +3688,11 @@ n=0;
 while (p > mem_min)
   {@+print_ln();print_current_string(); /*display the nesting history*/
   if (p > mem_end)  /*pointer out of range*/
-    {@+print_str("Bad link, display aborted.");return;
+    {@+print_str(L"Bad link, display aborted.");return;
 @.Bad link...@>
     }
   incr(n);if (n > breadth_max)  /*time to stop*/
-    {@+print_str("etc.");return;
+    {@+print_str(L"etc.");return;
 @.etc@>
     }
   @<Display node |p|@>;
@@ -3717,20 +3717,20 @@ else switch (type(p)) {
   case mark_node: @<Display mark |p|@>@;@+break;
   case adjust_node: @<Display adjustment |p|@>@;@+break;
   @t\4@>@<Cases of |show_node_list| that arise in mlists only@>@;
-  default:print_str("Unknown node type!");
+  default:print_str(L"Unknown node type!");
   }
 
 @ @<Display box |p|@>=
 {@+if (type(p)==hlist_node) print_esc('h');
 else if (type(p)==vlist_node) print_esc('v');
 else print_esc(@[@<|"unset"|@>@]);
-print_str("box(");print_scaled(height(p));print_char('+');
-print_scaled(depth(p));print_str(")x");print_scaled(width(p));
+print_str(L"box(");print_scaled(height(p));print_char('+');
+print_scaled(depth(p));print_str(L")x");print_scaled(width(p));
 if (type(p)==unset_node)
   @<Display special fields of the unset node |p|@>@;
 else{@+@<Display the value of |glue_set(p)|@>;
   if (shift_amount(p)!=0)
-    {@+print_str(", shifted ");print_scaled(shift_amount(p));
+    {@+print_str(L", shifted ");print_scaled(shift_amount(p));
     }
   }
 node_list_display(list_ptr(p)); /*recursive call*/
@@ -3738,14 +3738,14 @@ node_list_display(list_ptr(p)); /*recursive call*/
 
 @ @<Display special fields of the unset node |p|@>=
 {@+if (span_count(p)!=min_quarterword)
-  {@+print_str(" (");print_int(qo(span_count(p))+1);
-  print_str(" columns)");
+  {@+print_str(L" (");print_int(qo(span_count(p))+1);
+  print_str(L" columns)");
   }
 if (glue_stretch(p)!=0)
-  {@+print_str(", stretch ");print_glue(glue_stretch(p), glue_order(p), 0);
+  {@+print_str(L", stretch ");print_glue(glue_stretch(p), glue_order(p), 0);
   }
 if (glue_shrink(p)!=0)
-  {@+print_str(", shrink ");print_glue(glue_shrink(p), glue_sign(p), 0);
+  {@+print_str(L", shrink ");print_glue(glue_shrink(p), glue_sign(p), 0);
   }
 }
 
@@ -3762,12 +3762,12 @@ floating point underflow on the author's computer.
 @<Display the value of |glue_set(p)|@>=
 g=float(glue_set(p));
 if ((g!=float_constant(0))&&(glue_sign(p)!=normal))
-  {@+print_str(", glue set ");
-  if (glue_sign(p)==shrinking) print_str("- ");
-  if (abs(mem[p+glue_offset].i) < 04000000) print_str("?.?");
+  {@+print_str(L", glue set ");
+  if (glue_sign(p)==shrinking) print_str(L"- ");
+  if (abs(mem[p+glue_offset].i) < 04000000) print_str(L"?.?");
   else if (abs(g) > float_constant(20000))
     {@+if (g > float_constant(0)) print_char('>');
-    else print_str("< -");
+    else print_str(L"< -");
     print_glue(20000*unity, glue_order(p), 0);
     }
   else print_glue(round(unity*g), glue_order(p), 0);
@@ -3776,15 +3776,15 @@ if ((g!=float_constant(0))&&(glue_sign(p)!=normal))
 
 @ @<Display rule |p|@>=
 {@+print_esc(@[@<|"rule("|@>@]);print_rule_dimen(height(p));print_char('+');
-print_rule_dimen(depth(p));print_str(")x");print_rule_dimen(width(p));
+print_rule_dimen(depth(p));print_str(L")x");print_rule_dimen(width(p));
 }
 
 @ @<Display insertion |p|@>=
 {@+print_esc(@[@<|"insert"|@>@]);print_int(qo(subtype(p)));
-print_str(", natural size ");print_scaled(height(p));
-print_str("; split(");print_spec(split_top_ptr(p), 0);
+print_str(L", natural size ");print_scaled(height(p));
+print_str(L"; split(");print_spec(split_top_ptr(p), 0);
 print_char(',');print_scaled(depth(p));
-print_str("); float cost ");print_int(float_cost(p));
+print_str(L"); float cost ");print_int(float_cost(p));
 node_list_display(ins_ptr(p)); /*recursive call*/
 }
 
@@ -3810,7 +3810,7 @@ else{@+print_esc(@[@<|"glue"|@>@]);
 {@+print_esc(empty_string);
 if (subtype(p)==c_leaders) print_char('c');
 else if (subtype(p)==x_leaders) print_char('x');
-print_str("leaders ");print_spec(glue_ptr(p), 0);
+print_str(L"leaders ");print_spec(glue_ptr(p), 0);
 node_list_display(leader_ptr(p)); /*recursive call*/
 }
 
@@ -3821,23 +3821,23 @@ if (subtype(p)!=mu_glue)
   {@+print_esc(@[@<|"kern"|@>@]);
   if (subtype(p)!=normal) print_char(' ');
   print_scaled(width(p));
-  if (subtype(p)==acc_kern) print_str(" (for accent)");
+  if (subtype(p)==acc_kern) print_str(L" (for accent)");
 @.for accent@>
   }
-else{@+print_esc(@[@<|"mkern"|@>@]);print_scaled(width(p));print_str("mu");
+else{@+print_esc(@[@<|"mkern"|@>@]);print_scaled(width(p));print_str(L"mu");
   }
 
 @ @<Display math node |p|@>=
 {@+print_esc(@[@<|"math"|@>@]);
-if (subtype(p)==before) print_str("on");
-else print_str("off");
+if (subtype(p)==before) print_str(L"on");
+else print_str(L"off");
 if (width(p)!=0)
-  {@+print_str(", surrounded ");print_scaled(width(p));
+  {@+print_str(L", surrounded ");print_scaled(width(p));
   }
 }
 
 @ @<Display ligature |p|@>=
-{@+print_font_and_char(lig_char(p));print_str(" (ligature ");
+{@+print_font_and_char(lig_char(p));print_str(L" (ligature ");
 if (subtype(p) > 1) print_char('|');
 font_in_short_display=font(lig_char(p));short_display(lig_ptr(p));
 if (odd(subtype(p))) print_char('|');
@@ -3854,7 +3854,7 @@ print_char(')');
 @<Display discretionary |p|@>=
 {@+print_esc(@[@<|"discretionary"|@>@]);
 if (replace_count(p) > 0)
-  {@+print_str(" replacing ");print_int(replace_count(p));
+  {@+print_str(L" replacing ");print_int(replace_count(p));
   }
 node_list_display(pre_break(p)); /*recursive call*/
 append_char('|');show_node_list(post_break(p));flush_char; /*recursive call*/
@@ -4256,17 +4256,17 @@ mode and |cur_cmd| is the current command code.
 @p void print_mode(int @!m) /*prints the mode represented by |m|*/
 {@+if (m > 0)
   switch (m/(max_command+1)) {
-  case 0: print_str("vertical");@+break;
-  case 1: print_str("horizontal");@+break;
-  case 2: print_str("display math");
+  case 0: print_str(L"vertical");@+break;
+  case 1: print_str(L"horizontal");@+break;
+  case 2: print_str(L"display math");
   }
-else if (m==0) print_str("no");
+else if (m==0) print_str(L"no");
 else switch ((-m)/(max_command+1)) {
-  case 0: print_str("internal vertical");@+break;
-  case 1: print_str("restricted horizontal");@+break;
-  case 2: print_str("math");
+  case 0: print_str(L"internal vertical");@+break;
+  case 1: print_str(L"restricted horizontal");@+break;
+  case 2: print_str(L"math");
   }
-print_str(" mode");
+print_str(L" mode");
 }
 
 @ The state of affairs at any semantic level can be represented by
@@ -4370,7 +4370,7 @@ a new (empty) list is begun; it does not change |mode| or |aux|.
 @p void push_nest(void) /*enter a new semantic level, save the old*/
 {@+if (nest_ptr > max_nest_stack)
   {@+max_nest_stack=nest_ptr;
-  if (nest_ptr==nest_size) overflow("semantic nest size", nest_size);
+  if (nest_ptr==nest_size) overflow(L"semantic nest size", nest_size);
 @:TeX capacity exceeded semantic nest size}{\quad semantic nest size@>
   }
 nest[nest_ptr]=cur_list; /*stack the record*/
@@ -4396,22 +4396,22 @@ memory_word @!a; /*auxiliary*/
 pointer @!q, @!r; /*for showing the current page*/
 int @!t; /*ditto*/
 nest[nest_ptr]=cur_list; /*put the top level into the array*/
-print_nl("");print_ln();
+print_nl(L"");print_ln();
 for (p=nest_ptr; p>=0; p--)
   {@+m=nest[p].mode_field;a=nest[p].aux_field;
-  print_nl("### ");print_mode(m);
-  print_str(" entered at line ");print_int(abs(nest[p].ml_field));
+  print_nl(L"### ");print_mode(m);
+  print_str(L" entered at line ");print_int(abs(nest[p].ml_field));
   if (m==hmode) if (nest[p].pg_field!=040600000)
-    {@+print_str(" (language");print_int(nest[p].pg_field%0200000);
-    print_str(":hyphenmin");print_int(nest[p].pg_field/020000000);
+    {@+print_str(L" (language");print_int(nest[p].pg_field%0200000);
+    print_str(L":hyphenmin");print_int(nest[p].pg_field/020000000);
     print_char(',');print_int((nest[p].pg_field/0200000)%0100);
     print_char(')');
     }
-  if (nest[p].ml_field < 0) print_str(" (\\output routine)");
+  if (nest[p].ml_field < 0) print_str(L" (\\output routine)");
   if (p==0)
     {@+@<Show the status of the current page@>;
     if (link(contrib_head)!=null)
-      print_nl("### recent contributions:");
+      print_nl(L"### recent contributions:");
     }
   show_box(link(nest[p].head_field));
   @<Show the auxiliary field, |a|@>;
@@ -4420,22 +4420,22 @@ for (p=nest_ptr; p>=0; p--)
 
 @ @<Show the auxiliary...@>=
 switch (abs(m)/(max_command+1)) {
-case 0: {@+print_nl("prevdepth ");
-  if (a.sc <= ignore_depth) print_str("ignored");
+case 0: {@+print_nl(L"prevdepth ");
+  if (a.sc <= ignore_depth) print_str(L"ignored");
   else print_scaled(a.sc);
   if (nest[p].pg_field!=0)
-    {@+print_str(", prevgraf ");
-    print_int(nest[p].pg_field);print_str(" line");
+    {@+print_str(L", prevgraf ");
+    print_int(nest[p].pg_field);print_str(L" line");
     if (nest[p].pg_field!=1) print_char('s');
     }
   } @+break;
-case 1: {@+print_nl("spacefactor ");print_int(a.hh.lh);
+case 1: {@+print_nl(L"spacefactor ");print_int(a.hh.lh);
   if (m > 0) @+if (a.hh.rh > 0)
-    {@+print_str(", current language ");print_int(a.hh.rh);@+
+    {@+print_str(L", current language ");print_int(a.hh.rh);@+
     }
   } @+break;
 case 2: if (a.i!=null)
-  {@+print_str("this will be denominator of:");show_box(a.i);@+
+  {@+print_str(L"this will be denominator of:");show_box(a.i);@+
   }
 }  /*there are no other cases*/
 
@@ -4641,7 +4641,7 @@ case par_fill_skip_code: print_esc(@[@<|"parfillskip"|@>@]);@+break;
 case thin_mu_skip_code: print_esc(@[@<|"thinmuskip"|@>@]);@+break;
 case med_mu_skip_code: print_esc(@[@<|"medmuskip"|@>@]);@+break;
 case thick_mu_skip_code: print_esc(@[@<|"thickmuskip"|@>@]);@+break;
-default:print_str("[unknown glue parameter!]");
+default:print_str(L"[unknown glue parameter!]");
 }
 }
 
@@ -4864,7 +4864,7 @@ else if (n < box_base)
   }
 else if (n < cur_font_loc)
   {@+print_esc(@[@<|"box"|@>@]);print_int(n-box_base);print_char('=');
-  if (equiv(n)==null) print_str("void");
+  if (equiv(n)==null) print_str(L"void");
   else{@+depth_threshold=0;breadth_max=1;show_node_list(equiv(n));
     }
   }
@@ -4872,7 +4872,7 @@ else if (n < cat_code_base) @<Show the font identifier in |eqtb[n]|@>@;
 else@<Show the halfword code in |eqtb[n]|@>@;
 
 @ @<Show the font identifier in |eqtb[n]|@>=
-{@+if (n==cur_font_loc) print_str("current font");
+{@+if (n==cur_font_loc) print_str(L"current font");
 else if (n < math_font_base+16)
   {@+print_esc(@[@<|"textfont"|@>@]);print_int(n-math_font_base);
   }
@@ -5097,7 +5097,7 @@ case left_hyphen_min_code: print_esc(@[@<|"lefthyphenmin"|@>@]);@+break;
 case right_hyphen_min_code: print_esc(@[@<|"righthyphenmin"|@>@]);@+break;
 case holding_inserts_code: print_esc(@[@<|"holdinginserts"|@>@]);@+break;
 case error_context_lines_code: print_esc(@[@<|"errorcontextlines"|@>@]);@+break;
-default:print_str("[unknown integer parameter!]");
+default:print_str(L"[unknown integer parameter!]");
 }
 }
 
@@ -5277,7 +5277,7 @@ if ((tracing_online <= 0)&&(selector==term_and_log))
 @#
 void end_diagnostic(bool @!blank_line)
    /*restore proper conditions after tracing*/
-{@+print_nl("");
+{@+print_nl(L"");
 if (blank_line) print_ln();
 selector=old_setting;
 }
@@ -5364,7 +5364,7 @@ case hang_indent_code: print_esc(@[@<|"hangindent"|@>@]);@+break;
 case h_offset_code: print_esc(@[@<|"hoffset"|@>@]);@+break;
 case v_offset_code: print_esc(@[@<|"voffset"|@>@]);@+break;
 case emergency_stretch_code: print_esc(@[@<|"emergencystretch"|@>@]);@+break;
-default:print_str("[unknown dimen parameter!]");
+default:print_str(L"[unknown dimen parameter!]");
 }
 }
 
@@ -5427,7 +5427,7 @@ for (k=dimen_base; k<=eqtb_size; k++) eqtb[k].sc=0;
 {@+if (n < scaled_base) print_length_param(n-dimen_base);
 else{@+print_esc(@[@<|"dimen"|@>@]);print_int(n-scaled_base);
   }
-print_char('=');print_scaled(eqtb[n].sc);print_str("pt");
+print_char('=');print_scaled(eqtb[n].sc);print_str(L"pt");
 }
 
 @ Here is a procedure that displays the contents of |eqtb[n]|
@@ -5465,7 +5465,7 @@ first part of region~4.
 @<Search |eqtb| for equivalents equal to |p|@>=
 for (q=active_base; q<=box_base+255; q++)
   {@+if (equiv(q)==p)
-    {@+print_nl("EQUIV(");print_int(q);print_char(')');
+    {@+print_nl(L"EQUIV(");print_int(q);print_char(')');
     }
   }
 
@@ -5549,7 +5549,7 @@ found: return p;
 
 @ @<Insert a new control...@>=
 {@+if (text(p) > 0)
-  {@+@/do@+{if (hash_is_full) overflow("hash size", hash_size);
+  {@+@/do@+{if (hash_is_full) overflow(L"hash size", hash_size);
 @:TeX capacity exceeded hash size}{\quad hash size@>
   decr(hash_used);
   }@+ while (!(text(hash_used)==0)); /*search for an empty location in |hash|*/
@@ -5915,7 +5915,7 @@ get by with testing for overflow in only a few places.
 
 @d check_full_save_stack	if (save_ptr > max_save_stack)
   {@+max_save_stack=save_ptr;
-  if (max_save_stack > save_size-6) overflow("save size", save_size);
+  if (max_save_stack > save_size-6) overflow(L"save size", save_size);
 @:TeX capacity exceeded save size}{\quad save size@>
   }
 
@@ -5940,7 +5940,7 @@ appears in location |save_ptr+k| of the save stack.
 {@+check_full_save_stack;
 save_type(save_ptr)=level_boundary;save_level(save_ptr)=cur_group;
 save_index(save_ptr)=cur_boundary;
-if (cur_level==max_quarterword) overflow("grouping levels",
+if (cur_level==max_quarterword) overflow(L"grouping levels",
 @:TeX capacity exceeded grouping levels}{\quad grouping levels@>
   max_quarterword-min_quarterword);
    /*quit if |(cur_level+1)| is too big to be stored in |eqtb|*/
@@ -6124,7 +6124,7 @@ grateful for any scraps of information, even if they prove to be irrelevant.
 @<Search |save_stack| for equivalents that point to |p|@>=
 if (save_ptr > 0) for (q=0; q<=save_ptr-1; q++)
   {@+if (equiv_field(save_stack[q])==p)
-    {@+print_nl("SAVE(");print_int(q);print_char(')');
+    {@+print_nl(L"SAVE(");print_int(q);print_char(')');
     }
   }
 
@@ -6145,18 +6145,18 @@ for magnification.
 
 @p void prepare_mag(void)
 {@+if ((mag_set > 0)&&(mag!=mag_set))
-  {@+print_err("Incompatible magnification (");print_int(mag);
+  {@+print_err(L"Incompatible magnification (");print_int(mag);
 @.Incompatible magnification@>
-  print_str(");");print_nl(" the previous value will be retained");
-  help2("I can handle only one magnification ratio per job. So I've")@/
-  ("reverted to the magnification you used earlier on this run.");@/
+  print_str(L");");print_nl(L" the previous value will be retained");
+  help2(L"I can handle only one magnification ratio per job. So I've")@/
+  (L"reverted to the magnification you used earlier on this run.");@/
   int_error(mag_set);
   geq_word_define(int_base+mag_code, mag_set); /*|mag=mag_set|*/
   }
 if ((mag <= 0)||(mag > 32768))
-  {@+print_err("Illegal magnification has been changed to 1000");@/
+  {@+print_err(L"Illegal magnification has been changed to 1000");@/
 @.Illegal magnification...@>
-  help1("The magnification ratio must be between 1 and 32768.");
+  help1(L"The magnification ratio must be between 1 and 32768.");
   int_error(mag);geq_word_define(int_base+mag_code, 1000);
   }
 mag_set=mag;
@@ -6318,7 +6318,7 @@ case out_param: {@+print(match_chr);
 case match: {@+match_chr=c;print(c);incr(n);print_char(n);
   if (n > '9') return;
   } @+break;
-case end_match: print_str("->");@+break;
+case end_match: print_str(L"->");@+break;
 @.->@>
 default:print_esc(@[@<|"BAD."|@>@]);
 @.BAD@>
@@ -6415,27 +6415,27 @@ together with the corresponding |primitive| calls.
 @<Declare the procedure called |print_cmd_chr|@>=
 void print_cmd_chr(quarterword @!cmd, halfword @!chr_code)
 {@+switch (cmd) {
-case left_brace: chr_cmd("begin-group character ")@;@+break;
-case right_brace: chr_cmd("end-group character ")@;@+break;
-case math_shift: chr_cmd("math shift character ")@;@+break;
-case mac_param: chr_cmd("macro parameter character ")@;@+break;
-case sup_mark: chr_cmd("superscript character ")@;@+break;
-case sub_mark: chr_cmd("subscript character ")@;@+break;
-case endv: print_str("end of alignment template");@+break;
-case spacer: chr_cmd("blank space ")@;@+break;
-case letter: chr_cmd("the letter ")@;@+break;
-case other_char: chr_cmd("the character ")@;@+break;
+case left_brace: chr_cmd(L"begin-group character ")@;@+break;
+case right_brace: chr_cmd(L"end-group character ")@;@+break;
+case math_shift: chr_cmd(L"math shift character ")@;@+break;
+case mac_param: chr_cmd(L"macro parameter character ")@;@+break;
+case sup_mark: chr_cmd(L"superscript character ")@;@+break;
+case sub_mark: chr_cmd(L"subscript character ")@;@+break;
+case endv: print_str(L"end of alignment template");@+break;
+case spacer: chr_cmd(L"blank space ")@;@+break;
+case letter: chr_cmd(L"the letter ")@;@+break;
+case other_char: chr_cmd(L"the character ")@;@+break;
 @t\4@>@<Cases of |print_cmd_chr| for symbolic printing of primitives@>@;
-default:print_str("[unknown command code!]");
+default:print_str(L"[unknown command code!]");
 }
 }
 
 @ Here is a procedure that displays the current command.
 
 @p void show_cur_cmd_chr(void)
-{@+begin_diagnostic();print_nl("{");
+{@+begin_diagnostic();print_nl(L"{");
 if (mode!=shown_mode)
-  {@+print_mode(mode);print_str(": ");shown_mode=mode;
+  {@+print_mode(mode);print_str(L": ");shown_mode=mode;
   }
 print_cmd_chr(cur_cmd, cur_chr);print_char('}');
 end_diagnostic(false);
@@ -6626,16 +6626,16 @@ when a subfile has ended, and at certain other crucial times:
 void runaway(void)
 {@+pointer p; /*head of runaway list*/
 if (scanner_status > skipping)
-  {@+print_nl("Runaway ");
+  {@+print_nl(L"Runaway ");
 @.Runaway...@>
   switch (scanner_status) {
-  case defining: {@+print_str("definition");p=def_ref;
+  case defining: {@+print_str(L"definition");p=def_ref;
     } @+break;
-  case matching: {@+print_str("argument");p=temp_head;
+  case matching: {@+print_str(L"argument");p=temp_head;
     } @+break;
-  case aligning: {@+print_str("preamble");p=hold_head;
+  case aligning: {@+print_str(L"preamble");p=hold_head;
     } @+break;
-  case absorbing: {@+print_str("text");p=def_ref;
+  case absorbing: {@+print_str(L"text");p=def_ref;
     }
   }  /*there are no other cases*/
   print_char('?');print_ln();show_token_list(link(p), null, error_line-10);
@@ -6791,7 +6791,7 @@ loop@+{@+cur_input=input_stack[base_ptr]; /*enter into the context*/
   if ((base_ptr==input_ptr)||bottom_line||(nn < error_context_lines))
     @<Display the current context@>@;
   else if (nn==error_context_lines)
-    {@+print_nl("...");incr(nn); /*omitted if |error_context_lines < 0|*/
+    {@+print_nl(L"...");incr(nn); /*omitted if |error_context_lines < 0|*/
     }
   if (bottom_line) goto done;
   decr(base_ptr);
@@ -6826,36 +6826,36 @@ For example, on some systems it is best to print both a page and line number.
 @<Print location of current line@>=
 if (name <= 17)
   if (terminal_input)
-    if (base_ptr==0) print_nl("<*>");else print_nl("<insert> ");
-  else{@+print_nl("<read ");
+    if (base_ptr==0) print_nl(L"<*>");else print_nl(L"<insert> ");
+  else{@+print_nl(L"<read ");
     if (name==17) print_char('*');@+else print_int(name-1);
 @.*\relax@>
     print_char('>');
     }
-else{@+print_nl("l.");print_int(line);
+else{@+print_nl(L"l.");print_int(line);
   }
 print_char(' ')
 
 @ @<Print type of token list@>=
 switch (token_type) {
-case parameter: print_nl("<argument> ");@+break;
-case u_template: case v_template: print_nl("<template> ");@+break;
-case backed_up: if (loc==null) print_nl("<recently read> ");
-  else print_nl("<to be read again> ");@+break;
-case inserted: print_nl("<inserted text> ");@+break;
+case parameter: print_nl(L"<argument> ");@+break;
+case u_template: case v_template: print_nl(L"<template> ");@+break;
+case backed_up: if (loc==null) print_nl(L"<recently read> ");
+  else print_nl(L"<to be read again> ");@+break;
+case inserted: print_nl(L"<inserted text> ");@+break;
 case macro: {@+print_ln();print_cs(name);
   } @+break;
-case output_text: print_nl("<output> ");@+break;
-case every_par_text: print_nl("<everypar> ");@+break;
-case every_math_text: print_nl("<everymath> ");@+break;
-case every_display_text: print_nl("<everydisplay> ");@+break;
-case every_hbox_text: print_nl("<everyhbox> ");@+break;
-case every_vbox_text: print_nl("<everyvbox> ");@+break;
-case every_job_text: print_nl("<everyjob> ");@+break;
-case every_cr_text: print_nl("<everycr> ");@+break;
-case mark_text: print_nl("<mark> ");@+break;
-case write_text: print_nl("<write> ");@+break;
-default:print_nl("?"); /*this should never happen*/
+case output_text: print_nl(L"<output> ");@+break;
+case every_par_text: print_nl(L"<everypar> ");@+break;
+case every_math_text: print_nl(L"<everymath> ");@+break;
+case every_display_text: print_nl(L"<everydisplay> ");@+break;
+case every_hbox_text: print_nl(L"<everyhbox> ");@+break;
+case every_vbox_text: print_nl(L"<everyvbox> ");@+break;
+case every_job_text: print_nl(L"<everyjob> ");@+break;
+case every_cr_text: print_nl(L"<everycr> ");@+break;
+case mark_text: print_nl(L"<mark> ");@+break;
+case write_text: print_nl(L"<write> ");@+break;
+default:print_nl(L"?"); /*this should never happen*/
 }
 
 @ Here it is necessary to explain a little trick. We don't want to store a long
@@ -6920,7 +6920,7 @@ else m=trick_count-first_count; /*context on line 2*/
 if (l+first_count <= half_error_line)
   {@+p=0;n=l+first_count;
   }
-else{@+print_str("...");p=l+first_count-half_error_line+3;
+else{@+print_str(L"...");p=l+first_count-half_error_line+3;
   n=half_error_line;
   }
 for (q=p; q<=first_count-1; q++) print_char(trick_buf[q%error_line]);
@@ -6928,7 +6928,7 @@ print_ln();
 for (q=1; q<=n; q++) print_char(' '); /*print |n| spaces to begin line~2*/
 if (m+n <= error_line) p=first_count+m;else p=first_count+(error_line-n-3);
 for (q=first_count; q<=p-1; q++) print_char(trick_buf[q%error_line]);
-if (m+n > error_line) print_str("...")
+if (m+n > error_line) print_str(L"...")
 
 @ But the trick is distracting us from our current goal, which is to
 understand the input state. So let's concentrate on the data structures that
@@ -6962,7 +6962,7 @@ new level (having, initially, the same properties as the old).
 @d push_input	@t@> /*enter a new input level, save the old*/
   {@+if (input_ptr > max_in_stack)
     {@+max_in_stack=input_ptr;
-    if (input_ptr==stack_size) overflow("input stack size", stack_size);
+    if (input_ptr==stack_size) overflow(L"input stack size", stack_size);
 @:TeX capacity exceeded input stack size}{\quad input stack size@>
     }
   input_stack[input_ptr]=cur_input; /*stack the record*/
@@ -6989,13 +6989,13 @@ if (t >= macro)  /*the token list starts with a reference count*/
   if (t==macro) param_start=param_ptr;
   else{@+loc=link(p);
     if (tracing_macros > 1)
-      {@+begin_diagnostic();print_nl("");
+      {@+begin_diagnostic();print_nl(L"");
       switch (t) {
       case mark_text: print_esc(@[@<|"mark"|@>@]);@+break;
       case write_text: print_esc(@[@<|"write"|@>@]);@+break;
       default:print_cmd_chr(assign_toks, t-output_text+output_routine_loc);
       } @/
-      print_str("->");token_show(p);end_diagnostic(false);
+      print_str(L"->");token_show(p);end_diagnostic(false);
       }
     }
   }
@@ -7020,7 +7020,7 @@ to be equal to either |backed_up| or |inserted| about 2/3 of the time.
   }
 else if (token_type==u_template)
   if (align_state > 500000) align_state=0;
-  else fatal_error("(interwoven alignment preambles are not allowed)");
+  else fatal_error(L"(interwoven alignment preambles are not allowed)");
 @.interwoven alignment preambles...@>
 pop_input;
 check_interrupt;
@@ -7071,9 +7071,9 @@ or |limit| or |line|.
 @^system dependencies@>
 
 @p void begin_file_reading(void)
-{@+if (in_open==max_in_open) overflow("text input levels", max_in_open);
+{@+if (in_open==max_in_open) overflow(L"text input levels", max_in_open);
 @:TeX capacity exceeded text input levels}{\quad text input levels@>
-if (first==buf_size) overflow("buffer size", buf_size);
+if (first==buf_size) overflow(L"buffer size", buf_size);
 @:TeX capacity exceeded buffer size}{\quad buffer size@>
 incr(in_open);push_input;index=in_open;
 line_stack[index]=line;start=first;state=mid_line;
@@ -7168,15 +7168,15 @@ if (scanner_status!=normal)
   @<Back up an outer control sequence so that it can be reread@>;
   if (scanner_status > skipping)
     @<Tell the user what has run away and try to recover@>@;
-  else{@+print_err("Incomplete ");print_cmd_chr(if_test, cur_if);
+  else{@+print_err(L"Incomplete ");print_cmd_chr(if_test, cur_if);
 @.Incomplete \\if...@>
-    print_str("; all text was ignored after line ");print_int(skip_line);
-    help3("A forbidden control sequence occurred in skipped text.")@/
-    ("This kind of error happens when you say `\\if...' and forget")@/
-    ("the matching `\\fi'. I've inserted a `\\fi'; this might work.");
+    print_str(L"; all text was ignored after line ");print_int(skip_line);
+    help3(L"A forbidden control sequence occurred in skipped text.")@/
+    (L"This kind of error happens when you say `\\if...' and forget")@/
+    (L"the matching `\\fi'. I've inserted a `\\fi'; this might work.");
     if (cur_cs!=0) cur_cs=0;
     else help_line[2]=@|
-      "The file ended while I was skipping conditional text.";
+      L"The file ended while I was skipping conditional text.";
     cur_tok=cs_token_flag+frozen_fi;ins_error();
     }
   deletions_allowed=true;
@@ -7197,19 +7197,19 @@ if (cur_cs!=0)
 
 @ @<Tell the user what has run away...@>=
 {@+runaway(); /*print a definition, argument, or preamble*/
-if (cur_cs==0) print_err("File ended")@;
+if (cur_cs==0) print_err(L"File ended")@;
 @.File ended while scanning...@>
-else{@+cur_cs=0;print_err("Forbidden control sequence found");
+else{@+cur_cs=0;print_err(L"Forbidden control sequence found");
 @.Forbidden control sequence...@>
   }
-print_str(" while scanning ");
+print_str(L" while scanning ");
 @<Print either `\.{definition}' or `\.{use}' or `\.{preamble}' or `\.{text}', and
 insert tokens that should lead to recovery@>;
-print_str(" of ");sprint_cs(warning_index);
-help4("I suspect you have forgotten a `}', causing me")@/
-("to read past where you wanted me to stop.")@/
-("I'll try to recover; but if the error is serious,")@/
-("you'd better type `E' or `X' now and fix your file.");@/
+print_str(L" of ");sprint_cs(warning_index);
+help4(L"I suspect you have forgotten a `}', causing me")@/
+(L"to read past where you wanted me to stop.")@/
+(L"I'll try to recover; but if the error is serious,")@/
+(L"you'd better type `E' or `X' now and fix your file.");@/
 error();
 }
 
@@ -7223,15 +7223,15 @@ brace; and for a runaway argument, we will set |long_state| to
 @<Print either `\.{definition}' or...@>=
 p=get_avail();
 switch (scanner_status) {
-case defining: {@+print_str("definition");info(p)=right_brace_token+'}';
+case defining: {@+print_str(L"definition");info(p)=right_brace_token+'}';
   } @+break;
-case matching: {@+print_str("use");info(p)=par_token;long_state=outer_call;
+case matching: {@+print_str(L"use");info(p)=par_token;long_state=outer_call;
   } @+break;
-case aligning: {@+print_str("preamble");info(p)=right_brace_token+'}';q=p;
+case aligning: {@+print_str(L"preamble");info(p)=right_brace_token+'}';q=p;
   p=get_avail();link(p)=q;info(p)=cs_token_flag+frozen_cr;
   align_state=-1000000;
   } @+break;
-case absorbing: {@+print_str("text");info(p)=right_brace_token+'}';
+case absorbing: {@+print_str(L"text");info(p)=right_brace_token+'}';
   }
 }  /*there are no other cases*/
 ins_list(p)
@@ -7320,10 +7320,10 @@ any_state_plus(ignore): case skip_blanks+spacer: case new_line+spacer
 (cf.\ |clear_for_error_prompt|).
 
 @<Decry the invalid...@>=
-{@+print_err("Text line contains an invalid character");
+{@+print_err(L"Text line contains an invalid character");
 @.Text line contains...@>
-help2("A funny symbol that I can't read has just been input.")@/
-("Continue, and I'll forget that it ever happened.");@/
+help2(L"A funny symbol that I can't read has just been input.")@/
+(L"Continue, and I'll forget that it ever happened.");@/
 deletions_allowed=false;error();deletions_allowed=true;
 goto restart;
 }
@@ -7540,10 +7540,10 @@ else{@+if (!terminal_input)  /*\.{\\read} line has ended*/
   if (interaction > nonstop_mode)
     {@+if (end_line_char_inactive) incr(limit);
     if (limit==start)  /*previous line was empty*/
-      print_nl("(Please type a command or say `\\end')");
+      print_nl(L"(Please type a command or say `\\end')");
 @.Please type...@>
     print_ln();first=start;
-    prompt_input("*"); /*input on-line into |buffer|*/
+    prompt_input(L"*"); /*input on-line into |buffer|*/
 @.*\relax@>
     limit=last;
     if (end_line_char_inactive) decr(limit);
@@ -7551,7 +7551,7 @@ else{@+if (!terminal_input)  /*\.{\\read} line has ended*/
     first=limit+1;
     loc=start;
     }
-  else fatal_error("*** (job aborted, no legal \\end found)");
+  else fatal_error(L"*** (job aborted, no legal \\end found)");
 @.job aborted@>
      /*nonstop mode, which is intended for overnight batch processing,
     never waits for on-line input*/
@@ -7595,7 +7595,7 @@ limit=last;
 if (pausing > 0) if (interaction > nonstop_mode)
   {@+wake_up_terminal;print_ln();
   if (start < limit) for (k=start; k<=limit-1; k++) print(buffer[k]);
-  first=limit;prompt_input("=>"); /*wait for user response*/
+  first=limit;prompt_input(L"=>"); /*wait for user response*/
 @.=>@>
   if (last > first)
     {@+for (k=first; k<=last-1; k++)  /*move line down in buffer*/
@@ -7723,13 +7723,13 @@ if (t >= cs_token_flag)
 }
 
 @ @<Complain about an undefined macro@>=
-{@+print_err("Undefined control sequence");
+{@+print_err(L"Undefined control sequence");
 @.Undefined control sequence@>
-help5("The control sequence at the end of the top line")@/
-("of your error message was never \\def'ed. If you have")@/
-("misspelled it (e.g., `\\hobx'), type `I' and the correct")@/
-("spelling (e.g., `I\\hbox'). Otherwise just continue,")@/
-("and I'll forget about whatever was undefined.");
+help5(L"The control sequence at the end of the top line")@/
+(L"of your error message was never \\def'ed. If you have")@/
+(L"misspelled it (e.g., `\\hobx'), type `I' and the correct")@/
+(L"spelling (e.g., `I\\hbox'). Otherwise just continue,")@/
+(L"and I'll forget about whatever was undefined.");
 error();
 }
 
@@ -7759,10 +7759,10 @@ cur_tok=cur_cs+cs_token_flag;back_input();
 }
 
 @ @<Complain about missing \.{\\endcsname}@>=
-{@+print_err("Missing ");print_esc(@[@<|"endcsname"|@>@]);print_str(" inserted");
+{@+print_err(L"Missing ");print_esc(@[@<|"endcsname"|@>@]);print_str(L" inserted");
 @.Missing \\endcsname...@>
-help2("The control sequence marked <to be read again> should")@/
-  ("not appear between \\csname and \\endcsname.");
+help2(L"The control sequence marked <to be read again> should")@/
+  (L"not appear between \\csname and \\endcsname.");
 back_error();
 }
 
@@ -7772,7 +7772,7 @@ while (p!=null)
   {@+if (j >= max_buf_stack)
     {@+max_buf_stack=j+1;
     if (max_buf_stack==buf_size)
-      overflow("buffer size", buf_size);
+      overflow(L"buffer size", buf_size);
 @:TeX capacity exceeded buffer size}{\quad buffer size@>
     }
   buffer[j]=info(p)%0400;incr(j);p=link(p);
@@ -7989,7 +7989,7 @@ if (n > 0)
   {@+if (param_ptr+n > max_param_stack)
     {@+max_param_stack=param_ptr+n;
     if (max_param_stack > param_size)
-      overflow("parameter stack size", param_size);
+      overflow(L"parameter stack size", param_size);
 @:TeX capacity exceeded parameter stack size}{\quad parameter stack size@>
     }
   for (m=0; m<=n-1; m++) param_stack[param_ptr+m]=pstack[m];
@@ -8068,15 +8068,15 @@ else goto resume;
 }
 
 @ @<Report an extra right brace and |goto continue|@>=
-{@+back_input();print_err("Argument of ");sprint_cs(warning_index);
+{@+back_input();print_err(L"Argument of ");sprint_cs(warning_index);
 @.Argument of \\x has...@>
-print_str(" has an extra }");
-help6("I've run across a `}' that doesn't seem to match anything.")@/
-  ("For example, `\\def\\a#1{...}' and `\\a}' would produce")@/
-  ("this error. If you simply proceed now, the `\\par' that")@/
-  ("I've just inserted will cause me to report a runaway")@/
-  ("argument that might be the root of the problem. But if")@/
-  ("your `}' was spurious, just type `2' and it will go away.");
+print_str(L" has an extra }");
+help6(L"I've run across a `}' that doesn't seem to match anything.")@/
+  (L"For example, `\\def\\a#1{...}' and `\\a}' would produce")@/
+  (L"this error. If you simply proceed now, the `\\par' that")@/
+  (L"I've just inserted will cause me to report a runaway")@/
+  (L"argument that might be the root of the problem. But if")@/
+  (L"your `}' was spurious, just type `2' and it will go away.");
 incr(align_state);long_state=call;cur_tok=par_token;ins_error();
 goto resume;
 }  /*a white lie; the \.{\\par} won't always trigger a runaway*/
@@ -8085,12 +8085,12 @@ goto resume;
 
 @<Report a runaway argument and abort@>=
 {@+if (long_state==call)
-  {@+runaway();print_err("Paragraph ended before ");
+  {@+runaway();print_err(L"Paragraph ended before ");
 @.Paragraph ended before...@>
-  sprint_cs(warning_index);print_str(" was complete");
-  help3("I suspect you've forgotten a `}', causing me to apply this")@/
-    ("control sequence to too much text. How can we recover?")@/
-    ("My plan is to forget the whole thing and hope for the best.");
+  sprint_cs(warning_index);print_str(L" was complete");
+  help3(L"I suspect you've forgotten a `}', causing me to apply this")@/
+    (L"control sequence to too much text. How can we recover?")@/
+    (L"My plan is to forget the whole thing and hope for the best.");
   back_error();
   }
 pstack[n]=link(temp_head);align_state=align_state-unbalance;
@@ -8132,13 +8132,13 @@ if (s!=r)
     }
 
 @ @<Report an improper use...@>=
-{@+print_err("Use of ");sprint_cs(warning_index);
+{@+print_err(L"Use of ");sprint_cs(warning_index);
 @.Use of x doesn't match...@>
-print_str(" doesn't match its definition");
-help4("If you say, e.g., `\\def\\a1{...}', then you must always")@/
-  ("put `1' after `\\a', since control sequence names are")@/
-  ("made up of letters only. The macro here has not been")@/
-  ("followed by the required stuff, so I'm ignoring it.");
+print_str(L" doesn't match its definition");
+help4(L"If you say, e.g., `\\def\\a1{...}', then you must always")@/
+  (L"put `1' after `\\a', since control sequence names are")@/
+  (L"made up of letters only. The macro here has not been")@/
+  (L"followed by the required stuff, so I'm ignoring it.");
 error();goto end;
 }
 
@@ -8169,7 +8169,7 @@ else pstack[n]=link(temp_head);
 incr(n);
 if (tracing_macros > 0)
   {@+begin_diagnostic();print_nl(match_chr);print_int(n);
-  print_str("<-");show_token_list(pstack[n-1], null, 1000);
+  print_str(L"<-");show_token_list(pstack[n-1], null, 1000);
   end_diagnostic(false);
   }
 }
@@ -8195,12 +8195,12 @@ appear before the |left_brace|.
 @p void scan_left_brace(void) /*reads a mandatory |left_brace|*/
 {@+@<Get the next non-blank non-relax non-call token@>;
 if (cur_cmd!=left_brace)
-  {@+print_err("Missing { inserted");
+  {@+print_err(L"Missing { inserted");
 @.Missing \{ inserted@>
-  help4("A left brace was mandatory here, so I've put one in.")@/
-    ("You might want to delete and/or insert some corrections")@/
-    ("so that I will find a matching right brace soon.")@/
-    ("(If you're confused by all this, try typing `I}' now.)");
+  help4(L"A left brace was mandatory here, so I've put one in.")@/
+    (L"You might want to delete and/or insert some corrections")@/
+    (L"so that I will find a matching right brace soon.")@/
+    (L"(If you're confused by all this, try typing `I}' now.)");
   back_error();cur_tok=left_brace_token+'{';cur_cmd=left_brace;
   cur_chr='{';incr(align_state);
   }
@@ -8263,9 +8263,9 @@ flush_list(link(backup_head));return true;
 are being switched.
 
 @p void mu_error(void)
-{@+print_err("Incompatible glue units");
+{@+print_err(L"Incompatible glue units");
 @.Incompatible glue units@>
-help1("I'm going to assume that 1mu=1pt when they're mixed.");
+help1(L"I'm going to assume that 1mu=1pt when they're mixed.");
 error();
 }
 
@@ -8391,11 +8391,11 @@ else scanned_result(eqtb[m+cur_val].i)(int_val);
 
 @ @<Fetch a token list...@>=
 if (level!=tok_val)
-  {@+print_err("Missing number, treated as zero");
+  {@+print_err(L"Missing number, treated as zero");
 @.Missing number...@>
-  help3("A number should have been here; I inserted `0'.")@/
-    ("(If you can't figure out why I needed to see a number,")@/
-    ("look up `weird error' in the index to The TeXbook.)");
+  help3(L"A number should have been here; I inserted `0'.")@/
+    (L"(If you can't figure out why I needed to see a number,")@/
+    (L"look up `weird error' in the index to The TeXbook.)");
 @:TeXbook}{\sl The \TeX book@>
   back_error();scanned_result(0)(dimen_val);
   }
@@ -8465,13 +8465,13 @@ case last_item: switch (chr_code) {
 
 @ @<Fetch the |space_factor| or the |prev_depth|@>=
 if (abs(mode)!=m)
-  {@+print_err("Improper ");print_cmd_chr(set_aux, m);
+  {@+print_err(L"Improper ");print_cmd_chr(set_aux, m);
 @.Improper \\spacefactor@>
 @.Improper \\prevdepth@>
-  help4("You can refer to \\spacefactor only in horizontal mode;")@/
-    ("you can refer to \\prevdepth only in vertical mode; and")@/
-    ("neither of these is meaningful inside \\write. So")@/
-    ("I'm forgetting what you said and using zero instead.");
+  help4(L"You can refer to \\spacefactor only in horizontal mode;")@/
+    (L"you can refer to \\prevdepth only in vertical mode; and")@/
+    (L"neither of these is meaningful inside \\write. So")@/
+    (L"I'm forgetting what you said and using zero instead.");
   error();
   if (level!=tok_val) scanned_result(0)(dimen_val)@;
   else scanned_result(0)(int_val);
@@ -8569,10 +8569,10 @@ cur_val_level=m;
 }
 
 @ @<Complain that \.{\\the} can't do this; give zero result@>=
-{@+print_err("You can't use `");print_cmd_chr(cur_cmd, cur_chr);
+{@+print_err(L"You can't use `");print_cmd_chr(cur_cmd, cur_chr);
 @.You can't use x after ...@>
-print_str("' after ");print_esc(@[@<|"the"|@>@]);
-help1("I'm forgetting what you said and using zero instead.");
+print_str(L"' after ");print_esc(@[@<|"the"|@>@]);
+help1(L"I'm forgetting what you said and using zero instead.");
 error();
 if (level!=tok_val) scanned_result(0)(dimen_val)@;
 else scanned_result(0)(int_val);
@@ -8619,10 +8619,10 @@ applications of |scan_int| that have already been made inside of
 void scan_eight_bit_int(void)
 {@+scan_int();
 if ((cur_val < 0)||(cur_val > 255))
-  {@+print_err("Bad register code");
+  {@+print_err(L"Bad register code");
 @.Bad register code@>
-  help2("A register number must be between 0 and 255.")@/
-    ("I changed this one to zero.");int_error(cur_val);cur_val=0;
+  help2(L"A register number must be between 0 and 255.")@/
+    (L"I changed this one to zero.");int_error(cur_val);cur_val=0;
   }
 }
 
@@ -8630,10 +8630,10 @@ if ((cur_val < 0)||(cur_val > 255))
 void scan_char_num(void)
 {@+scan_int();
 if ((cur_val < 0)||(cur_val > 255))
-  {@+print_err("Bad character code");
+  {@+print_err(L"Bad character code");
 @.Bad character code@>
-  help2("A character number must be between 0 and 255.")@/
-    ("I changed this one to zero.");int_error(cur_val);cur_val=0;
+  help2(L"A character number must be between 0 and 255.")@/
+    (L"I changed this one to zero.");int_error(cur_val);cur_val=0;
   }
 }
 
@@ -8644,10 +8644,10 @@ will be needed later.
 void scan_four_bit_int(void)
 {@+scan_int();
 if ((cur_val < 0)||(cur_val > 15))
-  {@+print_err("Bad number");
+  {@+print_err(L"Bad number");
 @.Bad number@>
-  help2("Since I expected to read a number between 0 and 15,")@/
-    ("I changed this one to zero.");int_error(cur_val);cur_val=0;
+  help2(L"Since I expected to read a number between 0 and 15,")@/
+    (L"I changed this one to zero.");int_error(cur_val);cur_val=0;
   }
 }
 
@@ -8655,10 +8655,10 @@ if ((cur_val < 0)||(cur_val > 15))
 void scan_fifteen_bit_int(void)
 {@+scan_int();
 if ((cur_val < 0)||(cur_val > 077777))
-  {@+print_err("Bad mathchar");
+  {@+print_err(L"Bad mathchar");
 @.Bad mathchar@>
-  help2("A mathchar number must be between 0 and 32767.")@/
-    ("I changed this one to zero.");int_error(cur_val);cur_val=0;
+  help2(L"A mathchar number must be between 0 and 32767.")@/
+    (L"I changed this one to zero.");int_error(cur_val);cur_val=0;
   }
 }
 
@@ -8666,10 +8666,10 @@ if ((cur_val < 0)||(cur_val > 077777))
 void scan_twenty_seven_bit_int(void)
 {@+scan_int();
 if ((cur_val < 0)||(cur_val > 0777777777))
-  {@+print_err("Bad delimiter code");
+  {@+print_err(L"Bad delimiter code");
 @.Bad delimiter code@>
-  help2("A numeric delimiter code must be between 0 and 2^{27}-1.")@/
-    ("I changed this one to zero.");int_error(cur_val);cur_val=0;
+  help2(L"A numeric delimiter code must be between 0 and 2^{27}-1.")@/
+    (L"I changed this one to zero.");int_error(cur_val);cur_val=0;
   }
 }
 
@@ -8744,10 +8744,10 @@ else if (cur_tok < cs_token_flag+single_base)
   cur_val=cur_tok-cs_token_flag-active_base;
 else cur_val=cur_tok-cs_token_flag-single_base;
 if (cur_val > 255)
-  {@+print_err("Improper alphabetic constant");
+  {@+print_err(L"Improper alphabetic constant");
 @.Improper alphabetic constant@>
-  help2("A one-character control sequence belongs after a ` mark.")@/
-    ("So I'm essentially inserting \\0 here.");
+  help2(L"A one-character control sequence belongs after a ` mark.")@/
+    (L"So I'm essentially inserting \\0 here.");
   cur_val='0';back_error();
   }
 else@<Scan an optional space@>;
@@ -8788,10 +8788,10 @@ loop@+{@+if ((cur_tok < zero_token+radix)&&(cur_tok >= zero_token)&&
   vacuous=false;
   if ((cur_val >= m)&&((cur_val > m)||(d > 7)||(radix!=10)))
     {@+if (OK_so_far)
-      {@+print_err("Number too big");
+      {@+print_err(L"Number too big");
 @.Number too big@>
-      help2("I can only go up to 2147483647='17777777777=\"7FFFFFFF,")@/
-        ("so I'm using that number instead of yours.");
+      help2(L"I can only go up to 2147483647='17777777777=\"7FFFFFFF,")@/
+        (L"so I'm using that number instead of yours.");
       error();cur_val=infinity;OK_so_far=false;
       }
     }
@@ -8801,11 +8801,11 @@ loop@+{@+if ((cur_tok < zero_token+radix)&&(cur_tok >= zero_token)&&
 done:
 
 @ @<Express astonishment...@>=
-{@+print_err("Missing number, treated as zero");
+{@+print_err(L"Missing number, treated as zero");
 @.Missing number...@>
-help3("A number should have been here; I inserted `0'.")@/
-  ("(If you can't figure out why I needed to see a number,")@/
-  ("look up `weird error' in the index to The TeXbook.)");
+help3(L"A number should have been here; I inserted `0'.")@/
+  (L"(If you can't figure out why I needed to see a number,")@/
+  (L"look up `weird error' in the index to The TeXbook.)");
 @:TeXbook}{\sl The \TeX book@>
 back_error();
 }
@@ -8950,10 +8950,10 @@ if (scan_keyword(@[@<|"fil"|@>@]))
   {@+cur_order=fil;
   while (scan_keyword('l'))
     {@+if (cur_order==filll)
-      {@+print_err("Illegal unit of measure (");
+      {@+print_err(L"Illegal unit of measure (");
 @.Illegal unit of measure@>
-      print_str("replaced by filll)");
-      help1("I dddon't go any higher than filll.");error();
+      print_str(L"replaced by filll)");
+      help1(L"I dddon't go any higher than filll.");error();
       }
     else incr(cur_order);
     }
@@ -8985,12 +8985,12 @@ not_found:
 @ @<Scan for \(m)\.{mu} units and |goto attach_fraction|@>=
 if (scan_keyword(@[@<|"mu"|@>@])) goto attach_fraction;
 @.mu@>
-else{@+print_err("Illegal unit of measure (");print_str("mu inserted)");
+else{@+print_err(L"Illegal unit of measure (");print_str(L"mu inserted)");
 @.Illegal unit of measure@>
-  help4("The unit of measurement in math glue must be mu.")@/
-    ("To recover gracefully from this error, it's best to")@/
-    ("delete the erroneous units; e.g., type `2' to delete")@/
-    ("two letters. (See Chapter 27 of The TeXbook.)");
+  help4(L"The unit of measurement in math glue must be mu.")@/
+    (L"To recover gracefully from this error, it's best to")@/
+    (L"delete the erroneous units; e.g., type `2' to delete")@/
+    (L"two letters. (See Chapter 27 of The TeXbook.)");
 @:TeXbook}{\sl The \TeX book@>
   error();goto attach_fraction;
   }
@@ -9038,24 +9038,24 @@ cur_val=cur_val+(f/0200000);f=f%0200000;
 done2:
 
 @ @<Complain about unknown unit...@>=
-{@+print_err("Illegal unit of measure (");print_str("pt inserted)");
+{@+print_err(L"Illegal unit of measure (");print_str(L"pt inserted)");
 @.Illegal unit of measure@>
-help6("Dimensions can be in units of em, ex, in, pt, pc,")@/
-  ("cm, mm, dd, cc, bp, or sp; but yours is a new one!")@/
-  ("I'll assume that you meant to say pt, for printer's points.")@/
-  ("To recover gracefully from this error, it's best to")@/
-  ("delete the erroneous units; e.g., type `2' to delete")@/
-  ("two letters. (See Chapter 27 of The TeXbook.)");
+help6(L"Dimensions can be in units of em, ex, in, pt, pc,")@/
+  (L"cm, mm, dd, cc, bp, or sp; but yours is a new one!")@/
+  (L"I'll assume that you meant to say pt, for printer's points.")@/
+  (L"To recover gracefully from this error, it's best to")@/
+  (L"delete the erroneous units; e.g., type `2' to delete")@/
+  (L"two letters. (See Chapter 27 of The TeXbook.)");
 @:TeXbook}{\sl The \TeX book@>
 error();goto done2;
 }
 
 
 @ @<Report that this dimension is out of range@>=
-{@+print_err("Dimension too large");
+{@+print_err(L"Dimension too large");
 @.Dimension too large@>
-help2("I can't work with sizes bigger than about 19 feet.")@/
-  ("Continue and I'll use the largest value I can.");@/
+help2(L"I can't work with sizes bigger than about 19 feet.")@/
+  (L"Continue and I'll use the largest value I can.");@/
 error();cur_val=max_dimen;arith_error=false;
 }
 
@@ -9183,7 +9183,7 @@ if (cur_val_level >= ident_val) @<Copy the token list@>@;
 else{@+old_setting=selector;selector=new_string;b=pool_ptr;
   switch (cur_val_level) {
   case int_val: print_int(cur_val);@+break;
-  case dimen_val: {@+print_scaled(cur_val);print_str("pt");
+  case dimen_val: {@+print_scaled(cur_val);print_str(L"pt");
     } @+break;
   case glue_val: {@+print_spec(cur_val,@[@<|"pt"|@>@]);delete_glue_ref(cur_val);
     } @+break;
@@ -9280,8 +9280,8 @@ case string_code: if (cur_cs!=0) sprint_cs(cur_cs);
 case meaning_code: print_meaning();@+break;
 case font_name_code: {@+print(font_name[cur_val]);
   if (font_size[cur_val]!=font_dsize[cur_val])
-    {@+print_str(" at ");print_scaled(font_size[cur_val]);
-    print_str("pt");
+    {@+print_str(L" at ");print_scaled(font_size[cur_val]);
+    print_str(L"pt");
     }
   } @+break;
 case job_name_code: print(job_name);
@@ -9346,10 +9346,10 @@ if (cur_cmd==right_brace)
 done: ;}
 
 @ @<Express shock...@>=
-{@+print_err("Missing { inserted");incr(align_state);
+{@+print_err(L"Missing { inserted");incr(align_state);
 @.Missing \{ inserted@>
-help2("Where was the left brace? You said something like `\\def\\a}',")@/
-  ("which I'm going to interpret as `\\def\\a{}'.");error();goto found;
+help2(L"Where was the left brace? You said something like `\\def\\a}',")@/
+  (L"which I'm going to interpret as `\\def\\a{}'.");error();goto found;
 }
 
 @ @<If the next character is a parameter number...@>=
@@ -9360,16 +9360,16 @@ if (cur_cmd==left_brace)
   goto done;
   }
 if (t==zero_token+9)
-  {@+print_err("You already have nine parameters");
+  {@+print_err(L"You already have nine parameters");
 @.You already have nine...@>
-  help1("I'm going to ignore the # sign you just used.");error();
+  help1(L"I'm going to ignore the # sign you just used.");error();
   }
 else{@+incr(t);
   if (cur_tok!=t)
-    {@+print_err("Parameters must be numbered consecutively");
+    {@+print_err(L"Parameters must be numbered consecutively");
 @.Parameters...consecutively@>
-    help2("I've inserted the digit you should have used after the #.")@/
-      ("Type `1' to delete what you did use.");back_error();
+    help2(L"I've inserted the digit you should have used after the #.")@/
+      (L"Type `1' to delete what you did use.");back_error();
     }
   cur_tok=s;
   }
@@ -9410,12 +9410,12 @@ done2: x_token();
 if (xpand) get_x_token();else get_token();
 if (cur_cmd!=mac_param)
   if ((cur_tok <= zero_token)||(cur_tok > t))
-    {@+print_err("Illegal parameter number in definition of ");
+    {@+print_err(L"Illegal parameter number in definition of ");
 @.Illegal parameter number...@>
     sprint_cs(warning_index);
-    help3("You meant to type ## instead of #, right?")@/
-    ("Or maybe a } was forgotten somewhere earlier, and things")@/
-    ("are all screwed up? I'm going to assume that you meant ##.");
+    help3(L"You meant to type ## instead of #, right?")@/
+    (L"Or maybe a } was forgotten somewhere earlier, and things")@/
+    (L"are all screwed up? I'm going to assume that you meant ##.");
     back_error();cur_tok=s;
     }
   else cur_tok=out_param_token-'0'+cur_chr;
@@ -9485,11 +9485,11 @@ will not be given in the case of multi-line input.
 
 @<Input for \.{\\read} from the terminal@>=
 if (interaction > nonstop_mode)
-  if (n < 0) prompt_input("")@;
+  if (n < 0) prompt_input(L"")@;
   else{@+wake_up_terminal;
-    print_ln();sprint_cs(r);prompt_input("=");n=-1;
+    print_ln();sprint_cs(r);prompt_input(L"=");n=-1;
     }
-else fatal_error("*** (cannot \\read from terminal in nonstop modes)")
+else fatal_error(L"*** (cannot \\read from terminal in nonstop modes)")
 @.cannot \\read@>
 
 @ The first line of a file must be treated specially, since |input_ln|
@@ -9509,9 +9509,9 @@ else{@+a_close(&read_file[m]);read_open[m]=closed;
   {@+a_close(&read_file[m]);read_open[m]=closed;
   if (align_state!=1000000)
     {@+runaway();
-    print_err("File ended within ");print_esc(@[@<|"read"|@>@]);
+    print_err(L"File ended within ");print_esc(@[@<|"read"|@>@]);
 @.File ended within \\read@>
-    help1("This \\read has unbalanced braces.");
+    help1(L"This \\read has unbalanced braces.");
     align_state=1000000;error();
     }
   }
@@ -9740,9 +9740,9 @@ logic is needed.
 loop@+{@+pass_text();
   if (cond_ptr==save_cond_ptr)
     {@+if (cur_chr!=or_code) goto common_ending;
-    print_err("Extra ");print_esc(@[@<|"or"|@>@]);
+    print_err(L"Extra ");print_esc(@[@<|"or"|@>@]);
 @.Extra \\or@>
-    help1("I'm ignoring this; it doesn't match any \\if.");
+    help1(L"I'm ignoring this; it doesn't match any \\if.");
     error();
     }
   else if (cur_chr==fi_code) @<Pop the condition stack@>;
@@ -9768,7 +9768,7 @@ case if_case_code: @<Select the appropriate case and |return| or |goto common_en
 
 @ @<Display the value of |b|@>=
 {@+begin_diagnostic();
-if (b) print_str("{true}");@+else print_str("{false}");
+if (b) print_str(L"{true}");@+else print_str(L"{false}");
 end_diagnostic(false);
 }
 
@@ -9781,10 +9781,10 @@ codes.
 n=cur_val;@<Get the next non-blank non-call...@>;
 if ((cur_tok >= other_token+'<')&&(cur_tok <= other_token+'>'))
   r=cur_tok-other_token;
-else{@+print_err("Missing = inserted for ");
+else{@+print_err(L"Missing = inserted for ");
 @.Missing = inserted@>
   print_cmd_chr(if_test, this_if);
-  help1("I was expecting to see `<', `=', or `>'. Didn't.");
+  help1(L"I was expecting to see `<', `=', or `>'. Didn't.");
   back_error();r='=';
   }
 if (this_if==if_int_code) scan_int();@+else scan_normal_dimen;
@@ -9871,7 +9871,7 @@ else{@+while ((p!=null)&&(q!=null))
 @ @<Select the appropriate case and |return| or |goto common_ending|@>=
 {@+scan_int();n=cur_val; /*|n| is the number of cases to pass*/
 if (tracing_commands > 1)
-  {@+begin_diagnostic();print_str("{case ");print_int(n);print_char('}');
+  {@+begin_diagnostic();print_str(L"{case ");print_int(n);print_char('}');
   end_diagnostic(false);
   }
 while (n!=0)
@@ -9892,11 +9892,11 @@ code, which is actually part of |expand|. It comes into play when
 @<Terminate the current conditional and skip to \.{\\fi}@>=
 if (cur_chr > if_limit)
   if (if_limit==if_code) insert_relax(); /*condition not yet evaluated*/
-  else{@+print_err("Extra ");print_cmd_chr(fi_or_else, cur_chr);
+  else{@+print_err(L"Extra ");print_cmd_chr(fi_or_else, cur_chr);
 @.Extra \\or@>
 @.Extra \\else@>
 @.Extra \\fi@>
-    help1("I'm ignoring this; it doesn't match any \\if.");
+    help1(L"I'm ignoring this; it doesn't match any \\if.");
     error();
     }
 else{@+while (cur_chr!=fi_code) pass_text(); /*skip to \.{\\fi}*/
@@ -10032,7 +10032,7 @@ else{@+str_room(1);append_char(c); /*contribute |c| to the current string*/
 
 @p void end_name(void)
 {@+if (str_ptr+3 > max_strings)
-  overflow("number of strings", max_strings-init_str_ptr);
+  overflow(L"number of strings", max_strings-init_str_ptr);
 @:TeX capacity exceeded number of strings}{\quad number of strings@>
 if (area_delimiter==0) cur_area=empty_string;
 else{@+cur_area=str_ptr;
@@ -10076,7 +10076,7 @@ for (j=str_start[a]; j<=str_start[a+1]-1; j++) append_to_name(so(str_pool[j]));
 for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
 for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
 if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
-for (k=name_length+1; k<=file_name_size; k++) name_of_file[k]= ' ' ;
+for (k=name_length+1; k<=file_name_size; k++) name_of_file[k]= L' ' ;
 }
 
 @ A messier routine is also needed, since format file names must be scanned
@@ -10094,7 +10094,7 @@ and extensions related to format files.
 uint8_t @!TEX_format_default0[format_default_length], *const @!TEX_format_default = @!TEX_format_default0-1;
 
 @ @<Set init...@>=
-TEX_format_default="TeXformats:plain.fmt";
+TEX_format_default=L"TeXformats:plain.fmt";
 @.TeXformats@>
 @.plain@>
 @^system dependencies@>
@@ -10125,7 +10125,7 @@ for (j=a; j<=b; j++) append_to_name(buffer[j]);
 for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++)
   append_to_name(xord[TEX_format_default[j]]);
 if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
-for (k=name_length+1; k<=file_name_size; k++) name_of_file[k]= ' ' ;
+for (k=name_length+1; k<=file_name_size; k++) name_of_file[k]= L' ' ;
 }
 
 @ Here is the only place we use |pack_buffered_name|. This part of the program
@@ -10149,7 +10149,7 @@ if (buffer[loc]=='&')
      /*now try the system format file area*/
   if (w_open_in(&fmt_file)) goto found;
   wake_up_terminal;
-  wterm_ln("Sorry, I can't find that format;"," will try PLAIN.");
+  wterm_ln(L"Sorry, I can't find that format;",L" will try PLAIN.");
 @.Sorry, I can't find...@>
   update_terminal;
   }
@@ -10157,7 +10157,7 @@ if (buffer[loc]=='&')
 pack_buffered_name(format_default_length-format_ext_length, 1, 0);
 if (!w_open_in(&fmt_file))
   {@+wake_up_terminal;
-  wterm_ln("I can't find the PLAIN format file!");
+  wterm_ln(L"I can't find the PLAIN format file!");
 @.I can't find PLAIN...@>
 @.plain@>
   return false;
@@ -10259,18 +10259,18 @@ ready for another attempt at file opening.
 {@+
 uint16_t k; /*index into |buffer|*/
 if (interaction==scroll_mode) wake_up_terminal;
-if (s==@[@<|"input file name"|@>@]) print_err("I can't find file `")@;
+if (s==@[@<|"input file name"|@>@]) print_err(L"I can't find file `")@;
 @.I can't find file x@>
-else print_err("I can't write on file `");
+else print_err(L"I can't write on file `");
 @.I can't write on file x@>
-print_file_name(cur_name, cur_area, cur_ext);print_str("'.");
+print_file_name(cur_name, cur_area, cur_ext);print_str(L"'.");
 if (e==@[@<|".tex"|@>@]) show_context();
-print_nl("Please type another ");print(s);
+print_nl(L"Please type another ");print(s);
 @.Please type...@>
 if (interaction < scroll_mode)
-  fatal_error("*** (job aborted, file error in nonstop mode)");
+  fatal_error(L"*** (job aborted, file error in nonstop mode)");
 @.job aborted, file error...@>
-clear_terminal;prompt_input(": ");@<Scan file name in the buffer@>;
+clear_terminal;prompt_input(L": ");@<Scan file name in the buffer@>;
 if (cur_ext==empty_string) cur_ext=e;
 pack_cur_name;
 }
@@ -10292,7 +10292,7 @@ ship out a box of stuff, we shall use the macro |ensure_dvi_open|.
   {@+if (job_name==0) open_log_file();
   pack_job_name(@[@<|".dvi"|@>@]);
   while (!b_open_out(&dvi_file))
-    prompt_file_name("file name for output",@[@<|".dvi"|@>@]);
+    prompt_file_name(L"file name for output",@[@<|".dvi"|@>@]);
   output_file_name=b_make_name_string(&dvi_file);
   }
 
@@ -10320,7 +10320,7 @@ log_name=a_make_name_string(&log_file);
 selector=log_only;log_opened=true;
 @<Print the banner line, including the date and time@>;
 input_stack[input_ptr]=cur_input; /*make sure bottom level is in memory*/
-print_nl("**");
+print_nl(L"**");
 @.**@>
 l=input_stack[0].limit_field; /*last position of first line*/
 if (buffer[l]==end_line_char) decr(l);
@@ -10345,14 +10345,14 @@ this file.
 
 @<Try to get a different log file name@>=
 {@+selector=term_only;
-prompt_file_name("transcript file name",@[@<|".log"|@>@]);
+prompt_file_name(L"transcript file name",@[@<|".log"|@>@]);
 }
 
 @ @<Print the banner...@>=
 {@+wlog(banner);
-slow_print(format_ident);print_str("  ");
+slow_print(format_ident);print_str(L"  ");
 print_int(day);print_char(' ');
-months="JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC";
+months=L"JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC";
 for (k=3*month-2; k<=3*month; k++) wlog(months[k]);
 print_char(' ');print_int(year);print_char(' ');
 print_two(time/60);print_char(':');print_two(time%60);
@@ -10373,7 +10373,7 @@ loop@+{@+begin_file_reading(); /*set up |cur_file| and new level of input*/
     if (a_open_in(&cur_file)) goto done;
     }
   end_file_reading(); /*remove the level that didn't work*/
-  prompt_file_name("input file name",@[@<|".tex"|@>@]);
+  prompt_file_name(L"input file name",@[@<|".tex"|@>@]);
   }
 done: name=a_make_name_string(&cur_file);
 if (job_name==0)
@@ -10932,25 +10932,25 @@ diagnostic information, so \TeX\ does not have to bother giving
 precise details about why it rejects a particular \.{TFM} file.
 @.TFtoPL@> @.PLtoTF@>
 
-@d start_font_error_message	print_err("Font ");sprint_cs(u);
+@d start_font_error_message	print_err(L"Font ");sprint_cs(u);
   print_char('=');print_file_name(nom, aire, empty_string);
   if (s >= 0)
-    {@+print_str(" at ");print_scaled(s);print_str("pt");
+    {@+print_str(L" at ");print_scaled(s);print_str(L"pt");
     }
   else if (s!=-1000)
-    {@+print_str(" scaled ");print_int(-s);
+    {@+print_str(L" scaled ");print_int(-s);
     }
 
 @<Report that the font won't be loaded@>=
 start_font_error_message;
 @.Font x=xx not loadable...@>
-if (file_opened) print_str(" not loadable: Bad metric (TFM) file");
-else print_str(" not loadable: Metric (TFM) file not found");
-help5("I wasn't able to read the size data for this font,")@/
-("so I will ignore the font specification.")@/
-("[Wizards can fix TFM files using TFtoPL/PLtoTF.]")@/
-("You might try inserting a different font spec;")@/
-("e.g., type `I\\font<same font id>=<substitute font name>'.");
+if (file_opened) print_str(L" not loadable: Bad metric (TFM) file");
+else print_str(L" not loadable: Metric (TFM) file not found");
+help5(L"I wasn't able to read the size data for this font,")@/
+(L"so I will ignore the font specification.")@/
+(L"[Wizards can fix TFM files using TFtoPL/PLtoTF.]")@/
+(L"You might try inserting a different font spec;")@/
+(L"e.g., type `I\\font<same font id>=<substitute font name>'.");
 error()
 
 @ @<Read and check...@>=
@@ -11038,12 +11038,12 @@ param_base[f]=exten_base[f]+ne
 
 @ @<Apologize for not loading...@>=
 {@+start_font_error_message;
-print_str(" not loaded: Not enough room left");
+print_str(L" not loaded: Not enough room left");
 @.Font x=xx not loaded...@>
-help4("I'm afraid I won't be able to make use of this font,")@/
-("because my memory for character-size data is too small.")@/
-("If you're really stuck, ask a wizard to enlarge me.")@/
-("Or maybe try `I\\font<same font id>=<name of loaded font>'.");
+help4(L"I'm afraid I won't be able to make use of this font,")@/
+(L"because my memory for character-size data is too small.")@/
+(L"If you're really stuck, ask a wizard to enlarge me.")@/
+(L"Or maybe try `I\\font<same font id>=<name of loaded font>'.");
 error();goto done;
 }
 
@@ -11229,10 +11229,10 @@ else if (cur_cmd==set_font) f=cur_chr;
 else if (cur_cmd==def_family)
   {@+m=cur_chr;scan_four_bit_int();f=equiv(m+cur_val);
   }
-else{@+print_err("Missing font identifier");
+else{@+print_err(L"Missing font identifier");
 @.Missing font identifier@>
-  help2("I was looking for a control sequence whose")@/
-  ("current meaning has been defined by \\font.");
+  help2(L"I was looking for a control sequence whose")@/
+  (L"current meaning has been defined by \\font.");
   back_error();f=null_font;
   }
 cur_val=f;
@@ -11264,18 +11264,18 @@ else{@+if (writing&&(n <= space_shrink_code)&&@|
 
 @ @<Issue an error message if |cur_val=fmem_ptr|@>=
 if (cur_val==fmem_ptr)
-  {@+print_err("Font ");print_esc(font_id_text(f));
-  print_str(" has only ");print_int(font_params[f]);
-  print_str(" fontdimen parameters");
+  {@+print_err(L"Font ");print_esc(font_id_text(f));
+  print_str(L" has only ");print_int(font_params[f]);
+  print_str(L" fontdimen parameters");
 @.Font x has only...@>
-  help2("To increase the number of font parameters, you must")@/
-    ("use \\fontdimen immediately after the \\font is loaded.");
+  help2(L"To increase the number of font parameters, you must")@/
+    (L"use \\fontdimen immediately after the \\font is loaded.");
   error();
   }
 
 @ @<Increase the number of parameters...@>=
 {@+@/do@+{if (fmem_ptr==font_mem_size)
-  overflow("font memory", font_mem_size);
+  overflow(L"font memory", font_mem_size);
 @:TeX capacity exceeded font memory}{\quad font memory@>
 font_info[fmem_ptr].sc=0;incr(fmem_ptr);incr(font_params[f]);
 }@+ while (!(n==font_params[f]));
@@ -11290,9 +11290,9 @@ prints a warning message unless the user has suppressed it.
 @p void char_warning(internal_font_number @!f, eight_bits @!c)
 {@+if (tracing_lost_chars > 0)
   {@+begin_diagnostic();
-  print_nl("Missing character: There is no ");
+  print_nl(L"Missing character: There is no ");
 @.Missing character@>
-  print_ASCII(c);print_str(" in font ");
+  print_ASCII(c);print_str(L" in font ");
   slow_print(font_name[f]);print_char('!');end_diagnostic(false);
   }
 }
@@ -12286,7 +12286,7 @@ if (total_pages==0)
   dvi_four(25400000);dvi_four(473628672); /*conversion ratio for sp*/
   prepare_mag();dvi_four(mag); /*magnification factor is frozen*/
   old_setting=selector;selector=new_string;
-  print_str(" TeX output ");print_int(year);print_char('.');
+  print_str(L" TeX output ");print_int(year);print_char('.');
   print_two(month);print_char('.');print_two(day);
   print_char(':');print_two(time/60);
   print_two(time%60);
@@ -12667,8 +12667,8 @@ uint8_t @!j, @!k; /*indices to first ten count registers*/
 int @!s; /*index into |str_pool|*/
 uint8_t @!old_setting; /*saved |selector| setting*/
 if (tracing_output > 0)
-  {@+print_nl("");print_ln();
-  print_str("Completed box being shipped out");
+  {@+print_nl(L"");print_ln();
+  print_str(L"Completed box being shipped out");
 @.Completed box...@>
   }
 if (term_offset > max_print_line-9) print_ln();
@@ -12694,7 +12694,7 @@ update_terminal; /*progress report*/
 @ @<Flush the box from memory, showing statistics if requested@>=
 #ifdef @!STAT
 if (tracing_stats > 1)
-  {@+print_nl("Memory usage before: ");
+  {@+print_nl(L"Memory usage before: ");
 @.Memory usage...@>
   print_int(var_used);print_char('&');
   print_int(dyn_used);print_char(';');
@@ -12703,9 +12703,9 @@ if (tracing_stats > 1)
 flush_node_list(p);
 #ifdef @!STAT
 if (tracing_stats > 1)
-  {@+print_str(" after: ");
+  {@+print_str(L" after: ");
   print_int(var_used);print_char('&');
-  print_int(dyn_used);print_str("; still untouched: ");
+  print_int(dyn_used);print_str(L"; still untouched: ");
   print_int(hi_mem_min-lo_mem_max-1);print_ln();
   }
 #endif
@@ -12730,14 +12730,14 @@ may confuse the printing software.
 if ((height(p) > max_dimen)||@|(depth(p) > max_dimen)||@|
    (height(p)+depth(p)+v_offset > max_dimen)||@|
    (width(p)+h_offset > max_dimen))
-  {@+print_err("Huge page cannot be shipped out");
+  {@+print_err(L"Huge page cannot be shipped out");
 @.Huge page...@>
-  help2("The page just created is more than 18 feet tall or")@/
-   ("more than 18 feet wide, so I suspect something went wrong.");
+  help2(L"The page just created is more than 18 feet tall or")@/
+   (L"more than 18 feet wide, so I suspect something went wrong.");
   error();
   if (tracing_output <= 0)
     {@+begin_diagnostic();
-    print_nl("The following box has been deleted:");
+    print_nl(L"The following box has been deleted:");
 @.The following...deleted@>
     show_box(p);
     end_diagnostic(true);
@@ -12761,7 +12761,7 @@ while (cur_s > -1)
     }
   decr(cur_s);
   }
-if (total_pages==0) print_nl("No pages of output.");
+if (total_pages==0) print_nl(L"No pages of output.");
 @.No pages of output@>
 else{@+dvi_out(post); /*beginning of the postamble*/
   dvi_four(last_bop);last_bop=dvi_offset+dvi_ptr-5; /*|post| location*/
@@ -12777,11 +12777,11 @@ else{@+dvi_out(post); /*beginning of the postamble*/
     {@+dvi_out(223);decr(k);
     }
   @<Empty the last bytes out of |dvi_buf|@>;
-  print_nl("Output written on ");slow_print(output_file_name);
+  print_nl(L"Output written on ");slow_print(output_file_name);
 @.Output written on x@>
-  print_str(" (");print_int(total_pages);print_str(" page");
+  print_str(L" (");print_int(total_pages);print_str(L" page");
   if (total_pages!=1) print_char('s');
-  print_str(", ");print_int(dvi_offset+dvi_ptr);print_str(" bytes).");
+  print_str(L", ");print_int(dvi_offset+dvi_ptr);print_str(L" bytes).");
   b_close(&dvi_file);
   }
 
@@ -13046,8 +13046,8 @@ else o=normal
 {@+last_badness=badness(x, total_stretch[normal]);
 if (last_badness > hbadness)
   {@+print_ln();
-  if (last_badness > 100) print_nl("Underfull");@+else print_nl("Loose");
-  print_str(" \\hbox (badness ");print_int(last_badness);
+  if (last_badness > 100) print_nl(L"Underfull");@+else print_nl(L"Loose");
+  print_str(L" \\hbox (badness ");print_int(last_badness);
 @.Underfull \\hbox...@>
 @.Loose \\hbox...@>
   goto common_ending;
@@ -13067,14 +13067,14 @@ int @!pack_begin_line; /*source file line where the current paragraph
 pack_begin_line=0;
 
 @ @<Finish issuing a diagnostic message for an overfull or underfull hbox@>=
-if (output_active) print_str(") has occurred while \\output is active");
+if (output_active) print_str(L") has occurred while \\output is active");
 else{@+if (pack_begin_line!=0)
-    {@+if (pack_begin_line > 0) print_str(") in paragraph at lines ");
-    else print_str(") in alignment at lines ");
+    {@+if (pack_begin_line > 0) print_str(L") in paragraph at lines ");
+    else print_str(L") in alignment at lines ");
     print_int(abs(pack_begin_line));
-    print_str("--");
+    print_str(L"--");
     }
-  else print_str(") detected at line ");
+  else print_str(L") detected at line ");
   print_int(line);
   }
 print_ln();@/
@@ -13113,16 +13113,16 @@ if ((-x-total_shrink[normal] > hfuzz)||(hbadness < 100))
     link(q)=new_rule();
     width(link(q))=overfull_rule;
     }
-  print_ln();print_nl("Overfull \\hbox (");
+  print_ln();print_nl(L"Overfull \\hbox (");
 @.Overfull \\hbox...@>
-  print_scaled(-x-total_shrink[normal]);print_str("pt too wide");
+  print_scaled(-x-total_shrink[normal]);print_str(L"pt too wide");
   goto common_ending;
   }
 
 @ @<Report a tight hbox and |goto common_ending|, if...@>=
 {@+last_badness=badness(-x, total_shrink[normal]);
 if (last_badness > hbadness)
-  {@+print_ln();print_nl("Tight \\hbox (badness ");print_int(last_badness);
+  {@+print_ln();print_nl(L"Tight \\hbox (badness ");print_int(last_badness);
 @.Tight \\hbox...@>
   goto common_ending;
   }
@@ -13228,8 +13228,8 @@ goto end;
 {@+last_badness=badness(x, total_stretch[normal]);
 if (last_badness > vbadness)
   {@+print_ln();
-  if (last_badness > 100) print_nl("Underfull");@+else print_nl("Loose");
-  print_str(" \\vbox (badness ");print_int(last_badness);
+  if (last_badness > 100) print_nl(L"Underfull");@+else print_nl(L"Loose");
+  print_str(L" \\vbox (badness ");print_int(last_badness);
 @.Underfull \\vbox...@>
 @.Loose \\vbox...@>
   goto common_ending;
@@ -13237,13 +13237,13 @@ if (last_badness > vbadness)
 }
 
 @ @<Finish issuing a diagnostic message for an overfull or underfull vbox@>=
-if (output_active) print_str(") has occurred while \\output is active");
+if (output_active) print_str(L") has occurred while \\output is active");
 else{@+if (pack_begin_line!=0)  /*it's actually negative*/
-    {@+print_str(") in alignment at lines ");
+    {@+print_str(L") in alignment at lines ");
     print_int(abs(pack_begin_line));
-    print_str("--");
+    print_str(L"--");
     }
-  else print_str(") detected at line ");
+  else print_str(L") detected at line ");
   print_int(line);
   print_ln();@/
   }
@@ -13270,16 +13270,16 @@ goto end;
 
 @ @<Report an overfull vbox and |goto common_ending|, if...@>=
 if ((-x-total_shrink[normal] > vfuzz)||(vbadness < 100))
-  {@+print_ln();print_nl("Overfull \\vbox (");
+  {@+print_ln();print_nl(L"Overfull \\vbox (");
 @.Overfull \\vbox...@>
-  print_scaled(-x-total_shrink[normal]);print_str("pt too high");
+  print_scaled(-x-total_shrink[normal]);print_str(L"pt too high");
   goto common_ending;
   }
 
 @ @<Report a tight vbox and |goto common_ending|, if...@>=
 {@+last_badness=badness(-x, total_shrink[normal]);
 if (last_badness > vbadness)
-  {@+print_ln();print_nl("Tight \\vbox (badness ");print_int(last_badness);
+  {@+print_ln();print_nl(L"Tight \\vbox (badness ");print_int(last_badness);
 @.Tight \\vbox...@>
   goto common_ending;
   }
@@ -13624,7 +13624,7 @@ void show_info(void); /*|show_node_list(info(temp_ptr))|*/
 void print_subsidiary_data(pointer @!p, ASCII_code @!c)
    /*display a noad field*/
 {@+if (cur_length >= depth_threshold)
-  {@+if (math_type(p)!=empty) print_str(" []");
+  {@+if (math_type(p)!=empty) print_str(L" []");
   }
 else{@+append_char(c); /*include |c| in the recursion history*/
   temp_ptr=p; /*prepare for |show_info| if recursion is needed*/
@@ -13633,7 +13633,7 @@ else{@+append_char(c); /*include |c| in the recursion history*/
     } @+break;
   case sub_box: show_info();@+break; /*recursive call*/
   case sub_mlist: if (info(p)==null)
-      {@+print_ln();print_current_string();print_str("{}");
+      {@+print_ln();print_current_string();print_str(L"{}");
       }
     else show_info();@+break; /*recursive call*/
   default:do_nothing; /*|empty|*/
@@ -13663,7 +13663,7 @@ case 0: print_esc(@[@<|"displaystyle"|@>@]);@+break; /*|display_style==0|*/
 case 1: print_esc(@[@<|"textstyle"|@>@]);@+break; /*|text_style==2|*/
 case 2: print_esc(@[@<|"scriptstyle"|@>@]);@+break; /*|script_style==4|*/
 case 3: print_esc(@[@<|"scriptscriptstyle"|@>@]);@+break; /*|script_script_style==6|*/
-default:print_str("Unknown style!");
+default:print_str(L"Unknown style!");
 }
 }
 
@@ -13707,19 +13707,19 @@ print_subsidiary_data(subscr(p),'_');
 
 @ @<Display fraction noad |p|@>=
 {@+print_esc(@[@<|"fraction, thickness "|@>@]);
-if (thickness(p)==default_code) print_str("= default");
+if (thickness(p)==default_code) print_str(L"= default");
 else print_scaled(thickness(p));
 if ((small_fam(left_delimiter(p))!=0)||@+
   (small_char(left_delimiter(p))!=min_quarterword)||@|
   (large_fam(left_delimiter(p))!=0)||@|
   (large_char(left_delimiter(p))!=min_quarterword))
-  {@+print_str(", left-delimiter ");print_delimiter(left_delimiter(p));
+  {@+print_str(L", left-delimiter ");print_delimiter(left_delimiter(p));
   }
 if ((small_fam(right_delimiter(p))!=0)||@|
   (small_char(right_delimiter(p))!=min_quarterword)||@|
   (large_fam(right_delimiter(p))!=0)||@|
   (large_char(right_delimiter(p))!=min_quarterword))
-  {@+print_str(", right-delimiter ");print_delimiter(right_delimiter(p));
+  {@+print_str(L", right-delimiter ");print_delimiter(right_delimiter(p));
   }
 print_subsidiary_data(numerator(p),'\\');
 print_subsidiary_data(denominator(p),'/');
@@ -14205,13 +14205,13 @@ else{@+if ((qo(cur_c) >= font_bc[cur_f])&&(qo(cur_c) <= font_ec[cur_f]))
 }
 
 @ @<Complain about an undefined family...@>=
-{@+print_err("");print_size(cur_size);print_char(' ');
-print_int(fam(a));print_str(" is undefined (character ");
+{@+print_err(L"");print_size(cur_size);print_char(' ');
+print_int(fam(a));print_str(L" is undefined (character ");
 print_ASCII(qo(cur_c));print_char(')');
-help4("Somewhere in the math formula just ended, you used the")@/
-("stated character from an undefined font family. For example,")@/
-("plain TeX doesn't allow \\it or \\sl in subscripts. Proceed,")@/
-("and I'll try to forget that I needed that character.");
+help4(L"Somewhere in the math formula just ended, you used the")@/
+(L"stated character from an undefined font family. For example,")@/
+(L"plain TeX doesn't allow \\it or \\sl in subscripts. Proceed,")@/
+(L"and I'll try to forget that I needed that character.");
 error();cur_i=null_character;math_type(a)=empty;
 }
 
@@ -15320,11 +15320,11 @@ no other pieces of mlists present.
 
 @<Check for improper alignment in displayed math@>=
 if ((mode==mmode)&&((tail!=head)||(incompleat_noad!=null)))
-  {@+print_err("Improper ");print_esc(@[@<|"halign"|@>@]);print_str(" inside $$'s");
+  {@+print_err(L"Improper ");print_esc(@[@<|"halign"|@>@]);print_str(L" inside $$'s");
 @.Improper \\halign...@>
-  help3("Displays can use special alignments (like \\eqalignno)")@/
-  ("only if nothing but the alignment itself is between $$'s.")@/
-  ("So I've deleted the formulas that preceded this alignment.");
+  help3(L"Displays can use special alignments (like \\eqalignno)")@/
+  (L"only if nothing but the alignment itself is between $$'s.")@/
+  (L"So I've deleted the formulas that preceded this alignment.");
   error();flush_math();
   }
 
@@ -15385,7 +15385,7 @@ eq_type(frozen_end_template)=end_template;
 
 @ @<Cases of |print_cmd_chr|...@>=
 case tab_mark: if (chr_code==span_code) print_esc(@[@<|"span"|@>@]);
-  else chr_cmd("alignment tab character ")@;@+break;
+  else chr_cmd(L"alignment tab character ")@;@+break;
 case car_ret: if (chr_code==cr_code) print_esc(@[@<|"cr"|@>@]);
   else print_esc(@[@<|"crcr"|@>@]);@+break;
 
@@ -15408,7 +15408,7 @@ while ((cur_chr==span_code)&&(cur_cmd==tab_mark))
     }
   }
 if (cur_cmd==endv)
-  fatal_error("(interwoven alignment preambles are not allowed)");
+  fatal_error(L"(interwoven alignment preambles are not allowed)");
 @.interwoven alignment preambles...@>
 if ((cur_cmd==assign_glue)&&(cur_chr==glue_base+tab_skip_code))
   {@+scan_optional_equals();scan_glue(glue_val);
@@ -15427,11 +15427,11 @@ loop@+{@+get_preamble_token();
   if ((cur_cmd <= car_ret)&&(cur_cmd >= tab_mark)&&(align_state==-1000000))
    if ((p==hold_head)&&(cur_loop==null)&&(cur_cmd==tab_mark)
     ) cur_loop=cur_align;
-   else{@+print_err("Missing # inserted in alignment preamble");
+   else{@+print_err(L"Missing # inserted in alignment preamble");
 @.Missing \# inserted...@>
-    help3("There should be exactly one # between &'s, when an")@/
-    ("\\halign or \\valign is being set up. In this case you had")@/
-    ("none, so I've put one in; maybe that will work.");
+    help3(L"There should be exactly one # between &'s, when an")@/
+    (L"\\halign or \\valign is being set up. In this case you had")@/
+    (L"none, so I've put one in; maybe that will work.");
     back_error();goto done1;
     }
   else if ((cur_cmd!=spacer)||(p!=hold_head))
@@ -15446,11 +15446,11 @@ loop@+{@+resume: get_preamble_token();
   if ((cur_cmd <= car_ret)&&(cur_cmd >= tab_mark)&&(align_state==-1000000))
     goto done2;
   if (cur_cmd==mac_param)
-    {@+print_err("Only one # is allowed per tab");
+    {@+print_err(L"Only one # is allowed per tab");
 @.Only one \# is allowed...@>
-    help3("There should be exactly one # between &'s, when an")@/
-    ("\\halign or \\valign is being set up. In this case you had")@/
-    ("more than one, so I'm ignoring all but the first.");
+    help3(L"There should be exactly one # between &'s, when an")@/
+    (L"\\halign or \\valign is being set up. In this case you had")@/
+    (L"more than one, so I'm ignoring all but the first.");
     error();goto resume;
     }
   link(p)=get_avail();p=link(p);info(p)=cur_tok;
@@ -15537,7 +15537,7 @@ to another alignment is being scanned, or when no alignment preamble is active.
 
 @<Insert the \(v)\<v_j>...@>=
 {@+if ((scanner_status==aligning)||(cur_align==null))
-  fatal_error("(interwoven alignment preambles are not allowed)");
+  fatal_error(L"(interwoven alignment preambles are not allowed)");
 @.interwoven alignment preambles...@>
 cur_cmd=extra_info(cur_align);extra_info(cur_align)=cur_chr;
 if (cur_cmd==omit) begin_token_list(omit_template, v_template);
@@ -15569,7 +15569,7 @@ if (cur_align==null) confusion(@[@<|"endv"|@>@]);
 q=link(cur_align);@+if (q==null) confusion(@[@<|"endv"|@>@]);
 @:this can't happen endv}{\quad endv@>
 if (align_state < 500000)
-  fatal_error("(interwoven alignment preambles are not allowed)");
+  fatal_error(L"(interwoven alignment preambles are not allowed)");
 @.interwoven alignment preambles...@>
 p=link(q);
 @<If the preamble list has been traversed, check that the row has ended@>;
@@ -15590,12 +15590,12 @@ init_col();return false;
 @ @<If the preamble list has been traversed, check that the row has ended@>=
 if ((p==null)&&(extra_info(cur_align) < cr_code))
  if (cur_loop!=null) @<Lengthen the preamble periodically@>@;
- else{@+print_err("Extra alignment tab has been changed to ");
+ else{@+print_err(L"Extra alignment tab has been changed to ");
 @.Extra alignment tab...@>
   print_esc(@[@<|"cr"|@>@]);
-  help3("You have given more \\span or & marks than there were")@/
-  ("in the preamble to the \\halign or \\valign now in progress.")@/
-  ("So I'll assume that you meant to type \\cr instead.");
+  help3(L"You have given more \\span or & marks than there were")@/
+  (L"in the preamble to the \\halign or \\valign now in progress.")@/
+  (L"So I'll assume that you meant to type \\cr instead.");
   extra_info(cur_align)=cr_code;error();
   }
 
@@ -16249,13 +16249,13 @@ pointer finite_shrink(pointer @!p) /*recovers from infinite shrinkage*/
 {@+pointer q; /*new glue specification*/
 if (no_shrink_error_yet)
   {@+no_shrink_error_yet=false;
-  print_err("Infinite glue shrinkage found in a paragraph");
+  print_err(L"Infinite glue shrinkage found in a paragraph");
 @.Infinite glue shrinkage...@>
-  help5("The paragraph just ended includes some glue that has")@/
-  ("infinite shrinkability, e.g., `\\hskip 0pt minus 1fil'.")@/
-  ("Such glue doesn't belong there---it allows a paragraph")@/
-  ("of any length to fit on one line. But it's safe to proceed,")@/
-  ("since the offensive shrinkability has been made finite.");
+  help5(L"The paragraph just ended includes some glue that has")@/
+  (L"infinite shrinkability, e.g., `\\hskip 0pt minus 1fil'.")@/
+  (L"Such glue doesn't belong there---it allows a paragraph")@/
+  (L"of any length to fit on one line. But it's safe to proceed,")@/
+  (L"since the offensive shrinkability has been made finite.");
   error();
   }
 q=new_spec(p);shrink_order(q)=normal;
@@ -16623,13 +16623,13 @@ if (tracing_paragraphs > 0)
 }
 
 @ @<Print a symbolic description of the new break node@>=
-{@+print_nl("@@@@");print_int(serial(passive));
+{@+print_nl(L"@@@@");print_int(serial(passive));
 @.\AT!\AT!@>
-print_str(": line ");print_int(line_number(q)-1);
+print_str(L": line ");print_int(line_number(q)-1);
 print_char('.');print_int(fit_class);
 if (break_type==hyphenated) print_char('-');
-print_str(" t=");print_int(total_demerits(q));
-print_str(" -> @@@@");
+print_str(L" t=");print_int(total_demerits(q));
+print_str(L" -> @@@@");
 if (prev_break(passive)==null) print_char('0');
 else print_int(serial(prev_break(passive)));
 }
@@ -16817,7 +16817,7 @@ if (d <= minimal_demerits[fit_class])
 @ @<Print a symbolic description of this feasible break@>=
 {@+if (printed_node!=cur_p)
   @<Print the list between |printed_node| and |cur_p|, then set |printed_node:=cur_p|@>;
-print_nl("@@");
+print_nl(L"@@");
 @.\AT!@>
 if (cur_p==null) print_esc(@[@<|"par"|@>@]);
 else if (type(cur_p)!=glue_node)
@@ -16826,21 +16826,21 @@ else if (type(cur_p)!=glue_node)
   else if (type(cur_p)==kern_node) print_esc(@[@<|"kern"|@>@]);
   else print_esc(@[@<|"math"|@>@]);
   }
-print_str(" via @@@@");
+print_str(L" via @@@@");
 if (break_node(r)==null) print_char('0');
 else print_int(serial(break_node(r)));
-print_str(" b=");
+print_str(L" b=");
 if (b > inf_bad) print_char('*');@+else print_int(b);
 @.*\relax@>
-print_str(" p=");print_int(pi);print_str(" d=");
+print_str(L" p=");print_int(pi);print_str(L" d=");
 if (artificial_demerits) print_char('*');@+else print_int(d);
 }
 
 @ @<Print the list between |printed_node| and |cur_p|...@>=
-{@+print_nl("");
+{@+print_nl(L"");
 if (cur_p==null) short_display(link(printed_node));
 else{@+save_link=link(cur_p);
-  link(cur_p)=null;print_nl("");short_display(link(printed_node));
+  link(cur_p)=null;print_nl(L"");short_display(link(printed_node));
   link(cur_p)=save_link;
   }
 printed_node=cur_p;
@@ -16951,7 +16951,7 @@ if (threshold >= 0)
   {
 #ifdef @!STAT
 if (tracing_paragraphs > 0)
-    {@+begin_diagnostic();print_nl("@@firstpass");@+} @;
+    {@+begin_diagnostic();print_nl(L"@@firstpass");@+} @;
 #endif
 @;@/
   second_pass=false;final_pass=false;
@@ -16980,14 +16980,14 @@ desired breakpoints have been found@>;
   if (!second_pass)
     {
 #ifdef @!STAT
-if (tracing_paragraphs > 0) print_nl("@@secondpass");@;
+if (tracing_paragraphs > 0) print_nl(L"@@secondpass");@;
 #endif
     threshold=tolerance;second_pass=true;final_pass=(emergency_stretch <= 0);
     }  /*if at first you don't succeed, \dots*/
   else{
 #ifdef @!STAT
 if (tracing_paragraphs > 0)
-      print_nl("@@emergencypass");@;
+      print_nl(L"@@emergencypass");@;
 #endif
     background[2]=background[2]+emergency_stretch;final_pass=true;
     }
@@ -18216,7 +18216,7 @@ while (s!=null)
 @ @<Search |hyph_list| for pointers to |p|@>=
 for (q=0; q<=hyph_size; q++)
   {@+if (hyph_list[q]==p)
-    {@+print_nl("HYPH(");print_int(q);print_char(')');
+    {@+print_nl(L"HYPH(");print_int(q);print_char(')');
     }
   }
 
@@ -18264,21 +18264,21 @@ loop@+{@+get_x_token();
   }
 
 @ @<Give improper \.{\\hyph...@>=
-{@+print_err("Improper ");print_esc(@[@<|"hyphenation"|@>@]);
+{@+print_err(L"Improper ");print_esc(@[@<|"hyphenation"|@>@]);
 @.Improper \\hyphenation...@>
-  print_str(" will be flushed");
-help2("Hyphenation exceptions must contain only letters")@/
-  ("and hyphens. But continue; I'll forgive and forget.");
+  print_str(L" will be flushed");
+help2(L"Hyphenation exceptions must contain only letters")@/
+  (L"and hyphens. But continue; I'll forgive and forget.");
 error();
 }
 
 @ @<Append a new letter or hyphen@>=
 if (cur_chr=='-') @<Append the value |n| to list |p|@>@;
 else{@+if (lc_code(cur_chr)==0)
-    {@+print_err("Not a letter");
+    {@+print_err(L"Not a letter");
 @.Not a letter@>
-    help2("Letters in \\hyphenation words must have \\lccode>0.")@/
-      ("Proceed; I'll ignore the character I just read.");
+    help2(L"Letters in \\hyphenation words must have \\lccode>0.")@/
+      (L"Proceed; I'll ignore the character I just read.");
     error();
     }
   else if (n < 63)
@@ -18303,7 +18303,7 @@ s=make_string();
 }
 
 @ @<Insert the \(p)pair |(s,p)|...@>=
-if (hyph_count==hyph_size) overflow("exception dictionary", hyph_size);
+if (hyph_count==hyph_size) overflow(L"exception dictionary", hyph_size);
 @:TeX capacity exceeded exception dictionary}{\quad exception dictionary@>
 incr(hyph_count);
 while (hyph_word[h]!=0)
@@ -18398,10 +18398,10 @@ h=abs(n+313*d+361*v+1009*cur_lang)%(trie_op_size+trie_op_size)
 loop@+{@+l=trie_op_hash[h];
   if (l==0)  /*empty position found for a new op*/
     {@+if (trie_op_ptr==trie_op_size)
-      overflow("pattern memory ops", trie_op_size);
+      overflow(L"pattern memory ops", trie_op_size);
     u=trie_used[cur_lang];
     if (u==max_quarterword)
-      overflow("pattern memory ops per language",
+      overflow(L"pattern memory ops per language",
         max_quarterword-min_quarterword);
     incr(trie_op_ptr);incr(u);trie_used[cur_lang]=u;
     hyf_distance[trie_op_ptr]=d;
@@ -18613,7 +18613,7 @@ never be occupied in |trie|, and we will have |trie_max >= trie_link(z)|.
 
 @<Ensure that |trie_max>=h+256|@>=
 if (trie_max < h+256)
-  {@+if (trie_size <= h+256) overflow("pattern memory", trie_size);
+  {@+if (trie_size <= h+256) overflow(L"pattern memory", trie_size);
 @:TeX capacity exceeded pattern memory}{\quad pattern memory@>
   @/do@+{incr(trie_max);trie_taken[trie_max]=false;
   trie_link(trie_max)=trie_max+1;trie_back(trie_max)=trie_max-1;
@@ -18710,8 +18710,8 @@ if (trie_not_ready)
   {@+set_cur_lang;scan_left_brace(); /*a left brace must follow \.{\\patterns}*/
   @<Enter all of the patterns into a linked trie, until coming to a right brace@>;
   }
-else{@+print_err("Too late for ");print_esc(@[@<|"patterns"|@>@]);
-  help1("All patterns must be given before typesetting begins.");
+else{@+print_err(L"Too late for ");print_esc(@[@<|"patterns"|@>@]);
+  help1(L"All patterns must be given before typesetting begins.");
   error();link(garbage)=scan_toks(false, false);flush_list(def_ref);
   }
 }
@@ -18730,9 +18730,9 @@ loop@+{@+get_x_token();
     if (cur_cmd==right_brace) goto done;
     k=0;hyf[0]=0;digit_sensed=false;
     } @+break;
-  default:{@+print_err("Bad ");print_esc(@[@<|"patterns"|@>@]);
+  default:{@+print_err(L"Bad ");print_esc(@[@<|"patterns"|@>@]);
 @.Bad \\patterns@>
-    help1("(See Appendix H.)");error();
+    help1(L"(See Appendix H.)");error();
     }
   }
   }
@@ -18743,9 +18743,9 @@ if (digit_sensed||(cur_chr < '0')||(cur_chr > '9'))
   {@+if (cur_chr=='.') cur_chr=0; /*edge-of-word delimiter*/
   else{@+cur_chr=lc_code(cur_chr);
     if (cur_chr==0)
-      {@+print_err("Nonletter");
+      {@+print_err(L"Nonletter");
 @.Nonletter@>
-      help1("(See Appendix H.)");error();
+      help1(L"(See Appendix H.)");error();
       }
     }
   if (k < 63)
@@ -18773,15 +18773,15 @@ while (l <= k)
   q=p; /*now node |q| represents $p_1\ldots p_{l-1}$*/
   }
 if (trie_o[q]!=min_quarterword)
-  {@+print_err("Duplicate pattern");
+  {@+print_err(L"Duplicate pattern");
 @.Duplicate pattern@>
-  help1("(See Appendix H.)");error();
+  help1(L"(See Appendix H.)");error();
   }
 trie_o[q]=v;
 }
 
 @ @<Insert a new trie node between |q| and |p|...@>=
-{@+if (trie_ptr==trie_size) overflow("pattern memory", trie_size);
+{@+if (trie_ptr==trie_size) overflow(L"pattern memory", trie_size);
 @:TeX capacity exceeded pattern memory}{\quad pattern memory@>
 incr(trie_ptr);trie_r[trie_ptr]=p;p=trie_ptr;trie_l[p]=0;
 if (first_child) trie_l[q]=p;@+else trie_r[q]=p;
@@ -18984,12 +18984,12 @@ else{@+q=glue_ptr(p);
   active_height[6]=active_height[6]+shrink(q);
   if ((shrink_order(q)!=normal)&&(shrink(q)!=0))
     {@+@t@>@;@/
-    print_err("Infinite glue shrinkage found in box being split");@/
+    print_err(L"Infinite glue shrinkage found in box being split");@/
 @.Infinite glue shrinkage...@>
-    help4("The box you are \\vsplitting contains some infinitely")@/
-      ("shrinkable glue, e.g., `\\vss' or `\\vskip 0pt minus 1fil'.")@/
-      ("Such glue doesn't belong there; but you can safely proceed,")@/
-      ("since the offensive shrinkability has been made finite.");
+    help4(L"The box you are \\vsplitting contains some infinitely")@/
+      (L"shrinkable glue, e.g., `\\vss' or `\\vskip 0pt minus 1fil'.")@/
+      (L"Such glue doesn't belong there; but you can safely proceed,")@/
+      (L"since the offensive shrinkability has been made finite.");
     error();r=new_spec(q);shrink_order(r)=normal;delete_glue_ref(q);
     glue_ptr(p)=r;q=r;
     }
@@ -19037,11 +19037,11 @@ if (v==null)
   {@+return null;
   }
 if (type(v)!=vlist_node)
-  {@+print_err("");print_esc(@[@<|"vsplit"|@>@]);print_str(" needs a ");
+  {@+print_err(L"");print_esc(@[@<|"vsplit"|@>@]);print_str(L" needs a ");
   print_esc(@[@<|"vbox"|@>@]);
 @:vsplit_}{\.{\\vsplit needs a \\vbox}@>
-  help2("The box you are trying to split is an \\hbox.")@/
-  ("I can't split such a box, so I'll leave it alone.");
+  help2(L"The box you are trying to split is an \\hbox.")@/
+  (L"I can't split such a box, so I'll leave it alone.");
   error();return null;
   }
 
@@ -19234,34 +19234,34 @@ default:print_esc(@[@<|"pagedepth"|@>@]);
 
 @ @d print_plus_end(X)	print_str(X);@+}
 @d print_plus(X)	if (page_so_far[X]!=0)
-  {@+print_str(" plus ");print_scaled(page_so_far[X]);print_plus_end
+  {@+print_str(L" plus ");print_scaled(page_so_far[X]);print_plus_end
 
 @p void print_totals(void)
 {@+print_scaled(page_total);
-print_plus(2)("");
-print_plus(3)("fil");
-print_plus(4)("fill");
-print_plus(5)("filll");
+print_plus(2)(L"");
+print_plus(3)(L"fil");
+print_plus(4)(L"fill");
+print_plus(5)(L"filll");
 if (page_shrink!=0)
-  {@+print_str(" minus ");print_scaled(page_shrink);
+  {@+print_str(L" minus ");print_scaled(page_shrink);
   }
 }
 
 @ @<Show the status of the current page@>=
 if (page_head!=page_tail)
-  {@+print_nl("### current page:");
-  if (output_active) print_str(" (held over for next output)");
+  {@+print_nl(L"### current page:");
+  if (output_active) print_str(L" (held over for next output)");
 @.held over for next output@>
   show_box(link(page_head));
   if (page_contents > empty)
-    {@+print_nl("total height ");print_totals();
+    {@+print_nl(L"total height ");print_totals();
 @:total_height}{\.{total height}@>
-    print_nl(" goal height ");print_scaled(page_goal);
+    print_nl(L" goal height ");print_scaled(page_goal);
 @.goal height@>
     r=link(page_ins_head);
     while (r!=page_ins_head)
       {@+print_ln();print_esc(@[@<|"insert"|@>@]);t=qo(subtype(r));
-      print_int(t);print_str(" adds ");
+      print_int(t);print_str(L" adds ");
       if (count(t)==1000) t=height(r);
       else t=x_over_n(height(r), 1000)*count(t);
       print_scaled(t);
@@ -19270,7 +19270,7 @@ if (page_head!=page_tail)
         @/do@+{q=link(q);
         if ((type(q)==ins_node)&&(subtype(q)==subtype(r))) incr(t);
         }@+ while (!(q==broken_ins(r)));
-        print_str(", #");print_int(t);print_str(" might split");
+        print_str(L", #");print_int(t);print_str(L" might split");
         }
       r=link(r);
       }
@@ -19290,9 +19290,9 @@ least_page_cost=awful_bad;
 #ifdef @!STAT
 if (tracing_pages > 0)
   {@+begin_diagnostic();
-  print_nl("%% goal height=");print_scaled(page_goal);
+  print_nl(L"%% goal height=");print_scaled(page_goal);
 @.goal height@>
-  print_str(", max depth=");print_scaled(page_max_depth);
+  print_str(L", max depth=");print_scaled(page_max_depth);
   end_diagnostic(false);
   } @;
 #endif
@@ -19351,7 +19351,7 @@ flushes the unwanted contents, reporting them to the user.
 
 @p void box_error(eight_bits @!n)
 {@+error();begin_diagnostic();
-print_nl("The following box has been deleted:");
+print_nl(L"The following box has been deleted:");
 @.The following...deleted@>
 show_box(box(n));end_diagnostic(true);
 flush_node_list(box(n));box(n)=null;
@@ -19364,11 +19364,11 @@ does not contain an \.{\\hbox}.
 {@+pointer p; /*the box register contents*/
 p=box(n);
 if (p!=null) if (type(p)==hlist_node)
-  {@+print_err("Insertions can only be added to a vbox");
+  {@+print_err(L"Insertions can only be added to a vbox");
 @.Insertions can only...@>
-  help3("Tut tut: You're trying to \\insert into a")@/
-    ("\\box register that now contains an \\hbox.")@/
-    ("Proceed, and I'll discard its present contents.");
+  help3(L"Tut tut: You're trying to \\insert into a")@/
+    (L"\\box register that now contains an \\hbox.")@/
+    (L"Proceed, and I'll discard its present contents.");
   box_error(n);
   }
 }
@@ -19500,12 +19500,12 @@ else{@+q=glue_ptr(p);
   page_shrink=page_shrink+shrink(q);
   if ((shrink_order(q)!=normal)&&(shrink(q)!=0))
     {@+@t@>@;@/
-    print_err("Infinite glue shrinkage found on current page");@/
+    print_err(L"Infinite glue shrinkage found on current page");@/
 @.Infinite glue shrinkage...@>
-    help4("The page about to be output contains some infinitely")@/
-      ("shrinkable glue, e.g., `\\vss' or `\\vskip 0pt minus 1fil'.")@/
-      ("Such glue doesn't belong there; but you can safely proceed,")@/
-      ("since the offensive shrinkability has been made finite.");
+    help4(L"The page about to be output contains some infinitely")@/
+      (L"shrinkable glue, e.g., `\\vss' or `\\vskip 0pt minus 1fil'.")@/
+      (L"Such glue doesn't belong there; but you can safely proceed,")@/
+      (L"since the offensive shrinkability has been made finite.");
     error();
     r=new_spec(q);shrink_order(r)=normal;delete_glue_ref(q);
     glue_ptr(p)=r;q=r;
@@ -19545,14 +19545,14 @@ if (tracing_pages > 0) @<Display the page break cost@>;
   }
 
 @ @<Display the page break cost@>=
-{@+begin_diagnostic();print_nl("%");
-print_str(" t=");print_totals();@/
-print_str(" g=");print_scaled(page_goal);@/
-print_str(" b=");
+{@+begin_diagnostic();print_nl(L"%");
+print_str(L" t=");print_totals();@/
+print_str(L" g=");print_scaled(page_goal);@/
+print_str(L" b=");
 if (b==awful_bad) print_char('*');@+else print_int(b);
 @.*\relax@>
-print_str(" p=");print_int(pi);
-print_str(" c=");
+print_str(L" p=");print_int(pi);
+print_str(L" c=");
 if (c==awful_bad) print_char('*');@+else print_int(c);
 if (c <= least_page_cost) print_char('#');
 end_diagnostic(false);
@@ -19607,12 +19607,12 @@ page_goal=page_goal-h-width(q);@/
 page_so_far[2+stretch_order(q)]=@|page_so_far[2+stretch_order(q)]+stretch(q);@/
 page_shrink=page_shrink+shrink(q);
 if ((shrink_order(q)!=normal)&&(shrink(q)!=0))
-  {@+print_err("Infinite glue shrinkage inserted from ");print_esc(@[@<|"skip"|@>@]);
+  {@+print_err(L"Infinite glue shrinkage inserted from ");print_esc(@[@<|"skip"|@>@]);
 @.Infinite glue shrinkage...@>
   print_int(n);
-  help3("The correction glue for page breaking with insertions")@/
-    ("must have finite shrinkability. But you may proceed,")@/
-    ("since the offensive shrinkability has been made finite.");
+  help3(L"The correction glue for page breaking with insertions")@/
+    (L"must have finite shrinkability. But you may proceed,")@/
+    (L"since the offensive shrinkability has been made finite.");
   error();
   }
 }
@@ -19648,11 +19648,11 @@ else if (type(q)==penalty_node) insert_penalties=insert_penalties+penalty(q);
 }
 
 @ @<Display the insertion split cost@>=
-{@+begin_diagnostic();print_nl("% split");print_int(n);
+{@+begin_diagnostic();print_nl(L"% split");print_int(n);
 @.split@>
-print_str(" to ");print_scaled(w);
+print_str(L" to ");print_scaled(w);
 print_char(',');print_scaled(best_height_plus_depth);@/
-print_str(" p=");
+print_str(L" p=");
 if (q==null) print_int(eject_penalty);
 else if (type(q)==penalty_node) print_int(penalty(q));
 else print_char('0');
@@ -19739,10 +19739,10 @@ on the contribution list@>;
 
 @ @<Ensure that box 255 is empty before output@>=
 if (box(255)!=null)
-  {@+print_err("");print_esc(@[@<|"box"|@>@]);print_str("255 is not void");
+  {@+print_err(L"");print_esc(@[@<|"box"|@>@]);print_str(L"255 is not void");
 @:box255}{\.{\\box255 is not void}@>
-  help2("You shouldn't use \\box255 except in \\output routines.")@/
-    ("Proceed, and I'll discard its present contents.");
+  help2(L"You shouldn't use \\box255 except in \\output routines.")@/
+    (L"Proceed, and I'll discard its present contents.");
   box_error(255);
   }
 
@@ -19879,12 +19879,12 @@ ship_out(box(255));box(255)=null;
 }
 
 @ @<Explain that too many dead cycles have occurred in a row@>=
-{@+print_err("Output loop---");print_int(dead_cycles);
+{@+print_err(L"Output loop---");print_int(dead_cycles);
 @.Output loop...@>
-print_str(" consecutive dead cycles");
-help3("I've concluded that your \\output is awry; it never does a")@/
-("\\shipout, so I'm shipping \\box255 out myself. Next time")@/
-("increase \\maxdeadcycles if you want me to be more patient!");error();
+print_str(L" consecutive dead cycles");
+help3(L"I've concluded that your \\output is awry; it never does a")@/
+(L"\\shipout, so I'm shipping \\box255 out myself. Next time")@/
+(L"increase \\maxdeadcycles if you want me to be more patient!");error();
 }
 
 @ @<Fire up the user's output routine and |return|@>=
@@ -19921,22 +19921,22 @@ pop_nest();build_page();
 }
 
 @ @<Recover from an unbalanced output routine@>=
-{@+print_err("Unbalanced output routine");
+{@+print_err(L"Unbalanced output routine");
 @.Unbalanced output routine@>
-help2("Your sneaky output routine has problematic {'s and/or }'s.")@/
-("I can't handle that very well; good luck.");error();
+help2(L"Your sneaky output routine has problematic {'s and/or }'s.")@/
+(L"I can't handle that very well; good luck.");error();
 @/do@+{get_token();
 }@+ while (!(loc==null));
 }  /*loops forever if reading from a file, since |null==min_halfword <= 0|*/
 
 @ @<Ensure that box 255 is empty after output@>=
 if (box(255)!=null)
-  {@+print_err("Output routine didn't use all of ");
+  {@+print_err(L"Output routine didn't use all of ");
   print_esc(@[@<|"box"|@>@]);print_int(255);
 @.Output routine didn't use...@>
-  help3("Your \\output commands should empty \\box255,")@/
-    ("e.g., by saying `\\shipout\\box255'.")@/
-    ("Proceed; I'll discard its present contents.");
+  help3(L"Your \\output commands should empty \\box255,")@/
+    (L"e.g., by saying `\\shipout\\box255'.")@/
+    (L"Proceed; I'll discard its present contents.");
   box_error(255);
   }
 
@@ -20367,10 +20367,10 @@ case mmode+valign: case mmode+hrule
 @ @<Declare action...@>=
 void insert_dollar_sign(void)
 {@+back_input();cur_tok=math_shift_token+'$';
-print_err("Missing $ inserted");
+print_err(L"Missing $ inserted");
 @.Missing \$ inserted@>
-help2("I've inserted a begin-math/end-math symbol since I think")@/
-("you left one out. Proceed, with fingers crossed.");ins_error();
+help2(L"I've inserted a begin-math/end-math symbol since I think")@/
+(L"you left one out. Proceed, with fingers crossed.");ins_error();
 }
 
 @ When erroneous situations arise, \TeX\ usually issues an error message
@@ -20391,19 +20391,19 @@ is illegal in the current mode; it identifies these things symbolically.
 
 @<Declare action...@>=
 void you_cant(void)
-{@+print_err("You can't use `");
+{@+print_err(L"You can't use `");
 @.You can't use x in y mode@>
 print_cmd_chr(cur_cmd, cur_chr);
-print_str("' in ");print_mode(mode);
+print_str(L"' in ");print_mode(mode);
 }
 
 @ @<Declare act...@>=
 void report_illegal_case(void)
 {@+you_cant();
-help4("Sorry, but I'm not programmed to handle this case;")@/
-("I'll just pretend that you didn't ask for it.")@/
-("If you're in the wrong mode, you might be able to")@/
-("return to the right one by typing `I}' or `I$' or `I\\par'.");@/
+help4(L"Sorry, but I'm not programmed to handle this case;")@/
+(L"I'll just pretend that you didn't ask for it.")@/
+(L"If you're in the wrong mode, you might be able to")@/
+(L"return to the right one by typing `I}' or `I$' or `I\\par'.");@/
 error();
 }
 
@@ -20618,14 +20618,14 @@ void off_save(void)
 if (cur_group==bottom_level)
   @<Drop current token and complain that it was unmatched@>@;
 else{@+back_input();p=get_avail();link(temp_head)=p;
-  print_err("Missing ");
+  print_err(L"Missing ");
   @<Prepare to insert a token that matches |cur_group|, and print what it is@>;
-  print_str(" inserted");ins_list(link(temp_head));
-  help5("I've inserted something that you may have forgotten.")@/
-  ("(See the <inserted text> above.)")@/
-  ("With luck, this will get me unwedged. But if you")@/
-  ("really didn't forget anything, try typing `2' now; then")@/
-  ("my insertion and my current dilemma will both disappear.");
+  print_str(L" inserted");ins_list(link(temp_head));
+  help5(L"I've inserted something that you may have forgotten.")@/
+  (L"(See the <inserted text> above.)")@/
+  (L"With luck, this will get me unwedged. But if you")@/
+  (L"really didn't forget anything, try typing `2' now; then")@/
+  (L"my insertion and my current dilemma will both disappear.");
   error();
   }
 }
@@ -20652,9 +20652,9 @@ default:{@+info(p)=right_brace_token+'}';print_char('}');
 }
 
 @ @<Drop current token and complain that it was unmatched@>=
-{@+print_err("Extra ");print_cmd_chr(cur_cmd, cur_chr);
+{@+print_err(L"Extra ");print_cmd_chr(cur_cmd, cur_chr);
 @.Extra x@>
-help1("Things are pretty mixed up, but I think the worst is over.");@/
+help1(L"Things are pretty mixed up, but I think the worst is over.");@/
 error();
 }
 
@@ -20675,10 +20675,10 @@ scaled @!d; /*holds |split_max_depth| in |insert_group|*/
 int @!f; /*holds |floating_penalty| in |insert_group|*/
 switch (cur_group) {
 case simple_group: unsave();@+break;
-case bottom_level: {@+print_err("Too many }'s");
+case bottom_level: {@+print_err(L"Too many }'s");
 @.Too many \}'s@>
-  help2("You've closed more groups than you opened.")@/
-  ("Such booboos are generally harmless, so keep going.");error();
+  help2(L"You've closed more groups than you opened.")@/
+  (L"Such booboos are generally harmless, so keep going.");error();
   } @+break;
 case semi_simple_group: case math_shift_group: case math_left_group: extra_right_brace();@+break;
 @t\4@>@<Cases of |handle_right_brace| where a |right_brace| triggers a delayed action@>@;
@@ -20689,18 +20689,18 @@ default:confusion(@[@<|"rightbrace"|@>@]);
 
 @ @<Declare act...@>=
 void extra_right_brace(void)
-{@+print_err("Extra }, or forgotten ");
+{@+print_err(L"Extra }, or forgotten ");
 @.Extra \}, or forgotten x@>
 switch (cur_group) {
 case semi_simple_group: print_esc(@[@<|"endgroup"|@>@]);@+break;
 case math_shift_group: print_char('$');@+break;
 case math_left_group: print_esc(@[@<|"right"|@>@]);
 } @/
-help5("I've deleted a group-closing symbol because it seems to be")@/
-("spurious, as in `$x}$'. But perhaps the } is legitimate and")@/
-("you forgot something else, as in `\\hbox{$x}'. In such cases")@/
-("the way to recover is to insert both the forgotten and the")@/
-("deleted material, e.g., by typing `I$}'.");error();
+help5(L"I've deleted a group-closing symbol because it seems to be")@/
+(L"spurious, as in `$x}$'. But perhaps the } is legitimate and")@/
+(L"you forgot something else, as in `\\hbox{$x}'. In such cases")@/
+(L"the way to recover is to insert both the forgotten and the")@/
+(L"deleted material, e.g., by typing `I$}'.");error();
 incr(align_state);
 }
 
@@ -20878,11 +20878,11 @@ if (((cur_cmd==hskip)&&(abs(mode)!=vmode))||@|
   {@+append_glue();subtype(tail)=box_context-(leader_flag-a_leaders);
   leader_ptr(tail)=cur_box;
   }
-else{@+print_err("Leaders not followed by proper glue");
+else{@+print_err(L"Leaders not followed by proper glue");
 @.Leaders not followed by...@>
-  help3("You should say `\\leaders <box or rule><hskip or vskip>'.")@/
-  ("I found the <box or rule>, but there's no suitable")@/
-  ("<hskip or vskip>, so I'm ignoring these leaders.");back_error();
+  help3(L"You should say `\\leaders <box or rule><hskip or vskip>'.")@/
+  (L"I found the <box or rule>, but there's no suitable")@/
+  (L"<hskip or vskip>, so I'm ignoring these leaders.");back_error();
   flush_node_list(cur_box);
   }
 }
@@ -20919,12 +20919,12 @@ since |head| is a one-word node.
 @<If the current list ends with a box node, delete it...@>=
 {@+cur_box=null;
 if (abs(mode)==mmode)
-  {@+you_cant();help1("Sorry; this \\lastbox will be void.");error();
+  {@+you_cant();help1(L"Sorry; this \\lastbox will be void.");error();
   }
 else if ((mode==vmode)&&(head==tail))
   {@+you_cant();
-  help2("Sorry...I usually can't take things from the current page.")@/
-    ("This \\lastbox will therefore be void.");error();
+  help2(L"Sorry...I usually can't take things from the current page.")@/
+    (L"This \\lastbox will therefore be void.");error();
   }
 else{@+if (!is_char_node(tail))
     if ((type(tail)==hlist_node)||(type(tail)==vlist_node))
@@ -20951,10 +20951,10 @@ done: ;}
 {@+scan_eight_bit_int();n=cur_val;
 if (!scan_keyword(@[@<|"to"|@>@]))
 @.to@>
-  {@+print_err("Missing `to' inserted");
+  {@+print_err(L"Missing `to' inserted");
 @.Missing `to' inserted@>
-  help2("I'm working on `\\vsplit<box number> to <dimen>';")@/
-  ("will look for the <dimen> next.");error();
+  help2(L"I'm working on `\\vsplit<box number> to <dimen>';")@/
+  (L"will look for the <dimen> next.");error();
   }
 scan_normal_dimen;
 cur_box=vsplit(n, cur_val);
@@ -20994,11 +20994,11 @@ else if ((box_context >= leader_flag)&&((cur_cmd==hrule)||(cur_cmd==vrule)))
   {@+cur_box=scan_rule_spec();box_end(box_context);
   }
 else{@+@t@>@;@/
-  print_err("A <box> was supposed to be here");@/
+  print_err(L"A <box> was supposed to be here");@/
 @.A <box> was supposed to...@>
-  help3("I was expecting to see \\hbox or \\vbox or \\copy or \\box or")@/
-  ("something like that. So you might find something missing in")@/
-  ("your output. But keep trying; you can fix this later.");back_error();
+  help3(L"I was expecting to see \\hbox or \\vbox or \\copy or \\box or")@/
+  (L"something like that. So you might find something missing in")@/
+  (L"your output. But keep trying; you can fix this later.");back_error();
   }
 }
 
@@ -21116,11 +21116,11 @@ case hmode+stop: case hmode+vskip: case hmode+hrule: case hmode+un_vbox: case hm
 void head_for_vmode(void)
 {@+if (mode < 0)
   if (cur_cmd!=hrule) off_save();
-  else{@+print_err("You can't use `");
-    print_esc(@[@<|"hrule"|@>@]);print_str("' here except with leaders");
+  else{@+print_err(L"You can't use `");
+    print_esc(@[@<|"hrule"|@>@]);print_str(L"' here except with leaders");
 @.You can't use \\hrule...@>
-    help2("To put a horizontal rule in an hbox or an alignment,")@/
-      ("you should use \\leaders or \\hrulefill (see The TeXbook).");
+    help2(L"To put a horizontal rule in an hbox or an alignment,")@/
+      (L"you should use \\leaders or \\hrulefill (see The TeXbook).");
     error();
     }
 else{@+back_input();cur_tok=par_token;back_input();token_type=inserted;
@@ -21152,9 +21152,9 @@ void begin_insert_or_adjust(void)
 {@+if (cur_cmd==vadjust) cur_val=255;
 else{@+scan_eight_bit_int();
   if (cur_val==255)
-    {@+print_err("You can't ");print_esc(@[@<|"insert"|@>@]);print_int(255);
+    {@+print_err(L"You can't ");print_esc(@[@<|"insert"|@>@]);print_int(255);
 @.You can't \\insert255@>
-    help1("I'm changing to \\insert0; box 255 is special.");
+    help1(L"I'm changing to \\insert0; box 255 is special.");
     error();cur_val=0;
     }
   }
@@ -21241,12 +21241,12 @@ else{@+if (!is_char_node(tail)) if (type(tail)==cur_chr)
 @ @<Apologize for inability to do the operation...@>=
 {@+if ((cur_chr!=glue_node)||(last_glue!=max_halfword))
   {@+you_cant();
-  help2("Sorry...I usually can't take things from the current page.")@/
-    ("Try `I\\vskip-\\lastskip' instead.");
+  help2(L"Sorry...I usually can't take things from the current page.")@/
+    (L"Try `I\\vskip-\\lastskip' instead.");
   if (cur_chr==kern_node) help_line[0]=
-    ("Try `I\\kern-\\lastkern' instead.");
+    (L"Try `I\\kern-\\lastkern' instead.");
   else if (cur_chr!=glue_node) help_line[0]=@|
-    ("Perhaps you can make the output routine do it.");
+    (L"Perhaps you can make the output routine do it.");
   error();
   }
 }
@@ -21290,11 +21290,11 @@ c=cur_chr;scan_eight_bit_int();p=box(cur_val);
 if (p==null) return;
 if ((abs(mode)==mmode)||((abs(mode)==vmode)&&(type(p)!=vlist_node))||@|
    ((abs(mode)==hmode)&&(type(p)!=hlist_node)))
-  {@+print_err("Incompatible list can't be unboxed");
+  {@+print_err(L"Incompatible list can't be unboxed");
 @.Incompatible list...@>
-  help3("Sorry, Pandora. (You sneaky devil.)")@/
-  ("I refuse to unbox an \\hbox in vertical mode or vice versa.")@/
-  ("And I can't open any boxes in math mode.");@/
+  help3(L"Sorry, Pandora. (You sneaky devil.)")@/
+  (L"I refuse to unbox an \\hbox in vertical mode or vice versa.")@/
+  (L"And I can't open any boxes in math mode.");@/
   error();return;
   }
 if (c==copy_code) link(tail)=copy_node_list(list_ptr(p));
@@ -21390,18 +21390,18 @@ push_nest();mode=-hmode;space_factor=1000;
 
 @ @<Attach list |p| to the current...@>=
 {@+if ((n > 0)&&(abs(mode)==mmode))
-  {@+print_err("Illegal math ");print_esc(@[@<|"discretionary"|@>@]);
+  {@+print_err(L"Illegal math ");print_esc(@[@<|"discretionary"|@>@]);
 @.Illegal math \\disc...@>
-  help2("Sorry: The third part of a discretionary break must be")@/
-  ("empty, in math formulas. I had to delete your third part.");
+  help2(L"Sorry: The third part of a discretionary break must be")@/
+  (L"empty, in math formulas. I had to delete your third part.");
   flush_node_list(p);n=0;error();
   }
 else link(tail)=p;
 if (n <= max_quarterword) replace_count(tail)=n;
-else{@+print_err("Discretionary list is too long");
+else{@+print_err(L"Discretionary list is too long");
 @.Discretionary list is too long@>
-  help2("Wow---I never thought anybody would tweak me here.")@/
-  ("You can't seriously need such a huge discretionary list?");
+  help2(L"Wow---I never thought anybody would tweak me here.")@/
+  (L"You can't seriously need such a huge discretionary list?");
   error();
   }
 if (n > 0) tail=q;
@@ -21415,12 +21415,12 @@ q=head;p=link(q);n=0;
 while (p!=null)
   {@+if (!is_char_node(p)) if (type(p) > rule_node)
     if (type(p)!=kern_node) if (type(p)!=ligature_node)
-      {@+print_err("Improper discretionary list");
+      {@+print_err(L"Improper discretionary list");
 @.Improper discretionary list@>
-      help1("Discretionary lists must contain only boxes and kerns.");@/
+      help1(L"Discretionary lists must contain only boxes and kerns.");@/
       error();
       begin_diagnostic();
-      print_nl("The following discretionary sublist has been deleted:");
+      print_nl(L"The following discretionary sublist has been deleted:");
 @.The following...deleted@>
       show_box(p);
       end_diagnostic(true);
@@ -21514,38 +21514,38 @@ void align_error(void)
   @<Express consternation over the fact that no alignment is in progress@>@;
 else{@+back_input();
   if (align_state < 0)
-    {@+print_err("Missing { inserted");
+    {@+print_err(L"Missing { inserted");
 @.Missing \{ inserted@>
     incr(align_state);cur_tok=left_brace_token+'{';
     }
-  else{@+print_err("Missing } inserted");
+  else{@+print_err(L"Missing } inserted");
 @.Missing \} inserted@>
     decr(align_state);cur_tok=right_brace_token+'}';
     }
-  help3("I've put in what seems to be necessary to fix")@/
-    ("the current column of the current alignment.")@/
-    ("Try to go on, since this might almost work.");ins_error();
+  help3(L"I've put in what seems to be necessary to fix")@/
+    (L"the current column of the current alignment.")@/
+    (L"Try to go on, since this might almost work.");ins_error();
   }
 }
 
 @ @<Express consternation...@>=
-{@+print_err("Misplaced ");print_cmd_chr(cur_cmd, cur_chr);
+{@+print_err(L"Misplaced ");print_cmd_chr(cur_cmd, cur_chr);
 @.Misplaced \&@>
 @.Misplaced \\span@>
 @.Misplaced \\cr@>
 if (cur_tok==tab_token+'&')
-  {@+help6("I can't figure out why you would want to use a tab mark")@/
-  ("here. If you just want an ampersand, the remedy is")@/
-  ("simple: Just type `I\\&' now. But if some right brace")@/
-  ("up above has ended a previous alignment prematurely,")@/
-  ("you're probably due for more error messages, and you")@/
-  ("might try typing `S' now just to see what is salvageable.");
+  {@+help6(L"I can't figure out why you would want to use a tab mark")@/
+  (L"here. If you just want an ampersand, the remedy is")@/
+  (L"simple: Just type `I\\&' now. But if some right brace")@/
+  (L"up above has ended a previous alignment prematurely,")@/
+  (L"you're probably due for more error messages, and you")@/
+  (L"might try typing `S' now just to see what is salvageable.");
   }
-else{@+help5("I can't figure out why you would want to use a tab mark")@/
-  ("or \\cr or \\span just now. If something like a right brace")@/
-  ("up above has ended a previous alignment prematurely,")@/
-  ("you're probably due for more error messages, and you")@/
-  ("might try typing `S' now just to see what is salvageable.");
+else{@+help5(L"I can't figure out why you would want to use a tab mark")@/
+  (L"or \\cr or \\span just now. If something like a right brace")@/
+  (L"up above has ended a previous alignment prematurely,")@/
+  (L"you're probably due for more error messages, and you")@/
+  (L"might try typing `S' now just to see what is salvageable.");
   }
 error();
 }
@@ -21555,16 +21555,16 @@ and \.{\\omit} are allowed also after `\.{\\noalign\{...\}}'.
 
 @<Declare act...@>=
 void no_align_error(void)
-{@+print_err("Misplaced ");print_esc(@[@<|"noalign"|@>@]);
+{@+print_err(L"Misplaced ");print_esc(@[@<|"noalign"|@>@]);
 @.Misplaced \\noalign@>
-help2("I expect to see \\noalign only after the \\cr of")@/
-  ("an alignment. Proceed, and I'll ignore this case.");error();
+help2(L"I expect to see \\noalign only after the \\cr of")@/
+  (L"an alignment. Proceed, and I'll ignore this case.");error();
 }
 void omit_error(void)
-{@+print_err("Misplaced ");print_esc(@[@<|"omit"|@>@]);
+{@+print_err(L"Misplaced ");print_esc(@[@<|"omit"|@>@]);
 @.Misplaced \\omit@>
-help2("I expect to see \\omit only after tab marks or the \\cr of")@/
-  ("an alignment. Proceed, and I'll ignore this case.");error();
+help2(L"I expect to see \\omit only after tab marks or the \\cr of")@/
+  (L"an alignment. Proceed, and I'll ignore this case.");error();
 }
 
 @ We've now covered most of the abuses of \.{\\halign} and \.{\\valign}.
@@ -21592,7 +21592,7 @@ while ((input_stack[base_ptr].index_field!=v_template)&&
 if ((input_stack[base_ptr].index_field!=v_template)||
       (input_stack[base_ptr].loc_field!=null)||
       (input_stack[base_ptr].state_field!=token_list))
-  fatal_error("(interwoven alignment preambles are not allowed)");
+  fatal_error(L"(interwoven alignment preambles are not allowed)");
 @.interwoven alignment preambles...@>
  if (cur_group==align_group)
   {@+end_graf();
@@ -21603,9 +21603,9 @@ else off_save();
 
 @ @<Cases of |handle_right_brace|...@>=
 case align_group: {@+back_input();cur_tok=cs_token_flag+frozen_cr;
-  print_err("Missing ");print_esc(@[@<|"cr"|@>@]);print_str(" inserted");
+  print_err(L"Missing ");print_esc(@[@<|"cr"|@>@]);print_str(L" inserted");
 @.Missing \\cr inserted@>
-  help1("I'm guessing that you meant to end an alignment here.");
+  help1(L"I'm guessing that you meant to end an alignment here.");
   ins_error();
   } @+break;
 
@@ -21620,9 +21620,9 @@ any_mode(end_cs_name): cs_error();@+break;
 
 @ @<Declare act...@>=
 void cs_error(void)
-{@+print_err("Extra ");print_esc(@[@<|"endcsname"|@>@]);
+{@+print_err(L"Extra ");print_esc(@[@<|"endcsname"|@>@]);
 @.Extra \\endcsname@>
-help1("I'm ignoring this, since I wasn't doing a \\csname.");
+help1(L"I'm ignoring this, since I wasn't doing a \\csname.");
 error();
 }
 
@@ -21974,9 +21974,9 @@ void math_limit_switch(void)
 if (head!=tail) if (type(tail)==op_noad)
   {@+subtype(tail)=cur_chr;return;
   }
-print_err("Limit controls must follow a math operator");
+print_err(L"Limit controls must follow a math operator");
 @.Limit controls must follow...@>
-help1("I'm ignoring this misplaced \\limits or \\nolimits command.");error();
+help1(L"I'm ignoring this misplaced \\limits or \\nolimits command.");error();
 }
 
 @ Delimiter fields of noads are filled in by the |scan_delimiter| routine.
@@ -22003,14 +22003,14 @@ large_char(p)=qi(cur_val%256);
 }
 
 @ @<Report that an invalid delimiter...@>=
-{@+print_err("Missing delimiter (. inserted)");
+{@+print_err(L"Missing delimiter (. inserted)");
 @.Missing delimiter...@>
-help6("I was expecting to see something like `(' or `\\{' or")@/
-  ("`\\}' here. If you typed, e.g., `{' instead of `\\{', you")@/
-  ("should probably delete the `{' by typing `1' now, so that")@/
-  ("braces don't get unbalanced. Otherwise just proceed.")@/
-  ("Acceptable delimiters are characters whose \\delcode is")@/
-  ("nonnegative, or you can use `\\delimiter <delimiter code>'.");
+help6(L"I was expecting to see something like `(' or `\\{' or")@/
+  (L"`\\}' here. If you typed, e.g., `{' instead of `\\{', you")@/
+  (L"should probably delete the `{' by typing `1' now, so that")@/
+  (L"braces don't get unbalanced. Otherwise just proceed.")@/
+  (L"Acceptable delimiters are characters whose \\delcode is")@/
+  (L"nonnegative, or you can use `\\delimiter <delimiter code>'.");
 back_error();cur_val=0;
 }
 
@@ -22048,11 +22048,11 @@ scan_math(nucleus(tail));
 }
 
 @ @<Complain that the user should have said \.{\\mathaccent}@>=
-{@+print_err("Please use ");print_esc(@[@<|"mathaccent"|@>@]);
-print_str(" for accents in math mode");
+{@+print_err(L"Please use ");print_esc(@[@<|"mathaccent"|@>@]);
+print_str(L" for accents in math mode");
 @.Please use \\mathaccent...@>
-help2("I'm changing \\accent to \\mathaccent here; wish me luck.")@/
-  ("(Accents are not the same in formulas as they are in text.)");
+help2(L"I'm changing \\accent to \\mathaccent here; wish me luck.")@/
+  (L"(Accents are not the same in formulas as they are in text.)");
 error();
 }
 
@@ -22145,13 +22145,13 @@ scan_math(p);
 p=supscr(tail)+cur_cmd-sup_mark; /*|supscr| or |subscr|*/
 if (t!=empty)
   {@+if (cur_cmd==sup_mark)
-    {@+print_err("Double superscript");
+    {@+print_err(L"Double superscript");
 @.Double superscript@>
-    help1("I treat `x^1^2' essentially like `x^1{}^2'.");
+    help1(L"I treat `x^1^2' essentially like `x^1{}^2'.");
     }
-  else{@+print_err("Double subscript");
+  else{@+print_err(L"Double subscript");
 @.Double subscript@>
-    help1("I treat `x_1_2' essentially like `x_1{}_2'.");
+    help1(L"I treat `x_1_2' essentially like `x_1{}_2'.");
     }
   error();
   }
@@ -22234,11 +22234,11 @@ case atop_code: thickness(incompleat_noad)=0;
   {@+scan_delimiter(garbage, false);scan_delimiter(garbage, false);
   }
 if (c%delimited_code==above_code) scan_normal_dimen;
-print_err("Ambiguous; you need another { and }");
+print_err(L"Ambiguous; you need another { and }");
 @.Ambiguous...@>
-help3("I'm ignoring this fraction specification, since I don't")@/
-  ("know whether a construction like `x \\over y \\over z'")@/
-  ("means `{x \\over y} \\over z' or `x \\over {y \\over z}'.");
+help3(L"I'm ignoring this fraction specification, since I don't")@/
+  (L"know whether a construction like `x \\over y \\over z'")@/
+  (L"means `{x \\over y} \\over z' or `x \\over {y \\over z}'.");
 error();
 }
 
@@ -22335,9 +22335,9 @@ else{@+p=new_noad();type(p)=t;
 @ @<Try to recover from mismatch...@>=
 {@+if (cur_group==math_shift_group)
   {@+scan_delimiter(garbage, false);
-  print_err("Extra ");print_esc(@[@<|"right"|@>@]);
+  print_err(L"Extra ");print_esc(@[@<|"right"|@>@]);
 @.Extra \\right.@>
-  help1("I'm ignoring a \\right that had no matching \\left.");
+  help1(L"I'm ignoring a \\right that had no matching \\left.");
   error();
   }
 else off_save();
@@ -22383,20 +22383,20 @@ else{@+if (a==null) @<Check that another \.\$ follows@>;
 if ((font_params[fam_fnt(2+text_size)] < total_mathsy_params)||@|
    (font_params[fam_fnt(2+script_size)] < total_mathsy_params)||@|
    (font_params[fam_fnt(2+script_script_size)] < total_mathsy_params))
-  {@+print_err("Math formula deleted: Insufficient symbol fonts");@/
+  {@+print_err(L"Math formula deleted: Insufficient symbol fonts");@/
 @.Math formula deleted...@>
-  help3("Sorry, but I can't typeset math unless \\textfont 2")@/
-    ("and \\scriptfont 2 and \\scriptscriptfont 2 have all")@/
-    ("the \\fontdimen values needed in math symbol fonts.");
+  help3(L"Sorry, but I can't typeset math unless \\textfont 2")@/
+    (L"and \\scriptfont 2 and \\scriptscriptfont 2 have all")@/
+    (L"the \\fontdimen values needed in math symbol fonts.");
   error();flush_math();danger=true;
   }
 else if ((font_params[fam_fnt(3+text_size)] < total_mathex_params)||@|
    (font_params[fam_fnt(3+script_size)] < total_mathex_params)||@|
    (font_params[fam_fnt(3+script_script_size)] < total_mathex_params))
-  {@+print_err("Math formula deleted: Insufficient extension fonts");@/
-  help3("Sorry, but I can't typeset math unless \\textfont 3")@/
-    ("and \\scriptfont 3 and \\scriptscriptfont 3 have all")@/
-    ("the \\fontdimen values needed in math extension fonts.");
+  {@+print_err(L"Math formula deleted: Insufficient extension fonts");@/
+  help3(L"Sorry, but I can't typeset math unless \\textfont 3")@/
+    (L"and \\scriptfont 3 and \\scriptscriptfont 3 have all")@/
+    (L"the \\fontdimen values needed in math extension fonts.");
   error();flush_math();danger=true;
   }
 
@@ -22421,10 +22421,10 @@ a display has been scanned.
 @<Check that another \.\$ follows@>=
 {@+get_x_token();
 if (cur_cmd!=math_shift)
-  {@+print_err("Display math should end with $$");
+  {@+print_err(L"Display math should end with $$");
 @.Display math...with \$\$@>
-  help2("The `$' that I just saw supposedly matches a previous `$$'.")@/
-    ("So I shall assume that you typed `$$' both times.");
+  help2(L"The `$' that I just saw supposedly matches a previous `$$'.")@/
+    (L"So I shall assume that you typed `$$' both times.");
   back_error();
   }
 }
@@ -22581,10 +22581,10 @@ prev_depth=aux_save.sc;resume_after_display();
 }
 
 @ @<Pontificate...@>=
-{@+print_err("Missing $$ inserted");
+{@+print_err(L"Missing $$ inserted");
 @.Missing {\$\$} inserted@>
-help2("Displays can use special alignments (like \\eqalignno)")@/
-  ("only if nothing but the alignment itself is between $$'s.");
+help2(L"Displays can use special alignments (like \\eqalignno)")@/
+  (L"only if nothing but the alignment itself is between $$'s.");
 back_error();
 }
 
@@ -22696,20 +22696,20 @@ done: @<Insert a token saved by \.{\\afterassignment}, if any@>;
 }
 
 @ @<Discard erroneous...@>=
-{@+print_err("You can't use a prefix with `");
+{@+print_err(L"You can't use a prefix with `");
 @.You can't use a prefix with x@>
 print_cmd_chr(cur_cmd, cur_chr);print_char('\'');
-help1("I'll pretend you didn't say \\long or \\outer or \\global.");
+help1(L"I'll pretend you didn't say \\long or \\outer or \\global.");
 back_error();return;
 }
 
 @ @<Discard the prefixes...@>=
 if ((cur_cmd!=def)&&(a%4!=0))
-  {@+print_err("You can't use `");print_esc(@[@<|"long"|@>@]);print_str("' or `");
-  print_esc(@[@<|"outer"|@>@]);print_str("' with `");
+  {@+print_err(L"You can't use `");print_esc(@[@<|"long"|@>@]);print_str(L"' or `");
+  print_esc(@[@<|"outer"|@>@]);print_str(L"' with `");
 @.You can't use \\long...@>
   print_cmd_chr(cur_cmd, cur_chr);print_char('\'');
-  help1("I'll pretend you didn't say \\long or \\outer here.");
+  help1(L"I'll pretend you didn't say \\long or \\outer here.");
   error();
   }
 
@@ -22738,13 +22738,13 @@ void get_r_token(void)
 restart: @/do@+{get_token();
 }@+ while (!(cur_tok!=space_token));
 if ((cur_cs==0)||(cur_cs > frozen_control_sequence))
-  {@+print_err("Missing control sequence inserted");
+  {@+print_err(L"Missing control sequence inserted");
 @.Missing control...@>
-  help5("Please don't say `\\def cs{...}', say `\\def\\cs{...}'.")@/
-  ("I've inserted an inaccessible control sequence so that your")@/
-  ("definition will be completed without mixing me up too badly.")@/
-  ("You can recover graciously from this error, if you're")@/
-  ("careful; see exercise 27.2 in The TeXbook.");
+  help5(L"Please don't say `\\def cs{...}', say `\\def\\cs{...}'.")@/
+  (L"I've inserted an inaccessible control sequence so that your")@/
+  (L"definition will be completed without mixing me up too badly.")@/
+  (L"You can recover graciously from this error, if you're")@/
+  (L"careful; see exercise 27.2 in The TeXbook.");
 @:TeXbook}{\sl The \TeX book@>
   if (cur_cs==0) back_input();
   cur_tok=cs_token_flag+frozen_protection;ins_error();goto restart;
@@ -22874,10 +22874,10 @@ case shorthand_def: {@+n=cur_chr;get_r_token();p=cur_cs;define(p, relax, 256);
 case read_to_cs: {@+scan_int();n=cur_val;
   if (!scan_keyword(@[@<|"to"|@>@]))
 @.to@>
-    {@+print_err("Missing `to' inserted");
+    {@+print_err(L"Missing `to' inserted");
 @.Missing `to'...@>
-    help2("You should have said `\\read<number> to \\cs'.")@/
-    ("I'm going to look for the \\cs now.");error();
+    help2(L"You should have said `\\read<number> to \\cs'.")@/
+    (L"I'm going to look for the \\cs now.");error();
     }
   get_r_token();
   p=cur_cs;read_toks(n, p);define(p, call, cur_val);
@@ -22991,12 +22991,12 @@ case def_code: {@+@<Let |n| be the largest legal code value, based on |cur_chr|@
   p=cur_chr;scan_char_num();p=p+cur_val;scan_optional_equals();
   scan_int();
   if (((cur_val < 0)&&(p < del_code_base))||(cur_val > n))
-    {@+print_err("Invalid code (");print_int(cur_val);
+    {@+print_err(L"Invalid code (");print_int(cur_val);
 @.Invalid code@>
-    if (p < del_code_base) print_str("), should be in the range 0..");
-    else print_str("), should be at most ");
+    if (p < del_code_base) print_str(L"), should be in the range 0..");
+    else print_str(L"), should be at most ");
     print_int(n);
-    help1("I'm going to use 0 instead of that illegal code value.");@/
+    help1(L"I'm going to use 0 instead of that illegal code value.");@/
     error();cur_val=0;
     }
   if (p < math_code_base) define(p, data, cur_val);
@@ -23037,10 +23037,10 @@ arith_error=false;
 if (q < multiply) @<Compute result of |register| or |advance|, put it in |cur_val|@>@;
 else@<Compute result of |multiply| or |divide|, put it in |cur_val|@>;
 if (arith_error)
-  {@+print_err("Arithmetic overflow");
+  {@+print_err(L"Arithmetic overflow");
 @.Arithmetic overflow@>
-  help2("I can't carry out that multiplication or division,")@/
-    ("since the result is out of range.");
+  help2(L"I can't carry out that multiplication or division,")@/
+    (L"since the result is out of range.");
   if (p >= glue_val) delete_glue_ref(cur_val);
   error();return;
   }
@@ -23059,10 +23059,10 @@ else{@+trap_zero_glue();define(l, glue_ref, cur_val);
     {@+l=cur_chr;p=cur_cmd-assign_int;goto found;
     }
   if (cur_cmd!=internal_register)
-    {@+print_err("You can't use `");print_cmd_chr(cur_cmd, cur_chr);
+    {@+print_err(L"You can't use `");print_cmd_chr(cur_cmd, cur_chr);
 @.You can't use x after ...@>
-    print_str("' after ");print_cmd_chr(q, 0);
-    help1("I'm forgetting what you said and not changing anything.");
+    print_str(L"' after ");print_cmd_chr(q, 0);
+    help1(L"I'm forgetting what you said and not changing anything.");
     error();return;
     }
   }
@@ -23132,10 +23132,10 @@ case set_box: {@+scan_eight_bit_int();
   if (global) n=256+cur_val;@+else n=cur_val;
   scan_optional_equals();
   if (set_box_allowed) scan_box(box_flag+n);
-  else{@+print_err("Improper ");print_esc(@[@<|"setbox"|@>@]);
+  else{@+print_err(L"Improper ");print_esc(@[@<|"setbox"|@>@]);
 @.Improper \\setbox@>
-    help2("Sorry, \\setbox is not allowed after \\halign in a display,")@/
-    ("or between \\accent and an accented character.");error();
+    help2(L"Sorry, \\setbox is not allowed after \\halign in a display,")@/
+    (L"or between \\accent and an accented character.");error();
     }
   } @+break;
 
@@ -23164,9 +23164,9 @@ else{@+c=cur_chr;scan_optional_equals();
     }
   else{@+scan_int();
     if ((cur_val <= 0)||(cur_val > 32767))
-      {@+print_err("Bad space factor");
+      {@+print_err(L"Bad space factor");
 @.Bad space factor@>
-      help1("I allow only values in the range 1..32767 here.");
+      help1(L"I allow only values in the range 1..32767 here.");
       int_error(cur_val);
       }
     else space_factor=cur_val;
@@ -23181,9 +23181,9 @@ nest[nest_ptr]=cur_list;p=nest_ptr;
 while (abs(nest[p].mode_field)!=vmode) decr(p);
 scan_optional_equals();scan_int();
 if (cur_val < 0)
-  {@+print_err("Bad ");print_esc(@[@<|"prevgraf"|@>@]);
+  {@+print_err(L"Bad ");print_esc(@[@<|"prevgraf"|@>@]);
 @.Bad \\prevgraf@>
-  help1("I allow only nonnegative values here.");
+  help1(L"I allow only nonnegative values here.");
   int_error(cur_val);
   }
 else{@+nest[p].pg_field=cur_val;cur_list=nest[nest_ptr];
@@ -23255,7 +23255,7 @@ case hyph_data: if (cur_chr==1)
 #ifdef @!INIT
 new_patterns();goto done;@;
 #endif
-    print_err("Patterns can be loaded only by INITEX");
+    print_err(L"Patterns can be loaded only by INITEX");
 @.Patterns can be...@>
     help0;error();
     @/do@+{get_token();}@+ while (!(cur_cmd==right_brace)); /*flush the patterns*/
@@ -23308,7 +23308,7 @@ if (u >= hash_base) t=text(u);
 else if (u >= single_base)
   if (u==null_cs) t=@[@<|"FONT"|@>@];@+else t=u-single_base;
 else{@+old_setting=selector;selector=new_string;
-  print_str("FONT");print(u-active_base);selector=old_setting;
+  print_str(L"FONT");print(u-active_base);selector=old_setting;
 @.FONTx@>
   str_room(1);t=make_string();
   }
@@ -23328,9 +23328,9 @@ else if (scan_keyword(@[@<|"scaled"|@>@]))
 @.scaled@>
   {@+scan_int();s=-cur_val;
   if ((cur_val <= 0)||(cur_val > 32768))
-    {@+print_err("Illegal magnification has been changed to 1000");@/
+    {@+print_err(L"Illegal magnification has been changed to 1000");@/
 @.Illegal magnification...@>
-    help1("The magnification ratio must be between 1 and 32768.");
+    help1(L"The magnification ratio must be between 1 and 32768.");
     int_error(cur_val);s=-1000;
     }
   }
@@ -23340,11 +23340,11 @@ name_in_progress=false
 @ @<Put the \(p)(positive) `at' size into |s|@>=
 {@+scan_normal_dimen;s=cur_val;
 if ((s <= 0)||(s >= 01000000000))
-  {@+print_err("Improper `at' size (");
-  print_scaled(s);print_str("pt), replaced by 10pt");
+  {@+print_err(L"Improper `at' size (");
+  print_scaled(s);print_str(L"pt), replaced by 10pt");
 @.Improper `at' size...@>
-  help2("I can only handle fonts at positive sizes that are")@/
-  ("less than 2048pt, so I've changed what you said to 10pt.");
+  help2(L"I can only handle fonts at positive sizes that are")@/
+  (L"less than 2048pt, so I've changed what you said to 10pt.");
   error();s=10*unity;
   }
 }
@@ -23368,10 +23368,10 @@ for (f=font_base+1; f<=font_ptr; f++)
     }
 
 @ @<Cases of |print_cmd_chr|...@>=
-case set_font: {@+print_str("select font ");slow_print(font_name[chr_code]);
+case set_font: {@+print_str(L"select font ");slow_print(font_name[chr_code]);
   if (font_size[chr_code]!=font_dsize[chr_code])
-    {@+print_str(" at ");print_scaled(font_size[chr_code]);
-    print_str("pt");
+    {@+print_str(L" at ");print_scaled(font_size[chr_code]);
+    print_str(L"pt");
     }
   } @+break;
 
@@ -23517,15 +23517,15 @@ bool @!long_help_seen; /*has the long \.{\\errmessage} help been used?*/
 @ @<Set init...@>=long_help_seen=false;
 
 @ @<Print string |s| as an error message@>=
-{@+print_err("");slow_print(s);
+{@+print_err(L"");slow_print(s);
 if (err_help!=null) use_err_help=true;
-else if (long_help_seen) help1("(That was another \\errmessage.)")@;
+else if (long_help_seen) help1(L"(That was another \\errmessage.)")@;
 else{@+if (interaction < error_stop_mode) long_help_seen=true;
-  help4("This error message was generated by an \\errmessage")@/
-  ("command, so I can't give any explicit help.")@/
-  ("Pretend that you're Hercule Poirot: Examine all clues,")@/
+  help4(L"This error message was generated by an \\errmessage")@/
+  (L"command, so I can't give any explicit help.")@/
+  (L"Pretend that you're Hercule Poirot: Examine all clues,")@/
 @^Poirot, Hercule@>
-  ("and deduce the truth by order and method.");
+  (L"and deduce the truth by order and method.");
   }
 error();use_err_help=false;
 }
@@ -23625,16 +23625,16 @@ common_ending: if (interaction < error_stop_mode)
   }
 else if (tracing_online > 0)
   {@+@t@>@;@/
-  help3("This isn't an error message; I'm just \\showing something.")@/
-  ("Type `I\\show...' to show more (e.g., \\show\\cs,")@/
-  ("\\showthe\\count10, \\showbox255, \\showlists).");
+  help3(L"This isn't an error message; I'm just \\showing something.")@/
+  (L"Type `I\\show...' to show more (e.g., \\show\\cs,")@/
+  (L"\\showthe\\count10, \\showbox255, \\showlists).");
   }
 else{@+@t@>@;@/
-  help5("This isn't an error message; I'm just \\showing something.")@/
-  ("Type `I\\show...' to show more (e.g., \\show\\cs,")@/
-  ("\\showthe\\count10, \\showbox255, \\showlists).")@/
-  ("And type `I\\tracingonline=1\\show...' to show boxes and")@/
-  ("lists on your terminal as well as in the transcript file.");
+  help5(L"This isn't an error message; I'm just \\showing something.")@/
+  (L"Type `I\\show...' to show more (e.g., \\show\\cs,")@/
+  (L"\\showthe\\count10, \\showbox255, \\showlists).")@/
+  (L"And type `I\\tracingonline=1\\show...' to show boxes and")@/
+  (L"lists on your terminal as well as in the transcript file.");
   }
 error();
 }
@@ -23642,7 +23642,7 @@ error();
 @ @<Show the current meaning of a token...@>=
 {@+get_token();
 if (interaction==error_stop_mode) wake_up_terminal;
-print_nl("> ");
+print_nl(L"> ");
 if (cur_cs!=0)
   {@+sprint_cs(cur_cs);print_char('=');
   }
@@ -23650,8 +23650,8 @@ print_meaning();goto common_ending;
 }
 
 @ @<Cases of |print_cmd_chr|...@>=
-case undefined_cs: print_str("undefined");@+break;
-case call: print_str("macro");@+break;
+case undefined_cs: print_str(L"undefined");@+break;
+case call: print_str(L"macro");@+break;
 case long_call: print_esc(@[@<|"long macro"|@>@]);@+break;
 case outer_call: print_esc(@[@<|"outer macro"|@>@]);@+break;
 case long_outer_call: {@+print_esc(@[@<|"long"|@>@]);print_esc(@[@<|"outer macro"|@>@]);
@@ -23660,23 +23660,23 @@ case end_template: print_esc(@[@<|"outer endtemplate"|@>@]);@+break;
 
 @ @<Show the current contents of a box@>=
 {@+scan_eight_bit_int();begin_diagnostic();
-print_nl("> \\box");print_int(cur_val);print_char('=');
-if (box(cur_val)==null) print_str("void");
+print_nl(L"> \\box");print_int(cur_val);print_char('=');
+if (box(cur_val)==null) print_str(L"void");
 else show_box(box(cur_val));
 }
 
 @ @<Show the current value of some parameter...@>=
 {@+p=the_toks();
 if (interaction==error_stop_mode) wake_up_terminal;
-print_nl("> ");token_show(temp_head);
+print_nl(L"> ");token_show(temp_head);
 flush_list(link(temp_head));goto common_ending;
 }
 
 @ @<Complete a potentially long \.{\\show} command@>=
-end_diagnostic(true);print_err("OK");
+end_diagnostic(true);print_err(L"OK");
 @.OK@>
 if (selector==term_and_log) if (tracing_online <= 0)
-  {@+selector=term_only;print_str(" (see the transcript file)");
+  {@+selector=term_only;print_str(L" (see the transcript file)");
   selector=term_and_log;
   }
 
@@ -23733,7 +23733,7 @@ that reads one in. The function returns |false| if the dumped format is
 incompatible with the present \TeX\ table sizes, etc.
 
 @d too_small(X)	{@+wake_up_terminal;
-  wterm_ln("---! Must increase the ", X);
+  wterm_ln(L"---! Must increase the ", X);
 @.Must increase the x@>
   goto bad_fmt;
   }
@@ -23754,7 +23754,7 @@ four_quarters @!w; /*four ASCII codes*/
 @<Undump a couple more things and the closing check word@>;
 return true; /*it worked!*/
 bad_fmt: wake_up_terminal;
-  wterm_ln("(Fatal format file error; I'm stymied)");
+  wterm_ln(L"(Fatal format file error; I'm stymied)");
 @.Fatal format file error@>
 return false;
 }
@@ -23765,9 +23765,9 @@ the |xeq_level| array is constant and it need not be dumped.
 
 @<If dumping is not allowed, abort@>=
 if (save_ptr!=0)
-  {@+print_err("You can't dump inside a group");
+  {@+print_err(L"You can't dump inside a group");
 @.You can't dump...@>
-  help1("`{...\\dump}' is a no-no.");succumb;
+  help1(L"`{...\\dump}' is a no-no.");succumb;
   }
 
 @ Format files consist of |memory_word| items, and we use the following
@@ -23842,7 +23842,7 @@ while (k+4 < pool_ptr)
   {@+dump_four_ASCII;k=k+4;
   }
 k=pool_ptr-4;dump_four_ASCII;
-print_ln();print_int(str_ptr);print_str(" strings of total length ");
+print_ln();print_int(str_ptr);print_str(L" strings of total length ");
 print_int(pool_ptr)
 
 @ @d undump_four_ASCII	
@@ -23851,8 +23851,8 @@ print_int(pool_ptr)
   str_pool[k+2]=si(qo(w.b2));str_pool[k+3]=si(qo(w.b3))
 
 @<Undump the string pool@>=
-undump_size(0)(pool_size)("string pool size")(pool_ptr);
-undump_size(0)(max_strings)("max strings")(str_ptr);
+undump_size(0)(pool_size)(L"string pool size")(pool_ptr);
+undump_size(0)(max_strings)(L"max strings")(str_ptr);
 for (k=0; k<=str_ptr; k++) undump(0)(pool_ptr)(str_start[k]);
 k=0;
 while (k+4 < pool_ptr)
@@ -23888,7 +23888,7 @@ while (p!=null)
   }
 dump_int(var_used);dump_int(dyn_used);
 print_ln();print_int(x);
-print_str(" memory locations dumped; current usage is ");
+print_str(L" memory locations dumped; current usage is ");
 print_int(var_used);print_char('&');print_int(dyn_used)
 
 @ @<Undump the dynamic memory@>=
@@ -23996,7 +23996,7 @@ for (p=hash_base; p<=hash_used; p++) if (text(p)!=0)
   }
 for (p=hash_used+1; p<=undefined_control_sequence-1; p++) dump_hh(hash[p]);
 dump_int(cs_count);@/
-print_ln();print_int(cs_count);print_str(" multiletter control sequences")
+print_ln();print_int(cs_count);print_str(L" multiletter control sequences")
 
 @ @<Undump the hash table@>=
 undump(hash_base)(frozen_control_sequence)(hash_used);p=hash_base-1;
@@ -24011,14 +24011,14 @@ for (k=0; k<=fmem_ptr-1; k++) dump_wd(font_info[k]);
 dump_int(font_ptr);
 for (k=null_font; k<=font_ptr; k++)
   @<Dump the array info for internal font number |k|@>;
-print_ln();print_int(fmem_ptr-7);print_str(" words of font info for ");
-print_int(font_ptr-font_base);print_str(" preloaded font");
+print_ln();print_int(fmem_ptr-7);print_str(L" words of font info for ");
+print_int(font_ptr-font_base);print_str(L" preloaded font");
 if (font_ptr!=font_base+1) print_char('s')
 
 @ @<Undump the font information@>=
-undump_size(7)(font_mem_size)("font mem size")(fmem_ptr);
+undump_size(7)(font_mem_size)(L"font mem size")(fmem_ptr);
 for (k=0; k<=fmem_ptr-1; k++) undump_wd(font_info[k]);
-undump_size(font_base)(font_max)("font max")(font_ptr);
+undump_size(font_base)(font_max)(L"font max")(font_ptr);
 for (k=null_font; k<=font_ptr; k++)
   @<Undump the array info for internal font number |k|@>@;
 
@@ -24046,10 +24046,10 @@ dump_int(font_glue[k]);@/
 dump_int(bchar_label[k]);
 dump_int(font_bchar[k]);
 dump_int(font_false_bchar[k]);@/
-print_nl("\\font");print_esc(font_id_text(k));print_char('=');
+print_nl(L"\\font");print_esc(font_id_text(k));print_char('=');
 print_file_name(font_name[k], font_area[k], empty_string);
 if (font_size[k]!=font_dsize[k])
-  {@+print_str(" at ");print_scaled(font_size[k]);print_str("pt");
+  {@+print_str(L" at ");print_scaled(font_size[k]);print_str(L"pt");
   }
 }
 
@@ -24084,7 +24084,7 @@ dump_int(hyph_count);
 for (k=0; k<=hyph_size; k++) if (hyph_word[k]!=0)
   {@+dump_int(k);dump_int(hyph_word[k]);dump_int(hyph_list[k]);
   }
-print_ln();print_int(hyph_count);print_str(" hyphenation exception");
+print_ln();print_int(hyph_count);print_str(L" hyphenation exception");
 if (hyph_count!=1) print_char('s');
 if (trie_not_ready) init_trie();
 dump_int(trie_max);
@@ -24095,14 +24095,14 @@ for (k=1; k<=trie_op_ptr; k++)
   dump_int(hyf_num[k]);
   dump_int(hyf_next[k]);
   }
-print_nl("Hyphenation trie of length ");print_int(trie_max);
+print_nl(L"Hyphenation trie of length ");print_int(trie_max);
 @.Hyphenation trie...@>
-print_str(" has ");print_int(trie_op_ptr);print_str(" op");
+print_str(L" has ");print_int(trie_op_ptr);print_str(L" op");
 if (trie_op_ptr!=1) print_char('s');
-print_str(" out of ");print_int(trie_op_size);
+print_str(L" out of ");print_int(trie_op_size);
 for (k=255; k>=0; k--) if (trie_used[k] > min_quarterword)
-  {@+print_nl("  ");print_int(qo(trie_used[k]));
-  print_str(" for language ");print_int(k);
+  {@+print_nl(L"  ");print_int(qo(trie_used[k]));
+  print_str(L" for language ");print_int(k);
   dump_int(k);dump_int(qo(trie_used[k]));
   }
 
@@ -24115,12 +24115,12 @@ for (k=1; k<=hyph_count; k++)
   undump(0)(str_ptr)(hyph_word[j]);
   undump(min_halfword)(max_halfword)(hyph_list[j]);
   }
-undump_size(0)(trie_size)("trie size")(j);
+undump_size(0)(trie_size)(L"trie size")(j);
 #ifdef @!INIT
 trie_max=j;
 #endif
 for (k=0; k<=j; k++) undump_hh(trie[k]);
-undump_size(0)(trie_op_size)("trie op size")(j);
+undump_size(0)(trie_op_size)(L"trie op size")(j);
 #ifdef @!INIT
 trie_op_ptr=j;
 #endif
@@ -24161,7 +24161,7 @@ if ((x!=69069)||eof(fmt_file)) goto bad_fmt
 
 @ @<Create the |format_ident|...@>=
 selector=new_string;
-print_str(" (preloaded format=");print(job_name);print_char(' ');
+print_str(L" (preloaded format=");print(job_name);print_char(' ');
 print_int(year);print_char('.');
 print_int(month);print_char('.');print_int(day);print_char(')');
 if (interaction==batch_mode) selector=log_only;
@@ -24170,11 +24170,11 @@ str_room(1);
 format_ident=make_string();
 pack_job_name(format_extension);
 while (!w_open_out(&fmt_file))
-  prompt_file_name("format file name", format_extension);
-print_nl("Beginning to dump on file ");
+  prompt_file_name(L"format file name", format_extension);
+print_nl(L"Beginning to dump on file ");
 @.Beginning to dump...@>
 slow_print(w_make_name_string(&fmt_file));flush_string;
-print_nl("");slow_print(format_ident)
+print_nl(L"");slow_print(format_ident)
 
 @ @<Close the format file@>=
 w_close(&fmt_file)
@@ -24246,8 +24246,8 @@ t_open_out; /*open the terminal for output*/
 if (ready_already==314159) goto start_of_TEX;
 @<Check the ``constant'' values...@>@;
 if (bad > 0)
-  {@+wterm_ln("Ouch---my internal constants have been clobbered!",
-    "---case ", bad: 1);
+  {@+wterm_ln(L"Ouch---my internal constants have been clobbered!",
+    L"---case ", bad: 1);
 @.Ouch...clobbered@>
   exit(0);
   }
@@ -24292,7 +24292,7 @@ wake_up_terminal;@<Finish the \.{DVI} file@>;
 if (log_opened)
   {@+wlog_cr;a_close(&log_file);selector=selector-2;
   if (selector==term_only)
-    {@+print_nl("Transcript written on ");
+    {@+print_nl(L"Transcript written on ");
 @.Transcript written...@>
     slow_print(log_name);print_char('.');
     }
@@ -24305,34 +24305,34 @@ up |str_pool| memory when a non-{\bf stat} version of \TeX\ is being used.
 
 @<Output statistics...@>=
 if (log_opened)
-  {@+wlog_ln( ' ' );
-  wlog_ln("Here is how much of TeX's memory"," you used:");
+  {@+wlog_ln( L' ' );
+  wlog_ln(L"Here is how much of TeX's memory",L" you used:");
 @.Here is how much...@>
-  wlog( ' ' , str_ptr-init_str_ptr: 1," string");
-  if (str_ptr!=init_str_ptr+1) wlog( 's' );
-  wlog_ln(" out of ", max_strings-init_str_ptr: 1);@/
-  wlog_ln( ' ' , pool_ptr-init_pool_ptr: 1," string characters out of ",
+  wlog( L' ' , str_ptr-init_str_ptr: 1,L" string");
+  if (str_ptr!=init_str_ptr+1) wlog( L's' );
+  wlog_ln(L" out of ", max_strings-init_str_ptr: 1);@/
+  wlog_ln( L' ' , pool_ptr-init_pool_ptr: 1,L" string characters out of ",
     pool_size-init_pool_ptr: 1);@/
-  wlog_ln( ' ' , lo_mem_max-mem_min+mem_end-hi_mem_min+2: 1,@|
-    " words of memory out of ", mem_end+1-mem_min: 1);@/
-  wlog_ln( ' ' , cs_count: 1," multiletter control sequences out of ",
+  wlog_ln( L' ' , lo_mem_max-mem_min+mem_end-hi_mem_min+2: 1,@|
+    L" words of memory out of ", mem_end+1-mem_min: 1);@/
+  wlog_ln( L' ' , cs_count: 1,L" multiletter control sequences out of ",
     hash_size: 1);@/
-  wlog( ' ' , fmem_ptr: 1," words of font info for ",
-    font_ptr-font_base: 1," font");
-  if (font_ptr!=font_base+1) wlog( 's' );
-  wlog_ln(", out of ", font_mem_size: 1," for ", font_max-font_base: 1);@/
-  wlog( ' ' , hyph_count: 1," hyphenation exception");
-  if (hyph_count!=1) wlog( 's' );
-  wlog_ln(" out of ", hyph_size: 1);@/
-  wlog_ln( ' ' , max_in_stack: 1,"i,", max_nest_stack: 1,"n,",@|
-    max_param_stack: 1,"p,",@|
-    max_buf_stack+1: 1,"b,",@|
-    max_save_stack+6: 1,"s stack positions out of ",@|
-    stack_size: 1,"i,",
-    nest_size: 1,"n,",
-    param_size: 1,"p,",
-    buf_size: 1,"b,",
-    save_size: 1, 's' );
+  wlog( L' ' , fmem_ptr: 1,L" words of font info for ",
+    font_ptr-font_base: 1,L" font");
+  if (font_ptr!=font_base+1) wlog( L's' );
+  wlog_ln(L", out of ", font_mem_size: 1,L" for ", font_max-font_base: 1);@/
+  wlog( L' ' , hyph_count: 1,L" hyphenation exception");
+  if (hyph_count!=1) wlog( L's' );
+  wlog_ln(L" out of ", hyph_size: 1);@/
+  wlog_ln( L' ' , max_in_stack: 1,L"i,", max_nest_stack: 1,L"n,",@|
+    max_param_stack: 1,L"p,",@|
+    max_buf_stack+1: 1,L"b,",@|
+    max_save_stack+6: 1,L"s stack positions out of ",@|
+    stack_size: 1,L"i,",
+    nest_size: 1,L"n,",
+    param_size: 1,L"p,",
+    buf_size: 1,L"b,",
+    save_size: 1, L's' );
   }
 
 @ We get to the |final_cleanup| routine when \.{\\end} or \.{\\dump} has
@@ -24347,21 +24347,21 @@ if (job_name==0) open_log_file();
 while (input_ptr > 0)
   if (state==token_list) end_token_list();@+else end_file_reading();
 while (open_parens > 0)
-  {@+print_str(" )");decr(open_parens);
+  {@+print_str(L" )");decr(open_parens);
   }
 if (cur_level > level_one)
-  {@+print_nl("(");print_esc(@[@<|"end occurred "|@>@]);
-  print_str("inside a group at level ");
+  {@+print_nl(L"(");print_esc(@[@<|"end occurred "|@>@]);
+  print_str(L"inside a group at level ");
 @:end_}{\.{(\\end occurred...)}@>
   print_int(cur_level-level_one);print_char(')');
   }
 while (cond_ptr!=null)
-  {@+print_nl("(");print_esc(@[@<|"end occurred "|@>@]);
-  print_str("when ");print_cmd_chr(if_test, cur_if);
+  {@+print_nl(L"(");print_esc(@[@<|"end occurred "|@>@]);
+  print_str(L"when ");print_cmd_chr(if_test, cur_if);
   if (if_line!=0)
-    {@+print_str(" on line ");print_int(if_line);
+    {@+print_str(L" on line ");print_int(if_line);
     }
-  print_str(" was incomplete)");
+  print_str(L" was incomplete)");
   if_line=if_line_field(cond_ptr);
   cur_if=subtype(cond_ptr);temp_ptr=cond_ptr;
   cond_ptr=link(cond_ptr);free_node(temp_ptr, if_node_size);
@@ -24370,7 +24370,7 @@ if (history!=spotless)
  if (((history==warning_issued)||(interaction < error_stop_mode)))
   if (selector==term_and_log)
   {@+selector=term_only;
-  print_nl("(see the transcript file for additional information)");
+  print_nl(L"(see the transcript file for additional information)");
 @.see the transcript file...@>
   selector=term_and_log;
   }
@@ -24382,7 +24382,7 @@ for (c=top_mark_code; c<=split_bot_mark_code; c++)
   if (last_glue!=max_halfword) delete_glue_ref(last_glue);
   store_fmt_file();return;
 #endif
-  print_nl("(\\dump is performed only by INITEX)");return;
+  print_nl(L"(\\dump is performed only by INITEX)");return;
 @:dump_}{\.{\\dump...only by INITEX}@>
   }
 }
@@ -24450,7 +24450,7 @@ void debug_help(void) /*routine to display various things*/
 {@+
 int k, @!l, @!m, @!n;
 loop{@+wake_up_terminal;
-  print_nl("debug # (-1 to exit):");update_terminal;
+  print_nl(L"debug # (-1 to exit):");update_terminal;
 @.debug \#@>
   read(term_in, m);
   if (m < 0) return;
@@ -24461,7 +24461,7 @@ loop{@+wake_up_terminal;
   else{@+read(term_in, n);
     switch (m) {
     @t\4@>@<Numbered cases for |debug_help|@>@;
-    default:print_str("?");
+    default:print_str(L"?");
     }
     }
   }
@@ -24607,7 +24607,7 @@ case extension: switch (chr_code) {
   case special_node: print_esc(@[@<|"special"|@>@]);@+break;
   case immediate_code: print_esc(@[@<|"immediate"|@>@]);@+break;
   case set_language_code: print_esc(@[@<|"setlanguage"|@>@]);@+break;
-  default:print_str("[unknown extension!]");
+  default:print_str(L"[unknown extension!]");
   } @+break;
 
 @ When an |extension| command occurs in |main_control|, in any mode,
@@ -24712,11 +24712,11 @@ case special_node: {@+print_esc(@[@<|"special"|@>@]);
   print_mark(write_tokens(p));
   } @+break;
 case language_node: {@+print_esc(@[@<|"setlanguage"|@>@]);
-  print_int(what_lang(p));print_str(" (hyphenmin ");
+  print_int(what_lang(p));print_str(L" (hyphenmin ");
   print_int(what_lhm(p));print_char(',');
   print_int(what_rhm(p));print_char(')');
   } @+break;
-default:print_str("whatsit?");
+default:print_str(L"whatsit?");
 }
 
 @ @<Make a partial copy of the whatsit...@>=
@@ -24819,7 +24819,7 @@ old_setting=selector;j=write_stream(p);
 if (write_open[j]) selector=j;
 else{@+ /*write to the terminal if file isn't open*/
   if ((j==17)&&(selector==term_and_log)) selector=log_only;
-  print_nl("");
+  print_nl(L"");
   }
 token_show(def_ref);print_ln();
 flush_list(def_ref);selector=old_setting;
@@ -24851,10 +24851,10 @@ mode=old_mode;
 end_token_list() /*conserve stack space*/
 
 @ @<Recover from an unbalanced write command@>=
-{@+print_err("Unbalanced write command");
+{@+print_err(L"Unbalanced write command");
 @.Unbalanced write...@>
-help2("On this page there's a \\write with fewer real {'s than }'s.")@/
-("I can't handle that very well; good luck.");error();
+help2(L"On this page there's a \\write with fewer real {'s than }'s.")@/
+(L"I can't handle that very well; good luck.");error();
 @/do@+{get_token();
 }@+ while (!(cur_tok==end_write_token));
 }
@@ -24892,7 +24892,7 @@ if (!doing_leaders)
       if (cur_ext==empty_string) cur_ext=@[@<|".tex"|@>@];
       pack_cur_name;
       while (!a_open_out(&write_file[j]))
-        prompt_file_name("output file name",@[@<|".tex"|@>@]);
+        prompt_file_name(L"output file name",@[@<|".tex"|@>@]);
       write_open[j]=true;
       }
     }
@@ -25007,1240 +25007,1240 @@ exclusive of input and output.
 	578, 582, 586, 590, 594, 598, 602, 606, 610, 614, 618, 622, 626, 630, 634, 638,@/
 	642, 646, 650, 654, 658, 662, 666, 670, 674, 678, 682, 686, 690, 694, 698, 702,@/
 @
-@d str_256 "???"
+@d str_256 L"???"
 @<|"???"|@>=@+256
 @
-@d str_257 "m2d5c2l5x2v5i"
+@d str_257 L"m2d5c2l5x2v5i"
 @<|"m2d5c2l5x2v5i"|@>=@+257
 @
-@d str_258 "batchmode"
+@d str_258 L"batchmode"
 @<|"batchmode"|@>=@+258
 @
-@d str_259 "nonstopmode"
+@d str_259 L"nonstopmode"
 @<|"nonstopmode"|@>=@+259
 @
-@d str_260 "scrollmode"
+@d str_260 L"scrollmode"
 @<|"scrollmode"|@>=@+260
 @
-@d str_261 "CLOBBERED."
+@d str_261 L"CLOBBERED."
 @<|"CLOBBERED."|@>=@+261
 @
-@d str_262 "fil"
+@d str_262 L"fil"
 @<|"fil"|@>=@+262
 @
-@d str_263 "unset"
+@d str_263 L"unset"
 @<|"unset"|@>=@+263
 @
-@d str_264 "rule("
+@d str_264 L"rule("
 @<|"rule("|@>=@+264
 @
-@d str_265 "insert"
+@d str_265 L"insert"
 @<|"insert"|@>=@+265
 @
-@d str_266 "glue"
+@d str_266 L"glue"
 @<|"glue"|@>=@+266
 @
-@d str_267 "nonscript"
+@d str_267 L"nonscript"
 @<|"nonscript"|@>=@+267
 @
-@d str_268 "mskip"
+@d str_268 L"mskip"
 @<|"mskip"|@>=@+268
 @
-@d str_269 "mu"
+@d str_269 L"mu"
 @<|"mu"|@>=@+269
 @
-@d str_270 ""
+@d str_270 L""
 @d empty_string 270
 @
-@d str_271 "kern"
+@d str_271 L"kern"
 @<|"kern"|@>=@+271
 @
-@d str_272 "mkern"
+@d str_272 L"mkern"
 @<|"mkern"|@>=@+272
 @
-@d str_273 "math"
+@d str_273 L"math"
 @<|"math"|@>=@+273
 @
-@d str_274 "penalty "
+@d str_274 L"penalty "
 @<|"penalty "|@>=@+274
 @
-@d str_275 "discretionary"
+@d str_275 L"discretionary"
 @<|"discretionary"|@>=@+275
 @
-@d str_276 "mark"
+@d str_276 L"mark"
 @<|"mark"|@>=@+276
 @
-@d str_277 "vadjust"
+@d str_277 L"vadjust"
 @<|"vadjust"|@>=@+277
 @
-@d str_278 "flushing"
+@d str_278 L"flushing"
 @<|"flushing"|@>=@+278
 @
-@d str_279 "copying"
+@d str_279 L"copying"
 @<|"copying"|@>=@+279
 @
-@d str_280 "lineskip"
+@d str_280 L"lineskip"
 @<|"lineskip"|@>=@+280
 @
-@d str_281 "baselineskip"
+@d str_281 L"baselineskip"
 @<|"baselineskip"|@>=@+281
 @
-@d str_282 "parskip"
+@d str_282 L"parskip"
 @<|"parskip"|@>=@+282
 @
-@d str_283 "abovedisplayskip"
+@d str_283 L"abovedisplayskip"
 @<|"abovedisplayskip"|@>=@+283
 @
-@d str_284 "belowdisplayskip"
+@d str_284 L"belowdisplayskip"
 @<|"belowdisplayskip"|@>=@+284
 @
-@d str_285 "abovedisplayshortskip"
+@d str_285 L"abovedisplayshortskip"
 @<|"abovedisplayshortskip"|@>=@+285
 @
-@d str_286 "belowdisplayshortskip"
+@d str_286 L"belowdisplayshortskip"
 @<|"belowdisplayshortskip"|@>=@+286
 @
-@d str_287 "leftskip"
+@d str_287 L"leftskip"
 @<|"leftskip"|@>=@+287
 @
-@d str_288 "rightskip"
+@d str_288 L"rightskip"
 @<|"rightskip"|@>=@+288
 @
-@d str_289 "topskip"
+@d str_289 L"topskip"
 @<|"topskip"|@>=@+289
 @
-@d str_290 "splittopskip"
+@d str_290 L"splittopskip"
 @<|"splittopskip"|@>=@+290
 @
-@d str_291 "tabskip"
+@d str_291 L"tabskip"
 @<|"tabskip"|@>=@+291
 @
-@d str_292 "spaceskip"
+@d str_292 L"spaceskip"
 @<|"spaceskip"|@>=@+292
 @
-@d str_293 "xspaceskip"
+@d str_293 L"xspaceskip"
 @<|"xspaceskip"|@>=@+293
 @
-@d str_294 "parfillskip"
+@d str_294 L"parfillskip"
 @<|"parfillskip"|@>=@+294
 @
-@d str_295 "thinmuskip"
+@d str_295 L"thinmuskip"
 @<|"thinmuskip"|@>=@+295
 @
-@d str_296 "medmuskip"
+@d str_296 L"medmuskip"
 @<|"medmuskip"|@>=@+296
 @
-@d str_297 "thickmuskip"
+@d str_297 L"thickmuskip"
 @<|"thickmuskip"|@>=@+297
 @
-@d str_298 "skip"
+@d str_298 L"skip"
 @<|"skip"|@>=@+298
 @
-@d str_299 "muskip"
+@d str_299 L"muskip"
 @<|"muskip"|@>=@+299
 @
-@d str_300 "pt"
+@d str_300 L"pt"
 @<|"pt"|@>=@+300
 @
-@d str_301 "output"
+@d str_301 L"output"
 @<|"output"|@>=@+301
 @
-@d str_302 "everypar"
+@d str_302 L"everypar"
 @<|"everypar"|@>=@+302
 @
-@d str_303 "everymath"
+@d str_303 L"everymath"
 @<|"everymath"|@>=@+303
 @
-@d str_304 "everydisplay"
+@d str_304 L"everydisplay"
 @<|"everydisplay"|@>=@+304
 @
-@d str_305 "everyhbox"
+@d str_305 L"everyhbox"
 @<|"everyhbox"|@>=@+305
 @
-@d str_306 "everyvbox"
+@d str_306 L"everyvbox"
 @<|"everyvbox"|@>=@+306
 @
-@d str_307 "everyjob"
+@d str_307 L"everyjob"
 @<|"everyjob"|@>=@+307
 @
-@d str_308 "everycr"
+@d str_308 L"everycr"
 @<|"everycr"|@>=@+308
 @
-@d str_309 "errhelp"
+@d str_309 L"errhelp"
 @<|"errhelp"|@>=@+309
 @
-@d str_310 "toks"
+@d str_310 L"toks"
 @<|"toks"|@>=@+310
 @
-@d str_311 "parshape"
+@d str_311 L"parshape"
 @<|"parshape"|@>=@+311
 @
-@d str_312 "box"
+@d str_312 L"box"
 @<|"box"|@>=@+312
 @
-@d str_313 "textfont"
+@d str_313 L"textfont"
 @<|"textfont"|@>=@+313
 @
-@d str_314 "scriptfont"
+@d str_314 L"scriptfont"
 @<|"scriptfont"|@>=@+314
 @
-@d str_315 "scriptscriptfont"
+@d str_315 L"scriptscriptfont"
 @<|"scriptscriptfont"|@>=@+315
 @
-@d str_316 "catcode"
+@d str_316 L"catcode"
 @<|"catcode"|@>=@+316
 @
-@d str_317 "lccode"
+@d str_317 L"lccode"
 @<|"lccode"|@>=@+317
 @
-@d str_318 "uccode"
+@d str_318 L"uccode"
 @<|"uccode"|@>=@+318
 @
-@d str_319 "sfcode"
+@d str_319 L"sfcode"
 @<|"sfcode"|@>=@+319
 @
-@d str_320 "mathcode"
+@d str_320 L"mathcode"
 @<|"mathcode"|@>=@+320
 @
-@d str_321 "pretolerance"
+@d str_321 L"pretolerance"
 @<|"pretolerance"|@>=@+321
 @
-@d str_322 "tolerance"
+@d str_322 L"tolerance"
 @<|"tolerance"|@>=@+322
 @
-@d str_323 "linepenalty"
+@d str_323 L"linepenalty"
 @<|"linepenalty"|@>=@+323
 @
-@d str_324 "hyphenpenalty"
+@d str_324 L"hyphenpenalty"
 @<|"hyphenpenalty"|@>=@+324
 @
-@d str_325 "exhyphenpenalty"
+@d str_325 L"exhyphenpenalty"
 @<|"exhyphenpenalty"|@>=@+325
 @
-@d str_326 "clubpenalty"
+@d str_326 L"clubpenalty"
 @<|"clubpenalty"|@>=@+326
 @
-@d str_327 "widowpenalty"
+@d str_327 L"widowpenalty"
 @<|"widowpenalty"|@>=@+327
 @
-@d str_328 "displaywidowpenalty"
+@d str_328 L"displaywidowpenalty"
 @<|"displaywidowpenalty"|@>=@+328
 @
-@d str_329 "brokenpenalty"
+@d str_329 L"brokenpenalty"
 @<|"brokenpenalty"|@>=@+329
 @
-@d str_330 "binoppenalty"
+@d str_330 L"binoppenalty"
 @<|"binoppenalty"|@>=@+330
 @
-@d str_331 "relpenalty"
+@d str_331 L"relpenalty"
 @<|"relpenalty"|@>=@+331
 @
-@d str_332 "predisplaypenalty"
+@d str_332 L"predisplaypenalty"
 @<|"predisplaypenalty"|@>=@+332
 @
-@d str_333 "postdisplaypenalty"
+@d str_333 L"postdisplaypenalty"
 @<|"postdisplaypenalty"|@>=@+333
 @
-@d str_334 "interlinepenalty"
+@d str_334 L"interlinepenalty"
 @<|"interlinepenalty"|@>=@+334
 @
-@d str_335 "doublehyphendemerits"
+@d str_335 L"doublehyphendemerits"
 @<|"doublehyphendemerits"|@>=@+335
 @
-@d str_336 "finalhyphendemerits"
+@d str_336 L"finalhyphendemerits"
 @<|"finalhyphendemerits"|@>=@+336
 @
-@d str_337 "adjdemerits"
+@d str_337 L"adjdemerits"
 @<|"adjdemerits"|@>=@+337
 @
-@d str_338 "mag"
+@d str_338 L"mag"
 @<|"mag"|@>=@+338
 @
-@d str_339 "delimiterfactor"
+@d str_339 L"delimiterfactor"
 @<|"delimiterfactor"|@>=@+339
 @
-@d str_340 "looseness"
+@d str_340 L"looseness"
 @<|"looseness"|@>=@+340
 @
-@d str_341 "time"
+@d str_341 L"time"
 @<|"time"|@>=@+341
 @
-@d str_342 "day"
+@d str_342 L"day"
 @<|"day"|@>=@+342
 @
-@d str_343 "month"
+@d str_343 L"month"
 @<|"month"|@>=@+343
 @
-@d str_344 "year"
+@d str_344 L"year"
 @<|"year"|@>=@+344
 @
-@d str_345 "showboxbreadth"
+@d str_345 L"showboxbreadth"
 @<|"showboxbreadth"|@>=@+345
 @
-@d str_346 "showboxdepth"
+@d str_346 L"showboxdepth"
 @<|"showboxdepth"|@>=@+346
 @
-@d str_347 "hbadness"
+@d str_347 L"hbadness"
 @<|"hbadness"|@>=@+347
 @
-@d str_348 "vbadness"
+@d str_348 L"vbadness"
 @<|"vbadness"|@>=@+348
 @
-@d str_349 "pausing"
+@d str_349 L"pausing"
 @<|"pausing"|@>=@+349
 @
-@d str_350 "tracingonline"
+@d str_350 L"tracingonline"
 @<|"tracingonline"|@>=@+350
 @
-@d str_351 "tracingmacros"
+@d str_351 L"tracingmacros"
 @<|"tracingmacros"|@>=@+351
 @
-@d str_352 "tracingstats"
+@d str_352 L"tracingstats"
 @<|"tracingstats"|@>=@+352
 @
-@d str_353 "tracingparagraphs"
+@d str_353 L"tracingparagraphs"
 @<|"tracingparagraphs"|@>=@+353
 @
-@d str_354 "tracingpages"
+@d str_354 L"tracingpages"
 @<|"tracingpages"|@>=@+354
 @
-@d str_355 "tracingoutput"
+@d str_355 L"tracingoutput"
 @<|"tracingoutput"|@>=@+355
 @
-@d str_356 "tracinglostchars"
+@d str_356 L"tracinglostchars"
 @<|"tracinglostchars"|@>=@+356
 @
-@d str_357 "tracingcommands"
+@d str_357 L"tracingcommands"
 @<|"tracingcommands"|@>=@+357
 @
-@d str_358 "tracingrestores"
+@d str_358 L"tracingrestores"
 @<|"tracingrestores"|@>=@+358
 @
-@d str_359 "uchyph"
+@d str_359 L"uchyph"
 @<|"uchyph"|@>=@+359
 @
-@d str_360 "outputpenalty"
+@d str_360 L"outputpenalty"
 @<|"outputpenalty"|@>=@+360
 @
-@d str_361 "maxdeadcycles"
+@d str_361 L"maxdeadcycles"
 @<|"maxdeadcycles"|@>=@+361
 @
-@d str_362 "hangafter"
+@d str_362 L"hangafter"
 @<|"hangafter"|@>=@+362
 @
-@d str_363 "floatingpenalty"
+@d str_363 L"floatingpenalty"
 @<|"floatingpenalty"|@>=@+363
 @
-@d str_364 "globaldefs"
+@d str_364 L"globaldefs"
 @<|"globaldefs"|@>=@+364
 @
-@d str_365 "fam"
+@d str_365 L"fam"
 @<|"fam"|@>=@+365
 @
-@d str_366 "escapechar"
+@d str_366 L"escapechar"
 @<|"escapechar"|@>=@+366
 @
-@d str_367 "defaulthyphenchar"
+@d str_367 L"defaulthyphenchar"
 @<|"defaulthyphenchar"|@>=@+367
 @
-@d str_368 "defaultskewchar"
+@d str_368 L"defaultskewchar"
 @<|"defaultskewchar"|@>=@+368
 @
-@d str_369 "endlinechar"
+@d str_369 L"endlinechar"
 @<|"endlinechar"|@>=@+369
 @
-@d str_370 "newlinechar"
+@d str_370 L"newlinechar"
 @<|"newlinechar"|@>=@+370
 @
-@d str_371 "language"
+@d str_371 L"language"
 @<|"language"|@>=@+371
 @
-@d str_372 "lefthyphenmin"
+@d str_372 L"lefthyphenmin"
 @<|"lefthyphenmin"|@>=@+372
 @
-@d str_373 "righthyphenmin"
+@d str_373 L"righthyphenmin"
 @<|"righthyphenmin"|@>=@+373
 @
-@d str_374 "holdinginserts"
+@d str_374 L"holdinginserts"
 @<|"holdinginserts"|@>=@+374
 @
-@d str_375 "errorcontextlines"
+@d str_375 L"errorcontextlines"
 @<|"errorcontextlines"|@>=@+375
 @
-@d str_376 "count"
+@d str_376 L"count"
 @<|"count"|@>=@+376
 @
-@d str_377 "delcode"
+@d str_377 L"delcode"
 @<|"delcode"|@>=@+377
 @
-@d str_378 "parindent"
+@d str_378 L"parindent"
 @<|"parindent"|@>=@+378
 @
-@d str_379 "mathsurround"
+@d str_379 L"mathsurround"
 @<|"mathsurround"|@>=@+379
 @
-@d str_380 "lineskiplimit"
+@d str_380 L"lineskiplimit"
 @<|"lineskiplimit"|@>=@+380
 @
-@d str_381 "hsize"
+@d str_381 L"hsize"
 @<|"hsize"|@>=@+381
 @
-@d str_382 "vsize"
+@d str_382 L"vsize"
 @<|"vsize"|@>=@+382
 @
-@d str_383 "maxdepth"
+@d str_383 L"maxdepth"
 @<|"maxdepth"|@>=@+383
 @
-@d str_384 "splitmaxdepth"
+@d str_384 L"splitmaxdepth"
 @<|"splitmaxdepth"|@>=@+384
 @
-@d str_385 "boxmaxdepth"
+@d str_385 L"boxmaxdepth"
 @<|"boxmaxdepth"|@>=@+385
 @
-@d str_386 "hfuzz"
+@d str_386 L"hfuzz"
 @<|"hfuzz"|@>=@+386
 @
-@d str_387 "vfuzz"
+@d str_387 L"vfuzz"
 @<|"vfuzz"|@>=@+387
 @
-@d str_388 "delimitershortfall"
+@d str_388 L"delimitershortfall"
 @<|"delimitershortfall"|@>=@+388
 @
-@d str_389 "nulldelimiterspace"
+@d str_389 L"nulldelimiterspace"
 @<|"nulldelimiterspace"|@>=@+389
 @
-@d str_390 "scriptspace"
+@d str_390 L"scriptspace"
 @<|"scriptspace"|@>=@+390
 @
-@d str_391 "predisplaysize"
+@d str_391 L"predisplaysize"
 @<|"predisplaysize"|@>=@+391
 @
-@d str_392 "displaywidth"
+@d str_392 L"displaywidth"
 @<|"displaywidth"|@>=@+392
 @
-@d str_393 "displayindent"
+@d str_393 L"displayindent"
 @<|"displayindent"|@>=@+393
 @
-@d str_394 "overfullrule"
+@d str_394 L"overfullrule"
 @<|"overfullrule"|@>=@+394
 @
-@d str_395 "hangindent"
+@d str_395 L"hangindent"
 @<|"hangindent"|@>=@+395
 @
-@d str_396 "hoffset"
+@d str_396 L"hoffset"
 @<|"hoffset"|@>=@+396
 @
-@d str_397 "voffset"
+@d str_397 L"voffset"
 @<|"voffset"|@>=@+397
 @
-@d str_398 "emergencystretch"
+@d str_398 L"emergencystretch"
 @<|"emergencystretch"|@>=@+398
 @
-@d str_399 "dimen"
+@d str_399 L"dimen"
 @<|"dimen"|@>=@+399
 @
-@d str_400 "notexpanded:"
+@d str_400 L"notexpanded:"
 @<|"notexpanded:"|@>=@+400
 @
-@d str_401 "csname"
+@d str_401 L"csname"
 @<|"csname"|@>=@+401
 @
-@d str_402 "endcsname"
+@d str_402 L"endcsname"
 @<|"endcsname"|@>=@+402
 @
-@d str_403 "IMPOSSIBLE."
+@d str_403 L"IMPOSSIBLE."
 @<|"IMPOSSIBLE."|@>=@+403
 @
-@d str_404 "NONEXISTENT."
+@d str_404 L"NONEXISTENT."
 @<|"NONEXISTENT."|@>=@+404
 @
-@d str_405 "accent"
+@d str_405 L"accent"
 @<|"accent"|@>=@+405
 @
-@d str_406 "advance"
+@d str_406 L"advance"
 @<|"advance"|@>=@+406
 @
-@d str_407 "afterassignment"
+@d str_407 L"afterassignment"
 @<|"afterassignment"|@>=@+407
 @
-@d str_408 "aftergroup"
+@d str_408 L"aftergroup"
 @<|"aftergroup"|@>=@+408
 @
-@d str_409 "begingroup"
+@d str_409 L"begingroup"
 @<|"begingroup"|@>=@+409
 @
-@d str_410 "char"
+@d str_410 L"char"
 @<|"char"|@>=@+410
 @
-@d str_411 "delimiter"
+@d str_411 L"delimiter"
 @<|"delimiter"|@>=@+411
 @
-@d str_412 "divide"
+@d str_412 L"divide"
 @<|"divide"|@>=@+412
 @
-@d str_413 "endgroup"
+@d str_413 L"endgroup"
 @<|"endgroup"|@>=@+413
 @
-@d str_414 "expandafter"
+@d str_414 L"expandafter"
 @<|"expandafter"|@>=@+414
 @
-@d str_415 "font"
+@d str_415 L"font"
 @<|"font"|@>=@+415
 @
-@d str_416 "fontdimen"
+@d str_416 L"fontdimen"
 @<|"fontdimen"|@>=@+416
 @
-@d str_417 "halign"
+@d str_417 L"halign"
 @<|"halign"|@>=@+417
 @
-@d str_418 "hrule"
+@d str_418 L"hrule"
 @<|"hrule"|@>=@+418
 @
-@d str_419 "ignorespaces"
+@d str_419 L"ignorespaces"
 @<|"ignorespaces"|@>=@+419
 @
-@d str_420 "mathaccent"
+@d str_420 L"mathaccent"
 @<|"mathaccent"|@>=@+420
 @
-@d str_421 "mathchar"
+@d str_421 L"mathchar"
 @<|"mathchar"|@>=@+421
 @
-@d str_422 "mathchoice"
+@d str_422 L"mathchoice"
 @<|"mathchoice"|@>=@+422
 @
-@d str_423 "multiply"
+@d str_423 L"multiply"
 @<|"multiply"|@>=@+423
 @
-@d str_424 "noalign"
+@d str_424 L"noalign"
 @<|"noalign"|@>=@+424
 @
-@d str_425 "noboundary"
+@d str_425 L"noboundary"
 @<|"noboundary"|@>=@+425
 @
-@d str_426 "noexpand"
+@d str_426 L"noexpand"
 @<|"noexpand"|@>=@+426
 @
-@d str_427 "omit"
+@d str_427 L"omit"
 @<|"omit"|@>=@+427
 @
-@d str_428 "penalty"
+@d str_428 L"penalty"
 @<|"penalty"|@>=@+428
 @
-@d str_429 "prevgraf"
+@d str_429 L"prevgraf"
 @<|"prevgraf"|@>=@+429
 @
-@d str_430 "radical"
+@d str_430 L"radical"
 @<|"radical"|@>=@+430
 @
-@d str_431 "read"
+@d str_431 L"read"
 @<|"read"|@>=@+431
 @
-@d str_432 "relax"
+@d str_432 L"relax"
 @<|"relax"|@>=@+432
 @
-@d str_433 "setbox"
+@d str_433 L"setbox"
 @<|"setbox"|@>=@+433
 @
-@d str_434 "the"
+@d str_434 L"the"
 @<|"the"|@>=@+434
 @
-@d str_435 "valign"
+@d str_435 L"valign"
 @<|"valign"|@>=@+435
 @
-@d str_436 "vcenter"
+@d str_436 L"vcenter"
 @<|"vcenter"|@>=@+436
 @
-@d str_437 "vrule"
+@d str_437 L"vrule"
 @<|"vrule"|@>=@+437
 @
-@d str_438 "curlevel"
+@d str_438 L"curlevel"
 @<|"curlevel"|@>=@+438
 @
-@d str_439 "retaining"
+@d str_439 L"retaining"
 @<|"retaining"|@>=@+439
 @
-@d str_440 "restoring"
+@d str_440 L"restoring"
 @<|"restoring"|@>=@+440
 @
-@d str_441 "ETC."
+@d str_441 L"ETC."
 @<|"ETC."|@>=@+441
 @
-@d str_442 "BAD."
+@d str_442 L"BAD."
 @<|"BAD."|@>=@+442
 @
-@d str_443 "write"
+@d str_443 L"write"
 @<|"write"|@>=@+443
 @
-@d str_444 "par"
+@d str_444 L"par"
 @<|"par"|@>=@+444
 @
-@d str_445 "input"
+@d str_445 L"input"
 @<|"input"|@>=@+445
 @
-@d str_446 "endinput"
+@d str_446 L"endinput"
 @<|"endinput"|@>=@+446
 @
-@d str_447 "topmark"
+@d str_447 L"topmark"
 @<|"topmark"|@>=@+447
 @
-@d str_448 "firstmark"
+@d str_448 L"firstmark"
 @<|"firstmark"|@>=@+448
 @
-@d str_449 "botmark"
+@d str_449 L"botmark"
 @<|"botmark"|@>=@+449
 @
-@d str_450 "splitfirstmark"
+@d str_450 L"splitfirstmark"
 @<|"splitfirstmark"|@>=@+450
 @
-@d str_451 "splitbotmark"
+@d str_451 L"splitbotmark"
 @<|"splitbotmark"|@>=@+451
 @
-@d str_452 "spacefactor"
+@d str_452 L"spacefactor"
 @<|"spacefactor"|@>=@+452
 @
-@d str_453 "prevdepth"
+@d str_453 L"prevdepth"
 @<|"prevdepth"|@>=@+453
 @
-@d str_454 "deadcycles"
+@d str_454 L"deadcycles"
 @<|"deadcycles"|@>=@+454
 @
-@d str_455 "insertpenalties"
+@d str_455 L"insertpenalties"
 @<|"insertpenalties"|@>=@+455
 @
-@d str_456 "wd"
+@d str_456 L"wd"
 @<|"wd"|@>=@+456
 @
-@d str_457 "ht"
+@d str_457 L"ht"
 @<|"ht"|@>=@+457
 @
-@d str_458 "dp"
+@d str_458 L"dp"
 @<|"dp"|@>=@+458
 @
-@d str_459 "lastpenalty"
+@d str_459 L"lastpenalty"
 @<|"lastpenalty"|@>=@+459
 @
-@d str_460 "lastkern"
+@d str_460 L"lastkern"
 @<|"lastkern"|@>=@+460
 @
-@d str_461 "lastskip"
+@d str_461 L"lastskip"
 @<|"lastskip"|@>=@+461
 @
-@d str_462 "inputlineno"
+@d str_462 L"inputlineno"
 @<|"inputlineno"|@>=@+462
 @
-@d str_463 "badness"
+@d str_463 L"badness"
 @<|"badness"|@>=@+463
 @
-@d str_464 "true"
+@d str_464 L"true"
 @<|"true"|@>=@+464
 @
-@d str_465 "em"
+@d str_465 L"em"
 @<|"em"|@>=@+465
 @
-@d str_466 "ex"
+@d str_466 L"ex"
 @<|"ex"|@>=@+466
 @
-@d str_467 "in"
+@d str_467 L"in"
 @<|"in"|@>=@+467
 @
-@d str_468 "pc"
+@d str_468 L"pc"
 @<|"pc"|@>=@+468
 @
-@d str_469 "cm"
+@d str_469 L"cm"
 @<|"cm"|@>=@+469
 @
-@d str_470 "mm"
+@d str_470 L"mm"
 @<|"mm"|@>=@+470
 @
-@d str_471 "bp"
+@d str_471 L"bp"
 @<|"bp"|@>=@+471
 @
-@d str_472 "dd"
+@d str_472 L"dd"
 @<|"dd"|@>=@+472
 @
-@d str_473 "cc"
+@d str_473 L"cc"
 @<|"cc"|@>=@+473
 @
-@d str_474 "sp"
+@d str_474 L"sp"
 @<|"sp"|@>=@+474
 @
-@d str_475 "plus"
+@d str_475 L"plus"
 @<|"plus"|@>=@+475
 @
-@d str_476 "minus"
+@d str_476 L"minus"
 @<|"minus"|@>=@+476
 @
-@d str_477 "width"
+@d str_477 L"width"
 @<|"width"|@>=@+477
 @
-@d str_478 "height"
+@d str_478 L"height"
 @<|"height"|@>=@+478
 @
-@d str_479 "depth"
+@d str_479 L"depth"
 @<|"depth"|@>=@+479
 @
-@d str_480 "number"
+@d str_480 L"number"
 @<|"number"|@>=@+480
 @
-@d str_481 "romannumeral"
+@d str_481 L"romannumeral"
 @<|"romannumeral"|@>=@+481
 @
-@d str_482 "string"
+@d str_482 L"string"
 @<|"string"|@>=@+482
 @
-@d str_483 "meaning"
+@d str_483 L"meaning"
 @<|"meaning"|@>=@+483
 @
-@d str_484 "fontname"
+@d str_484 L"fontname"
 @<|"fontname"|@>=@+484
 @
-@d str_485 "jobname"
+@d str_485 L"jobname"
 @<|"jobname"|@>=@+485
 @
-@d str_486 "if"
+@d str_486 L"if"
 @<|"if"|@>=@+486
 @
-@d str_487 "ifcat"
+@d str_487 L"ifcat"
 @<|"ifcat"|@>=@+487
 @
-@d str_488 "ifnum"
+@d str_488 L"ifnum"
 @<|"ifnum"|@>=@+488
 @
-@d str_489 "ifdim"
+@d str_489 L"ifdim"
 @<|"ifdim"|@>=@+489
 @
-@d str_490 "ifodd"
+@d str_490 L"ifodd"
 @<|"ifodd"|@>=@+490
 @
-@d str_491 "ifvmode"
+@d str_491 L"ifvmode"
 @<|"ifvmode"|@>=@+491
 @
-@d str_492 "ifhmode"
+@d str_492 L"ifhmode"
 @<|"ifhmode"|@>=@+492
 @
-@d str_493 "ifmmode"
+@d str_493 L"ifmmode"
 @<|"ifmmode"|@>=@+493
 @
-@d str_494 "ifinner"
+@d str_494 L"ifinner"
 @<|"ifinner"|@>=@+494
 @
-@d str_495 "ifvoid"
+@d str_495 L"ifvoid"
 @<|"ifvoid"|@>=@+495
 @
-@d str_496 "ifhbox"
+@d str_496 L"ifhbox"
 @<|"ifhbox"|@>=@+496
 @
-@d str_497 "ifvbox"
+@d str_497 L"ifvbox"
 @<|"ifvbox"|@>=@+497
 @
-@d str_498 "ifx"
+@d str_498 L"ifx"
 @<|"ifx"|@>=@+498
 @
-@d str_499 "ifeof"
+@d str_499 L"ifeof"
 @<|"ifeof"|@>=@+499
 @
-@d str_500 "iftrue"
+@d str_500 L"iftrue"
 @<|"iftrue"|@>=@+500
 @
-@d str_501 "iffalse"
+@d str_501 L"iffalse"
 @<|"iffalse"|@>=@+501
 @
-@d str_502 "ifcase"
+@d str_502 L"ifcase"
 @<|"ifcase"|@>=@+502
 @
-@d str_503 "fi"
+@d str_503 L"fi"
 @<|"fi"|@>=@+503
 @
-@d str_504 "or"
+@d str_504 L"or"
 @<|"or"|@>=@+504
 @
-@d str_505 "else"
+@d str_505 L"else"
 @<|"else"|@>=@+505
 @
-@d str_506 "TeXinputs:"
+@d str_506 L"TeXinputs:"
 @d TEX_area 506
 @
-@d str_507 "TeXfonts:"
+@d str_507 L"TeXfonts:"
 @d TEX_font_area 507
 @
-@d str_508 ".fmt"
+@d str_508 L".fmt"
 @d format_extension 508
 @
-@d str_509 ".log"
+@d str_509 L".log"
 @<|".log"|@>=@+509
 @
-@d str_510 ".dvi"
+@d str_510 L".dvi"
 @<|".dvi"|@>=@+510
 @
-@d str_511 "input file name"
+@d str_511 L"input file name"
 @<|"input file name"|@>=@+511
 @
-@d str_512 ".tex"
+@d str_512 L".tex"
 @<|".tex"|@>=@+512
 @
-@d str_513 "texput"
+@d str_513 L"texput"
 @<|"texput"|@>=@+513
 @
-@d str_514 "nullfont"
+@d str_514 L"nullfont"
 @<|"nullfont"|@>=@+514
 @
-@d str_515 ".tfm"
+@d str_515 L".tfm"
 @<|".tfm"|@>=@+515
 @
-@d str_516 "vlistout"
+@d str_516 L"vlistout"
 @<|"vlistout"|@>=@+516
 @
-@d str_517 "to"
+@d str_517 L"to"
 @<|"to"|@>=@+517
 @
-@d str_518 "spread"
+@d str_518 L"spread"
 @<|"spread"|@>=@+518
 @
-@d str_519 "vpack"
+@d str_519 L"vpack"
 @<|"vpack"|@>=@+519
 @
-@d str_520 "displaystyle"
+@d str_520 L"displaystyle"
 @<|"displaystyle"|@>=@+520
 @
-@d str_521 "textstyle"
+@d str_521 L"textstyle"
 @<|"textstyle"|@>=@+521
 @
-@d str_522 "scriptstyle"
+@d str_522 L"scriptstyle"
 @<|"scriptstyle"|@>=@+522
 @
-@d str_523 "scriptscriptstyle"
+@d str_523 L"scriptscriptstyle"
 @<|"scriptscriptstyle"|@>=@+523
 @
-@d str_524 "mathord"
+@d str_524 L"mathord"
 @<|"mathord"|@>=@+524
 @
-@d str_525 "mathop"
+@d str_525 L"mathop"
 @<|"mathop"|@>=@+525
 @
-@d str_526 "mathbin"
+@d str_526 L"mathbin"
 @<|"mathbin"|@>=@+526
 @
-@d str_527 "mathrel"
+@d str_527 L"mathrel"
 @<|"mathrel"|@>=@+527
 @
-@d str_528 "mathopen"
+@d str_528 L"mathopen"
 @<|"mathopen"|@>=@+528
 @
-@d str_529 "mathclose"
+@d str_529 L"mathclose"
 @<|"mathclose"|@>=@+529
 @
-@d str_530 "mathpunct"
+@d str_530 L"mathpunct"
 @<|"mathpunct"|@>=@+530
 @
-@d str_531 "mathinner"
+@d str_531 L"mathinner"
 @<|"mathinner"|@>=@+531
 @
-@d str_532 "overline"
+@d str_532 L"overline"
 @<|"overline"|@>=@+532
 @
-@d str_533 "underline"
+@d str_533 L"underline"
 @<|"underline"|@>=@+533
 @
-@d str_534 "left"
+@d str_534 L"left"
 @<|"left"|@>=@+534
 @
-@d str_535 "right"
+@d str_535 L"right"
 @<|"right"|@>=@+535
 @
-@d str_536 "limits"
+@d str_536 L"limits"
 @<|"limits"|@>=@+536
 @
-@d str_537 "nolimits"
+@d str_537 L"nolimits"
 @<|"nolimits"|@>=@+537
 @
-@d str_538 "fraction, thickness "
+@d str_538 L"fraction, thickness "
 @<|"fraction, thickness "|@>=@+538
 @
-@d str_539 "mlist1"
+@d str_539 L"mlist1"
 @<|"mlist1"|@>=@+539
 @
-@d str_540 "mlist2"
+@d str_540 L"mlist2"
 @<|"mlist2"|@>=@+540
 @
-@d str_541 "mlist3"
+@d str_541 L"mlist3"
 @<|"mlist3"|@>=@+541
 @
-@d str_542 "0234000122*4000133**3**344*0400400*000000234000111*1111112341011"
+@d str_542 L"0234000122*4000133**3**344*0400400*000000234000111*1111112341011"
 @d math_spacing 542
 @
-@d str_543 "mlist4"
+@d str_543 L"mlist4"
 @<|"mlist4"|@>=@+543
 @
-@d str_544 "span"
+@d str_544 L"span"
 @<|"span"|@>=@+544
 @
-@d str_545 "cr"
+@d str_545 L"cr"
 @<|"cr"|@>=@+545
 @
-@d str_546 "crcr"
+@d str_546 L"crcr"
 @<|"crcr"|@>=@+546
 @
-@d str_547 "endtemplate"
+@d str_547 L"endtemplate"
 @<|"endtemplate"|@>=@+547
 @
-@d str_548 "endv"
+@d str_548 L"endv"
 @<|"endv"|@>=@+548
 @
-@d str_549 "256 spans"
+@d str_549 L"256 spans"
 @<|"256 spans"|@>=@+549
 @
-@d str_550 "align1"
+@d str_550 L"align1"
 @<|"align1"|@>=@+550
 @
-@d str_551 "align0"
+@d str_551 L"align0"
 @<|"align0"|@>=@+551
 @
-@d str_552 "disc1"
+@d str_552 L"disc1"
 @<|"disc1"|@>=@+552
 @
-@d str_553 "disc2"
+@d str_553 L"disc2"
 @<|"disc2"|@>=@+553
 @
-@d str_554 "paragraph"
+@d str_554 L"paragraph"
 @<|"paragraph"|@>=@+554
 @
-@d str_555 "disc3"
+@d str_555 L"disc3"
 @<|"disc3"|@>=@+555
 @
-@d str_556 "disc4"
+@d str_556 L"disc4"
 @<|"disc4"|@>=@+556
 @
-@d str_557 "line breaking"
+@d str_557 L"line breaking"
 @<|"line breaking"|@>=@+557
 @
-@d str_558 "hyphenation"
+@d str_558 L"hyphenation"
 @<|"hyphenation"|@>=@+558
 @
-@d str_559 "patterns"
+@d str_559 L"patterns"
 @<|"patterns"|@>=@+559
 @
-@d str_560 "pruning"
+@d str_560 L"pruning"
 @<|"pruning"|@>=@+560
 @
-@d str_561 "vertbreak"
+@d str_561 L"vertbreak"
 @<|"vertbreak"|@>=@+561
 @
-@d str_562 "vsplit"
+@d str_562 L"vsplit"
 @<|"vsplit"|@>=@+562
 @
-@d str_563 "vbox"
+@d str_563 L"vbox"
 @<|"vbox"|@>=@+563
 @
-@d str_564 "pagegoal"
+@d str_564 L"pagegoal"
 @<|"pagegoal"|@>=@+564
 @
-@d str_565 "pagetotal"
+@d str_565 L"pagetotal"
 @<|"pagetotal"|@>=@+565
 @
-@d str_566 "pagestretch"
+@d str_566 L"pagestretch"
 @<|"pagestretch"|@>=@+566
 @
-@d str_567 "pagefilstretch"
+@d str_567 L"pagefilstretch"
 @<|"pagefilstretch"|@>=@+567
 @
-@d str_568 "pagefillstretch"
+@d str_568 L"pagefillstretch"
 @<|"pagefillstretch"|@>=@+568
 @
-@d str_569 "pagefilllstretch"
+@d str_569 L"pagefilllstretch"
 @<|"pagefilllstretch"|@>=@+569
 @
-@d str_570 "pageshrink"
+@d str_570 L"pageshrink"
 @<|"pageshrink"|@>=@+570
 @
-@d str_571 "pagedepth"
+@d str_571 L"pagedepth"
 @<|"pagedepth"|@>=@+571
 @
-@d str_572 "page"
+@d str_572 L"page"
 @<|"page"|@>=@+572
 @
-@d str_573 "end"
+@d str_573 L"end"
 @<|"end"|@>=@+573
 @
-@d str_574 "dump"
+@d str_574 L"dump"
 @<|"dump"|@>=@+574
 @
-@d str_575 "hskip"
+@d str_575 L"hskip"
 @<|"hskip"|@>=@+575
 @
-@d str_576 "hfil"
+@d str_576 L"hfil"
 @<|"hfil"|@>=@+576
 @
-@d str_577 "hfill"
+@d str_577 L"hfill"
 @<|"hfill"|@>=@+577
 @
-@d str_578 "hss"
+@d str_578 L"hss"
 @<|"hss"|@>=@+578
 @
-@d str_579 "hfilneg"
+@d str_579 L"hfilneg"
 @<|"hfilneg"|@>=@+579
 @
-@d str_580 "vskip"
+@d str_580 L"vskip"
 @<|"vskip"|@>=@+580
 @
-@d str_581 "vfil"
+@d str_581 L"vfil"
 @<|"vfil"|@>=@+581
 @
-@d str_582 "vfill"
+@d str_582 L"vfill"
 @<|"vfill"|@>=@+582
 @
-@d str_583 "vss"
+@d str_583 L"vss"
 @<|"vss"|@>=@+583
 @
-@d str_584 "vfilneg"
+@d str_584 L"vfilneg"
 @<|"vfilneg"|@>=@+584
 @
-@d str_585 "right."
+@d str_585 L"right."
 @<|"right."|@>=@+585
 @
-@d str_586 "rightbrace"
+@d str_586 L"rightbrace"
 @<|"rightbrace"|@>=@+586
 @
-@d str_587 "moveleft"
+@d str_587 L"moveleft"
 @<|"moveleft"|@>=@+587
 @
-@d str_588 "moveright"
+@d str_588 L"moveright"
 @<|"moveright"|@>=@+588
 @
-@d str_589 "raise"
+@d str_589 L"raise"
 @<|"raise"|@>=@+589
 @
-@d str_590 "lower"
+@d str_590 L"lower"
 @<|"lower"|@>=@+590
 @
-@d str_591 "copy"
+@d str_591 L"copy"
 @<|"copy"|@>=@+591
 @
-@d str_592 "lastbox"
+@d str_592 L"lastbox"
 @<|"lastbox"|@>=@+592
 @
-@d str_593 "vtop"
+@d str_593 L"vtop"
 @<|"vtop"|@>=@+593
 @
-@d str_594 "hbox"
+@d str_594 L"hbox"
 @<|"hbox"|@>=@+594
 @
-@d str_595 "shipout"
+@d str_595 L"shipout"
 @<|"shipout"|@>=@+595
 @
-@d str_596 "leaders"
+@d str_596 L"leaders"
 @<|"leaders"|@>=@+596
 @
-@d str_597 "cleaders"
+@d str_597 L"cleaders"
 @<|"cleaders"|@>=@+597
 @
-@d str_598 "xleaders"
+@d str_598 L"xleaders"
 @<|"xleaders"|@>=@+598
 @
-@d str_599 "indent"
+@d str_599 L"indent"
 @<|"indent"|@>=@+599
 @
-@d str_600 "noindent"
+@d str_600 L"noindent"
 @<|"noindent"|@>=@+600
 @
-@d str_601 "unpenalty"
+@d str_601 L"unpenalty"
 @<|"unpenalty"|@>=@+601
 @
-@d str_602 "unkern"
+@d str_602 L"unkern"
 @<|"unkern"|@>=@+602
 @
-@d str_603 "unskip"
+@d str_603 L"unskip"
 @<|"unskip"|@>=@+603
 @
-@d str_604 "unhbox"
+@d str_604 L"unhbox"
 @<|"unhbox"|@>=@+604
 @
-@d str_605 "unhcopy"
+@d str_605 L"unhcopy"
 @<|"unhcopy"|@>=@+605
 @
-@d str_606 "unvbox"
+@d str_606 L"unvbox"
 @<|"unvbox"|@>=@+606
 @
-@d str_607 "unvcopy"
+@d str_607 L"unvcopy"
 @<|"unvcopy"|@>=@+607
 @
-@d str_608 "eqno"
+@d str_608 L"eqno"
 @<|"eqno"|@>=@+608
 @
-@d str_609 "leqno"
+@d str_609 L"leqno"
 @<|"leqno"|@>=@+609
 @
-@d str_610 "displaylimits"
+@d str_610 L"displaylimits"
 @<|"displaylimits"|@>=@+610
 @
-@d str_611 "above"
+@d str_611 L"above"
 @<|"above"|@>=@+611
 @
-@d str_612 "over"
+@d str_612 L"over"
 @<|"over"|@>=@+612
 @
-@d str_613 "atop"
+@d str_613 L"atop"
 @<|"atop"|@>=@+613
 @
-@d str_614 "abovewithdelims"
+@d str_614 L"abovewithdelims"
 @<|"abovewithdelims"|@>=@+614
 @
-@d str_615 "overwithdelims"
+@d str_615 L"overwithdelims"
 @<|"overwithdelims"|@>=@+615
 @
-@d str_616 "atopwithdelims"
+@d str_616 L"atopwithdelims"
 @<|"atopwithdelims"|@>=@+616
 @
-@d str_617 "display"
+@d str_617 L"display"
 @<|"display"|@>=@+617
 @
-@d str_618 "long"
+@d str_618 L"long"
 @<|"long"|@>=@+618
 @
-@d str_619 "outer"
+@d str_619 L"outer"
 @<|"outer"|@>=@+619
 @
-@d str_620 "global"
+@d str_620 L"global"
 @<|"global"|@>=@+620
 @
-@d str_621 "def"
+@d str_621 L"def"
 @<|"def"|@>=@+621
 @
-@d str_622 "gdef"
+@d str_622 L"gdef"
 @<|"gdef"|@>=@+622
 @
-@d str_623 "edef"
+@d str_623 L"edef"
 @<|"edef"|@>=@+623
 @
-@d str_624 "xdef"
+@d str_624 L"xdef"
 @<|"xdef"|@>=@+624
 @
-@d str_625 "prefix"
+@d str_625 L"prefix"
 @<|"prefix"|@>=@+625
 @
-@d str_626 "inaccessible"
+@d str_626 L"inaccessible"
 @<|"inaccessible"|@>=@+626
 @
-@d str_627 "let"
+@d str_627 L"let"
 @<|"let"|@>=@+627
 @
-@d str_628 "futurelet"
+@d str_628 L"futurelet"
 @<|"futurelet"|@>=@+628
 @
-@d str_629 "chardef"
+@d str_629 L"chardef"
 @<|"chardef"|@>=@+629
 @
-@d str_630 "mathchardef"
+@d str_630 L"mathchardef"
 @<|"mathchardef"|@>=@+630
 @
-@d str_631 "countdef"
+@d str_631 L"countdef"
 @<|"countdef"|@>=@+631
 @
-@d str_632 "dimendef"
+@d str_632 L"dimendef"
 @<|"dimendef"|@>=@+632
 @
-@d str_633 "skipdef"
+@d str_633 L"skipdef"
 @<|"skipdef"|@>=@+633
 @
-@d str_634 "muskipdef"
+@d str_634 L"muskipdef"
 @<|"muskipdef"|@>=@+634
 @
-@d str_635 "toksdef"
+@d str_635 L"toksdef"
 @<|"toksdef"|@>=@+635
 @
-@d str_636 "by"
+@d str_636 L"by"
 @<|"by"|@>=@+636
 @
-@d str_637 "hyphenchar"
+@d str_637 L"hyphenchar"
 @<|"hyphenchar"|@>=@+637
 @
-@d str_638 "skewchar"
+@d str_638 L"skewchar"
 @<|"skewchar"|@>=@+638
 @
-@d str_639 "FONT"
+@d str_639 L"FONT"
 @<|"FONT"|@>=@+639
 @
-@d str_640 "at"
+@d str_640 L"at"
 @<|"at"|@>=@+640
 @
-@d str_641 "scaled"
+@d str_641 L"scaled"
 @<|"scaled"|@>=@+641
 @
-@d str_642 "errorstopmode"
+@d str_642 L"errorstopmode"
 @<|"errorstopmode"|@>=@+642
 @
-@d str_643 "openin"
+@d str_643 L"openin"
 @<|"openin"|@>=@+643
 @
-@d str_644 "closein"
+@d str_644 L"closein"
 @<|"closein"|@>=@+644
 @
-@d str_645 "message"
+@d str_645 L"message"
 @<|"message"|@>=@+645
 @
-@d str_646 "errmessage"
+@d str_646 L"errmessage"
 @<|"errmessage"|@>=@+646
 @
-@d str_647 "lowercase"
+@d str_647 L"lowercase"
 @<|"lowercase"|@>=@+647
 @
-@d str_648 "uppercase"
+@d str_648 L"uppercase"
 @<|"uppercase"|@>=@+648
 @
-@d str_649 "show"
+@d str_649 L"show"
 @<|"show"|@>=@+649
 @
-@d str_650 "showbox"
+@d str_650 L"showbox"
 @<|"showbox"|@>=@+650
 @
-@d str_651 "showthe"
+@d str_651 L"showthe"
 @<|"showthe"|@>=@+651
 @
-@d str_652 "showlists"
+@d str_652 L"showlists"
 @<|"showlists"|@>=@+652
 @
-@d str_653 "long macro"
+@d str_653 L"long macro"
 @<|"long macro"|@>=@+653
 @
-@d str_654 "outer macro"
+@d str_654 L"outer macro"
 @<|"outer macro"|@>=@+654
 @
-@d str_655 "outer endtemplate"
+@d str_655 L"outer endtemplate"
 @<|"outer endtemplate"|@>=@+655
 @
-@d str_656 " (INITEX)"
+@d str_656 L" (INITEX)"
 @<|" (INITEX)"|@>=@+656
 @
-@d str_657 "end occurred "
+@d str_657 L"end occurred "
 @<|"end occurred "|@>=@+657
 @
-@d str_658 "openout"
+@d str_658 L"openout"
 @<|"openout"|@>=@+658
 @
-@d str_659 "closeout"
+@d str_659 L"closeout"
 @<|"closeout"|@>=@+659
 @
-@d str_660 "special"
+@d str_660 L"special"
 @<|"special"|@>=@+660
 @
-@d str_661 "immediate"
+@d str_661 L"immediate"
 @<|"immediate"|@>=@+661
 @
-@d str_662 "setlanguage"
+@d str_662 L"setlanguage"
 @<|"setlanguage"|@>=@+662
 @
-@d str_663 "ext1"
+@d str_663 L"ext1"
 @<|"ext1"|@>=@+663
 @
-@d str_664 "ext2"
+@d str_664 L"ext2"
 @<|"ext2"|@>=@+664
 @
-@d str_665 "ext3"
+@d str_665 L"ext3"
 @<|"ext3"|@>=@+665
 @
-@d str_666 "endwrite"
+@d str_666 L"endwrite"
 @<|"endwrite"|@>=@+666
 @
-@d str_667 "ext4"
+@d str_667 L"ext4"
 @<|"ext4"|@>=@+667
 
 @ All the above strings together make up the string pool.
