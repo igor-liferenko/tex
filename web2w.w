@@ -2452,6 +2452,7 @@ Pascal strings\index{string} need some more work. I translate them to characters
 case PCHAR:
   { char *str=t->text;
      wput(' ');
+     wput('L');
      wput('\''),str++;
      if (str[0]=='\'') wputs("\\'");
      else if (str[0]=='\\') wputs("\\\\");
@@ -2464,6 +2465,7 @@ case PCHAR:
      break; 
 case PSTRING:
   { char *str=t->text;
+     wput('L');
      wput('"'),str++;
      while (*str!=0)
      { if (str[0]=='\'' && str[1]=='\'') wput('\''),str++;
@@ -2633,7 +2635,7 @@ This condition is taken from \.{tex.web}:
   if (s->value>0)
   { s->value=0;
     wputs("@@ \n");
-    wputs("@@d str_"),wputi(k),wput(' '),wputs(s->name),wput('\n');
+    wputs("@@d str_"),wputi(k),wput(' '),wput('L'),wputs(s->name),wput('\n');
     @<generate macros for some strings@>@; 
     else
       wputs("@@<|"),wputs(s->name),wputs("|@@>=@@+"),wputi(k); 
