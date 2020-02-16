@@ -771,8 +771,8 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  if (log_opened)
 -  {@+wlog_ln( ' ' );
 -  wlog_ln("Here is how much of TeX's memory"," you used:");
-+  {@+wlog_ln(" ");
-+  wlog_ln("Here is how much of TeX's memory you used:");
++  {@+wlog_ln(L" ");
++  wlog_ln(L"Here is how much of TeX's memory you used:");
  @.Here is how much...@>
 -  wlog( ' ' , str_ptr-init_str_ptr: 1," string");
 -  if (str_ptr!=init_str_ptr+1) wlog( 's' );
@@ -799,21 +799,21 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 -    param_size: 1,"p,",
 -    buf_size: 1,"b,",
 -    save_size: 1, 's' );
-+  wlog(" %d string", str_ptr-init_str_ptr);
-+  if (str_ptr!=init_str_ptr+1) wlog( "s" );
-+  wlog_ln( " out of %d", max_strings-init_str_ptr);@/
-+  wlog_ln( " %d string characters out of %d", pool_ptr-init_pool_ptr,
++  wlog(L" %d string", str_ptr-init_str_ptr);
++  if (str_ptr!=init_str_ptr+1) wlog( L"s" );
++  wlog_ln( L" out of %d", max_strings-init_str_ptr);@/
++  wlog_ln( L" %d string characters out of %d", pool_ptr-init_pool_ptr,
 +    pool_size-init_pool_ptr);@/
-+  wlog_ln(" %d words of memory out of %d", lo_mem_max-mem_min+mem_end-hi_mem_min+2,@|
++  wlog_ln(L" %d words of memory out of %d", lo_mem_max-mem_min+mem_end-hi_mem_min+2,@|
 +    mem_end+1-mem_min);@/
-+  wlog_ln(" %d multiletter control sequences out of %d", cs_count, hash_size);@/
-+  wlog(" %d words of font info for %d font", fmem_ptr, font_ptr-font_base);
-+  if (font_ptr!=font_base+1) wlog("s");
-+  wlog_ln( ", out of %d for %d", font_mem_size, font_max-font_base);@/
-+  wlog(" %d hyphenation exception", hyph_count);
-+  if (hyph_count!=1) wlog("s");
-+  wlog_ln( " out of %d", hyph_size);@/
-+  wlog_ln(" %di,%dn,%dp,%db,%ds stack positions out of %di,%dn,%dp,%db,%ds",
++  wlog_ln(L" %d multiletter control sequences out of %d", cs_count, hash_size);@/
++  wlog(L" %d words of font info for %d font", fmem_ptr, font_ptr-font_base);
++  if (font_ptr!=font_base+1) wlog(L"s");
++  wlog_ln( L", out of %d for %d", font_mem_size, font_max-font_base);@/
++  wlog(L" %d hyphenation exception", hyph_count);
++  if (hyph_count!=1) wlog(L"s");
++  wlog_ln( L" out of %d", hyph_size);@/
++  wlog_ln(L" %di,%dn,%dp,%db,%ds stack positions out of %di,%dn,%dp,%db,%ds",
 +    max_in_stack, max_nest_stack,@|
 +    max_param_stack,@|
 +    max_buf_stack+1,@|
