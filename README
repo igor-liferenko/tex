@@ -2,15 +2,12 @@ Move tex repo to web2c repo and do the following steps again and on each step
 review and create diffs and initialize tex repo with the diffs and tex.w and ctex.patch
 in the state before last item below.
 
-After initial import:
+1:
 
-    sed -i 's/ \+$//' tex.w ctex.patch
+    patch -R -o tex.w ctex.w ctex.patch # offset 2 lines warning is normal (don't know why it happens)
+    perl -i -pe 'next if /^ $/;next if /^ @ $/;s/ +$//' ctex.patch
+    perl -i -pe 'next if /^@ $/;s/ +$//' tex.w
 
-After processing with modified web2w.w:
+2:
 
-    sed -i 's/ \+$//' tex.w
-    perl -i -pe 's/@d str_(\d+) L"/@d str_$1 "/' tex.w
-
-Then make ctex.patch apply to new tex.w
-
-Then change tex.w to add UTF-8 support and change ctex.patch accordingly.
+change tex.w to add UTF-8 support and change ctex.patch accordingly.
