@@ -1288,7 +1288,7 @@ Thus, at least 81 printable characters are needed.
 @^system dependencies@>
 
 @<Character |k| cannot be printed@>=
-  (k < ' ')||(k > '~')
+  ((k < ' ')||(k == 127))||(k>=128 && k != 0xee && k != 0xef)
 
 @ When the \.{WEB} system program called \.{TANGLE} processes the \.{TEX.WEB}
 description that you are now reading, it outputs the \PASCAL\ program
@@ -10082,8 +10082,23 @@ allows both lowercase and uppercase letters in the file name.
 @^system dependencies@>
 
 @d append_to_name(X)	{@+c=X;incr(k);
-  if (k <= file_name_size) name_of_file[k]=xchr[c];
+  if (c == 239) {
+    if (k <= file_name_size) name_of_file[k]=0xd1;
+    incr(k);
+    if (k <= file_name_size) name_of_file[k]=0x8f;
+    else {
+      fwprintf(stderr, L"###############################\n");
+      exit(1);
+    }
   }
+  else {
+    char mb[MB_CUR_MAX];
+    if (wctomb(mb, xchr[c]) == 1) {
+      if (k <= file_name_size) name_of_file[k]=*mb;
+    }
+    else {fwprintf(stderr, L"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"); exit(1);}
+  }
+}
 
 @p void pack_file_name(str_number @!n, str_number @!a, str_number @!e)
 {@+int k; /*number of positions filled in |name_of_file|*/
@@ -10109,10 +10124,10 @@ and extensions related to format files.
 @d format_extension	format_extension /*the extension, as a \.{WEB} constant*/
 
 @<Glob...@>=
-uint8_t @!TEX_format_default0[format_default_length], *const @!TEX_format_default = @!TEX_format_default0-1;
+wchar_t @!TEX_format_default0[format_default_length], *const @!TEX_format_default = @!TEX_format_default0-1;
 
 @ @<Set init...@>=
-TEX_format_default="TeXformats:plain.fmt";
+TEX_format_default=L"TeXformats:plain.fmt";
 @.TeXformats@>
 @.plain@>
 @^system dependencies@>
@@ -10198,8 +10213,15 @@ we dare not use `|str_room|'.
 if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
  (cur_length > 0))
   return'?';
-else{@+for (k=1; k<=name_length; k++) append_char(xord(name_of_file[k]));
-  return make_string();
+  else{@+
+    for (k=1; k<=name_length; k++) {
+      if (name_of_file[k] == 0xd1) {
+        append_char(xord(L'я'));
+        k++;
+      }
+      else append_char(xord(name_of_file[k]));
+    }
+    return make_string();
   }
 }
 str_number a_make_name_string(alpha_file *f)
