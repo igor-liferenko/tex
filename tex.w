@@ -1517,7 +1517,7 @@ else if (s < 256)
        /*temporarily disable new-line character*/
     j=str_start[s];
     while (j < str_start[s+1])
-      {@+print_char(so(str_pool[j]));incr(j);
+      {@+print_char(so(str_pool[j]));incr(j); //uuu
       }
     new_line_char=nl;return;
     }
@@ -1537,7 +1537,7 @@ void slow_print(int @!s) /*prints string |s|*/
 if ((s >= str_ptr)||(s < 256)) print(s);
 else{@+j=str_start[s];
   while (j < str_start[s+1])
-    {@+print(so(str_pool[j]));incr(j);
+    {@+print(so(str_pool[j]));incr(j); //uuu
     }
   }
 }
@@ -10219,7 +10219,10 @@ if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
         append_char(xord(L'я'));
         k++;
       }
-      else append_char(xord(name_of_file[k]));
+      else {
+        wchar_t wc = name_of_file[k]; // ASCII promoted to UCS
+        append_char(xord(wc));
+      }
     }
     return make_string();
   }
