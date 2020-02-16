@@ -233,33 +233,34 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 -@d wlog_ln(...)	write_ln(log_file,__VA_ARGS__)
 -@d wlog_cr	write_ln(log_file)
 +@<Compiler directives@>=
-+#define put(file)    @[fwrite(&((file).d),sizeof((file).d),1,(file).f)@]
-+#define get(file)    @[fread(&((file).d),sizeof((file).d),1,(file).f)@]
++#define w_put(file)    @[fwrite(&((file).d),sizeof((file).d),1,(file).f)@]
++#define a_get(file)    @[get(&((file).d),(file).f)@]
++#define b_get(file)    @[fread(&((file).d),sizeof((file).d),1,(file).f)@]
++#define w_get          b_get
 +
 +#define a_reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
 +                                 (file).f!=NULL?a_get(file):0)@]
 +#define b_reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
 +                                 (file).f!=NULL?b_get(file):0)@]
-+#define w_reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
-+                                 (file).f!=NULL?w_get(file):0)@]
++#define w_reset                   b_reset
 +#define rewrite(file,name,mode) @[((file).f=fopen((char *)(name)+1,mode))@]
 +#define close(file)    @[fclose((file).f)@]
 +#define eof(file)    @[feof((file).f)@]
 +#define eoln(file)    @[((file).d==L'\n'||eof(file))@]
 +#define erstat(file)   @[((file).f==NULL?-1:ferror((file).f))@]
 +
-+#define read(file,x) @[((x)=(file).d,get(file))@]
-+#define read_ln(file)  @[do get(file); while (!eoln(file))@]
++#define read(file,x) @[((x)=(file).d,a_get(file))@]
++#define read_ln(file)  @[do a_get(file); while (!eoln(file))@]
 +
-+#define write(file, format,...)    @[fprintf(file.f,format,## __VA_ARGS__)@]
-+#define write_ln(file,...)	   @[write(file,__VA_ARGS__"\n")@]
++#define write(file, format,...)    @[fwprintf(file.f,format,## __VA_ARGS__)@]
++#define write_ln(file,...)	   @[write(file,__VA_ARGS__ L"\n")@]
 +
 +#define wterm(format,...)	@[write(term_out,format, ## __VA_ARGS__)@]
-+#define wterm_ln(format,...)	@[wterm(format "\n", ## __VA_ARGS__)@]
-+#define wterm_cr	        @[write(term_out,"\n")@]
++#define wterm_ln(format,...)	@[wterm(format L"\n", ## __VA_ARGS__)@]
++#define wterm_cr	        @[write(term_out,L"\n")@]
 +#define wlog(format, ...)	@[write(log_file,format, ## __VA_ARGS__)@]
-+#define wlog_ln(format, ...)   @[wlog(format "\n", ## __VA_ARGS__)@]
-+#define wlog_cr	        @[write(log_file,"\n")@]
++#define wlog_ln(format, ...)   @[wlog(format L"\n", ## __VA_ARGS__)@]
++#define wlog_cr	        @[write(log_file,L"\n")@]
  
  @ To end a line of text output, we call |print_ln|.
  
@@ -301,7 +302,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 +{while (*s!=0) print_char(*s++);@+
 +}
 +
-+void a_read(wchar_t *c, FILE *f)
++void get(wchar_t *c, FILE *f)
 +{
 +  *c = fgetwc(f);
 +}
@@ -314,8 +315,8 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  
  @<Initialize the output...@>=
 -wterm(banner);
-+wterm("%s",banner);
- if (format_ident==0) wterm_ln(" (no format preloaded)");
++wterm(L"%s",banner);
+ if (format_ident==0) wterm_ln(L" (no format preloaded)");
  else{@+slow_print(format_ident);print_ln();
    }
 @@ -1541,10 +1596,10 @@
@@ -575,8 +576,8 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
       /*now try the system format file area*/
    if (w_open_in(&fmt_file)) goto found;
    wake_up_terminal;
--  wterm_ln("Sorry, I can't find that format;"," will try PLAIN.");
-+  wterm_ln("Sorry, I can't find that format; will try PLAIN.");
+-  wterm_ln(L"Sorry, I can't find that format;",L" will try PLAIN.");
++  wterm_ln(L"Sorry, I can't find that format; will try PLAIN.");
  @.Sorry, I can't find...@>
    update_terminal;
    }
@@ -637,12 +638,12 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  
  @ @<Print the banner...@>=
 -{@+wlog(banner);
-+{@+wlog("%s",banner);
++{@+wlog(L"%s",banner);
  slow_print(format_ident);print_str("  ");
  print_int(day);print_char(' ');
 -months="JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC";
 -for (k=3*month-2; k<=3*month; k++) wlog(months[k]);
-+for (k=3*month-2; k<=3*month; k++) wlog("%c",months[k]);
++for (k=3*month-2; k<=3*month; k++) wlog(L"%c",months[k]);
  print_char(' ');print_int(year);print_char(' ');
  print_two(time/60);print_char(':');print_two(time%60);
  }
@@ -661,7 +662,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  @p void write_dvi(dvi_index @!a, dvi_index @!b)
  {@+int k;
 -for (k=a; k<=b; k++) write(dvi_file, dvi_buf[k]);
-+for (k=a; k<=b; k++) b_write(dvi_file, "%c", dvi_buf[k]);
++for (k=a; k<=b; k++) fprintf(dvi_file.f, "%c", dvi_buf[k]);
  }
  
  @ To put a byte in the buffer without paying the cost of invoking a procedure
@@ -733,8 +734,8 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  incompatible with the present \TeX\ table sizes, etc.
  
  @d too_small(X)	{@+wake_up_terminal;
--  wterm_ln("---! Must increase the ", X);
-+  wterm_ln("---! Must increase the %s", X);
+-  wterm_ln(L"---! Must increase the ", X);
++  wterm_ln(L"---! Must increase the %s", X);
  @.Must increase the x@>
    goto bad_fmt;
    }
@@ -742,10 +743,10 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  if (ready_already==314159) goto start_of_TEX;
  @<Check the ``constant'' values...@>@;
  if (bad > 0)
--  {@+wterm_ln("Ouch---my internal constants have been clobbered!",
--    "---case ", bad: 1);
-+  {@+wterm_ln("Ouch---my internal constants have been clobbered!"
-+    "---case %d", bad);
+-  {@+wterm_ln(L"Ouch---my internal constants have been clobbered!",
+-    L"---case ", bad: 1);
++  {@+wterm_ln(L"Ouch---my internal constants have been clobbered!"
++    L"---case %d", bad);
  @.Ouch...clobbered@>
    exit(0);
    }

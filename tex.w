@@ -1052,11 +1052,11 @@ if the system permits them.
 @p bool init_terminal(void) /*gets the terminal input started*/
 {@+
 t_open_in;
-loop@+{@+wake_up_terminal;write(term_out,"**");update_terminal;
+loop@+{@+wake_up_terminal;write(term_out,L"**");update_terminal;
 @.**@>
   if (!input_ln(&term_in, true))  /*this shouldn't happen*/
     {@+write_ln(term_out);
-    write(term_out,"! End of file on the terminal... why?");
+    write(term_out,L"! End of file on the terminal... why?");
 @.End of file on the terminal@>
     return false;
     }
@@ -1549,7 +1549,7 @@ character positions.
 
 @<Initialize the output...@>=
 wterm(banner);
-if (format_ident==0) wterm_ln(" (no format preloaded)");
+if (format_ident==0) wterm_ln(L" (no format preloaded)");
 else{@+slow_print(format_ident);print_ln();
   }
 update_terminal;
@@ -10166,7 +10166,7 @@ if (buffer[loc]=='&')
      /*now try the system format file area*/
   if (w_open_in(&fmt_file)) goto found;
   wake_up_terminal;
-  wterm_ln("Sorry, I can't find that format;"," will try PLAIN.");
+  wterm_ln(L"Sorry, I can't find that format;",L" will try PLAIN.");
 @.Sorry, I can't find...@>
   update_terminal;
   }
@@ -10174,7 +10174,7 @@ if (buffer[loc]=='&')
 pack_buffered_name(format_default_length-format_ext_length, 1, 0);
 if (!w_open_in(&fmt_file))
   {@+wake_up_terminal;
-  wterm_ln("I can't find the PLAIN format file!");
+  wterm_ln(L"I can't find the PLAIN format file!");
 @.I can't find PLAIN...@>
 @.plain@>
   return false;
@@ -23750,7 +23750,7 @@ that reads one in. The function returns |false| if the dumped format is
 incompatible with the present \TeX\ table sizes, etc.
 
 @d too_small(X)	{@+wake_up_terminal;
-  wterm_ln("---! Must increase the ", X);
+  wterm_ln(L"---! Must increase the ", X);
 @.Must increase the x@>
   goto bad_fmt;
   }
@@ -23771,7 +23771,7 @@ four_quarters @!w; /*four ASCII codes*/
 @<Undump a couple more things and the closing check word@>;
 return true; /*it worked!*/
 bad_fmt: wake_up_terminal;
-  wterm_ln("(Fatal format file error; I'm stymied)");
+  wterm_ln(L"(Fatal format file error; I'm stymied)");
 @.Fatal format file error@>
 return false;
 }
@@ -24264,8 +24264,8 @@ t_open_out; /*open the terminal for output*/
 if (ready_already==314159) goto start_of_TEX;
 @<Check the ``constant'' values...@>@;
 if (bad > 0)
-  {@+wterm_ln("Ouch---my internal constants have been clobbered!",
-    "---case ", bad: 1);
+  {@+wterm_ln(L"Ouch---my internal constants have been clobbered!",
+    L"---case ", bad: 1);
 @.Ouch...clobbered@>
   exit(0);
   }
