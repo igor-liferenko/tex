@@ -543,7 +543,7 @@ the user's external character set by means of arrays |xord| and |xchr|
 that are analogous to \PASCAL's |ord| and |chr| functions.
 
 @<Glob...@>=
-uint8_t @!xchr[256];
+wchar_t @!xchr[256];
    /*specifies conversion of output characters*/
 unsigned char xord(wchar_t wc)
    /*specifies conversion of input characters*/
@@ -556,8 +556,10 @@ unsigned char xord(wchar_t wc)
 
   if (wc == L'ю') return 0xee;
   if (wc == L'я') return 0xef;
-fwprintf(stderr, L"Don't cheat!\n");
-exit(1);
+
+  fwprintf(stderr, L"????????????????????????????\n");
+  exit(1);
+
   int z;
   for (z = 0x80; z <= 0xff; z++)
     if (xchr[z] == wc)
@@ -671,6 +673,8 @@ xchr[0173]= L'{' ;
 xchr[0174]= L'|' ;
 xchr[0175]= L'}' ;
 xchr[0176]= L'~' ;@/
+xchr[0xee]=L'ю';
+xchr[0xef]=L'я';
 
 @ Some of the ASCII codes without visible characters have been given symbolic
 names in this program because they are used with a special meaning.
