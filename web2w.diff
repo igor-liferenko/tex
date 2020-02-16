@@ -1,0 +1,13 @@
+diff --git a/web2w/web2w.w b/web2w/web2w.w
+index df7da84..dcedf05 100644
+--- a/web2w/web2w.w
++++ b/web2w/web2w.w
+@@ -2624,7 +2624,7 @@ for (k=0;k<256;k++)
+ 
+ This condition is taken from \.{tex.web}:
+ @<Character |k| cannot be printed@>=
+-  (k < ' ')||(k > '~')
++  ((k < ' ')||(k == 127))||(k>=128 && k != 0xee && k != 0xef)
+ @
+ 
+ 
