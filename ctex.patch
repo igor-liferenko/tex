@@ -61,7 +61,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  
  @ Different \PASCAL s have slightly different conventions, and the present
  @!@:PASCAL H}{\ph@>
-@@ -318,12 +329,35 @@
+@@ -318,12 +331,37 @@
  @^system dependencies@>
  @^overflow in arithmetic@>
  
@@ -83,6 +83,8 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 +#include <stdlib.h>
 +#include <string.h>
 +#include <math.h>
++#include <wchar.h>
++#include <locale.h>
 +
 +#define odd(X)       ((X)&1)
 +#define chr(X)       ((unsigned char)(X))
@@ -115,7 +117,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  @p bool a_open_in(alpha_file *f)
     /*open a text file for input*/
 -{@+reset((*f), name_of_file,"/O");return reset_OK((*f));
-+{@+reset((*f), name_of_file,"r");return reset_OK((*f));
++{@+a_reset((*f), name_of_file,"r");return reset_OK((*f));
  }
  @#
  bool a_open_out(alpha_file *f)
@@ -127,7 +129,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  bool b_open_in(byte_file *f)
     /*open a binary file for input*/
 -{@+reset((*f), name_of_file,"/O");return reset_OK((*f));
-+{@+reset((*f), name_of_file,"rb");return reset_OK((*f));
++{@+b_reset((*f), name_of_file,"rb");return reset_OK((*f));
  }
  @#
  bool b_open_out(byte_file *f)
@@ -139,7 +141,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  bool w_open_in(word_file *f)
     /*open a word file for input*/
 -{@+reset((*f), name_of_file,"/O");return reset_OK((*f));
-+{@+reset((*f), name_of_file,"rb");return reset_OK((*f));
++{@+w_reset((*f), name_of_file,"rb");return reset_OK((*f));
  }
  @#
  bool w_open_out(word_file *f)
@@ -234,12 +236,16 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 +#define put(file)    @[fwrite(&((file).d),sizeof((file).d),1,(file).f)@]
 +#define get(file)    @[fread(&((file).d),sizeof((file).d),1,(file).f)@]
 +
-+#define reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
-+                                 (file).f!=NULL?get(file):0)@]
++#define a_reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
++                                 (file).f!=NULL?a_get(file):0)@]
++#define b_reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
++                                 (file).f!=NULL?b_get(file):0)@]
++#define w_reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
++                                 (file).f!=NULL?w_get(file):0)@]
 +#define rewrite(file,name,mode) @[((file).f=fopen((char *)(name)+1,mode))@]
 +#define close(file)    @[fclose((file).f)@]
 +#define eof(file)    @[feof((file).f)@]
-+#define eoln(file)    @[((file).d=='\n'||eof(file))@]
++#define eoln(file)    @[((file).d==L'\n'||eof(file))@]
 +#define erstat(file)   @[((file).f==NULL?-1:ferror((file).f))@]
 +
 +#define read(file,x) @[((x)=(file).d,get(file))@]
@@ -262,7 +268,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
    }
  switch (selector) {
 -case term_and_log: {@+wterm(xchr[s]);wlog(xchr[s]);
-+case term_and_log: {@+wterm("%c",xchr[s]);wlog("%c",xchr[s]);
++case term_and_log: {@+wterm(L"%lc",xchr[s]);wlog(L"%lc",xchr[s]);
    incr(term_offset);incr(file_offset);
    if (term_offset==max_print_line)
      {@+wterm_cr;term_offset=0;
@@ -271,11 +277,11 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
      }
    } @+break;
 -case log_only: {@+wlog(xchr[s]);incr(file_offset);
-+case log_only: {@+wlog("%c",xchr[s]);incr(file_offset);
++case log_only: {@+wlog(L"%lc",xchr[s]);incr(file_offset);
    if (file_offset==max_print_line) print_ln();
    } @+break;
 -case term_only: {@+wterm(xchr[s]);incr(term_offset);
-+case term_only: {@+wterm("%c",xchr[s]);incr(term_offset);
++case term_only: {@+wterm(L"%lc",xchr[s]);incr(term_offset);
    if (term_offset==max_print_line) print_ln();
    } @+break;
  case no_print: do_nothing;@+break;
@@ -283,7 +289,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  case new_string: {@+if (pool_ptr < pool_size) append_char(s);
    } @+break; /*we drop characters if the string space is full*/
 -default:write(write_file[selector], xchr[s]);
-+default:write(write_file[selector],"%c", xchr[s]);
++default:write(write_file[selector],L"%lc", xchr[s]);
  } @/
  incr(tally);
  }
@@ -293,6 +299,11 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  
 +void print_str(char *s) /* the simple version */
 +{while (*s!=0) print_char(*s++);@+
++}
++
++void a_read(wchar_t *c, FILE *f)
++{
++  *c = fgetwc(f);
 +}
 +
  @ Control sequence names, file names, and strings constructed with
@@ -650,7 +661,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  @p void write_dvi(dvi_index @!a, dvi_index @!b)
  {@+int k;
 -for (k=a; k<=b; k++) write(dvi_file, dvi_buf[k]);
-+for (k=a; k<=b; k++) write(dvi_file, "%c", dvi_buf[k]);
++for (k=a; k<=b; k++) b_write(dvi_file, "%c", dvi_buf[k]);
  }
  
  @ To put a byte in the buffer without paying the cost of invoking a procedure

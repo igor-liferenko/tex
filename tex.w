@@ -533,9 +533,7 @@ that |text_char| consists of the elements |chr(first_text_char)| through
 adjusted if necessary.
 @^system dependencies@>
 
-@d text_char	unsigned char /*the data type of characters in text files*/
-@d first_text_char	0 /*ordinal number of the smallest element of |text_char|*/
-@d last_text_char	255 /*ordinal number of the largest element of |text_char|*/
+@d text_char	wchar_t /*the data type of characters in text files*/
 
 @<Local variables for init...@>=
 int @!i;
@@ -545,10 +543,27 @@ the user's external character set by means of arrays |xord| and |xchr|
 that are analogous to \PASCAL's |ord| and |chr| functions.
 
 @<Glob...@>=
-ASCII_code @!xord[256];
-   /*specifies conversion of input characters*/
 uint8_t @!xchr[256];
    /*specifies conversion of output characters*/
+unsigned char xord(wchar_t wc)
+   /*specifies conversion of input characters*/
+{
+  char mb[MB_CUR_MAX];
+  if (wctomb(mb, wc) == 1) {
+    if (*mb < 32) return 127;
+    return (unsigned char) *mb;
+  }
+
+  if (wc == L'ю') return 0xee;
+  if (wc == L'я') return 0xef;
+
+  int z;
+  for (z = 0x80; z <= 0xff; z++)
+    if (xchr[z] == wc)
+      break;
+  if (z == 256) return 127;
+  return (unsigned char) z;
+}
 
 @ Since we are assuming that our \PASCAL\ system is able to read and
 write the visible characters of standard ASCII (although not
@@ -691,8 +706,8 @@ right of these assignment statements to |chr(i)|.
 @^system dependencies@>
 
 @<Set init...@>=
-for (i=0; i<=037; i++) xchr[i]= ' ' ;
-for (i=0177; i<=0377; i++) xchr[i]= ' ' ;
+/* this was set so that in the next section input characters which do not fall
+to ascii range are set to |invalid_code| */
 
 @ The following system-independent code makes the |xord| array contain a
 suitable inverse to the information in |xchr|. Note that if |xchr[i]==xchr[j]|
@@ -701,9 +716,11 @@ where |i < j < 0177|, the value of |xord[xchr[i]]| will turn out to be
 codes below 040 in case there is a coincidence.
 
 @<Set init...@>=
-for (i=first_text_char; i<=last_text_char; i++) xord[chr(i)]=invalid_code;
-for (i=0200; i<=0377; i++) xord[xchr[i]]=i;
-for (i=0; i<=0176; i++) xord[xchr[i]]=i;
+/* 377 line is before 176 line not occasionally - this is for the reason
+explained in doc-part of this section - this way ascii characters assigned
+to upper half of xchr will make corresponding |xord[chr(i)]| equal to |invalid_code|;
+setting corresponding input to |invalid_code| will be done in |xord| function
+instead */
 
 @* Input and output.
 The bane of portability is the fact that different operating systems treat
@@ -905,7 +922,7 @@ finer tuning is often possible at well-developed \PASCAL\ sites.
 @p bool input_ln(alpha_file *f, bool @!bypass_eoln)
    /*inputs the next line or returns |false|*/
 {@+uint16_t last_nonblank; /*|last| with trailing blanks removed*/
-if (bypass_eoln) if (!eof((*f))) get((*f));
+if (bypass_eoln) if (!eof((*f))) a_get((*f));
    /*input the first character of the line into |f.d|*/
 last=first; /*cf.\ Matthew 19\thinspace:\thinspace30*/
 if (eof((*f))) return false;
@@ -916,7 +933,7 @@ else{@+last_nonblank=first;
       if (max_buf_stack==buf_size)
         @<Report overflow of the input buffer, and abort@>;
       }
-    buffer[last]=xord[(*f).d];get((*f));incr(last);
+    buffer[last]=xord((*f).d);a_get((*f));incr(last);
     if (buffer[last-1]!=' ') last_nonblank=last;
     }
   last=last_nonblank;return true;
@@ -1305,17 +1322,17 @@ else bad_pool("! I can't read TEX.POOL.")
 @.TEX.POOL has no check sum@>
 read(pool_file, m, n); /*read two digits of string length*/
 if (m== '*' ) @<Check the pool check sum@>@;
-else{@+if ((xord[m] < '0')||(xord[m] > '9')||@|
-      (xord[n] < '0')||(xord[n] > '9'))
+else{@+if ((m < '0')||(m > '9')||@|
+      (n < '0')||(n > '9'))
     bad_pool("! TEX.POOL line doesn't begin with two digits.");
 @.TEX.POOL line doesn't...@>
-  l=xord[m]*10+xord[n]-'0'*11; /*compute the length*/
+  l=m*10+n-'0'*11; /*compute the length*/
   if (pool_ptr+l+string_vacancies > pool_size)
     bad_pool("! You have to increase POOLSIZE.");
 @.You have to increase POOLSIZE@>
   for (k=1; k<=l; k++)
     {@+if (eoln(pool_file)) m= ' ' ;@+else read(pool_file, m);
-    append_char(xord[m]);
+    append_char(m);
     }
   read_ln(pool_file);g=make_string();
   }
@@ -1328,10 +1345,10 @@ file has been loaded.
 
 @<Check the pool check sum@>=
 {@+a=0;k=1;
-loop@+{@+if ((xord[n] < '0')||(xord[n] > '9'))
+loop@+{@+if ((n < '0')||(n > '9'))
   bad_pool("! TEX.POOL check sum doesn't have nine digits.");
 @.TEX.POOL check sum...@>
-  a=10*a+xord[n]-'0';
+  a=10*a+n-'0';
   if (k==9) goto done;
   incr(k);read(pool_file, n);
   }
@@ -10120,10 +10137,10 @@ int @!j; /*index into |buffer| or |TEX_format_default|*/
 if (n+b-a+1+format_ext_length > file_name_size)
   b=a+file_name_size-n-1-format_ext_length;
 k=0;
-for (j=1; j<=n; j++) append_to_name(xord[TEX_format_default[j]]);
+for (j=1; j<=n; j++) append_to_name(xord(TEX_format_default[j]));
 for (j=a; j<=b; j++) append_to_name(buffer[j]);
 for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++)
-  append_to_name(xord[TEX_format_default[j]]);
+  append_to_name(xord(TEX_format_default[j]));
 if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
 for (k=name_length+1; k<=file_name_size; k++) name_of_file[k]= ' ' ;
 }
@@ -10180,7 +10197,7 @@ we dare not use `|str_room|'.
 if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
  (cur_length > 0))
   return'?';
-else{@+for (k=1; k<=name_length; k++) append_char(xord[name_of_file[k]]);
+else{@+for (k=1; k<=name_length; k++) append_char(xord(name_of_file[k]));
   return make_string();
   }
 }
@@ -10974,13 +10991,13 @@ file_opened=true
 
 @ Note: A malformed \.{TFM} file might be shorter than it claims to be;
 thus |eof(tfm_file)| might be true when |read_font_info| refers to
-|tfm_file.d| or when it says |get(tfm_file)|. If such circumstances
+|tfm_file.d| or when it says |b_get(tfm_file)|. If such circumstances
 cause system error messages, you will have to defeat them somehow,
-for example by defining |fget| to be `\ignorespaces|{@+get(tfm_file);|
+for example by defining |fget| to be `\ignorespaces|{@+b_get(tfm_file);|
 |if (eof(tfm_file)) abort;} |\unskip'.
 @^system dependencies@>
 
-@d fget	get(tfm_file)
+@d fget	b_get(tfm_file)
 @d fbyte	tfm_file.d
 @d read_sixteen(X)	{@+X=fbyte;
   if (X > 127) abort;
@@ -23773,10 +23790,10 @@ if (save_ptr!=0)
 @ Format files consist of |memory_word| items, and we use the following
 macros to dump words of different types:
 
-@d dump_wd(X)	{@+fmt_file.d=X;put(fmt_file);@+}
-@d dump_int(X)	{@+fmt_file.d.i=X;put(fmt_file);@+}
-@d dump_hh(X)	{@+fmt_file.d.hh=X;put(fmt_file);@+}
-@d dump_qqqq(X)	{@+fmt_file.d.qqqq=X;put(fmt_file);@+}
+@d dump_wd(X)	{@+fmt_file.d=X;w_put(fmt_file);@+}
+@d dump_int(X)	{@+fmt_file.d.i=X;w_put(fmt_file);@+}
+@d dump_hh(X)	{@+fmt_file.d.hh=X;w_put(fmt_file);@+}
+@d dump_qqqq(X)	{@+fmt_file.d.qqqq=X;w_put(fmt_file);@+}
 
 @<Glob...@>=
 word_file @!fmt_file; /*for input or output of format information*/
@@ -23785,10 +23802,10 @@ word_file @!fmt_file; /*for input or output of format information*/
 the range of the values we are reading in. We say `|undump(a)(b)(x)|' to
 read an integer value |x| that is supposed to be in the range |a <= x <= b|.
 
-@d undump_wd(X)	{@+get(fmt_file);X=fmt_file.d;@+}
-@d undump_int(X)	{@+get(fmt_file);X=fmt_file.d.i;@+}
-@d undump_hh(X)	{@+get(fmt_file);X=fmt_file.d.hh;@+}
-@d undump_qqqq(X)	{@+get(fmt_file);X=fmt_file.d.qqqq;@+}
+@d undump_wd(X)	{@+w_get(fmt_file);X=fmt_file.d;@+}
+@d undump_int(X)	{@+w_get(fmt_file);X=fmt_file.d.i;@+}
+@d undump_hh(X)	{@+w_get(fmt_file);X=fmt_file.d.hh;@+}
+@d undump_qqqq(X)	{@+w_get(fmt_file);X=fmt_file.d.qqqq;@+}
 @d undump_end_end(X)	X=x;@+}
 @d undump_end(X)	(x > X)) goto bad_fmt;@+else undump_end_end
 @d undump(X)	{@+undump_int(x);if ((x < X)||undump_end
@@ -24241,6 +24258,7 @@ The initial test involving |ready_already| should be deleted if the
 @^system dependencies@>
 
 @p int main(void) {@! /*|start_here|*/
+setlocale(LC_CTYPE, "C.UTF-8");
 history=fatal_error_stop; /*in case we quit during initialization*/
 t_open_out; /*open the terminal for output*/
 if (ready_already==314159) goto start_of_TEX;
