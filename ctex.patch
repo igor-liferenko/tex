@@ -215,14 +215,14 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
    @/do@+{@<Read one string, but return |false| if the string memory space is getting
 @@ -1303,7 +1336,7 @@
  @ @<Read one string...@>=
- {@+if (eof(pool_file)) bad_pool("! TEX.POOL has no check sum.");
+ {@+if (eof(pool_file)) bad_pool(L"! TEX.POOL has no check sum.");
  @.TEX.POOL has no check sum@>
 -read(pool_file, m, n); /*read two digits of string length*/
 +read(pool_file, m);@+read(pool_file, n); /*read two digits of string length*/
  if (m== '*' ) @<Check the pool check sum@>@;
- else{@+if ((xord[m] < '0')||(xord[m] > '9')||@|
-       (xord[n] < '0')||(xord[n] > '9'))
-@@ -1411,12 +1444,30 @@
+ else{@+if ((m < '0')||(m > '9')||@|
+       (n < '0')||(n > '9'))
+@@ -1411,12 +1449,35 @@
  by changing |wterm|, |wterm_ln|, and |wterm_cr| in this section.
  @^system dependencies@>
  
@@ -294,7 +294,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  } @/
  incr(tally);
  }
-@@ -1509,6 +1560,10 @@
+@@ -1509,6 +1565,15 @@
    }
  }
  
@@ -565,7 +565,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  @^system dependencies@>
 @@ -10125,7 +10167,7 @@
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++)
-   append_to_name(xord[TEX_format_default[j]]);
+   append_to_name(xord(TEX_format_default[j]));
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
 -for (k=name_length+1; k<=file_name_size; k++) name_of_file[k]= ' ' ;
 +name_of_file[name_length+1]=0;
