@@ -1,8 +1,23 @@
-diff --git a/ctangle.w b/ctangle.w
-index 1308002..cb30fef 100644
---- a/ctangle.w
-+++ b/ctangle.w
-@@ -106,19 +106,19 @@ char **av;
+This file is part of web2w.
+Copyright 2017 Martin Ruckert
+
+web2w is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+web2w is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with web2w.  If not, see <http://www.gnu.org/licenses/>.
+ 
+Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
+--- /home/ruckert/hint/web2w/cweb/cweb/ctangle.w	2005-12-06 00:00:00.000000000 +0100
++++ /home/ruckert/hint/web2w/cweb/ctangle.w	2017-07-29 13:11:43.422365258 +0200
+@@ -106,19 +106,19 @@
  @ The following parameters were sufficient in the original \.{TANGLE} to
  handle \TEX/,
  so they should be sufficient for most applications of \.{CTANGLE}.
