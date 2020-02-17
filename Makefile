@@ -5,6 +5,7 @@ all: ctangle
 	./ctangle ctex
 	gcc -DINIT -o initex ctex.c -lm
 	@echo 'plain \dump' | ./initex && mv plain.fmt TeXformats/; echo
+	@rm -f plain.log
 	gcc -g -o virtex ctex.c -lm
 
 ctangle:
