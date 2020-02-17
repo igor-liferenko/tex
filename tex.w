@@ -533,7 +533,7 @@ that |text_char| consists of the elements |chr(first_text_char)| through
 adjusted if necessary.
 @^system dependencies@>
 
-@d text_char	wchar_t /*the data type of characters in text files*/
+@d text_char	unsigned char /*the data type of characters in text files*/
 
 @<Local variables for init...@>=
 int @!i;
@@ -543,9 +543,9 @@ the user's external character set by means of arrays |xord| and |xchr|
 that are analogous to \PASCAL's |ord| and |chr| functions.
 
 @<Glob...@>=
-text_char @!xchr[256];
+wchar_t @!xchr[256];
    /*specifies conversion of output characters*/
-ASCII_code xord(text_char wc)
+uint8_t xord(wchar_t wc)
    /*specifies conversion of input characters*/
 {
   char mb[MB_CUR_MAX];
@@ -763,7 +763,7 @@ for us to specify simple operations on word files before they are defined.
 
 @<Types...@>=
 typedef uint8_t eight_bits; /*unsigned one-byte quantity*/
-typedef struct {@+FILE *f;@+text_char@,d;@+} alpha_file; /*files that contain textual data*/
+typedef struct {@+FILE *f;@+wchar_t@,d;@+} alpha_file; /*files that contain textual data*/
 typedef struct {@+FILE *f;@+eight_bits@,d;@+} byte_file; /*files that contain binary data*/
 
 @ Most of what we need to do with respect to input and output can be handled
