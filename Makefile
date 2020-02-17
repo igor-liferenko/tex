@@ -18,3 +18,4 @@ ctangle:
 	ctangle ctangle.w
 	gcc -w -c ctangle.c
 	gcc -w -o ctangle ctangle.o common.o
+	rm ctangle.c ctangle.w ctangle.o common.h common.c common.w common.o
