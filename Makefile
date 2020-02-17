@@ -9,12 +9,12 @@ all: ctangle
 
 ctangle:
 	cp ~/cweb/common.w .
-	patch common.w common.patch
+	patch common.w web2w/common.patch
 	ctangle common.w
 	gcc -w -c common.c
 	cp ~/cweb/ctangle.w .
 	cp ~/cweb/common.h .
-	patch ctangle.w ctangle.patch
+	patch ctangle.w web2w/ctangle.patch
 	ctangle ctangle.w
 	gcc -w -c ctangle.c
 	gcc -w -o ctangle ctangle.o common.o
