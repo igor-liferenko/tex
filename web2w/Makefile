@@ -6,3 +6,4 @@ all:
 	bison --warnings=none -d -v pascal.y
 	gcc -o web2w web2w.c web.lex.c pascal.tab.c
 	rm web2w.w
+	./web2w -o tex.w tex.web

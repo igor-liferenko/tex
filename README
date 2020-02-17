@@ -4,14 +4,17 @@ in the state before last item below.
 
 1:
 
-    patch -R -o tex.w ctex.w ctex.patch # offset 2 lines warning is normal (don't know why it happens)
+    make -C web2w
+    mv web2w/tex.w .
+2:
+
     perl -i -pe 'next if /^ $/;next if /^ @ $/;s/ +$//' ctex.patch
     perl -i -pe 'next if /^@ $/;s/ +$//' tex.w
 
-2:
+3:
 
     perl -i -pe 's/^(xchr\[\d+\]= )\x27/$1L\x27/' tex.w
 
-3:
+4:
 
-change tex.w to add UTF-8 support and change ctex.patch accordingly.
+change tex.w and ctex.patch to add UTF-8 support
