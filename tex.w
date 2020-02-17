@@ -543,9 +543,9 @@ the user's external character set by means of arrays |xord| and |xchr|
 that are analogous to \PASCAL's |ord| and |chr| functions.
 
 @<Glob...@>=
-wchar_t @!xchr[256];
+text_char @!xchr[256];
    /*specifies conversion of output characters*/
-unsigned char xord(wchar_t wc)
+ASCII_code xord(text_char wc)
    /*specifies conversion of input characters*/
 {
   char mb[MB_CUR_MAX];
