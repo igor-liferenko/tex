@@ -884,8 +884,8 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 -exclusive of input and output.
 -
  @ Appendix: Replacement of the string pool file.
- @d str_0_255 	"^^@@^^A^^B^^C^^D^^E^^F^^G^^H^^I^^J^^K^^L^^M^^N^^O"@/
- 	"^^P^^Q^^R^^S^^T^^U^^V^^W^^X^^Y^^Z^^[^^\\^^]^^^^^_"@/
+ @i x
+ 
 @@ -25757,10 +25785,10 @@
  @d str_505 "else"
  @<|"else"|@>=@+505

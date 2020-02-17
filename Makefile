@@ -1,6 +1,6 @@
 all: ctangle
 	@rm -f ctex.w
-	patch -s -o ctex.w tex.w ctex.patch
+	patch -s -F0 -o ctex.w tex.w ctex.patch
 	@chmod a-w ctex.w
 	./ctangle ctex
 	gcc -DINIT -o initex ctex.c -lm
