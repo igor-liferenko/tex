@@ -219,9 +219,9 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  @.TEX.POOL has no check sum@>
 -read(pool_file, m, n); /*read two digits of string length*/
 +read(pool_file, m);@+read(pool_file, n); /*read two digits of string length*/
- if (m== '*' ) @<Check the pool check sum@>@;
- else{@+if ((m < '0')||(m > '9')||@|
-       (n < '0')||(n > '9'))
+ if (m== L'*' ) @<Check the pool check sum@>@;
+ else{@+if ((xord(m) < '0')||(xord(m) > '9')||@|
+       (xord(n) < '0')||(xord(n) > '9'))
 @@ -1411,12 +1449,35 @@
  by changing |wterm|, |wterm_ln|, and |wterm_cr| in this section.
  @^system dependencies@>

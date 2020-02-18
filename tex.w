@@ -1237,7 +1237,7 @@ bool get_strings_started(void) /*initializes the string pool,
   but returns |false| if something goes wrong*/
 {@+
 int k, @!l; /*small indices or counters*/
-uint8_t @!m, @!n; /*characters input from |pool_file|*/
+wchar_t @!m, @!n; /*characters input from |pool_file|*/
 str_number @!g; /*garbage*/
 int @!a; /*accumulator for check sum*/
 bool @!c; /*check sum has been checked*/
@@ -1326,18 +1326,18 @@ else bad_pool("! I can't read TEX.POOL.")
 {@+if (eof(pool_file)) bad_pool("! TEX.POOL has no check sum.");
 @.TEX.POOL has no check sum@>
 read(pool_file, m, n); /*read two digits of string length*/
-if (m== '*' ) @<Check the pool check sum@>@;
-else{@+if ((m < '0')||(m > '9')||@|
-      (n < '0')||(n > '9'))
+if (m== L'*' ) @<Check the pool check sum@>@;
+else{@+if ((xord(m) < '0')||(xord(m) > '9')||@|
+      (xord(n) < '0')||(xord(n) > '9'))
     bad_pool("! TEX.POOL line doesn't begin with two digits.");
 @.TEX.POOL line doesn't...@>
-  l=m*10+n-'0'*11; /*compute the length*/
+  l=xord(m)*10+xord(n)-'0'*11; /*compute the length*/
   if (pool_ptr+l+string_vacancies > pool_size)
     bad_pool("! You have to increase POOLSIZE.");
 @.You have to increase POOLSIZE@>
   for (k=1; k<=l; k++)
-    {@+if (eoln(pool_file)) m= ' ' ;@+else read(pool_file, m);
-    append_char(m);
+    {@+if (eoln(pool_file)) m= L' ' ;@+else read(pool_file, m);
+    append_char(xord(m));
     }
   read_ln(pool_file);g=make_string();
   }
@@ -1350,10 +1350,10 @@ file has been loaded.
 
 @<Check the pool check sum@>=
 {@+a=0;k=1;
-loop@+{@+if ((n < '0')||(n > '9'))
+loop@+{@+if ((xord(n) < '0')||(xord(n) > '9'))
   bad_pool("! TEX.POOL check sum doesn't have nine digits.");
 @.TEX.POOL check sum...@>
-  a=10*a+n-'0';
+  a=10*a+xord(n)-'0';
   if (k==9) goto done;
   incr(k);read(pool_file, n);
   }
