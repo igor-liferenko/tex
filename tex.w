@@ -10091,6 +10091,10 @@ allows both lowercase and uppercase letters in the file name.
   for (int i = 0; i < len; i++) {
     incr(k);
     if (k <= file_name_size) name_of_file[k] = mb[i];
+    else {
+      k -= i - 1;
+      break;
+    }
   }
 }
 
@@ -10207,18 +10211,17 @@ we dare not use `|str_room|'.
 if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
  (cur_length > 0))
   return'?';
-  else{@+
-    for (k=1; k<=name_length; k++) {
-      if (name_of_file[k] == 0xd1) {
-        append_char(xord(L'я'));
-        k++;
-      }
-      else {
-        wchar_t wc = name_of_file[k]; // ASCII promoted to UCS
-        append_char(xord(wc));
-      }
+else{@+for (k=1; k<=name_length; k++) {
+      wchar_t wc;
+      int len = mbtowc(&wc, name_of_file+k, MB_CUR_MAX);
+      char mb[MB_CUR_MAX];
+      int len2 = wctomb(mb, wc);
+      if (len != len2 || strncmp(mb, name_of_file+k, len) != 0)
+        { fwprintf(stderr, L"Error in mbtowc()\n"); exit(1); }
+      append_char(xord(wc));
+      k += len - 1;
     }
-    return make_string();
+  return make_string();
   }
 }
 str_number a_make_name_string(alpha_file *f)
