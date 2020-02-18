@@ -11,8 +11,8 @@
 +wchar_t xchr[256];
 +
 +@ @<process the command line@>=
-+  for (int i = 128; i < 256; i++)
-+    xchr[i] = 0;
++  for (int i = 128; i < 256; i++) xchr[i] = 0; for (int i = ' '; i < 127; i++)
++    xchr[i] = L' ';
 +  xchr[0x80] = L'А';
 +  xchr[0xa0] = L'а';
 +  xchr[0x81] = L'Б';
