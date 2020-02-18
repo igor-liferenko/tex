@@ -215,7 +215,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
    @/do@+{@<Read one string, but return |false| if the string memory space is getting
 @@ -1303,7 +1336,7 @@
  @ @<Read one string...@>=
- {@+if (eof(pool_file)) bad_pool(L"! TEX.POOL has no check sum.");
+ {@+if (eof(pool_file)) bad_pool("! TEX.POOL has no check sum.");
  @.TEX.POOL has no check sum@>
 -read(pool_file, m, n); /*read two digits of string length*/
 +read(pool_file, m);@+read(pool_file, n); /*read two digits of string length*/

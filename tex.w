@@ -1307,7 +1307,7 @@ length followed by the string itself, and the information is recorded in
 alpha_file @!pool_file; /*the string-pool file output by \.{TANGLE}*/
 #endif
 
-@ @d bad_pool(X)	{@+wake_up_terminal;write_ln(term_out, X);
+@ @d bad_pool(X)	{@+wake_up_terminal;write(term_out,L"%s\n",X);
   a_close(&pool_file);return false;
   }
 @<Read the other strings...@>=
@@ -1319,21 +1319,21 @@ too tight for comfort@>;
   }@+ while (!(c));
   a_close(&pool_file);return true;
   }
-else bad_pool(L"! I can't read TEX.POOL.")
+else bad_pool("! I can't read TEX.POOL.")
 @.I can't read TEX.POOL@>
 
 @ @<Read one string...@>=
-{@+if (eof(pool_file)) bad_pool(L"! TEX.POOL has no check sum.");
+{@+if (eof(pool_file)) bad_pool("! TEX.POOL has no check sum.");
 @.TEX.POOL has no check sum@>
 read(pool_file, m, n); /*read two digits of string length*/
 if (m== '*' ) @<Check the pool check sum@>@;
 else{@+if ((m < '0')||(m > '9')||@|
       (n < '0')||(n > '9'))
-    bad_pool(L"! TEX.POOL line doesn't begin with two digits.");
+    bad_pool("! TEX.POOL line doesn't begin with two digits.");
 @.TEX.POOL line doesn't...@>
   l=m*10+n-'0'*11; /*compute the length*/
   if (pool_ptr+l+string_vacancies > pool_size)
-    bad_pool(L"! You have to increase POOLSIZE.");
+    bad_pool("! You have to increase POOLSIZE.");
 @.You have to increase POOLSIZE@>
   for (k=1; k<=l; k++)
     {@+if (eoln(pool_file)) m= ' ' ;@+else read(pool_file, m);
@@ -1351,13 +1351,13 @@ file has been loaded.
 @<Check the pool check sum@>=
 {@+a=0;k=1;
 loop@+{@+if ((n < '0')||(n > '9'))
-  bad_pool(L"! TEX.POOL check sum doesn't have nine digits.");
+  bad_pool("! TEX.POOL check sum doesn't have nine digits.");
 @.TEX.POOL check sum...@>
   a=10*a+n-'0';
   if (k==9) goto done;
   incr(k);read(pool_file, n);
   }
-done: if (a!=0) bad_pool(L"! TEX.POOL doesn't match; TANGLE me again.");
+done: if (a!=0) bad_pool("! TEX.POOL doesn't match; TANGLE me again.");
 @.TEX.POOL doesn't match@>
 c=true;
 }
