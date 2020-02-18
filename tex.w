@@ -550,7 +550,7 @@ uint8_t xord(wchar_t wc)
 {
   char mb[MB_CUR_MAX];
   if (wctomb(mb, wc) == 1) {
-    if (*mb < 32) return 127;
+    if (*mb < 32) return invalid_code;
     return (unsigned char) *mb;
   }
 
@@ -564,7 +564,7 @@ uint8_t xord(wchar_t wc)
   for (z = 0x80; z <= 0xff; z++)
     if (xchr[z] == wc)
       break;
-  if (z == 256) return 127;
+  if (z == 256) return invalid_code;
   return (unsigned char) z;
 }
 
