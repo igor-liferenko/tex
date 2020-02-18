@@ -674,7 +674,8 @@ xchr[0174]= L'|' ;
 xchr[0175]= L'}' ;
 xchr[0176]= L'~' ;@/
 for (int i = 128; i < 256; i++)
-  xchr[i] = 0;
+  xchr[i] = 0; /* this is used in |@<Character |k| cannot be printed@>|
+                  and in |xord| function */
 xchr[0xee]=L'ю';
 xchr[0xef]=L'я';
 
