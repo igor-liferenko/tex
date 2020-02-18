@@ -551,7 +551,7 @@ uint8_t xord(wchar_t wc)
   char mb[MB_CUR_MAX];
   if (wctomb(mb, wc) == 1) {
     if (*mb < ' ') return invalid_code;
-    return (unsigned char) *mb;
+    return (uint8_t) *mb;
   }
 
   int z;
