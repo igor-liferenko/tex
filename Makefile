@@ -4,10 +4,8 @@ all: ctangle
 	@chmod a-w ctex.w
 	./ctangle ctex
 	gcc -DINIT -o initex ctex.c -lm
-	@echo 'plain \dump' | ./initex && mv plain.fmt TeXformats/; echo
-	@rm -f plain.log
-	@echo lhplain.ini | ./initex && mv lhplain.fmt TeXformats/; echo
-	@rm -f lhplain.log
+	@echo 'plain \dump' | ./initex && mv plain.fmt plain.log TeXformats/; echo
+	@echo lhplain.ini | ./initex && mv lhplain.fmt lhplain.log TeXformats/; echo
 	gcc -g -o virtex ctex.c -lm
 
 ctangle:
