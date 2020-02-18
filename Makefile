@@ -6,6 +6,8 @@ all: ctangle
 	gcc -DINIT -o initex ctex.c -lm
 	@echo 'plain \dump' | ./initex && mv plain.fmt TeXformats/; echo
 	@rm -f plain.log
+	@echo lhplain.ini | ./initex && mv lhplain.fmt TeXformats/; echo
+	@rm -f lhplain.log
 	gcc -g -o virtex ctex.c -lm
 
 ctangle:
