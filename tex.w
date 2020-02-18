@@ -554,18 +554,12 @@ uint8_t xord(wchar_t wc)
     return (unsigned char) *mb;
   }
 
-  if (wc == L'ю') return 0xee;
-  if (wc == L'я') return 0xef;
-
-  fwprintf(stderr, L"????????????????????????????\n");
-  exit(1);
-
   int z;
   for (z = 0x80; z <= 0xff; z++)
     if (xchr[z] == wc)
       break;
   if (z == 256) return invalid_code;
-  return (unsigned char) z;
+  return (uint8_t) z;
 }
 
 @ Since we are assuming that our \PASCAL\ system is able to read and
