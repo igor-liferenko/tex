@@ -1521,7 +1521,7 @@ else if (s < 256)
        /*temporarily disable new-line character*/
     j=str_start[s];
     while (j < str_start[s+1])
-      {@+print_char(so(str_pool[j]));incr(j); //uuu
+      {@+print_char(so(str_pool[j]));incr(j);
       }
     new_line_char=nl;return;
     }
@@ -1541,7 +1541,7 @@ void slow_print(int @!s) /*prints string |s|*/
 if ((s >= str_ptr)||(s < 256)) print(s);
 else{@+j=str_start[s];
   while (j < str_start[s+1])
-    {@+print(so(str_pool[j]));incr(j); //uuu
+    {@+print(so(str_pool[j]));incr(j);
     }
   }
 }
