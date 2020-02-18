@@ -10085,22 +10085,12 @@ into the |name_of_file| value that is used to open files. The present code
 allows both lowercase and uppercase letters in the file name.
 @^system dependencies@>
 
-@d append_to_name(X)	{@+c=X;incr(k);
-  if (c == 239) {
-    if (k <= file_name_size) name_of_file[k]=0xd1;
+@d append_to_name(X)	{@+c=X;
+  char mb[MB_CUR_MAX];
+  int len = wctomb(mb, xchr[c]);
+  for (int i = 0; i < len; i++) {
     incr(k);
-    if (k <= file_name_size) name_of_file[k]=0x8f;
-    else {
-      fwprintf(stderr, L"###############################\n");
-      exit(1);
-    }
-  }
-  else {
-    char mb[MB_CUR_MAX];
-    if (wctomb(mb, xchr[c]) == 1) {
-      if (k <= file_name_size) name_of_file[k]=*mb;
-    }
-    else {fwprintf(stderr, L"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"); exit(1);}
+    if (k <= file_name_size) name_of_file[k] = mb[i];
   }
 }
 
