@@ -673,6 +673,8 @@ xchr[0173]= L'{' ;
 xchr[0174]= L'|' ;
 xchr[0175]= L'}' ;
 xchr[0176]= L'~' ;@/
+for (int i = 128; i < 256; i++)
+  xchr[i] = 0;
 xchr[0xee]=L'ю';
 xchr[0xef]=L'я';
 
@@ -1292,7 +1294,7 @@ Thus, at least 81 printable characters are needed.
 @^system dependencies@>
 
 @<Character |k| cannot be printed@>=
-  ((k < ' ')||(k == 127))||(k>=128 && k != 0xee && k != 0xef)
+  (k < ' ')||(k == 127)||!xchr[k]
 
 @ When the \.{WEB} system program called \.{TANGLE} processes the \.{TEX.WEB}
 description that you are now reading, it outputs the \PASCAL\ program
