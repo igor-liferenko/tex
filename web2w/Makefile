@@ -8,5 +8,5 @@ all:
 	gcc -o web2w web2w.c web.lex.c pascal.tab.c
 	rm web2w.w
 	./web2w -o tex.w tex.web
-	patch tex.w ctex.patch # TODO: merge ../tex.w and ../ctex.patch into tex.w and edit it directly
+	patch tex.w ctex.patch
 	./edit.pl tex.w | sponge tex.w
