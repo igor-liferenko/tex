@@ -8,13 +8,8 @@ in the state before last item below.
     mv web2w/tex.w .
 2:
 
-    perl -i -pe 'next if /^ $/;next if /^ @ $/;s/ +$//' ctex.patch
-    perl -i -pe 'next if /^@ $/;s/ +$//' tex.w
+    perl -i -pe 's/^(xchr\[\d+\]= )\x27/$1L\x27/' tex.w
 
 3:
 
-    perl -i -pe 's/^(xchr\[\d+\]= )\x27/$1L\x27/' tex.w
-
-4:
-
-change tex.w and ctex.patch to add UTF-8 support
+change tex.w to add UTF-8 support
