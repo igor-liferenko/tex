@@ -8,8 +8,4 @@ in the state before last item below.
     mv web2w/tex.w .
 2:
 
-    perl -i -pe 's/^(xchr\[\d+\]= )\x27/$1L\x27/' tex.w
-
-3:
-
-change tex.w to add UTF-8 support
+    change tex.w to add UTF-8 support
