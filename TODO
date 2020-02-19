@@ -1,4 +1,4 @@
-use absolute paths for TeX* directories, and see default values of format_default_length and file_name_size and see what name_length is used for
+use absolute paths for TeX* directories
 see also mytex/TODO
 (search format_area_length and use debugger)
 -------

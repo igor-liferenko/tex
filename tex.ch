@@ -12,3 +12,17 @@ enum {@+@!trie_size=8000@+}; /*space for hyphenation patterns; should be larger 
 @y
 enum {@+@!trie_size=14000@+}; /*space for hyphenation patterns; should be larger for
 @z
+
+@x
+@d format_default_length	20 /*length of the |TEX_format_default| string*/
+@d format_area_length	11 /*length of its area part*/
+@y
+@d format_default_length	36 /*length of the |TEX_format_default| string*/
+@d format_area_length	27 /*length of its area part*/
+@z
+
+@x
+wchar_t @!TEX_format_default[1+format_default_length+1]=L" TeXformats/plain.fmt";
+@y
+wchar_t @!TEX_format_default[1+format_default_length+1]=L" /home/user/ctex/TeXformats/plain.fmt";
+@z
