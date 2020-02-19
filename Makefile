@@ -1,9 +1,9 @@
 all: ctangle
 	./ctangle tex tex
-	gcc -DINIT -o initex ctex.c -lm
+	gcc -DINIT -o initex tex.c -lm
 	@echo plain.ini | ./initex && mv plain.fmt plain.log TeXformats/
 	@echo lhplain.ini | ./initex && mv lhplain.fmt lhplain.log TeXformats/
-	gcc -g -o virtex ctex.c -lm
+	gcc -g -o virtex tex.c -lm
 
 ctangle:
 	cp ~/cweb/common.w .
