@@ -1,6 +1,4 @@
 use absolute paths for TeX* directories
-see also mytex/TODO
-(search format_area_length and use debugger)
 -------
 see diff -u web2w/tex.w tex.w and try to reduce it
 --------
