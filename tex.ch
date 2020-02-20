@@ -26,3 +26,15 @@ wchar_t @!TEX_format_default[1+format_default_length+1]=L" TeXformats/plain.fmt"
 @y
 wchar_t @!TEX_format_default[1+format_default_length+1]=L" /home/user/ctex/TeXformats/plain.fmt";
 @z
+
+@x
+@d str_506 "TeXinputs/"
+@y
+@d str_506 "/home/user/ctex/TeXinputs/"
+@z
+
+@x
+@d str_507 "TeXfonts/"
+@y
+@d str_507 "/home/user/ctex/TeXfonts/"
+@z
