@@ -1,13 +1,15 @@
 withouth this setup-tarif.tex will not compile
 @x
 enum {@+@!buf_size=500@+}; /*maximum number of characters simultaneously present in
+  current lines of open files and in control sequences between
+  \.{\\csname} and \.{\\endcsname}; must not exceed |max_halfword|*/
 @y
 enum {@+@!buf_size=3000@+}; /*maximum number of characters simultaneously present in
+  current lines of open files and in control sequences between
+  \.{\\csname} and \.{\\endcsname}; must not exceed |max_halfword|*/
 @z
 
-TODO: check on web2c-tex repo as it was before 2020 and in mytex repo if they need the
-same change to generate lhplain format and if yes, remove this TODO, and if no,
-understand what it does
+this is necessary for lhplain format
 @x
 enum {@+@!font_mem_size=20000@+}; /*number of words of |font_info| for all fonts*/
 @y
@@ -17,8 +19,15 @@ enum {@+@!font_mem_size=30000@+}; /*number of words of |font_info| for all fonts
 this is necessary for lhplain format
 @x
 enum {@+@!trie_size=8000@+}; /*space for hyphenation patterns; should be larger for
+  \.{INITEX} than it is in production versions of \TeX*/
 @y
+#ifdef INIT
 enum {@+@!trie_size=14000@+}; /*space for hyphenation patterns; should be larger for
+  \.{INITEX} than it is in production versions of \TeX*/
+#else
+enum {@+@!trie_size=6500@+}; /*space for hyphenation patterns; should be larger for
+  \.{INITEX} than it is in production versions of \TeX*/
+#endif
 @z
 
 !!! if need more, change type of |name_length| from uint8_t to int in tex.w !!!
