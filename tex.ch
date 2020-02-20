@@ -1,3 +1,13 @@
+TODO: make that newlines will be printed where necessary
+make that /home/user/ctex/ prefix will not be displayed (S525)
+-------------------
+
+@x
+enum {@+@!buf_size=500@+}; /*maximum number of characters simultaneously present in
+@y
+enum {@+@!buf_size=3000@+}; /*maximum number of characters simultaneously present in
+@z
+
 TODO: check on web2c-tex repo as it was before 2020 and in mytex repo if they need the
 same change to generate lhplain format and if yes, remove this TODO, and if no,
 understand what it does
@@ -11,6 +21,13 @@ enum {@+@!font_mem_size=30000@+}; /*number of words of |font_info| for all fonts
 enum {@+@!trie_size=8000@+}; /*space for hyphenation patterns; should be larger for
 @y
 enum {@+@!trie_size=14000@+}; /*space for hyphenation patterns; should be larger for
+@z
+
+!!! if need more, change type of |name_length| from uint8_t to int in tex.w !!!
+@x
+enum {@+@!file_name_size=40@+}; /*file names shouldn't be longer than this*/
+@y
+enum {@+@!file_name_size=255@+}; /*file names shouldn't be longer than this*/
 @z
 
 @x
