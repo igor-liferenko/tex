@@ -68,11 +68,22 @@ if (strncmp(name_of_file+1,"/home/user/ctex/TeXinputs/",name_length>26?26:name_l
 for (; k<=name_length; k++) {
 @z
 
-print newline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% [51.1333] print new line before termination; switch to editor if nec.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @x
     slow_print(log_name);print_char('.');
+    }
+  }
 @y
-    slow_print(log_name);print_char('.');print_ln();
+    slow_print(log_name);print_char('.');
+    }
+  }
+  print_ln();
+/*
+  if (ed_name_start<>0) and (interaction>batch_mode) then
+    calledit(str_pool[ed_name_start],ed_name_length,edit_line);
+*/
 @z
 
 use absolute paths
