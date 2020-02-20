@@ -1,6 +1,3 @@
-TODO: make that newlines will be printed where necessary
--------------------
-
 withouth this setup-tarif.tex will not compile
 @x
 enum {@+@!buf_size=500@+}; /*maximum number of characters simultaneously present in
@@ -31,6 +28,13 @@ enum {@+@!file_name_size=40@+}; /*file names shouldn't be longer than this*/
 enum {@+@!file_name_size=255@+}; /*file names shouldn't be longer than this*/
 @z
 
+print newline
+@x
+    write(term_out,L"! End of file on the terminal... why?");
+@y
+    write_ln(term_out,L"! End of file on the terminal... why?");
+@z
+
 use absolute path
 @x
 @d format_default_length	20 /*length of the |TEX_format_default| string*/
@@ -53,6 +57,13 @@ else{@+
 k=1;
 if (strncmp(name_of_file+1,"/home/user/ctex/TeXinputs/",name_length>26?26:name_length)==0) k=17;
 for (; k<=name_length; k++) {
+@z
+
+print newline
+@x
+    slow_print(log_name);print_char('.');
+@y
+    slow_print(log_name);print_char('.');print_ln();
 @z
 
 use absolute paths
