@@ -10178,7 +10178,7 @@ if (buffer[loc]=='&')
      /*now try the system format file area*/
   if (w_open_in(&fmt_file)) goto found;
   wake_up_terminal;
-  wterm_ln("Sorry, I can't find that format;"," will try PLAIN.");
+  wterm_ln(L"Sorry, I can't find that format;",L" will try PLAIN.");
 @.Sorry, I can't find...@>
   update_terminal;
   }
@@ -23770,7 +23770,7 @@ that reads one in. The function returns |false| if the dumped format is
 incompatible with the present \TeX\ table sizes, etc.
 
 @d too_small(X)	{@+wake_up_terminal;
-  wterm_ln("---! Must increase the ", X);
+  wterm_ln(L"---! Must increase the ", X);
 @.Must increase the x@>
   goto bad_fmt;
   }
@@ -24284,8 +24284,8 @@ t_open_out; /*open the terminal for output*/
 if (ready_already==314159) goto start_of_TEX;
 @<Check the ``constant'' values...@>@;
 if (bad > 0)
-  {@+wterm_ln("Ouch---my internal constants have been clobbered!",
-    "---case ", bad: 1);
+  {@+wterm_ln(L"Ouch---my internal constants have been clobbered!",
+    L"---case ", bad: 1);
 @.Ouch...clobbered@>
   exit(0);
   }

@@ -576,7 +576,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
       /*now try the system format file area*/
    if (w_open_in(&fmt_file)) goto found;
    wake_up_terminal;
--  wterm_ln("Sorry, I can't find that format;"," will try PLAIN.");
+-  wterm_ln(L"Sorry, I can't find that format;",L" will try PLAIN.");
 +  wterm_ln(L"Sorry, I can't find that format; will try PLAIN.");
  @.Sorry, I can't find...@>
    update_terminal;
@@ -734,7 +734,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  incompatible with the present \TeX\ table sizes, etc.
  
  @d too_small(X)	{@+wake_up_terminal;
--  wterm_ln("---! Must increase the ", X);
+-  wterm_ln(L"---! Must increase the ", X);
 +  wterm_ln(L"---! Must increase the %s", X);
  @.Must increase the x@>
    goto bad_fmt;
@@ -743,8 +743,8 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  if (ready_already==314159) goto start_of_TEX;
  @<Check the ``constant'' values...@>@;
  if (bad > 0)
--  {@+wterm_ln("Ouch---my internal constants have been clobbered!",
--    "---case ", bad: 1);
+-  {@+wterm_ln(L"Ouch---my internal constants have been clobbered!",
+-    L"---case ", bad: 1);
 +  {@+wterm_ln(L"Ouch---my internal constants have been clobbered!"
 +    L"---case %d", bad);
  @.Ouch...clobbered@>
