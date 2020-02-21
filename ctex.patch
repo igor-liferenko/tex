@@ -467,7 +467,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 +#define incr_dyn_used
 +#define decr_dyn_used
 +#endif
-+
++ 
  @ Let's consider the one-word memory region first, since it's the
  simplest. The pointer variable |mem_end| holds the highest-numbered location
  of |mem| that has ever been used. The free locations of |mem| that
