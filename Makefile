@@ -1,5 +1,6 @@
 all: ctangle
-	./ctangle tex tex
+	patch -s -F0 -o ctex.w tex.w ctex.patch
+	./ctangle ctex tex tex
 	gcc -O0 -DINIT -o initex tex.c -lm
 	@./initex plain.ini && mv plain.fmt plain.log TeXformats/
 	@./initex lhplain.ini && mv lhplain.fmt lhplain.log TeXformats/
