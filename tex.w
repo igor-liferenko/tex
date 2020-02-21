@@ -534,6 +534,8 @@ adjusted if necessary.
 @^system dependencies@>
 
 @d text_char	unsigned char /*the data type of characters in text files*/
+@d first_text_char	0 /*ordinal number of the smallest element of |text_char|*/
+@d last_text_char	255 /*ordinal number of the largest element of |text_char|*/
 
 @<Local variables for init...@>=
 int @!i;
@@ -11009,9 +11011,9 @@ file_opened=true
 
 @ Note: A malformed \.{TFM} file might be shorter than it claims to be;
 thus |eof(tfm_file)| might be true when |read_font_info| refers to
-|tfm_file.d| or when it says |b_get(tfm_file)|. If such circumstances
+|tfm_file.d| or when it says |get(tfm_file)|. If such circumstances
 cause system error messages, you will have to defeat them somehow,
-for example by defining |fget| to be `\ignorespaces|{@+b_get(tfm_file);|
+for example by defining |fget| to be `\ignorespaces|{@+get(tfm_file);|
 |if (eof(tfm_file)) abort;} |\unskip'.
 @^system dependencies@>
 
