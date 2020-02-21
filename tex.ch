@@ -33,20 +33,96 @@ enum {@+@!trie_size=6500@+}; /*space for hyphenation patterns; should be larger 
 #endif
 @z
 
-!!! if need more, change type of |name_length| from uint8_t to int in tex.w !!!
+!!! if need more, change type of |name_length| from uint8_t to uint16_t in tex.w !!!
 @x
 enum {@+@!file_name_size=40@+}; /*file names shouldn't be longer than this*/
 @y
 enum {@+@!file_name_size=255@+}; /*file names shouldn't be longer than this*/
 @z
 
-print newline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% [3.37] rescanning the command line
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @x
-    write(term_out,L"! End of file on the terminal... why?");
-@y
-    write_ln(term_out,L"! End of file on the terminal... why?");
-@z
+@ The following program does the required initialization
+without retrieving a possible command line.
+It should be clear how to modify this routine to deal with command lines,
+if the system permits them.
+@^system dependencies@>
 
+@p bool init_terminal(void) /*gets the terminal input started*/
+{@+
+t_open_in;
+loop@+{@+wake_up_terminal;write(term_out,L"**");update_terminal;
+@.**@>
+  if (!input_ln(&term_in, true))  /*this shouldn't happen*/
+    {@+write_ln(term_out);
+    write(term_out,L"! End of file on the terminal... why?");
+@.End of file on the terminal@>
+    return false;
+    }
+  loc=first;
+  while ((loc < last)&&(buffer[loc]==' ')) incr(loc);
+  if (loc < last)
+    {@+return true;
+     /*return unless the line was all blank*/
+    }
+  write_ln(term_out,"Please type the name of your input file.");
+  }
+}
+@y
+@ The following program does the required initialization
+and also retrieves a possible command line.
+@^system dependencies@>
+
+@p
+bool init_terminal(int argc, char **argv)
+{
+        //////////////////////////////////////////////////////////
+        // system dependent part, similar to tex-sparc/initex.ch
+        if(argc > 1) {
+                last = first;
+                for (int i = 1; i < argc; i++) {
+                        int j = 0;
+                        int k = strlen(argv[i]) - 1;
+                        while (k > 0 && argv[i][k] == ' ')
+                                decr(k);
+                        while (j <= k) {
+                                buffer[last] = argv[i][j];
+                                incr(j); incr(last);
+                        }
+                        if(k > 0) {
+                                buffer[last] = ' ';
+                                incr(last);
+                        }
+                }
+                if(last > first) {
+                        loc  = first;
+                        while (loc < last && buffer[loc] == ' ')
+                                incr(loc);
+                        if (loc < last)
+                                return true;
+                }
+        }
+        //////////////////////////////////////////////////////////
+        
+        
+        while (1) {
+                wake_up_terminal;write(term_out,L"**");update_terminal;
+                if (!input_ln(&term_in, true)) {
+                        write_ln(term_out);
+                        write_ln(term_out,L"! End of file on the terminal... why?");
+                        return false;
+                }
+                loc = first;
+                while (loc < last && buffer[loc] == ' ')
+                        incr(loc);
+                if (loc < last)
+                        return true;
+                write_ln(term_out, L"Please type the name of your input file.");
+        }
+}
+@z
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % [6.84] switch-to-editor option
@@ -92,6 +168,11 @@ case 'E': if (base_ptr > 0) {
   } @+break;
 @z
 
+@x
+if (!init_terminal()) exit(0);
+@y
+if (!init_terminal(argc,argv)) exit(0);
+@z
 
 use absolute path
 @x
@@ -115,6 +196,12 @@ else{@+
 k=1;
 if (strncmp(name_of_file+1,"/home/user/ctex/TeXinputs/",name_length>26?26:name_length)==0) k=17;
 for (; k<=name_length; k++) {
+@z
+
+@x
+@p int main(void) {@! /*|start_here|*/
+@y
+@p int main(int argc, char **argv) {@! /*|start_here|*/
 @z
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
