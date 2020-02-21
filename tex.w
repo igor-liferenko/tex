@@ -10118,10 +10118,10 @@ and extensions related to format files.
 @d format_extension	format_extension /*the extension, as a \.{WEB} constant*/
 
 @<Glob...@>=
-wchar_t @!TEX_format_default0[format_default_length], *const @!TEX_format_default = @!TEX_format_default0-1;
+uint8_t @!TEX_format_default0[format_default_length], *const @!TEX_format_default = @!TEX_format_default0-1;
 
 @ @<Set init...@>=
-TEX_format_default=L"TeXformats:plain.fmt";
+TEX_format_default="TeXformats:plain.fmt";
 @.TeXformats@>
 @.plain@>
 @^system dependencies@>
@@ -10176,7 +10176,7 @@ if (buffer[loc]=='&')
      /*now try the system format file area*/
   if (w_open_in(&fmt_file)) goto found;
   wake_up_terminal;
-  wterm_ln(L"Sorry, I can't find that format;",L" will try PLAIN.");
+  wterm_ln("Sorry, I can't find that format;"," will try PLAIN.");
 @.Sorry, I can't find...@>
   update_terminal;
   }
@@ -23768,7 +23768,7 @@ that reads one in. The function returns |false| if the dumped format is
 incompatible with the present \TeX\ table sizes, etc.
 
 @d too_small(X)	{@+wake_up_terminal;
-  wterm_ln(L"---! Must increase the ", X);
+  wterm_ln("---! Must increase the ", X);
 @.Must increase the x@>
   goto bad_fmt;
   }
@@ -24282,8 +24282,8 @@ t_open_out; /*open the terminal for output*/
 if (ready_already==314159) goto start_of_TEX;
 @<Check the ``constant'' values...@>@;
 if (bad > 0)
-  {@+wterm_ln(L"Ouch---my internal constants have been clobbered!",
-    L"---case ", bad: 1);
+  {@+wterm_ln("Ouch---my internal constants have been clobbered!",
+    "---case ", bad: 1);
 @.Ouch...clobbered@>
   exit(0);
   }
