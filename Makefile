@@ -1,5 +1,5 @@
 all: ctangle
-	ctie -c tex.ch tex.w constants.ch path.ch arg.ch edit.ch
+	ctie -c tex.ch tex.w constants.ch newline.ch path.ch arg.ch edit.ch
 	./ctangle -bhp tex tex
 	gcc -O0 -g -DINIT -o initex tex.c -lm
 	@./initex plain.ini >/dev/null && mv plain.fmt plain.log TeXformats/
