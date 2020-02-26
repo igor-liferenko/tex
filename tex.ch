@@ -78,34 +78,29 @@ and also retrieves a possible command line.
 @p
 bool init_terminal(int argc, char **argv)
 {
-        //////////////////////////////////////////////////////////
-        // system dependent part, similar to tex-sparc/initex.ch
+  t_open_in;
         if(argc > 1) {
                 last = first;
                 for (int i = 1; i < argc; i++) {
                         int j = 0;
                         int k = strlen(argv[i]) - 1;
-                        while (k > 0 && argv[i][k] == ' ')
+                        while (k >= 0 && argv[i][k] == ' ')
                                 decr(k);
                         while (j <= k) {
                                 buffer[last] = argv[i][j];
                                 incr(j); incr(last);
                         }
-                        if(k > 0) {
+                        if (k != -1) { /* there was an argument */
                                 buffer[last] = ' ';
                                 incr(last);
                         }
                 }
-                if(last > first) {
-                        loc  = first;
-                        while (loc < last && buffer[loc] == ' ')
-                                incr(loc);
-                        if (loc < last)
-                                return true;
+                if (last > first) {
+                        loc = first;
+                        return true;
                 }
         }
         //////////////////////////////////////////////////////////
-        
         
         while (1) {
                 wake_up_terminal;write(term_out,L"**");update_terminal;
