@@ -53,70 +53,25 @@ if the system permits them.
 @p bool init_terminal(void) /*gets the terminal input started*/
 {@+
 t_open_in;
-loop@+{@+wake_up_terminal;write(term_out,L"**");update_terminal;
-@.**@>
-  if (!input_ln(&term_in, true))  /*this shouldn't happen*/
-    {@+write_ln(term_out);
-    write(term_out,L"! End of file on the terminal... why?");
-@.End of file on the terminal@>
-    return false;
-    }
-  loc=first;
-  while ((loc < last)&&(buffer[loc]==' ')) incr(loc);
-  if (loc < last)
-    {@+return true;
-     /*return unless the line was all blank*/
-    }
-  write_ln(term_out,"Please type the name of your input file.");
-  }
-}
 @y
 @ The following program does the required initialization
 and also retrieves a possible command line.
 @^system dependencies@>
 
-@p
-bool init_terminal(int argc, char **argv)
+@p bool init_terminal(int argc, char **argv)
 {
   t_open_in;
-        if(argc > 1) {
-                last = first;
-                for (int i = 1; i < argc; i++) {
-                        int j = 0;
-                        int k = strlen(argv[i]) - 1;
-                        while (k >= 0 && argv[i][k] == ' ')
-                                decr(k);
-                        while (j <= k) {
-                                buffer[last] = argv[i][j];
-                                incr(j); incr(last);
-                        }
-                        if (k != -1) {
-                                buffer[last] = ' ';
-                                incr(last);
-                        }
-                }
-                if (last > first) {
-                        loc = first;
-                        return true;
-                }
-        }
-        //////////////////////////////////////////////////////////
-        
-        while (1) {
-                wake_up_terminal;write(term_out,L"**");update_terminal;
-                if (!input_ln(&term_in, true)) {
-                        write_ln(term_out);
-                        write_ln(term_out,L"! End of file on the terminal... why?");
-                        return false;
-                }
-                loc = first;
-                while (loc < last && buffer[loc] == ' ')
-                        incr(loc);
-                if (loc < last)
-                        return true;
-                write_ln(term_out, L"Please type the name of your input file.");
-        }
-}
+  if (argc > 1) {
+    last = first;
+    for (int i = 1; i < argc; i++) {
+      char *ptr = argv[i];
+      while (*ptr != '\0')
+        buffer[last++] = *ptr++;
+      buffer[last++] = ' ';
+    }
+    loc = first;
+    return true;
+  }
 @z
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
