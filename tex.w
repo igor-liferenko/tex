@@ -595,9 +595,8 @@ uint8_t xord(wchar_t wc)
   int z;
   for (z = 0x80; z <= 0xff; z++)
     if (xchr[z] == wc)
-      break;
-  if (z == 256) return invalid_code;
-  return (uint8_t) z;
+      return (uint8_t) z;
+  return invalid_code;
 }
 
 @ Since we are assuming that our \PASCAL\ system is able to read and
