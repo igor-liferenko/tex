@@ -1,11 +1,8 @@
-Move tex repo to web2c repo and do the following steps again and on each step
-review and create diffs and initialize tex repo with the diffs and tex.w and ctex.patch
-in the state before last item below.
-
-1:
+To get UTF-8 changes WRT ctex.w, do
 
     make -C web2w
-    mv web2w/tex.w .
-2:
+    diff tex.w web2w/tex.w
 
-    change tex.w to add UTF-8 support
+To get changes to web2w.w (to produce modified tex.w), diff web2w/web2w.w with web2w.w from CTAN
+(ctex.patch is the same as original); the same for ctangle.patch and common.patch.
+    
