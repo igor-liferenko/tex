@@ -1,3 +1,3 @@
 ensure that only file names are converted with mbtowc and remove reverse check (it will be clear if mbtowc() is buggy if there will be warning that file cannot be opened)
 --------
-Move tex repo to web2c repo and this repo to tex repo.
+Move tex repo to web2c repo and this repo to tex repo; afterwards change tex.ch and post-install.sh and .bashrc and /usr/local/bin/parse-first-line and tex.fn and mmix-git/Makefile accordingly.
