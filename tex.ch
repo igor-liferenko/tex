@@ -90,7 +90,7 @@ bool init_terminal(int argc, char **argv)
                                 buffer[last] = argv[i][j];
                                 incr(j); incr(last);
                         }
-                        if (k != -1) { /* there was an argument */
+                        if (k != -1) {
                                 buffer[last] = ' ';
                                 incr(last);
                         }
