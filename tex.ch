@@ -67,7 +67,7 @@ and also retrieves a possible command line.
       char *ptr = argv[i];
       while (*ptr != '\0')
         buffer[last++] = *ptr++;
-      buffer[last++] = ' ';
+      if (i < argc - 1) buffer[last++] = ' ';
     }
     loc = first;
     return true;
