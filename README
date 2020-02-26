@@ -1,6 +1,7 @@
-To get UTF-8 changes WRT ctex.w, do
+To get changes to ctex.w, do
 
-    make -C web2w
+    make -C web2w # to produce modified ctex.w (but ctex.patch applies cleanly; afterwards str_0_255 is factored out from it)
     diff tex.w web2w/tex.w # (the latter tex.w is in fact ctex.w; the former tex.w is in fact utex.w)
 
-To get changes to web2w.w (to produce modified tex.w), diff web2w/web2w.w with web2w.w from CTAN (ctex.patch is the same as original); the same for ctangle.patch and common.patch.
+To get changes to web2w.w, do diff of web2w/web2w.w with web2w.w from CTAN;
+the same for ctangle.patch and common.patch
