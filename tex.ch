@@ -1,4 +1,4 @@
-TODO: see my_name in tex-sparc/initex.ch
+TODO: see my_name in tex-sparc/initex.ch and add -format= option as in mytex/
 -----------------
 
 withouth this setup-tarif.tex will not compile
