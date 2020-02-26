@@ -64,9 +64,15 @@ and also retrieves a possible command line.
   if (argc > 1) {
     last = first;
     for (int i = 1; i < argc; i++) {
-      char *ptr = argv[i];
-      while (*ptr != '\0')
-        buffer[last++] = *ptr++;
+      for (int k = 0; k < strlen(argv[i]); k++) {
+        wchar_t wc;
+        int len = mbtowc(&wc, argv[i]+k, MB_CUR_MAX);
+        char mb[MB_CUR_MAX];
+        if (wctomb(mb, wc) != len ||strncmp(mb, argv[i]+k, len) != 0)
+        { fwprintf(stderr, L"Error in mbtowc()\n"); exit(1); }
+        buffer[last++] = xord(wc);
+        k += len - 1;
+      }
       if (i < argc - 1) buffer[last++] = ' ';
     }
     loc = first;
