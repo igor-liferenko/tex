@@ -28,7 +28,7 @@ enum {@+@!trie_size=8000@+}; /*space for hyphenation patterns; should be larger 
 enum {@+@!trie_size=14000@+}; /*space for hyphenation patterns; should be larger for
   \.{INITEX} than it is in production versions of \TeX*/
 #else
-enum {@+@!trie_size=6500@+}; /*space for hyphenation patterns; should be larger for
+enum {@+@!trie_size=12000@+}; /*space for hyphenation patterns; should be larger for
   \.{INITEX} than it is in production versions of \TeX*/
 #endif
 @z
