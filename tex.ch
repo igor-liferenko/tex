@@ -1,6 +1,3 @@
-TODO: see my_name in tex-sparc/initex.ch and add -format= option as in mytex/ and change bin/tex and /usr/local/bin/parse-first-line and post-install.sh
------------------
-
 withouth this setup-tarif.tex will not compile
 @x
 enum {@+@!buf_size=500@+}; /*maximum number of characters simultaneously present in
