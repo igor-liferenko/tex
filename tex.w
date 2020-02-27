@@ -10147,10 +10147,6 @@ allows both lowercase and uppercase letters in the file name.
   for (int i = 0; i < len; i++) {
     incr(k);
     if (k <= file_name_size) name_of_file[k] = mb[i];
-    else {
-      k -= i - 1;
-      break;
-    }
   } 
 }
 
