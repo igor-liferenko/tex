@@ -15,9 +15,9 @@ use absolute path
 @z
 
 @x
-wchar_t @!TEX_format_default[1+format_default_length+1]=L" TeXformats/plain.fmt";
+ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
 @y
-wchar_t @!TEX_format_default[1+format_default_length+1]=L" /home/user/ctex/TeXformats/plain.fmt";
+ASCII_code @!TEX_format_default[1+format_default_length+1]=" /home/user/ctex/TeXformats/plain.fmt";
 @z
 
 make that /home/user/ctex/ prefix will not be displayed

@@ -10176,7 +10176,9 @@ and extensions related to format files.
 @d format_extension_str ".fmt" /*the extension, as a \.{WEB} constant*/ 
 
 @<Glob...@>=
-wchar_t @!TEX_format_default[1+format_default_length+1]=L" TeXformats/plain.fmt";
+ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
+  /* for simplicity, use ascii-only here, because calculations of |n| in |pack_buffered_name|
+  must use UTF-8, but |append_to_name| must accept internal encoding */
 @.TeXformats@>
 @.plain@>
 @^system dependencies@>
@@ -10202,10 +10204,11 @@ int @!j; /*index into |buffer| or |TEX_format_default|*/
 if (n+b-a+1+format_ext_length > file_name_size) 
   b=a+file_name_size-n-1-format_ext_length;
 k=0;
-for (j=1; j<=n; j++) append_to_name(xord(TEX_format_default[j]));
+int mb_stop; /*dummy*/
+for (j=1; j<=n; j++) append_to_name(TEX_format_default[j]);
 for (j=a; j<=b; j++) append_to_name(buffer[j]);
 for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
-  append_to_name(xord(TEX_format_default[j]));
+  append_to_name(TEX_format_default[j]);
 if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
 name_of_file[name_length+1]=0;
 } 
