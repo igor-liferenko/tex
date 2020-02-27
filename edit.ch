@@ -22,20 +22,17 @@ if (ed_name_start != 0) fwprintf(stderr, L"Oops!\n"), exit(1);
   close_files_and_terminate();
   if (ed_name_start != 0 && interaction > batch_mode) {
     char ed_name[500];
-    int k = 0;
-    for (int j=ed_name_start; j<=ed_name_end; j++) {
+    int k = -1;
+    for (pool_pointer j=ed_name_start; j<=ed_name_end; j++) {
       char mb[MB_CUR_MAX];
       int len = wctomb(mb, xchr[str_pool[j]]);
       for (int i = 0; i < len; i++) {
         incr(k);
         if (k < sizeof ed_name - 1) ed_name[k] = mb[i];
-        else {
-          k -= i - 1;
-          break;
-        }
       }
     }
-    ed_name[k+1] = '\0';
+    if (k < sizeof ed_name - 1) ed_name[k+1] = '\0';
+    else ed_name[sizeof ed_name - 1] = '\0';
     char cmd[500];
     int r;
     if (strcmp("TeXinputs/", ed_name) == 0)
