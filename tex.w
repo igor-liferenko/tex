@@ -10147,6 +10147,7 @@ allows both lowercase and uppercase letters in the file name.
   for (int i = 0; i < len; i++) {
     incr(k);
     if (k <= file_name_size) name_of_file[k] = mb[i];
+    else if (mb_stop == -1) mb_stop = k - (i + 1);
   } 
 }
 
@@ -10155,10 +10156,11 @@ allows both lowercase and uppercase letters in the file name.
 ASCII_code @!c; /*character being packed*/ 
 int @!j; /*index into |str_pool|*/ 
 k=0;
+int mb_stop = -1;
 for (j=str_start[a]; j<=str_start[a+1]-1; j++) append_to_name(so(str_pool[j]));
 for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
 for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
-if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
+if (k <= file_name_size) name_length=k;@+else name_length=mb_stop;
 name_of_file[name_length+1]=0;
 } 
 

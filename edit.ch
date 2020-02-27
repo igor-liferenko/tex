@@ -21,24 +21,28 @@ if (ed_name_start != 0) fwprintf(stderr, L"Oops!\n"), exit(1);
 {
   close_files_and_terminate();
   if (ed_name_start != 0 && interaction > batch_mode) {
-    char ed_name[500];
-    int k = -1;
+    int ed_name_size = 500;
+    char ed_name0[ed_name_size+1];
+    char *const ed_name = ed_name0-1;
+    int k = 0;
+    int mb_stop = -1;
     for (pool_pointer j=ed_name_start; j<=ed_name_end; j++) {
       char mb[MB_CUR_MAX];
       int len = wctomb(mb, xchr[str_pool[j]]);
       for (int i = 0; i < len; i++) {
         incr(k);
-        if (k < sizeof ed_name - 1) ed_name[k] = mb[i];
+        if (k <= ed_name_size) ed_name[k] = mb[i];
+        else if (mb_stop == -1) mb_stop = k - (i + 1);
       }
     }
-    if (k < sizeof ed_name - 1) ed_name[k+1] = '\0';
-    else ed_name[sizeof ed_name - 1] = '\0';
+    if (k <= ed_name_size) ed_name[k+1] = '\0';
+    else ed_name[mb_stop+1] = '\0';
     char cmd[500];
     int r;
-    if (strcmp("TeXinputs/", ed_name) == 0)
-      r = snprintf(cmd, sizeof cmd, "em /home/user/ctex/%s %d", ed_name, edit_line);
+    if (strcmp("TeXinputs/", ed_name+1) == 0)
+      r = snprintf(cmd, sizeof cmd, "em /home/user/ctex/%s %d", ed_name+1, edit_line);
     else
-      r = snprintf(cmd, sizeof cmd, "em %s %d", ed_name, edit_line);
+      r = snprintf(cmd, sizeof cmd, "em %s %d", ed_name+1, edit_line);
     if (r >= sizeof cmd) fwprintf(stderr, L"Buffer is too small\n"), exit(1);
     if (system(cmd) != 0) fwprintf(stderr, L"! Trouble executing command %s\n", cmd);
     exit(1);
