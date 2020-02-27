@@ -3,7 +3,8 @@
 @y
 @<Global variables@>@;
 pool_pointer ed_name_start = 0;
-int ed_name_length, edit_line;
+pool_pointer ed_name_end;
+int edit_line;
 @z
 
 TODO: ensure that Oops! cannot happen and remove this change
@@ -20,12 +21,29 @@ if (ed_name_start != 0) fwprintf(stderr, L"Oops!\n"), exit(1);
 {
   close_files_and_terminate();
   if (ed_name_start != 0 && interaction > batch_mode) {
+    char ed_name[500];
+    int k = 0;
+    for (int j=ed_name_start; j<=ed_name_end; j++) {
+      char mb[MB_CUR_MAX];
+      int len = wctomb(mb, xchr[str_pool[j]]);
+      for (int i = 0; i < len; i++) {
+        incr(k);
+        if (k < sizeof ed_name - 1) ed_name[k] = mb[i];
+        else {
+          k -= i - 1;
+          break;
+        }
+      }
+    }
+    ed_name[k+1] = '\0';
     char cmd[500];
-    if (snprintf(cmd, sizeof cmd, "em %.*s %d", ed_name_length, str_pool+ed_name_start,
-                 edit_line) >= sizeof cmd)
-      fwprintf(stderr, L"Buffer is too small\n"), exit(1);
-    if (0 != system(cmd))
-      fwprintf(stderr, L"! Trouble executing command %s\n", cmd);
+    int r;
+    if (strcmp("TeXinputs/", ed_name) == 0)
+      r = snprintf(cmd, sizeof cmd, "em /home/user/ctex/%s %d", ed_name, edit_line);
+    else
+      r = snprintf(cmd, sizeof cmd, "em %s %d", ed_name, edit_line);
+    if (r >= sizeof cmd) fwprintf(stderr, L"Buffer is too small\n"), exit(1);
+    if (system(cmd) != 0) fwprintf(stderr, L"! Trouble executing command %s\n", cmd);
     exit(1);
   }
   exit(0);
@@ -43,7 +61,7 @@ case 'E': if (base_ptr > 0)
 case 'E':
   if (base_ptr > 0) {
     ed_name_start = str_start[input_stack[base_ptr].name_field];
-    ed_name_length = str_start[input_stack[base_ptr].name_field+1] - ed_name_start;
+    ed_name_end = str_start[input_stack[base_ptr].name_field+1] - 1;
     edit_line = line;
     jump_out();
   }
