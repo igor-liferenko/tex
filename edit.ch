@@ -2,15 +2,16 @@
 @<Global variables@>@;
 @y
 @<Global variables@>@;
-pool_pointer ed_name_start;
+pool_pointer ed_name_start = 0;
 int ed_name_length, edit_line;
 @z
 
+TODO: ensure that Oops! cannot happen and remove this change
 @x
 @<Set initial values of key variables@>@;
 @y
 @<Set initial values of key variables@>@;
-ed_name_start = 0; /* FIXME: set it on declaration above? */
+if (ed_name_start != 0) fwprintf(stderr, L"Oops!\n"), exit(1);
 @z
 
 @x
@@ -44,7 +45,6 @@ case 'E':
     ed_name_start = str_start[input_stack[base_ptr].name_field];
     ed_name_length = str_start[input_stack[base_ptr].name_field+1] - ed_name_start;
     edit_line = line;
-    // FIXME: do we need |interaction=scroll_mode;|?
     jump_out();
   }
   break;
