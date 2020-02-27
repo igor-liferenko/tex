@@ -50,70 +50,15 @@ void close_files_and_terminate(void)
 } 
 @y
   if (ed_name_start != 0 && interaction > batch_mode) {
-        char *temp;
-        char *command;
-        char c;
-        int sdone;
-        int ddone;
-        int i;
+    char cmd[500];
+    if (snprintf(cmd, sizeof cmd, "em %.*s %d", ed_name_length, &str_pool[ed_name_start], edit_line) >= sizeof cmd)
+      fwprintf(stderr, L"Buffer is too small\n"), exit(EXIT_FAILURE);
 
-        char dvalue[] = "emacs +%d %s";
-        char *texeditvalue = dvalue;
-        sdone = ddone = 0;
+    if (0 != system(cmd))
+      fwprintf(stderr, L"! Trouble executing command %s\n", cmd);
 
-        if(NULL != (temp = getenv("TEXEDIT")))
-                texeditvalue = temp;
-
-        if (NULL == (command = (char*)malloc(strlen(texeditvalue) + ed_name_length + 25))) {
-                fwprintf(stderr, L"! Not enough memory to issue editor command\n");
-                exit(1);
-        }
-        temp = command;
-        while ((c = *texeditvalue++) != 0) {
-                if (c == '%') {
-                        switch (c = *texeditvalue++) {
-                                case 'd':
-                                        if(ddone) {
-                                                fwprintf(stderr, L"! Line number cannot appear twice in editor command\n");
-                                                exit(1);
-                                        }
-                                        sprintf(temp, "%d", edit_line);
-                                        while (*temp != 0)
-                                                temp++;
-                                        ddone = 1;
-                                        break;
-                                case 's':
-                                        if (sdone) {
-                                                fwprintf(stderr, L"! Filename cannot appear twice in editor command\n");
-                                                exit(1);
-                                        }
-                                        i = 0;
-                                        while (i < ed_name_length) {
-                                                *temp++ = str_pool[ed_name_start+i];
-                                                i++;
-                                        }
-                                        sdone = 1;
-                                        break;
-                                case 0:
-                                        *temp++ = '%';
-                                        texeditvalue--; // Back up to \0 to force termination
-                                        break;
-                                default:
-                                        *temp++ = '%';
-                                        *temp++ = c;
-                                        break;
-                        }
-                }
-                else
-                        *temp++ = c;
-        }
-        *temp = 0;
-
-        if (0 != system(command))
-                fwprintf(stderr, L"! Trouble executing command %s\n", command);
-
-        exit(1);
-
+    exit(1); /* the fact that prompt where you typed "e" appeared means that
+                TeX stopped on an error */
   }
 }
 @z
