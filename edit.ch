@@ -43,8 +43,13 @@ case 'E': if (base_ptr > 0) {
 @x
 void close_files_and_terminate(void)
 @y
-void calledit(packed_ASCII_code *filename, int fnlength, int linenumber)
-{
+void close_files_and_terminate(void)
+@z
+
+@x
+} 
+@y
+  if (ed_name_start != 0 && interaction > batch_mode) {
         char *temp;
         char *command;
         char c;
@@ -59,7 +64,7 @@ void calledit(packed_ASCII_code *filename, int fnlength, int linenumber)
         if(NULL != (temp = getenv("TEXEDIT")))
                 texeditvalue = temp;
 
-        if (NULL == (command = (char*)malloc(strlen(texeditvalue) + fnlength + 25))) {
+        if (NULL == (command = (char*)malloc(strlen(texeditvalue) + ed_name_length + 25))) {
                 fwprintf(stderr, L"! Not enough memory to issue editor command\n");
                 exit(1);
         }
@@ -72,7 +77,7 @@ void calledit(packed_ASCII_code *filename, int fnlength, int linenumber)
                                                 fwprintf(stderr, L"! Line number cannot appear twice in editor command\n");
                                                 exit(1);
                                         }
-                                        sprintf(temp, "%d", linenumber);
+                                        sprintf(temp, "%d", edit_line);
                                         while (*temp != 0)
                                                 temp++;
                                         ddone = 1;
@@ -83,8 +88,10 @@ void calledit(packed_ASCII_code *filename, int fnlength, int linenumber)
                                                 exit(1);
                                         }
                                         i = 0;
-                                        while (i < fnlength)
-                                                *temp++ = filename[i++];
+                                        while (i < ed_name_length) {
+                                                *temp++ = str_pool[ed_name_start+i];
+                                                i++;
+                                        }
                                         sdone = 1;
                                         break;
                                 case 0:
@@ -106,22 +113,9 @@ void calledit(packed_ASCII_code *filename, int fnlength, int linenumber)
                 fwprintf(stderr, L"! Trouble executing command %s\n", command);
 
         exit(1);
-}
-void close_files_and_terminate(void)
-@z
 
-@x
-    slow_print(log_name);print_char('.');
-    }
   }
-  print_ln();
-@y
-    slow_print(log_name);print_char('.');
-    }
-  }
-  print_ln();
-  if (ed_name_start != 0 && interaction > batch_mode)
-    calledit(&str_pool[ed_name_start], ed_name_length, edit_line);
+}
 @z
 
 @x
