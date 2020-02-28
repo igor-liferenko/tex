@@ -47,7 +47,6 @@ if (ed_name_start != 0) fwprintf(stderr, L"Oops!\n"), exit(1);
       r = snprintf(cmd, sizeof cmd, "em %s %d", ed_name+1, edit_line);
     if (r >= sizeof cmd) fwprintf(stderr, L"Buffer is too small\n"), exit(1);
     if (system(cmd) != 0) fwprintf(stderr, L"! Trouble executing command %s\n", cmd);
-    exit(1);
   }
   exit(0);
 @z
