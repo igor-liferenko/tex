@@ -745,7 +745,9 @@ right of these assignment statements to |chr(i)|.
 
 @<Set init...@>=
 /* this was set so that in the next section input characters which do not fall
-to ascii range are set to |invalid_code| */
+to ascii range are set to |invalid_code|; the characters which were meant to be excluded
+here will not be used
+anywhere because of code in |@<Character |k| cannot be printed@>| */
 
 @ The following system-independent code makes the |xord| array contain a
 suitable inverse to the information in |xchr|. Note that if |xchr[i]==xchr[j]|
