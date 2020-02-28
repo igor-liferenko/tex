@@ -857,7 +857,7 @@ bool a_open_out(alpha_file *f)
 @#
 bool b_open_in(byte_file *f)
    /*open a binary file for input*/ 
-{@+b_reset((*f), name_of_file,"rb");return reset_OK((*f));
+{@+reset((*f), name_of_file,"rb");return reset_OK((*f));
 } 
 @#
 bool b_open_out(byte_file *f)
@@ -867,7 +867,7 @@ bool b_open_out(byte_file *f)
 @#
 bool w_open_in(word_file *f)
    /*open a word file for input*/ 
-{@+w_reset((*f), name_of_file,"rb");return reset_OK((*f));
+{@+reset((*f), name_of_file,"rb");return reset_OK((*f));
 } 
 @#
 bool w_open_out(word_file *f)
@@ -1471,15 +1471,13 @@ by changing |wterm|, |wterm_ln|, and |wterm_cr| in this section.
 
 @<Compiler directives@>=
 #define put(file)    @[fwrite(&((file).d),sizeof((file).d),1,(file).f)@]
-#define a_get(file)    @[get(&((file).d),(file).f)@]
-#define b_get(file)    @[fread(&((file).d),sizeof((file).d),1,(file).f)@]
-#define w_get          b_get
+#define a_get(file)    @[xget(&((file).d),(file).f)@]
+#define get(file)    @[fread(&((file).d),sizeof((file).d),1,(file).f)@]
 
 #define a_reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
                                  (file).f!=NULL?a_get(file):0)@]
-#define b_reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
-                                 (file).f!=NULL?b_get(file):0)@]
-#define w_reset                   b_reset
+#define reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
+                                 (file).f!=NULL?get(file):0)@]
 #define rewrite(file,name,mode) @[((file).f=fopen((char *)(name)+1,mode))@]
 #define close(file)    @[fclose((file).f)@]
 #define eof(file)    @[feof((file).f)@]
@@ -1594,7 +1592,7 @@ void print_str(char *s) /* the simple version */
 {while (*s!=0) print_char(*s++);@+
 } 
 
-void get(wchar_t *c, FILE *f)
+void xget(wchar_t *c, FILE *f)
 {
   *c = fgetwc(f);
 }
@@ -11101,7 +11099,7 @@ for example by defining |fget| to be `\ignorespaces|{@+get(tfm_file);|
 |if (eof(tfm_file)) abort;} |\unskip'.
 @^system dependencies@>
 
-@d fget	b_get(tfm_file)
+@d fget	get(tfm_file)
 @d fbyte	tfm_file.d
 @d read_sixteen(X)	{@+X=fbyte;
   if (X > 127) abort;
@@ -23909,10 +23907,10 @@ word_file @!fmt_file; /*for input or output of format information*/
 the range of the values we are reading in. We say `|undump(a)(b)(x)|' to
 read an integer value |x| that is supposed to be in the range |a <= x <= b|.
 
-@d undump_wd(X)	{@+w_get(fmt_file);X=fmt_file.d;@+}
-@d undump_int(X)	{@+w_get(fmt_file);X=fmt_file.d.i;@+}
-@d undump_hh(X)	{@+w_get(fmt_file);X=fmt_file.d.hh;@+}
-@d undump_qqqq(X)	{@+w_get(fmt_file);X=fmt_file.d.qqqq;@+}
+@d undump_wd(X)	{@+get(fmt_file);X=fmt_file.d;@+} 
+@d undump_int(X)	{@+get(fmt_file);X=fmt_file.d.i;@+} 
+@d undump_hh(X)	{@+get(fmt_file);X=fmt_file.d.hh;@+} 
+@d undump_qqqq(X)	{@+get(fmt_file);X=fmt_file.d.qqqq;@+} 
 @d undump_end_end(X)	X=x;@+} 
 @d undump_end(X)	(x > X)) goto bad_fmt;@+else undump_end_end
 @d undump(X)	{@+undump_int(x);if ((x < X)||undump_end
