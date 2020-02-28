@@ -10206,7 +10206,7 @@ size_t bufntombslen(ASCII_code *s, size_t len)
 @^system dependencies@>
 
 @ @<Check the ``constant'' values for consistency@>=
-if (wcsntombslen(TEX_format_default+1,wcslen(TEX_format_default+1)) > file_name_size) bad=31;
+if (wcsntombslen(TEX_format_default+1, format_default_length) > file_name_size) bad=31;
 
 @ Here is the messy routine that was just mentioned. It sets |name_of_file|
 from the first |n| characters of |TEX_format_default|, followed by
