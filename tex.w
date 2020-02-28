@@ -1468,7 +1468,7 @@ by changing |wterm|, |wterm_ln|, and |wterm_cr| in this section.
 @^system dependencies@>
 
 @<Compiler directives@>=
-#define w_put(file)    @[fwrite(&((file).d),sizeof((file).d),1,(file).f)@]
+#define put(file)    @[fwrite(&((file).d),sizeof((file).d),1,(file).f)@]
 #define a_get(file)    @[get(&((file).d),(file).f)@]
 #define b_get(file)    @[fread(&((file).d),sizeof((file).d),1,(file).f)@]
 #define w_get          b_get
@@ -23895,10 +23895,10 @@ if (save_ptr!=0)
 @ Format files consist of |memory_word| items, and we use the following
 macros to dump words of different types:
 
-@d dump_wd(X)	{@+fmt_file.d=X;w_put(fmt_file);@+}
-@d dump_int(X)	{@+fmt_file.d.i=X;w_put(fmt_file);@+}
-@d dump_hh(X)	{@+fmt_file.d.hh=X;w_put(fmt_file);@+}
-@d dump_qqqq(X)	{@+fmt_file.d.qqqq=X;w_put(fmt_file);@+}
+@d dump_wd(X)	{@+fmt_file.d=X;put(fmt_file);@+} 
+@d dump_int(X)	{@+fmt_file.d.i=X;put(fmt_file);@+} 
+@d dump_hh(X)	{@+fmt_file.d.hh=X;put(fmt_file);@+} 
+@d dump_qqqq(X)	{@+fmt_file.d.qqqq=X;put(fmt_file);@+} 
 
 @<Glob...@>=
 word_file @!fmt_file; /*for input or output of format information*/ 
