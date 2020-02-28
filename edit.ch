@@ -21,22 +21,24 @@ if (ed_name_start != 0) fwprintf(stderr, L"Oops!\n"), exit(1);
 {
   close_files_and_terminate();
   if (ed_name_start != 0 && interaction > batch_mode) {
-    int ed_name_size = 500;
-    char ed_name0[ed_name_size+1];
-    char *const ed_name = ed_name0-1;
+    char ed_name0[500+1], *const ed_name = ed_name0-1; /* like in |append_to_name| */
     int k = 0;
-    int mb_stop = -1;
     for (pool_pointer j=ed_name_start; j<=ed_name_end; j++) {
       char mb[MB_CUR_MAX];
-      int len = wctomb(mb, xchr[str_pool[j]]);
+      int len = wctomb(mb, xchr[so(str_pool[j])]);
       for (int i = 0; i < len; i++) {
         incr(k);
-        if (k <= ed_name_size) ed_name[k] = mb[i];
-        else if (mb_stop == -1) mb_stop = k - (i + 1);
+        if (k <= sizeof ed_name0 - 1) ed_name[k] = mb[i];
+        else if (k - i <= sizeof ed_name0 - 1)
+          for (int x = k - i; x <= sizeof ed_name0 - 1; x++)
+            ed_name[x] = '\0';
       }
     }
-    if (k <= ed_name_size) ed_name[k+1] = '\0';
-    else ed_name[mb_stop+1] = '\0';
+    int z;
+    if (k <= sizeof ed_name0 - 1) z = k;
+    else z = sizeof ed_name0 - 1;
+    while (z != 0 && ed_name[z] == '\0') z--;
+    ed_name[z+1]='\0';
     char cmd[500];
     int r;
     if (strcmp("TeXinputs/", ed_name+1) == 0)
