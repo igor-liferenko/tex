@@ -1,5 +1,8 @@
     make -C web2w
     mv web2w/tex.w ctex.w
     cp tex.w utex.w
-    diff -u ctex.w utex.w >utex.patch
+    <rm reverse check of mbtowc() from utex.w>
+    diff -u ctex.w utex.w >utex.patch # ("mapping" file is used with it)
     rm ctex.w utex.w
+
+Also, web2w.w must be changed.
