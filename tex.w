@@ -1471,7 +1471,7 @@ by changing |wterm|, |wterm_ln|, and |wterm_cr| in this section.
 
 @<Compiler directives@>=
 #define put(file)    @[fwrite(&((file).d),sizeof((file).d),1,(file).f)@]
-#define a_get(file)    @[xget(&((file).d),(file).f)@]
+#define a_get(file)    @[((file).d = fgetwc((file).f))@]
 #define get(file)    @[fread(&((file).d),sizeof((file).d),1,(file).f)@]
 
 #define a_reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
@@ -1591,11 +1591,6 @@ while (j < str_start[s+1])
 void print_str(char *s) /* the simple version */
 {while (*s!=0) print_char(*s++);@+
 } 
-
-void xget(wchar_t *c, FILE *f)
-{
-  *c = fgetwc(f);
-}
 
 @ Control sequence names, file names, and strings constructed with
 \.{\\string} might contain |ASCII_code| values that can't
