@@ -6,3 +6,6 @@
     rm ctex.w utex.w
 
 Also, web2w.w must be changed.
+Also, *.ch files are merget to tex.ch with ctie.
+I don't use kpathsea because it is too complicated - I use absolute path to
+TeXinputs and add symlinks to necessary files in it.
