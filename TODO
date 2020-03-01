@@ -2,4 +2,4 @@ ensure that only file names are converted with mbtowc and remove reverse check (
 --------
 Move tex repo to web2c repo and this repo to tex repo; afterwards change path.ch and edit.ch and bin/tex and .bashrc and post-install.sh and installer.tex accordingly.
 --------
-see my_name in tex-sparc/initex.ch and add -format= option as in mytex/ and change bin/tex
+see my_name in tex-sparc/initex.ch and add -format= option as in mytex/*.ch and change bin/tex
