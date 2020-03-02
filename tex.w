@@ -10191,7 +10191,7 @@ size_t bufntombslen(ASCII_code *s, size_t len)
   size_t l = 0;
   char mb[MB_CUR_MAX];
   while (l<len) {
-    n+=wctomb(mb, xchr[(unsigned char) *(s+l)]);
+    n+=wctomb(mb, xchr[(unsigned char) *(s+l)]); // FIXME: is the cast necessary?
     l++;
   }
   return n;

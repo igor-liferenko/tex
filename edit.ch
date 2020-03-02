@@ -20,7 +20,8 @@ if (ed_name_start != 0) fwprintf(stderr, L"Oops!\n"), exit(1);
 @y
 {
   close_files_and_terminate();
-  if (ed_name_start != 0 && interaction > batch_mode) {
+  if (ed_name_start != 0 && interaction > batch_mode) { /* FIXME: why we check |interaction|?
+             and why |interaction=scroll_mode;| is used below? */
     char ed_name0[500+1], *const ed_name = ed_name0-1; /* like in |append_to_name| */
     int k = 0;
     for (pool_pointer j=ed_name_start; j<=ed_name_end; j++) {
