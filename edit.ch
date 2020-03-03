@@ -11,7 +11,7 @@ case 'E':
   if (base_ptr > 0) {
     close_files_and_terminate();
     if (interaction > batch_mode) { /* FIXME: why we check |interaction|?
-             and why |interaction=scroll_mode;| is used below? */
+             and why |interaction=scroll_mode;| is used above? */
       char ed_name[500];
       int k = 0;
       for (pool_pointer j=str_start[input_stack[base_ptr].name_field];
