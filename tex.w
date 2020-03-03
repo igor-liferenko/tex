@@ -10173,18 +10173,7 @@ and extensions related to format files.
 @d format_extension_str ".fmt" /*the extension, as a \.{WEB} constant*/ 
 
 @<Glob...@>=
-wchar_t @!TEX_format_default[1+format_default_length+1]=L" TeXformats/plain.fmt";
-size_t wcsntombslen(wchar_t *s, size_t len)
-{
-  size_t n = 0;
-  size_t l = 0;
-  char mb[MB_CUR_MAX];
-  while (l<len) {
-    n+=wctomb(mb, *(s+l));
-    l++;
-  }
-  return n;
-}
+ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
 size_t bufntombslen(ASCII_code *s, size_t len)
 {
   size_t n = 0;
@@ -10201,7 +10190,7 @@ size_t bufntombslen(ASCII_code *s, size_t len)
 @^system dependencies@>
 
 @ @<Check the ``constant'' values for consistency@>=
-if (wcsntombslen(TEX_format_default+1, format_default_length) > file_name_size) bad=31;
+if (format_default_length > file_name_size) bad=31;
 
 @ Here is the messy routine that was just mentioned. It sets |name_of_file|
 from the first |n| characters of |TEX_format_default|, followed by
@@ -10214,21 +10203,18 @@ since the error will be detected in another way when a strange file name
 isn't found.
 @^system dependencies@>
 
-@d mb_format_ext_length wcsntombslen(TEX_format_default+1+format_default_length-format_ext_length,
-                                     format_ext_length)
-@d mb_n wcsntombslen(TEX_format_default+1, n)
 @d mb_a_b bufntombslen(buffer+a, b-a+1)
 
 @p void pack_buffered_name(small_number @!n, int @!a, int @!b)
 {@+int k; /*number of positions filled in |name_of_file|*/ 
 ASCII_code @!c; /*character being packed*/ 
 int @!j; /*index into |buffer| or |TEX_format_default|*/ 
-while (mb_n+mb_a_b+mb_format_ext_length > file_name_size) b--;
+while (n+mb_a_b+format_ext_length > file_name_size) b--;
 k=0;
-for (j=1; j<=n; j++) append_to_name(xord(TEX_format_default[j]));
+for (j=1; j<=n; j++) append_to_name(TEX_format_default[j]);
 for (j=a; j<=b; j++) append_to_name(buffer[j]);
 for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
-  append_to_name(xord(TEX_format_default[j]));
+  append_to_name(TEX_format_default[j]);
 if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
 name_of_file[name_length+1]=0;
 } 
