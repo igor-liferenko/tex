@@ -10174,17 +10174,6 @@ and extensions related to format files.
 
 @<Glob...@>=
 ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
-size_t bufntombslen(ASCII_code *s, size_t len)
-{
-  size_t n = 0;
-  size_t l = 0;
-  char mb[MB_CUR_MAX];
-  while (l<len) {
-    n+=wctomb(mb, xchr[(unsigned char) *(s+l)]); // FIXME: is the cast necessary?
-    l++;
-  }
-  return n;
-}
 @.TeXformats@>
 @.plain@>
 @^system dependencies@>
@@ -10203,13 +10192,24 @@ since the error will be detected in another way when a strange file name
 isn't found.
 @^system dependencies@>
 
-@d mb_a_b bufntombslen(buffer+a, b-a+1)
-
+@p size_t bufntombslen(ASCII_code *s, size_t len)
+{
+  size_t n = 0;
+  size_t l = 0;
+  char mb[MB_CUR_MAX];
+  while (l<len) {
+    n+=wctomb(mb, xchr[(unsigned char) *(s+l)]); // FIXME: is the cast necessary?
+    l++;
+  }
+  return n;
+}
+@ 
 @p void pack_buffered_name(small_number @!n, int @!a, int @!b)
 {@+int k; /*number of positions filled in |name_of_file|*/ 
 ASCII_code @!c; /*character being packed*/ 
 int @!j; /*index into |buffer| or |TEX_format_default|*/ 
-while (n+mb_a_b+format_ext_length > file_name_size) b--;
+if (n+bufntombslen(buffer+a,b-a+1)+format_ext_length > file_name_size)
+  b=a-1;
 k=0;
 for (j=1; j<=n; j++) append_to_name(TEX_format_default[j]);
 for (j=a; j<=b; j++) append_to_name(buffer[j]);
