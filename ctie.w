@@ -99,7 +99,7 @@ This can be used more or less for any \CEE/ program.
 \.{CTIE} starts, and where it ends.
 
 @<The main function@>=
-main(argc, argv)
+int main(argc, argv)
         int argc; string *argv;
 {
     @<Initialise parameters@>;
@@ -124,19 +124,6 @@ so uses the |char| type for input and output.
 @<Global types@>=
 typedef int boolean;
 typedef char* string;
-
-
-@ We predeclare some standard string-handling functions here instead of
-including their system header files, because the names of the header files
-are not as standard as the names of the functions.  (There's confusion
-between \.{<string.h>} and \.{<strings.h>}.)
-
-@<Predecl...@>=
-extern int strlen(); /* length of string */
-extern char* strcpy(); /* copy one string to another */
-extern int strncmp(); /* compare up to $n$ string characters */
-extern char* strncpy(); /* copy up to $n$ string characters */
-extern char *strerror();
 
 
 @ The following parameters should be sufficient for most
@@ -171,7 +158,8 @@ predefined as we include the \.{stdio.h} definitions.
 
 @<Global \&{\#include}s@>=
 #include <stdio.h>
-
+#include <string.h>
+#include <ctype.h>
 
 @ And we need dynamic memory allocation.
 This should cause no trouble in any \CEE/ program.
