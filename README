@@ -5,7 +5,7 @@
     diff -u ctex.w utex.w >utex.patch # ("mapping" file is used with it)
     rm ctex.w utex.w
 
-Also, web2w.w must be changed.
-Also, *.ch files are merget to tex.ch with ctie.
+web2w.w change is not necessary for using UTF-8.
+Also, *.ch files are merged to tex.ch with ctie.
 I don't use kpathsea because it is too complicated - I use absolute path to
 TeXinputs and add symlinks to necessary files in it.
