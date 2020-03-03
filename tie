@@ -1,0 +1,7 @@
+#!/bin/bash
+FILE=$(mktemp -p /tmp XXXXXXXXXX)
+tie "$@" >$FILE
+RET=$?
+[ $RET != 0 ] && cat $FILE
+rm $FILE
+exit $RET
