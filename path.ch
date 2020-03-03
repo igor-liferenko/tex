@@ -1,3 +1,5 @@
+NOTE: paths must contain only ASCII characters (but file names may be UTF-8) - TeXfonts and TeXinputs paths because web2w doesn't use pool-file, TeXformats can contain UTF-8 characters (see how was before commit 46b79190) but for uniformity with TeXfonts and TeXinputs paths it can not
+
 !!! if need more, change type of |name_length| from uint8_t to uint16_t in tex.w !!!
 pool_name does not need to be updated because
 pool is not used (get_strings_started() is not called)
