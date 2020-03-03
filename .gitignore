@@ -3,6 +3,7 @@ tex.c
 virtex
 initex
 ctangle
+ctie
 .gdb_history
 lhplain-no-offset.ini
 plain-no-offset.ini
