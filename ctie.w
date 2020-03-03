@@ -89,6 +89,10 @@ This can be used more or less for any \CEE/ program.
 @c
 @<Global \&{\#include}s@>@;
 @<Global types@>@;
+int flags[128];
+#define show_banner flags['b']
+#define show_happiness flags['h']
+#define show_progress flags['p']
 @<Predeclaration of functions@>@;
 @<Global variables@>@;
 @<Error handling functions@>@;
@@ -102,9 +106,10 @@ This can be used more or less for any \CEE/ program.
 int main(argc, argv)
         int argc; string *argv;
 {
+    show_banner=show_progress=show_happiness=1;
     @<Initialise parameters@>;
     @<Scan the parameters@>@;
-    @<Print the banners@>;
+    if (show_banner) { @<Print the banners@>; }
     @<Get the master file started@>@;
     @<Prepare the change files@>@;
     @<Prepare the output file@>@;
@@ -401,7 +406,7 @@ of lines is shown.
 
 @<Increment the line number and print ...@>=
 inp_desc->line++;
-if (inp_desc->type_of_file==master && inp_desc->line % 100==0) {
+if (inp_desc->type_of_file==master && inp_desc->line % 100==0 && show_progress) {
    if (inp_desc->line % 500 == 0)  printf("%ld", inp_desc->line);
    else  putchar('.');
    fflush(stdout);
@@ -670,7 +675,7 @@ that users can easily filter this away if they wish.
 @<Print the job |history|@>=
 switch (history) {
   case spotless:
-    printf("\n(No errors were found.)\n"); break;
+    if (show_happiness) printf("\n(No errors were found.)\n"); break;
   case troublesome:
     printf("\n(Pardon me, but I think I spotted something wrong.)\n"); break;
   case fatal: printf("(That was a fatal error, my friend.)\n");
@@ -744,7 +749,7 @@ buffer, if we could open it.
         pfatal_error("! Cannot open master file ",
             input_organisation[0]->file_name);
 @.Cannot open master file@>
-    printf("(%s)\n", input_organisation[0]->file_name);
+    if (show_progress) printf("(%s)\n", input_organisation[0]->file_name);
     input_organisation[0]->type_of_file=master;
     get_line(0, true);
 }
@@ -765,7 +770,7 @@ there are any changes in it.  This is done by |init_change_file|.
             pfatal_error("! Cannot open change file ",
                 input_organisation[i]->file_name);
 @.Cannot open change file@>
-        printf("(%s)\n", input_organisation[i]->file_name);
+        if (show_progress) printf("(%s)\n", input_organisation[i]->file_name);
         init_change_file(i);
         i++;
     }
@@ -1149,6 +1154,9 @@ else
     switch (*(*argv+1)) {
       case 'c': case 'C': prod_chf=chf;    break;
       case 'm': case 'M': prod_chf=master; break;
+      case 'b': show_banner = 0; break;
+      case 'h': show_happiness = 0; break;
+      case 'p': show_progress = 0; break;
       default:  usage_error(); 
     }
 
