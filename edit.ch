@@ -17,7 +17,7 @@ case 'E':
       for (pool_pointer j=str_start[input_stack[base_ptr].name_field];
            j<str_start[input_stack[base_ptr].name_field+1]; j++) {
         char mb[MB_CUR_MAX];
-        int len = wctomb(mb, xchr[so(str_pool[j])]); // FIXME: is |so| needed?
+        int len = wctomb(mb, xchr[str_pool[j]]);
         for (int i = 0; i < len; i++) {
           incr(k);
           if (k < sizeof ed_name) ed_name[k-1] = mb[i];
