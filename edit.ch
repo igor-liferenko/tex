@@ -24,8 +24,7 @@ case 'E':
           ed_name[k-1] = mb[i];
         }
       }
-      if (k <= file_name_size) ed_name[k] = '\0';
-      else ed_name[file_name_size] = '\0';
+      ed_name[k] = '\0';
       char cmd[500];
       if (snprintf(cmd, sizeof cmd,
            (strcmp("TeXinputs/", ed_name) == 0 ? "em /home/user/ctex/%s %d" : "em %s %d"),
