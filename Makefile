@@ -18,7 +18,7 @@ ctangle:
 	cp ~/cweb/ctangle.w .
 	cp ~/cweb/common.h .
 	patch ctangle.w web2w/ctangle.patch
-	ctangle -bhp ctangle.w ~/cweb-git/utf8/ctang-show.ch
+	ctangle -bhp ctangle.w
 	gcc -w -c ctangle.c
 	gcc -w -o ctangle ctangle.o common.o
 	rm ctangle.c ctangle.w ctangle.o common.h common.c common.w common.o
