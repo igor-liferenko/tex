@@ -12,7 +12,8 @@ case 'E':
     close_files_and_terminate();
     if (interaction > batch_mode) { /* FIXME: why we check |interaction|?
              and why |interaction=scroll_mode;| is used above? */
-      char ed_name[500];
+      char ed_name[file_name_size+1]; /* because this file was opened,
+                                         it is guaranteed to fit into |file_name_size| */
       int k = 0;
       for (pool_pointer j=str_start[input_stack[base_ptr].name_field];
            j<str_start[input_stack[base_ptr].name_field+1]; j++) {
@@ -20,14 +21,11 @@ case 'E':
         int len = wctomb(mb, xchr[str_pool[j]]);
         for (int i = 0; i < len; i++) {
           incr(k);
-          if (k < sizeof ed_name) ed_name[k-1] = mb[i];
-          else if (k - i < sizeof ed_name)
-            for (int x = k - i; x < sizeof ed_name; x++)
-              ed_name[x-1] = '\0';
+          ed_name[k-1] = mb[i];
         }
       }
-      if (k < sizeof ed_name) ed_name[k] = '\0';
-      else ed_name[sizeof ed_name-1] = '\0';
+      if (k <= file_name_size) ed_name[k] = '\0';
+      else ed_name[file_name_size] = '\0';
       char cmd[500];
       if (snprintf(cmd, sizeof cmd,
            (strcmp("TeXinputs/", ed_name) == 0 ? "em /home/user/ctex/%s %d" : "em %s %d"),
