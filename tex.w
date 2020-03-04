@@ -10198,7 +10198,7 @@ isn't found.
   size_t l = 0;
   char mb[MB_CUR_MAX];
   while (l<len) {
-    n+=wctomb(mb, xchr[(unsigned char) *(s+l)]); // FIXME: is the cast necessary?
+    n+=wctomb(mb, xchr[*(s+l)]);
     l++;
   }
   return n;
