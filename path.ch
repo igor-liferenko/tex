@@ -28,7 +28,7 @@ else{@+for (k=1; k<=name_length; k++) {
 @y
 else{@+
 k=1;
-if (strcmp(name_of_file+1,"/home/user/ctex/TeXinputs/")==0) k=17;
+if (strncmp(name_of_file+1,"/home/user/ctex/TeXinputs/",26)==0) k=17;
 for (; k<=name_length; k++) {
 @z
 

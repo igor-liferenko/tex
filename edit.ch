@@ -27,7 +27,7 @@ case 'E':
       ed_name[k] = '\0';
       char cmd[500];
       if (snprintf(cmd, sizeof cmd,
-           (strcmp("TeXinputs/", ed_name) == 0 ? "em /home/user/ctex/%s %d" : "em %s %d"),
+           (strncmp("TeXinputs/", ed_name, 10) == 0 ? "em /home/user/ctex/%s %d" : "em %s %d"),
            ed_name, line) >= sizeof cmd)
         fwprintf(stderr, L"Buffer is too small\n");
       else if (system(cmd) != 0) fwprintf(stderr, L"Trouble executing command `%s'\n", cmd);
