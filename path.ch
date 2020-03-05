@@ -1,5 +1,3 @@
-NOTE: "TeXfonts/" and "TeXinputs/" paths and ".fmt" must contain only ASCII characters, because web2w doesn't use pool-file; TEX_format_default can contain UTF-8 characters in path (see tex.w right before commit 46b79190) but for uniformity it must not. And filename in TEX_format_default is not supposed to be changed. And extension must be ascii-only (see above). So there is no point to ever use UTF-8 in TEX_format_default.
-
 !!! if need more, change type of |name_length| from uint8_t to uint16_t in tex.w !!!
 pool_name does not need to be updated because
 pool is not used (get_strings_started() is not called)

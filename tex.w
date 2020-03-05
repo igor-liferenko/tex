@@ -10203,7 +10203,10 @@ isn't found.
   }
   return n;
 }
-@ 
+@ "TeXfonts/" and "TeXinputs/" paths and ".fmt" must contain only ASCII characters, because
+web2w doesn't use pool-file; path in TEX_format_default for uniformity with the other paths
+must contain only ASCII characters. And filename in TEX_format_default is not supposed to be
+changed. So there is no point to ever use non-ASCII characters in TEX_format_default.
 @p void pack_buffered_name(small_number @!n, int @!a, int @!b)
 {@+int k; /*number of positions filled in |name_of_file|*/ 
 ASCII_code @!c; /*character being packed*/ 
