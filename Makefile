@@ -10,6 +10,14 @@ all: ctangle ctie
 	@./initex lhplain-no-offset.ini >/dev/null && mv lhplain-no-offset.fmt lhplain-no-offset.log TeXformats/
 	gcc -g -Og -o virtex tex.c -lm
 
+vanilla: test
+	gcc -g -Og -DINIT -o initex tex.c -lm
+	@echo plain.ini | ./initex >/dev/null && mv plain.fmt plain.log TeXformats/
+
+test:
+	./ctangle -bhp tex
+	gcc -g -Og -o virtex tex.c -lm
+
 ctangle:
 	cp ~/cweb/common.w .
 	patch common.w web2w/common.patch
