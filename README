@@ -4,8 +4,9 @@
     <rm reverse check of mbtowc() from utex.w>
     diff -u ctex.w utex.w >utex.patch
     rm ctex.w utex.w
-Now utex.patch is applied to ctex.w from web2w package on CTAN; "mapping" file is used with it.
-
+Now utex.patch cat be applied to ctex.w from
+    https://w3-o.cs.hm.edu/users/ruckert/public_html/web2w/
+"mapping" file is used with it.
 web2w.w change is necessary only for terminal output.
 Also, *.ch files are merged to tex.ch with ctie.
 I don't use kpathsea because it is too complicated - I use absolute path to
