@@ -1264,68 +1264,9 @@ on the information that \.{WEB} has output while processing \TeX.
 @.INITEX@>
 @^string pool@>
 
-@p
-#ifdef @!INIT
-bool get_strings_started(void) /*initializes the string pool,
-  but returns |false| if something goes wrong*/ 
-{@+
-int k, @!l; /*small indices or counters*/ 
-uint8_t @!m, @!n; /*characters input from |pool_file|*/ 
-str_number @!g; /*garbage*/ 
-int @!a; /*accumulator for check sum*/ 
-bool @!c; /*check sum has been checked*/ 
-pool_ptr=0;str_ptr=0;str_start[0]=0;
-@<Make the first 256 strings@>;
-@<Read the other strings from the \.{TEX.POOL} file and return |true|, or give an
-error message and return |false|@>;
-} 
-#endif
+@ 
 
-@ @d app_lc_hex(X)	l=X;
-  if (l < 10) append_char(l+'0')@;@+else append_char(l-10+'a')
-
-@<Make the first 256...@>=
-for (k=0; k<=255; k++) 
-  { if (@[@<Character |k| cannot be printed@>@]) 
-    { append_char('^');append_char('^');
-    if (k < 0100) append_char(k+0100)@;
-    else if (k < 0200) append_char(k-0100)@;
-    else{ app_lc_hex(k/16);app_lc_hex(k%16);
-      } 
-    } 
-  else append_char(k);
-  g=make_string();
-  } 
-
-@ The first 128 strings will contain 95 standard ASCII characters, and the
-other 33 characters will be printed in three-symbol form like `\.{\^\^A}'
-unless a system-dependent change is made here. Installations that have
-an extended character set, where for example |xchr[032]==@t\.{\'^^Z\'}@>|,
-would like string 032 to be the single character 032 instead of the
-three characters 0136, 0136, 0132 (\.{\^\^Z}). On the other hand,
-even people with an extended character set will want to represent string
-015 by \.{\^\^M}, since 015 is |carriage_return|; the idea is to
-produce visible strings instead of tabs or line-feeds or carriage-returns
-or bell-rings or characters that are treated anomalously in text files.
-
-Unprintable characters of codes 128--255 are, similarly, rendered
-\.{\^\^80}--\.{\^\^ff}.
-
-The boolean expression defined here should be |true| unless \TeX\
-internal code number~|k| corresponds to a non-troublesome visible
-symbol in the local character set.  An appropriate formula for the
-extended character set recommended in {\sl The \TeX book\/} would, for
-example, be `|k in[0, 010 dotdot 012, 014, 015, 033, 0177 dotdot 0377]|'.
-If character |k| cannot be printed, and |k < 0200|, then character |k+0100| or
-|k-0100| must be printable; moreover, ASCII codes |[041 dotdot 046,
-060 dotdot 071, 0136, 0141 dotdot 0146, 0160 dotdot 0171]| must be printable.
-Thus, at least 81 printable characters are needed.
-@:TeXbook}{\sl The \TeX book@>
-@^character set dependencies@>
-@^system dependencies@>
-
-@<Character |k| cannot be printed@>=
-  (k < ' ')||(k > '~')
+@ 
 
 @ When the \.{WEB} system program called \.{TANGLE} processes the \.{TEX.WEB}
 description that you are now reading, it outputs the \PASCAL\ program
@@ -1335,12 +1276,7 @@ program reads the latter file, where each string appears as a two-digit decimal
 length followed by the string itself, and the information is recorded in
 \TeX's string memory.
 
-@<Glob...@>=
-#ifdef @!INIT
-alpha_file @!pool_file; /*the string-pool file output by \.{TANGLE}*/ 
-#endif
-
-@ @<Read the other strings...@>=
+@ 
 
 @ 
 
