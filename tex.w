@@ -705,8 +705,7 @@ xchr[0174]= L'|' ;
 xchr[0175]= L'}' ;
 xchr[0176]= L'~' ;@/
 for (int i = 128; i < 256; i++)
-  xchr[i] = 0; /* this is used in |@<Character |k| cannot be printed@>|
-                  and in |xord| function */
+  xchr[i] = 0; /* this is used in |xord| function */
 @i mapping
 
 @ Some of the ASCII codes without visible characters have been given symbolic
@@ -1328,7 +1327,7 @@ Thus, at least 81 printable characters are needed.
 @^system dependencies@>
 
 @<Character |k| cannot be printed@>=
-  (k < ' ')||(k == 127)||!xchr[k]
+  (k < ' ')||(k > '~')
 
 @ When the \.{WEB} system program called \.{TANGLE} processes the \.{TEX.WEB}
 description that you are now reading, it outputs the \PASCAL\ program
@@ -1343,60 +1342,14 @@ length followed by the string itself, and the information is recorded in
 alpha_file @!pool_file; /*the string-pool file output by \.{TANGLE}*/ 
 #endif
 
-@ @d bad_pool(X)	{@+wake_up_terminal;write(term_out,L"%s\n",X);
-  a_close(&pool_file);return false;
-  } 
-@<Read the other strings...@>=
-{@+int k;@+for(k=1; k<=file_name_size;k++)name_of_file[k]=pool_name[k-1];@+} /*we needn't set |name_length|*/ 
-if (a_open_in(&pool_file)) 
-  {@+c=false;
-  @/do@+{@<Read one string, but return |false| if the string memory space is getting
-too tight for comfort@>;
-  }@+ while (!(c));
-  a_close(&pool_file);return true;
-  } 
-else bad_pool("! I can't read TEX.POOL.")
-@.I can't read TEX.POOL@>
+@ @<Read the other strings...@>=
 
-@ @<Read one string...@>=
-{@+if (eof(pool_file)) bad_pool("! TEX.POOL has no check sum.");
-@.TEX.POOL has no check sum@>
-read(pool_file, m);@+read(pool_file, n); /*read two digits of string length*/ 
-if (m== '*' ) @<Check the pool check sum@>@;
-else{@+if ((m < '0')||(m > '9')||@|
-      (n < '0')||(n > '9'))
-    bad_pool("! TEX.POOL line doesn't begin with two digits.");
-@.TEX.POOL line doesn't...@>
-  l=m*10+n-'0'*11; /*compute the length*/
-  if (pool_ptr+l+string_vacancies > pool_size) 
-    bad_pool("! You have to increase POOLSIZE.");
-@.You have to increase POOLSIZE@>
-  for (k=1; k<=l; k++) 
-    {@+if (eoln(pool_file)) m= ' ' ;@+else read(pool_file, m);
-    append_char(m);
-    } 
-  read_ln(pool_file);g=make_string();
-  } 
-} 
+@ 
 
 @ The \.{WEB} operation \.{@@\$} denotes the value that should be at the
 end of this \.{TEX.POOL} file; any other value means that the wrong pool
 file has been loaded.
 @^check sum@>
-
-@<Check the pool check sum@>=
-{@+a=0;k=1;
-loop@+{@+if ((n < '0')||(n > '9'))
-  bad_pool("! TEX.POOL check sum doesn't have nine digits.");
-@.TEX.POOL check sum...@>
-  a=10*a+n-'0';
-  if (k==9) goto done;
-  incr(k);read(pool_file, n);
-  } 
-done: if (a!=0) bad_pool("! TEX.POOL doesn't match; TANGLE me again.");
-@.TEX.POOL doesn't match@>
-c=true;
-} 
 
 @* On-line and off-line printing.
 Messages that are sent to a user's terminal and to the transcript-log file

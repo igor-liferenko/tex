@@ -2626,9 +2626,9 @@ wchar_t xchr[256];
 
 @ @<process the command line@>=
 for (int i = ' '; i < 127; i++)
-  xchr[i] = L' ';
+  xchr[i] = L' '; /* this is used in |@<Character |k| cannot be printed@>| */
 for (int i = 128; i < 256; i++) 
-  xchr[i] = 0;
+  xchr[i] = 0; /* this is used in |@<Character |k| cannot be printed@>| */
 @i ../mapping
 
 @
