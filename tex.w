@@ -967,7 +967,7 @@ if (bypass_eoln) if (!eof((*f))) a_get((*f));
 last=first; /*cf.\ Matthew 19\thinspace:\thinspace30*/ 
 if (eof((*f))) return false;
 else{@+last_nonblank=first;
-  while (!a_eoln((*f))) 
+  while (!eoln((*f))) 
     {@+if (last >= max_buf_stack) 
       {@+max_buf_stack=last+1;
       if (max_buf_stack==buf_size) 
@@ -1481,8 +1481,7 @@ by changing |wterm|, |wterm_ln|, and |wterm_cr| in this section.
 #define rewrite(file,name,mode) @[((file).f=fopen((char *)(name)+1,mode))@]
 #define close(file)    @[fclose((file).f)@]
 #define eof(file)    @[feof((file).f)@]
-#define a_eoln(file)    @[((file).d==L'\n'||eof(file))@]
-#define eoln(file)    @[((file).d=='\n'||eof(file))@]
+#define eoln(file)    @[((file).d==L'\n'||eof(file))@]
 #define erstat(file)   @[((file).f==NULL?-1:ferror((file).f))@]
 
 #define read(file,x) @[((x)=(file).d,get(file))@]
