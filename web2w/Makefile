@@ -8,12 +8,13 @@ all: ctangle
 
 ctangle:
 	patch common.w common.patch
-	?ctangle -bhp common.w
-	sed ...
-	gcc -w -c common.c
+	#?ctangle -bhp common.w
+	#sed ...
+	#gcc -w -c common.c
 	patch ctangle.w ctangle.patch
-	?ctangle -bhp ctangle.w
-	gcc -w -c ctangle.c
-	gcc -w -o ctangle ctangle.o common.o
-	+cweave
-	rm ctangle.c ctangle.w ctangle.o common.h common.c common.w common.o
+	#?ctangle -bhp ctangle.w
+	#gcc -w -c ctangle.c
+	#gcc -w -o ctangle ctangle.o common.o
+	patch cweave.w cweave.patch
+	#?ctangle -bhp cweave
+TODO: patch cweave etc already and rm *.patch
