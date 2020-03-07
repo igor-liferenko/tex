@@ -2621,18 +2621,12 @@ for (k=0;k<256;k++)
   if ((k&0xF)==0xF) wputs("@@/\n");
 }
 
-@ @<global variables@>=
-wchar_t xchr[256];
-
 @ @<process the command line@>=
-for (int i = 128; i < 256; i++) 
-  xchr[i] = 0; /* this is used in |@<Character |k| cannot be printed@>| */
+wchar_t xchr[256];
+for (int i = 128; i < 256; i++) xchr[i] = 0;
 @i ../mapping
 
-@
-
-This condition is taken from \.{tex.web}:
-@<Character |k| cannot be printed@>=
+@ @<Character |k| cannot be printed@>=
   (k < ' ')||(k == 127)||(k >= 128 && !xchr[k])
 
 @
