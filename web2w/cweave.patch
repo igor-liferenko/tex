@@ -1,0 +1,54 @@
+This file is part of web2w.
+Copyright 2017 Martin Ruckert
+
+web2w is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+web2w is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with web2w.  If not, see <http://www.gnu.org/licenses/>.
+ 
+Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
+--- /home/ruckert/hint/web2w/cweb/cweb/cweave.w	2002-02-01 00:00:00.000000000 +0100
++++ /home/ruckert/hint/web2w/cweb/cweave.w	2017-07-29 13:11:43.712384622 +0200
+@@ -117,24 +117,24 @@
+ If you change |max_bytes|, |max_names|, |hash_size|, or |buf_size|
+ you have to change them also in the file |"common.w"|.
+ 
+-@d max_bytes 90000 /* the number of bytes in identifiers,
++@d max_bytes 150000 /* the number of bytes in identifiers,
+   index entries, and section names */
+-@d max_names 4000 /* number of identifiers, strings, section names;
++@d max_names 6000 /* number of identifiers, strings, section names;
+   must be less than 10240; used in |"common.w"| */
+-@d max_sections 2000 /* greater than the total number of sections */
++@d max_sections 4000 /* greater than the total number of sections */
+ @d hash_size 353 /* should be prime */
+-@d buf_size 100 /* maximum length of input line, plus one */
++@d buf_size 5000 /* maximum length of input line, plus one */
+ @d longest_name 10000 /* section names and strings shouldn't be longer than this */
+ @d long_buf_size (buf_size+longest_name)
+-@d line_length 80 /* lines of \TEX/ output have at most this many characters;
++@d line_length 255 /* lines of \TEX/ output have at most this many characters;
+   should be less than 256 */
+-@d max_refs 20000 /* number of cross-references; must be less than 65536 */
+-@d max_toks 20000 /* number of symbols in \CEE/ texts being parsed;
++@d max_refs 40000 /* number of cross-references; must be less than 65536 */
++@d max_toks 65000 /* number of symbols in \CEE/ texts being parsed;
+   must be less than 65536 */
+-@d max_texts 4000 /* number of phrases in \CEE/ texts being parsed;
++@d max_texts 10200 /* number of phrases in \CEE/ texts being parsed;
+   must be less than 10240 */
+-@d max_scraps 2000 /* number of tokens in \CEE/ texts being parsed */
+-@d stack_size 400 /* number of simultaneous output levels */
++@d max_scraps 65000 /* number of tokens in \CEE/ texts being parsed */
++@d stack_size 4000 /* number of simultaneous output levels */
+ 
+ @ The next few sections contain stuff from the file |"common.w"| that must
+ be included in both |"ctangle.w"| and |"cweave.w"|. It appears in
