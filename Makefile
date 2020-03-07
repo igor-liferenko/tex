@@ -1,4 +1,4 @@
-all: ctangle ctie
+all: ctangle
 	tie -bhp -c tex.ch tex.w constants.ch newline.ch path.ch arg.ch edit.ch
 	./ctangle -bhp tex tex
 	gcc -g -Og -DINIT -o initex tex.c -lm

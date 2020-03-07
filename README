@@ -8,6 +8,6 @@ Now utex.patch cat be applied to ctex.w from
     https://w3-o.cs.hm.edu/users/ruckert/public_html/web2w/
 "mapping" file is used with it.
 web2w.w change is necessary only for terminal output.
-Also, *.ch files are merged to tex.ch with ctie.
+Also, tex.ch is created from *.ch files with `tie'.
 I don't use kpathsea because it is too complicated - I use absolute path to
 TeXinputs and add symlinks to necessary files in it.
