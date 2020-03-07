@@ -14,7 +14,7 @@ vanilla: test
 	gcc -g -Og -DINIT -o initex tex.c -lm
 	@echo plain.ini | ./initex >/dev/null && mv plain.fmt plain.log TeXformats/
 
-test:
+test: ctangle
 	./ctangle -bhp tex
 	gcc -g -Og -o virtex tex.c -lm
 
@@ -26,7 +26,7 @@ ctangle:
 	cp ~/cweb/ctangle.w .
 	cp ~/cweb/common.h .
 	patch ctangle.w web2w/ctangle.patch
-	ctangle -bhp ctangle.w
+	ctangle -bhp ctangle.w ~/cweb-git/utf8/ctang-show.ch
 	gcc -w -c ctangle.c
 	gcc -w -o ctangle ctangle.o common.o
 	rm ctangle.c ctangle.w ctangle.o common.h common.c common.w common.o
