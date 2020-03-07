@@ -2625,8 +2625,6 @@ for (k=0;k<256;k++)
 wchar_t xchr[256];
 
 @ @<process the command line@>=
-for (int i = ' '; i < 127; i++)
-  xchr[i] = L' '; /* this is used in |@<Character |k| cannot be printed@>| */
 for (int i = 128; i < 256; i++) 
   xchr[i] = 0; /* this is used in |@<Character |k| cannot be printed@>| */
 @i ../mapping
@@ -2635,7 +2633,7 @@ for (int i = 128; i < 256; i++)
 
 This condition is taken from \.{tex.web}:
 @<Character |k| cannot be printed@>=
-  (k < ' ')||(k == 127)||!xchr[k]
+  (k < ' ')||(k == 127)||(k >= 128 && !xchr[k])
 
 @
 
