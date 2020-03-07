@@ -704,9 +704,6 @@ xchr[0173]= L'{' ;
 xchr[0174]= L'|' ;
 xchr[0175]= L'}' ;
 xchr[0176]= L'~' ;@/
-for (int i = 128; i < 256; i++)
-  xchr[i] = 0; /* this is used in |xord| function */
-@i mapping
 
 @ Some of the ASCII codes without visible characters have been given symbolic
 names in this program because they are used with a special meaning.
@@ -743,8 +740,8 @@ right of these assignment statements to |chr(i)|.
 @^system dependencies@>
 
 @<Set init...@>=
-/* assignments were done here so that in the next section input characters which do not fall
-to ascii range were set to |invalid_code| */
+for (int i = 128; i < 256; i++) xchr[i] = L' ';
+  /* this is used in |xord| function (also see next section) */
 
 @ The following system-independent code makes the |xord| array contain a
 suitable inverse to the information in |xchr|. Note that if |xchr[i]==xchr[j]|
@@ -753,11 +750,7 @@ where |i < j < 0177|, the value of |xord[xchr[i]]| will turn out to be
 codes below 040 in case there is a coincidence.
 
 @<Set init...@>=
-/* 377 line is before 176 line not occasionally - this is for the reason
-explained in doc-part of this section - this way ascii characters assigned
-to upper half of xchr will make corresponding |xord[chr(i)]| equal to |invalid_code|;
-setting corresponding input to |invalid_code| will be done in |xord| function
-instead */
+@i mapping
 
 @* Input and output.
 The bane of portability is the fact that different operating systems treat
