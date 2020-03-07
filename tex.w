@@ -1266,7 +1266,32 @@ on the information that \.{WEB} has output while processing \TeX.
 
 @ 
 
-@ 
+@ The first 128 strings will contain 95 standard ASCII characters, and the
+other 33 characters will be printed in three-symbol form like `\.{\^\^A}'
+unless a system-dependent change is made here. Installations that have
+an extended character set, where for example |xchr[032]==@t\.{\'^^Z\'}@>|,
+would like string 032 to be the single character 032 instead of the
+three characters 0136, 0136, 0132 (\.{\^\^Z}). On the other hand,
+even people with an extended character set will want to represent string
+015 by \.{\^\^M}, since 015 is |carriage_return|; the idea is to
+produce visible strings instead of tabs or line-feeds or carriage-returns
+or bell-rings or characters that are treated anomalously in text files.
+
+Unprintable characters of codes 128--255 are, similarly, rendered
+\.{\^\^80}--\.{\^\^ff}.
+
+The boolean expression defined here should be |true| unless \TeX\
+internal code number~|k| corresponds to a non-troublesome visible
+symbol in the local character set.  An appropriate formula for the
+extended character set recommended in {\sl The \TeX book\/} would, for
+example, be `|k in[0, 010 dotdot 012, 014, 015, 033, 0177 dotdot 0377]|'.
+If character |k| cannot be printed, and |k < 0200|, then character |k+0100| or
+|k-0100| must be printable; moreover, ASCII codes |[041 dotdot 046,
+060 dotdot 071, 0136, 0141 dotdot 0146, 0160 dotdot 0171]| must be printable.
+Thus, at least 81 printable characters are needed.
+@:TeXbook}{\sl The \TeX book@>
+@^character set dependencies@>
+@^system dependencies@>
 
 @ When the \.{WEB} system program called \.{TANGLE} processes the \.{TEX.WEB}
 description that you are now reading, it outputs the \PASCAL\ program
