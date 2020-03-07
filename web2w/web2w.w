@@ -2603,12 +2603,7 @@ for (k=0;k<256;k++)
   else if (k=='"') wputs("\\\"");
   else if (k=='\\') wputs("\\\\");
   else if (k=='@@') wputs("@@@@");
-  else if (k>=128) {
-    fprintf(w,"\\%o", k);
-    alfanum = isalnum(k);
-    comma = k==',';
-    if (k=='\n') column=0;@+ else column++;
-  }
+  else if (k>=128) fprintf(w,"\\%o", k);
   else wput(k);
   if ((k&0xF)==0xF) wputs("\"@@/\n");
 }
