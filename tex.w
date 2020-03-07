@@ -1392,7 +1392,7 @@ by changing |wterm|, |wterm_ln|, and |wterm_cr| in this section.
                                  (file).f!=NULL?get(file):0)@]
 #define rewrite(file,name,mode) @[((file).f=fopen((char *)(name)+1,mode))@]
 #define close(file)    @[fclose((file).f)@]
-#define eof(file)    @[feof((file).f)@]
+#define eof(file)    @[(feof((file).f)||ferror((file).f))@]
 #define eoln(file)    @[((file).d==L'\n'||eof(file))@]
 #define erstat(file)   @[((file).f==NULL?-1:ferror((file).f))@]
 
