@@ -1,6 +1,6 @@
 all: web2w/ctangle
 	tie -bhp -c tex.ch tex.w constants.ch newline.ch path.ch arg.ch edit.ch
-	./ctangle -bhp tex tex
+	web2w/ctangle -bhp tex tex
 	gcc -g -Og -DINIT -o initex tex.c -lm
 	@./initex plain.ini >/dev/null && mv plain.fmt plain.log TeXformats/
 	@./initex lhplain.ini >/dev/null && mv lhplain.fmt lhplain.log TeXformats/
@@ -14,7 +14,7 @@ vanilla: test
 	gcc -g -Og -DINIT -o initex tex.c -lm
 	@echo plain.ini | ./initex >/dev/null && mv plain.fmt plain.log TeXformats/
 
-test: ctangle
+test: web2w/ctangle
 	./ctangle -bhp tex
 	gcc -g -Og -o virtex tex.c -lm
 
