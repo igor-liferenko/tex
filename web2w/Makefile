@@ -1,4 +1,4 @@
-all: ctangle cweave
+all: ctangle
 	./ctangle web2w.w # TODO: fix 'sed' below to use -bhp here
 	flex -o web.lex.c web.l
 	bison --warnings=none -d -v pascal.y
@@ -6,7 +6,7 @@ all: ctangle cweave
 	./web2w -o tex.w tex.web
 	patch tex.w ctex.patch
 
-ctangle cweave:
+ctangle:
 	/var/local/bin/ctangle -bhp common.w
 	sed -i 's/wrap_up(){/wrap_up(){if(show_happiness)/' common.c # for -bhp in ../
 	gcc -w -c common.c
