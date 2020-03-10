@@ -15,7 +15,7 @@ vanilla: test
 	@echo plain.ini | ./initex >/dev/null && mv plain.fmt plain.log TeXformats/
 
 test: web2w/ctangle
-	./ctangle -bhp tex
+	web2w/ctangle -bhp tex
 	gcc -g -Og -o virtex tex.c -lm
 
 web2w/ctangle:
