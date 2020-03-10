@@ -8,6 +8,7 @@ all: ctangle cweave
 
 ctangle cweave:
 	/var/local/bin/ctangle -bhp common.w
+	sed -i 's/wrap_up(){/wrap_up(){if(show_happiness)/' common.c # for -bhp
 	gcc -w -c common.c
 	/var/local/bin/ctangle -bhp ctangle.w
 	gcc -w -c ctangle.c
