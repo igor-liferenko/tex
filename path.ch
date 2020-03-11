@@ -1,6 +1,4 @@
 !!! if need more, change type of |name_length| from uint8_t to uint16_t in tex.w !!!
-pool_name does not need to be updated because
-pool is not used (get_strings_started() is not called)
 @x
 enum {@+@!file_name_size=40@+}; /*file names shouldn't be longer than this*/
 @y
