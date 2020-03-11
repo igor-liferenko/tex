@@ -1294,6 +1294,11 @@ program reads the latter file, where each string appears as a two-digit decimal
 length followed by the string itself, and the information is recorded in
 \TeX's string memory.
 
+@<Glob...@>=
+#ifdef @!INIT
+alpha_file @!pool_file; /*the string-pool file output by \.{TANGLE}*/ 
+#endif
+
 @ 
 
 @ 
