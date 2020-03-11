@@ -1,4 +1,17 @@
-withouth this setup-tarif.tex will not compile
+this is to compile tex.tex
+@x
+enum {@+@!mem_max=30000@+}; /*greatest index in \TeX's internal |mem| array;
+  must be strictly less than |max_halfword|;
+  must be equal to |mem_top| in \.{INITEX}, otherwise | >= mem_top|*/ 
+@y
+#ifdef INIT
+enum {@+@!mem_max=30000@+};
+#else
+enum {@+@!mem_max=50000@+};
+#endif
+@z
+
+without this setup-tarif.tex will not compile
 @x
 enum {@+@!buf_size=500@+}; /*maximum number of characters simultaneously present in
   current lines of open files and in control sequences between
