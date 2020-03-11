@@ -1337,17 +1337,13 @@ alpha_file @!pool_file; /*the string-pool file output by \.{TANGLE}*/
   a_close(&pool_file);return false;
   } 
 @<Read the other strings...@>=
-@<Read one string...@>
 
-@ @<Read one string...@>=
-@<Check the pool check sum@>
+@ 
 
 @ The \.{WEB} operation \.{@@\$} denotes the value that should be at the
 end of this \.{TEX.POOL} file; any other value means that the wrong pool
 file has been loaded.
 @^check sum@>
-
-@<Check the pool check sum@>=
 
 @* On-line and off-line printing.
 Messages that are sent to a user's terminal and to the transcript-log file
