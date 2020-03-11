@@ -1337,8 +1337,10 @@ alpha_file @!pool_file; /*the string-pool file output by \.{TANGLE}*/
   a_close(&pool_file);return false;
   } 
 @<Read the other strings...@>=
+@<Read one string...@>
 
 @ @<Read one string...@>=
+@<Check the pool check sum@>
 
 @ The \.{WEB} operation \.{@@\$} denotes the value that should be at the
 end of this \.{TEX.POOL} file; any other value means that the wrong pool
@@ -25811,7 +25813,6 @@ itself will get a new section number.
 @<|".dvi"|@>=@+510
 @ 
 @d str_511 "input file name"
-@<|"input file name"|@>=@+511
 @ 
 @d str_512 ".tex"
 @<|".tex"|@>=@+512
