@@ -22,9 +22,6 @@ and also retrieves a possible command line.
       for (int k = 0; k < strlen(argv[i]); k++) {
         wchar_t wc;
         int len = mbtowc(&wc, argv[i]+k, MB_CUR_MAX);
-        char mb[MB_CUR_MAX];
-        if (wctomb(mb, wc) != len ||strncmp(mb, argv[i]+k, len) != 0)
-        { fwprintf(stderr, L"Error in mbtowc()\n"); exit(1); }
         buffer[last++] = xord(wc);
         k += len - 1;
       }

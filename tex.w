@@ -10224,9 +10224,6 @@ if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
 else{@+for (k=1; k<=name_length; k++) {
       wchar_t wc;
       int len = mbtowc(&wc, name_of_file+k, MB_CUR_MAX);
-      char mb[MB_CUR_MAX];
-      if (wctomb(mb, wc) != len ||strncmp(mb, name_of_file+k, len) != 0)
-        { fwprintf(stderr, L"Error in mbtowc()\n"); exit(1); }
       append_char(xord(wc));
       k += len - 1;
     }
