@@ -1,5 +1,5 @@
-ensure that only file names are converted with mbtowc and remove reverse check (it will be clear if mbtowc() is buggy if there will be warning that file cannot be opened)
+Move tex repo to web2c repo and this repo to tex repo (with git history); afterwards change path.ch and edit.ch and bin/tex and .bashrc and post-install.sh and installer.tex accordingly.
 --------
-Move tex repo to web2c repo and this repo to tex repo; afterwards change path.ch and edit.ch and bin/tex and .bashrc and post-install.sh and installer.tex accordingly.
+see ext.w in web2c-tex repo and tex-sparc/ for 'sigaction'
 --------
-see my_name in tex-sparc/initex.ch and use separate executable for lhplain format in bin/tex
+see tex-sparc/ repo for system time
