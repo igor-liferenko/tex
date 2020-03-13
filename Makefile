@@ -1,5 +1,5 @@
 all: web2w/ctangle
-	tie -bhp -c tex.ch tex.w constants.ch newline.ch path.ch arg.ch edit.ch format.ch date.ch
+	tie -bhp -c tex.ch tex.w constants.ch newline.ch path.ch arg.ch edit.ch format.ch date.ch interrupt.ch
 	web2w/ctangle -bhp tex tex
 	gcc -DINIT -o initex tex.c -lm
 	@./initex plain.ini >/dev/null && mv plain.fmt plain.log TeXformats/
