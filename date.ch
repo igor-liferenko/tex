@@ -3,6 +3,13 @@
 @y
 @h
 #include <time.h>
+#include <signal.h>
+@z
+
+@x
+int @!interrupt; /*should \TeX\ pause for instructions?*/ 
+@y
+volatile int @!interrupt;
 @z
 
 @x
@@ -12,11 +19,17 @@
 @z
 
 @x
+@p void fix_date_and_time(void)
 {@+time=12*60; /*minutes since midnight*/ 
 day=4; /*fourth day of the month*/ 
 month=7; /*seventh month of the year*/ 
 year=1776; /*Anno Domini*/ 
 @y
+@p void catchint()
+{
+  interrupt = 1;
+}
+void fix_date_and_time(void)
 {
   time_t now = time(NULL);
   struct tm *date = localtime(&now);
@@ -24,6 +37,12 @@ year=1776; /*Anno Domini*/
   month = date->tm_mon + 1;
   day = date->tm_mday;
   minute = date->tm_hour * 60 + date->tm_min;
+
+  struct sigaction sa;
+  sa.sa_handler = catchint;
+  sigemptyset(&sa.sa_mask);
+  sa.sa_flags = 0;
+  sigaction(SIGINT, &sa, NULL);
 @z
 
 @x
