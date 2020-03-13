@@ -9,12 +9,10 @@
 ready_already=314159;
 @y
 if (strcmp(argv[0], "./initex") != 0 && strcmp(argv[0], "./triptex") != 0) {
-  strcpy(name_of_file+1, argv[0]);
-  strcat(name_of_file+1, ".fmt");
+  strcat(strcpy(name_of_file+1, argv[0]), ".fmt");
   if (w_open_in(&fmt_file)) goto found;
   strncpy(name_of_file+1, TEX_format_default+1, format_area_length);
-  strcat(name_of_file+1, argv[0]);
-  strcat(name_of_file+1, ".fmt");
+  strcat(strcat(name_of_file+1, argv[0]), ".fmt");
   if (w_open_in(&fmt_file)) {
 found:
     if (!load_fmt_file()) {
