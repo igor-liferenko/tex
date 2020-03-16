@@ -199,7 +199,7 @@ helping to determine whether a particular implementation deserves to be
 known as `\TeX' [cf.~Stanford Computer Science report CS1027,
 November 1984].
 
-@d banner	"This is TeX, Version 3.14159265" /*printed when \TeX\ starts*/ 
+@d banner	"This is TeX, Version 3.14159265 (HINT)" /*printed when \TeX\ starts*/ 
 
 @ Different \PASCAL s have slightly different conventions, and the present
 @!@:PASCAL H}{\ph@>
