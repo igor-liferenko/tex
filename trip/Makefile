@@ -6,7 +6,7 @@ all:
 	sed -i -f tripin.sed trip.log
 	diff trip.log tripin.log
 	/bin/echo ' &trip  trip '|./triptex >trip.fot
-	dvitype trip >trip.typ
+	dvitype -magnification=0 -dpi=72.27 -output-level=2 -page-start='*.*.*.*.*.*.*.*.*.*' trip.dvi >trip.typ
 	diff trip.typ tex/trip.typ
 	diff tripos.tex tex/tripos.tex
 	diff trip.fot tex/trip.fot
