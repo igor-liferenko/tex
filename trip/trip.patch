@@ -1,0 +1,56 @@
+This file is part of web2w.
+Copyright 2017 Martin Ruckert
+
+web2w is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+web2w is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with web2w.  If not, see <http://www.gnu.org/licenses/>.
+ 
+Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
+--- tex.w	2017-05-10 15:25:36.263009459 +0200
++++ triptex.w	2017-05-10 15:33:30.859016580 +0200
+@@ -399,19 +399,19 @@
+ @^system dependencies@>
+ 
+ @<Constants...@>=
+-enum {@+@!mem_max=30000@+}; /*greatest index in \TeX's internal |mem| array;
++enum {@+@!mem_max=3000@+}; /*greatest index in \TeX's internal |mem| array;
+   must be strictly less than |max_halfword|;
+   must be equal to |mem_top| in \.{INITEX}, otherwise | >= mem_top|*/ 
+-enum {@+@!mem_min=0@+}; /*smallest index in \TeX's internal |mem| array;
++enum {@+@!mem_min=1@+}; /*smallest index in \TeX's internal |mem| array;
+   must be |min_halfword| or more;
+   must be equal to |mem_bot| in \.{INITEX}, otherwise | <= mem_bot|*/ 
+ enum {@+@!buf_size=500@+}; /*maximum number of characters simultaneously present in
+   current lines of open files and in control sequences between
+   \.{\\csname} and \.{\\endcsname}; must not exceed |max_halfword|*/ 
+-enum {@+@!error_line=72@+}; /*width of context lines on terminal error messages*/ 
+-enum {@+@!half_error_line=42@+}; /*width of first lines of contexts in terminal
++enum {@+@!error_line=64@+}; /*width of context lines on terminal error messages*/ 
++enum {@+@!half_error_line=32@+}; /*width of first lines of contexts in terminal
+   error messages; should be between 30 and |error_line-15|*/ 
+-enum {@+@!max_print_line=79@+}; /*width of longest text lines output; should be at least 60*/ 
++enum {@+@!max_print_line=72@+}; /*width of longest text lines output; should be at least 60*/ 
+ enum {@+@!stack_size=200@+}; /*maximum number of simultaneous input sources*/ 
+ enum {@+@!max_in_open=6@+}; /*maximum number of input files and error insertions that
+   can be going on simultaneously*/ 
+@@ -447,9 +447,9 @@
+ \.{WEB} macros, instead of being put into \PASCAL's || list, in order to
+ emphasize this distinction.
+ 
+-@d mem_bot	0 /*smallest index in the |mem| array dumped by \.{INITEX};
++@d mem_bot	1 /*smallest index in the |mem| array dumped by \.{INITEX};
+   must not be less than |mem_min|*/ 
+-@d mem_top	30000 /*largest index in the |mem| array dumped by \.{INITEX};
++@d mem_top	3000 /*largest index in the |mem| array dumped by \.{INITEX};
+   must be substantially larger than |mem_bot|
+   and not greater than |mem_max|*/ 
+ @d font_base	0 /*smallest internal font number; must not be less
