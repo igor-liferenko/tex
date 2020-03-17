@@ -27,14 +27,16 @@ ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fm
 ASCII_code @!TEX_format_default[1+format_default_length+1]=" /home/user/ctex/TeXformats/plain.fmt";
 @z
 
-make that /home/user/ctex/ prefix will not be displayed
+Display "TeXinputs/" instead of full path to it in log files and on terminal.
 @x
 else{@+for (k=1; k<=name_length; k++) {
 @y
-else{@+
-k=1;
-if (strncmp(name_of_file+1,"/home/user/ctex/TeXinputs/",26)==0) k=17;
-for (; k<=name_length; k++) {
+else {
+  k=1;
+  if (strstr(name_of_file+1, TEX_AREA) == (char *) name_of_file+1)
+    if (strstr(TEX_AREA, "TeXinputs/") != NULL)
+      k = strstr(TEX_AREA, "TeXinputs/") - TEX_AREA + 1;
+  for (; k<=name_length; k++) {
 @z
 
 use absolute paths
@@ -42,6 +44,7 @@ use absolute paths
 @d str_506 "TeXinputs/"
 @y
 @d str_506 "/home/user/ctex/TeXinputs/"
+@d TEX_AREA str_506
 @z
 @x
 @d str_507 "TeXfonts/"
