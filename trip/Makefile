@@ -10,6 +10,8 @@ all:
 	sed -i -f triptyp.sed trip.typ.out
 	diff trip.typ.out trip.typ
 	diff tripos.tex tex/tripos.tex
+	sed -i -f triplog.sed trip.log
+	perl -i -pe's/\xd0\x90/^^80/g;s/\xd0\x92/^^82/g;s/\xd0\x93/^^83/g' trip.log
+	diff trip.log tex/trip.log
 	sed -i -f tripfot.sed trip.fot.out
 	diff trip.fot.out trip.fot
-	diff trip.log tex/trip.log
