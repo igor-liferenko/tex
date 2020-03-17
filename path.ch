@@ -5,6 +5,7 @@ enum {@+@!file_name_size=40@+}; /*file names shouldn't be longer than this*/
 enum {@+@!file_name_size=255@+}; /*file names shouldn't be longer than this*/
 @z
 
+TODO: why '.' in `\font\my=./myfont' is not regarded as start of extension?
 @x
   if ((c=='>')||(c==':')) 
 @y
