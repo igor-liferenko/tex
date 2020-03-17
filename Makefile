@@ -22,5 +22,5 @@ web2w/ctangle:
 	make -C web2w ctangle
 
 .PHONY: trip
-trip:
+trip: web2w/ctangle
 	tie -bhp -m trip/triptex.w tex.w constants.ch newline.ch path.ch arg.ch edit.ch format.ch date.ch interrupt.ch
