@@ -26,11 +26,13 @@ case 'E':
       }
       ed_name[k] = '\0';
       char cmd[500];
-      if (snprintf(cmd, sizeof cmd,
-           (strncmp("TeXinputs/", ed_name, 10) == 0 ? "em /home/user/ctex/%s %d" /* restore what
-                                                                                    was changed in
-                                                                                    path.ch */
-            : "em %s %d"), ed_name, line) >= sizeof cmd)
+      int r;
+      if (strstr(ed_name, "TeXinputs/") == ed_name)
+        r = snprintf(cmd, sizeof cmd, "em %.*s%s %d", strstr(TEX_AREA, "TeXinputs/") - TEX_AREA, TEX_AREA, ed_name, line);
+          /* restore what was changed in path.ch */
+      else
+        r = snprintf(cmd, sizeof cmd, "em %s %d", ed_name, line);
+      if (r >= sizeof cmd)
         fwprintf(stderr, L"Buffer is too small\n");
       else if (system(cmd) != 0) fwprintf(stderr, L"Trouble executing command `%s'\n", cmd);
     }
