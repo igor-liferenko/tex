@@ -4,14 +4,15 @@ all:
 	gcc -DINIT -DSTAT triptex.c -lm -o triptex
 	/bin/echo -e '\n\\input trip'|./triptex >/dev/null
 	sed -i -f tripin.sed trip.log
-	diff trip.log tripin.log
+	diff tripin.log trip.log
 	/bin/echo ' &trip  trip '|./triptex >trip.fot.out
 	TEXFONTS=../TeXfonts dvitype -output-level=2 -page-start='*.*.*.*.*.*.*.*.*.*' -max-pages=1000000 -dpi=72.27 -magnification=0 trip.dvi >trip.typ.out
 	sed -i -f triptyp.sed trip.typ.out
-	diff trip.typ.out trip.typ
-	diff tripos.tex tex/tripos.tex
+	diff trip.typ trip.typ.out
+	diff tex/tripos.tex tripos.tex
+	diff tex/8terminal.tex 8terminal.tex
 	sed -i -f triplog.sed trip.log
 	perl -i -pe's/\xd0\x90/^^80/g;s/\xd0\x92/^^82/g;s/\xd0\x93/^^83/g' trip.log
-	diff trip.log tex/trip.log
+	diff tex/trip.log trip.log
 	sed -i -f tripfot.sed trip.fot.out
-	diff trip.fot.out trip.fot
+	diff trip.fot trip.fot.out
