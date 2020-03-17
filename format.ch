@@ -5,10 +5,11 @@
 #define exit do { if (history <= warning_issued) exit(0); else exit(1); } while
 @z
 
+NOTE: if using gdb, input format explicitly via &
 @x
 ready_already=314159;
 @y
-if (strcmp(argv[0], "./initex") != 0 && strcmp(argv[0], "./triptex") != 0) {
+if (strstr(argv[0], "initex") == NULL && strstr(argv[0], "triptex") == NULL && strstr(argv[0], "virtex") == NULL) {
   strcat(strcpy(name_of_file+1, argv[0]), ".fmt");
   if (w_open_in(&fmt_file)) goto found;
   strncpy(name_of_file+1, TEX_format_default+1, format_area_length);
