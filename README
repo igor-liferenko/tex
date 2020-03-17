@@ -9,4 +9,5 @@ Also, tex.ch is created from *.ch files with `tie'.
 I don't use kpathsea because I don't need it - I use absolute path to
 TeXinputs (see path.ch) and add symlinks to necessary files in it.
 
-TODO: report to Martin Ruckert that ctex.w from his webpage does not pass trip test - send him trip/trip.*.diff
+TODO: report to Martin Ruckert that ctex.w from his webpage does not pass trip test - send him trip/trip.*.diff and remove them
+      if he answers that it is OK, add fixing it to sed scripts and check if 'make -C trip' will be OK
