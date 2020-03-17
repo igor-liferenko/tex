@@ -1,13 +1,10 @@
     make -C web2w
     mv web2w/tex.w ctex.w
     cp tex.w utex.w
-    <rm reverse check of mbtowc() from utex.w>
     diff -u ctex.w utex.w >utex.patch
     rm ctex.w utex.w
-Now utex.patch cat be applied to ctex.w from
-    https://w3-o.cs.hm.edu/users/ruckert/public_html/web2w/
+Now utex.patch cat be applied to ctex.w, generated using web2w.ch
 "mapping" file is used with it.
-web2w.w change is necessary only for terminal output.
 Also, tex.ch is created from *.ch files with `tie'.
-I don't use kpathsea because it is too complicated - I use absolute path to
-TeXinputs and add symlinks to necessary files in it.
+I don't use kpathsea because I don't need it - I use absolute path to
+TeXinputs (see path.ch) and add symlinks to necessary files in it.
