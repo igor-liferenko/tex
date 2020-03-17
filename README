@@ -8,3 +8,5 @@ Now utex.patch cat be applied to ctex.w, generated using web2w.ch
 Also, tex.ch is created from *.ch files with `tie'.
 I don't use kpathsea because I don't need it - I use absolute path to
 TeXinputs (see path.ch) and add symlinks to necessary files in it.
+
+TODO: report to Martin Ruckert that ctex.w from his webpage does not pass trip test - send him trip/trip.*.diff
