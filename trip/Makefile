@@ -6,9 +6,9 @@ all:
 	sed -i -f tripin.sed trip.log
 	diff tripin.log trip.log
 	/bin/echo ' &trip  trip ' | ./triptex >trip.fot
-	TEXFONTS=../TeXfonts dvitype -output-level=2 -page-start='*.*.*.*.*.*.*.*.*.*' -max-pages=1000000 -dpi=72.27 -magnification=0 trip.dvi >trip.typ.out
-	sed -i -f triptyp.sed trip.typ.out
-	diff trip.typ trip.typ.out
+	TEXFONTS=../TeXfonts dvitype -output-level=2 -page-start='*.*.*.*.*.*.*.*.*.*' -max-pages=1000000 -dpi=72.27 -magnification=0 trip.dvi >trip.typ
+	sed -i -f triptyp.sed trip.typ
+	diff tex/trip.typ trip.typ
 	diff tex/tripos.tex tripos.tex
 	diff tex/8terminal.tex 8terminal.tex
 	sed -i -f triplog.sed trip.log
