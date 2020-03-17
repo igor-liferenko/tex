@@ -1,1 +1,1 @@
-Move tex repo to web2c repo and this repo to tex repo (with git history); afterwards change path.ch and edit.ch and bin/tex and .bashrc and post-install.sh and installer.tex accordingly.
+Move tex repo to web2c repo and this repo to tex repo (with git history); afterwards change path.ch and bin/tex and .bashrc and post-install.sh and installer.tex accordingly.
