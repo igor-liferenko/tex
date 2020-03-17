@@ -1,0 +1,14 @@
+diff --git a/trip/tripin.sed b/trip/tripin.sed
+index ebf2015..72902fc 100644
+--- a/trip/tripin.sed
++++ b/trip/tripin.sed
+@@ -3 +3 @@ s/(preloaded format=trip .....[0-9]\+.[0-9]\+)/(preloaded format=trip 2014.1.7)/
+-s/693 strings of total length 4045/1326 strings of total length 23646/
++s/693 strings of total length 4213/1326 strings of total length 23646/
+diff --git a/trip/triplog.sed b/trip/triplog.sed
+index 4f6278f..843b6dd 100644
+--- a/trip/triplog.sed
++++ b/trip/triplog.sed
+@@ -3 +3 @@ s/47 strings out of 2307/47 strings out of 1674/
+-s/253 string characters out of 27955/253 string characters out of 8354/
++s/253 string characters out of 27787/253 string characters out of 8354/
