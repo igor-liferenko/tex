@@ -1,1 +1,5 @@
 Move tex repo to web2c repo and this repo to tex repo (with git history).
+
+revert commit with "segfault" and try this;
+rm trip/trip.tfm and run make -C trip
+if Segmentation fault will not be - do not do that commit
