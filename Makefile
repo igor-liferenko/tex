@@ -5,9 +5,9 @@ all: web2w/ctangle
 	gcc -g -Og -DINIT -o initex tex.c -lm
 	@echo Generating formats
 	@./initex plain.ini >/dev/null && mv plain.fmt plain.log TeXformats/
-	@./initex lhplain.ini >/dev/null && mv lhplain.fmt lhplain.log TeXformats/
 	@sed /hoffset/,/catcode...=12/d plain.ini >plain-no-offset.ini
 	@./initex plain-no-offset.ini >/dev/null && mv plain-no-offset.fmt plain-no-offset.log TeXformats/
+	@./initex lhplain.ini >/dev/null && mv lhplain.fmt lhplain.log TeXformats/
 	@sed /hoffset/,/catcode...=12/d lhplain.ini >lhplain-no-offset.ini
 	@./initex lhplain-no-offset.ini >/dev/null && mv lhplain-no-offset.fmt lhplain-no-offset.log TeXformats/
 
