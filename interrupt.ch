@@ -9,7 +9,7 @@
 int @!interrupt; /*should \TeX\ pause for instructions?*/ 
 @y
 volatile int @!interrupt;
-void catchint()
+void catchint(int signum)
 {
   interrupt = 1;
 }

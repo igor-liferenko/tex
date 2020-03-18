@@ -1,3 +1,11 @@
+@x
+@h
+@y
+@h
+#define str_(x) str_ ## x
+#define str(x) str_(x)
+@z
+
 !!! if need more, change type of |name_length| from uint8_t to uint16_t in tex.w !!!
 @x
 enum {@+@!file_name_size=40@+}; /*file names shouldn't be longer than this*/
@@ -33,9 +41,9 @@ else{@+for (k=1; k<=name_length; k++) {
 @y
 else {
   k=1;
-  if (strstr(name_of_file+1, TEX_AREA) == (char *) name_of_file+1)
-    if (strstr(TEX_AREA, "TeXinputs/") != NULL)
-      k = strstr(TEX_AREA, "TeXinputs/") - TEX_AREA + 1;
+  if (strstr(name_of_file+1, str(TEX_area)) == (char *) name_of_file+1)
+    if (strstr(str(TEX_area), "TeXinputs/") != NULL)
+      k = strstr(str(TEX_area), "TeXinputs/") - str(TEX_area) + 1;
   for (; k<=name_length; k++) {
 @z
 
@@ -44,7 +52,6 @@ use absolute paths
 @d str_506 "TeXinputs/"
 @y
 @d str_506 "/home/user/ctex/TeXinputs/"
-@d TEX_AREA str_506
 @z
 @x
 @d str_507 "TeXfonts/"

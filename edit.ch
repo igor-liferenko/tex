@@ -28,7 +28,7 @@ case 'E':
       char cmd[500];
       int r;
       if (strstr(ed_name, "TeXinputs/") == ed_name)
-        r = snprintf(cmd, sizeof cmd, "em %.*s%s %d", strstr(TEX_AREA, "TeXinputs/") - TEX_AREA, TEX_AREA, ed_name, line);
+        r = snprintf(cmd, sizeof cmd, "em %s%s %d", str(TEX_area), ed_name+strlen("TeXinputs/"), line);
           /* restore what was changed in path.ch */
       else
         r = snprintf(cmd, sizeof cmd, "em %s %d", ed_name, line);
