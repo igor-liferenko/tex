@@ -8,7 +8,7 @@ all:
 	@diff tripin.log trip.log
 	@rm -f 8terminal.tex tripos.tex trip.dvi trip.log
 	@/bin/echo ' &trip  trip ' | ./triptex >trip.fot
-	@TEXFONTS=../TeXfonts dvitype -output-level=2 -page-start='*.*.*.*.*.*.*.*.*.*' -max-pages=1000000 -dpi=72.27 -magnification=0 trip.dvi >trip.typ
+	@dvitype -output-level=2 -page-start='*.*.*.*.*.*.*.*.*.*' -max-pages=1000000 -dpi=72.27 -magnification=0 trip.dvi >trip.typ
 	@sed -i -f triptyp.sed trip.typ
 	@diff tex/trip.typ trip.typ
 	@diff tex/tripos.tex tripos.tex
