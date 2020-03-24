@@ -1,7 +1,7 @@
 all: change-file web2w/ctangle
 	web2w/ctangle -bhp tex tex
-	gcc -o virtex tex.c -lm
-	gcc -DINIT -o initex tex.c -lm
+	gcc -g -Og -o virtex tex.c -lm
+	gcc -g -Og -DINIT -o initex tex.c -lm
 	@echo Generating formats
 	@./initex plain.ini >/dev/null && mv plain.fmt plain.log TeXformats/
 	@sed /hoffset/,/catcode...=12/d plain.ini >plain-no-offset.ini
@@ -12,7 +12,7 @@ all: change-file web2w/ctangle
 
 SHELL=/bin/bash
 triptex: change-file web2w/ctangle
-	diff <(wmerge -h tex.w constants.ch) <(wmerge -h tex.w tex.ch) | patch -s -l -o triptex.w tex.w
+	diff <(wmerge -h tex.w constants.ch) <(wmerge -h tex.w tex.ch) | patch -s -l -o triptex.w tex.w # subtract constants.ch from tex.ch
 	web2w/ctangle -bhp triptex.w trip/triptex.ch
 	gcc -DINIT -DSTAT triptex.c -lm -o trip/triptex
 
