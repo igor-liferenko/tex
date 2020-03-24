@@ -1,8 +1,6 @@
 @x
-@h
+if (ready_already==314159) goto start_of_TEX;
 @y
-@h
-#define exit do { if (history <= warning_issued) exit(0); else exit(1); } while
 @z
 
 NOTE: if using gdb, input format explicitly via &
@@ -23,4 +21,9 @@ found:
     w_close(&fmt_file);
   }
 }
+@z
+
+@x
+ready_already=0;
+@y
 @z
