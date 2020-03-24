@@ -1,19 +1,13 @@
 @x
-enum {@+@!mem_max=30000@+};
+enum {@+@!mem_max=30000@+}; /*greatest index in \TeX's internal |mem| array;
 @y
-enum {@+@!mem_max=3000@+};
+enum {@+@!mem_max=3000@+}; /*greatest index in \TeX's internal |mem| array;
 @z
 
 @x
 enum {@+@!mem_min=0@+}; /*smallest index in \TeX's internal |mem| array;
 @y
 enum {@+@!mem_min=1@+}; /*smallest index in \TeX's internal |mem| array;
-@z
-
-@x
-enum {@+@!buf_size=3000@+};
-@y
-enum {@+@!buf_size=500@+};
 @z
 
 @x
@@ -28,18 +22,6 @@ enum {@+@!half_error_line=32@+}; /*width of first lines of contexts in terminal
 enum {@+@!max_print_line=79@+}; /*width of longest text lines output; should be at least 60*/
 @y
 enum {@+@!max_print_line=72@+}; /*width of longest text lines output; should be at least 60*/
-@z
-
-@x
-enum {@+@!font_mem_size=30000@+};
-@y
-enum {@+@!font_mem_size=20000@+};
-@z
-
-@x
-enum {@+@!trie_size=14000@+};
-@y
-enum {@+@!trie_size=8000@+};
 @z
 
 @x

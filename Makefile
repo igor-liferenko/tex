@@ -1,5 +1,4 @@
-all: web2w/ctangle
-	tie -bhp -c tex.ch tex.w constants.ch newline.ch path.ch arg.ch edit.ch format.ch date.ch interrupt.ch banner.ch
+all: change-file web2w/ctangle
 	web2w/ctangle -bhp tex tex
 	gcc -o virtex tex.c -lm
 	gcc -DINIT -o initex tex.c -lm
@@ -11,9 +10,14 @@ all: web2w/ctangle
 	@sed /hoffset/,/catcode...=12/d lhplain.ini >lhplain-no-offset.ini
 	@./initex lhplain-no-offset.ini >/dev/null && mv lhplain-no-offset.fmt lhplain-no-offset.log TeXformats/
 
+SHELL=/bin/bash
+triptex: change-file web2w/ctangle
+	diff <(wmerge -h tex.w constants.ch) <(wmerge -h tex.w tex.ch) | patch -s -l -o triptex.w tex.w
+	web2w/ctangle -bhp triptex.w trip/triptex.ch
+	gcc -DINIT -DSTAT triptex.c -lm -o trip/triptex
+
+change-file:
+	tie -bhp -c tex.ch tex.w constants.ch newline.ch path.ch arg.ch edit.ch format.ch date.ch interrupt.ch banner.ch
+
 web2w/ctangle:
 	make -C web2w ctangle
-
-.PHONY: trip
-trip: web2w/ctangle
-	tie -bhp -m trip/triptex.w tex.w constants.ch newline.ch path.ch arg.ch edit.ch format.ch date.ch interrupt.ch

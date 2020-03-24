@@ -1,7 +1,5 @@
 all:
-	make -C .. trip
-	../web2w/ctangle -bhp triptex.w triptex.ch
-	gcc -DINIT -DSTAT triptex.c -lm -o triptex
+	@make -C .. triptex
 	@rm -f trip.log trip.fmt
 	@/bin/echo -e '\n\\input trip' | ./triptex >/dev/null
 	@sed -i -f tripin.sed trip.log
