@@ -1,8 +1,8 @@
 all: web2w/ctangle
-	tie -bhp -c tex.ch tex.w constants.ch newline.ch path.ch arg.ch edit.ch format.ch date.ch interrupt.ch
+	tie -bhp -c tex.ch tex.w constants.ch newline.ch path.ch arg.ch edit.ch format.ch date.ch interrupt.ch banner.ch
 	web2w/ctangle -bhp tex tex
-	gcc -g -Og -o virtex tex.c -lm
-	gcc -g -Og -DINIT -o initex tex.c -lm
+	gcc -o virtex tex.c -lm
+	gcc -DINIT -o initex tex.c -lm
 	@echo Generating formats
 	@./initex plain.ini >/dev/null && mv plain.fmt plain.log TeXformats/
 	@sed /hoffset/,/catcode...=12/d plain.ini >plain-no-offset.ini
