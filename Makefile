@@ -12,7 +12,7 @@ all: change-file web2w/ctangle
 
 SHELL=/bin/bash
 triptex: change-file web2w/ctangle
-	diff <(wmerge -h tex.w constants.ch) <(wmerge -h tex.w tex.ch) | patch -s -l -o triptex.w tex.w # subtract constants.ch from tex.ch
+	diff <(wmerge -h tex.w constants.ch) <(wmerge -h tex.w tex.ch) | patch -sl tex.w -o triptex.w # subtract constants.ch from tex.ch
 	web2w/ctangle -bhp triptex.w trip/triptex.ch
 	gcc -DINIT -DSTAT triptex.c -lm -o trip/triptex
 
