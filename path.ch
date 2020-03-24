@@ -1,11 +1,3 @@
-@x
-@h
-@y
-@h
-#define str_(x) str_ ## x
-#define str(x) str_(x)
-@z
-
 !!! if need more, change type of |name_length| from uint8_t to uint16_t in tex.w !!!
 @x
 enum {@+@!file_name_size=40@+}; /*file names shouldn't be longer than this*/
@@ -33,18 +25,6 @@ use absolute path
 ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
 @y
 ASCII_code @!TEX_format_default[1+format_default_length+1]=" /home/user/ctex/TeXformats/plain.fmt";
-@z
-
-Display "TeXinputs/" instead of full path to it in log files and on terminal.
-@x
-else{@+for (k=1; k<=name_length; k++) {
-@y
-else {
-  k=1;
-  if (strstr(name_of_file+1, str(TEX_area)) == (char *) name_of_file+1)
-    if (strstr(str(TEX_area), "TeXinputs/") != NULL)
-      k = strstr(str(TEX_area), "TeXinputs/") - str(TEX_area) + 1;
-  for (; k<=name_length; k++) {
 @z
 
 use absolute paths
