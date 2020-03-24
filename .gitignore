@@ -4,6 +4,6 @@ triptex.w
 triptex.c
 virtex
 initex
-lhplain-no-offset.ini
-plain-no-offset.ini
+lhplain-mpost.ini
+plain-mpost.ini
 .gdb_history

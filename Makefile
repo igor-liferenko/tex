@@ -4,11 +4,11 @@ all: change-file web2w/ctangle
 	gcc -g -Og -DINIT -o initex tex.c -lm
 	@echo Generating formats
 	@./initex plain.ini >/dev/null && mv plain.fmt plain.log TeXformats/
-	@sed /hoffset/,/catcode...=12/d plain.ini >plain-no-offset.ini
-	@./initex plain-no-offset.ini >/dev/null && mv plain-no-offset.fmt plain-no-offset.log TeXformats/
+	@sed -f no-offset.sed plain.ini >plain-mpost.ini
+	@./initex plain-mpost.ini >/dev/null && mv plain-mpost.fmt plain-mpost.log TeXformats/
 	@./initex lhplain.ini >/dev/null && mv lhplain.fmt lhplain.log TeXformats/
-	@sed /hoffset/,/catcode...=12/d lhplain.ini >lhplain-no-offset.ini
-	@./initex lhplain-no-offset.ini >/dev/null && mv lhplain-no-offset.fmt lhplain-no-offset.log TeXformats/
+	@sed -f no-offset.sed lhplain.ini >lhplain-mpost.ini
+	@./initex lhplain-mpost.ini >/dev/null && mv lhplain-mpost.fmt lhplain-mpost.log TeXformats/
 
 SHELL=/bin/bash
 triptex: change-file web2w/ctangle
