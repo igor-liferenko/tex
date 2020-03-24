@@ -1,4 +1,3 @@
-taken from tex-sparc/initex.ch (FIXME: why `<=' is used instead of `<' ?)
 @x
 @h
 @y
