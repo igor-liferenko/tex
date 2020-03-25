@@ -4,5 +4,7 @@ triptex.w
 triptex.c
 virtex
 initex
+plain.log
+lhplain.log
 texput.log
 .gdb_history

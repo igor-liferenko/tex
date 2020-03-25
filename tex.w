@@ -24348,7 +24348,7 @@ if (log_opened)
     } 
   } 
 for (int i=0;i<max_in_open;i++)
-if (input_file[i].f) a_close(&input_file[i]);
+if (input_file[i].f) a_close(&input_file[i]); a_close(&term_in);
 } 
 
 @ The present section goes directly to the log file instead of using
