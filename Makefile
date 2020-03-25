@@ -4,16 +4,14 @@ all: change-file web2w/ctangle
 	gcc -g -Og -DINIT -o initex tex.c -lm
 	@echo Generating formats
 	@./initex plain.ini >/dev/null && mv plain.fmt plain.log TeXformats/
-	@sed -f no-offset.sed plain.ini >plain-mpost.ini
-	@./initex plain-mpost.ini >/dev/null && mv plain-mpost.fmt plain-mpost.log TeXformats/
+	@sed -f no-offset.sed plain.ini | ./initex >/dev/null && mv texput.fmt TeXformats/plain-mpost.fmt
 	@./initex lhplain.ini >/dev/null && mv lhplain.fmt lhplain.log TeXformats/
-	@sed -f no-offset.sed lhplain.ini >lhplain-mpost.ini
-	@./initex lhplain-mpost.ini >/dev/null && mv lhplain-mpost.fmt lhplain-mpost.log TeXformats/
+	@sed -f no-offset.sed lhplain.ini | ./initex >/dev/null && mv texput.fmt TeXformats/lhplain-mpost.fmt
 
 SHELL=/bin/bash
 triptex: change-file web2w/ctangle
 	diff <(wmerge -h tex.w constants.ch) <(wmerge -h tex.w tex.ch) | patch -sl tex.w -o triptex.w # subtract constants.ch from tex.ch
-	web2w/ctangle -bhp triptex.w trip/triptex.ch
+	web2w/ctangle -bhp triptex.w trip/constants.ch
 	gcc -DINIT -DSTAT triptex.c -lm -o trip/triptex
 
 change-file:
