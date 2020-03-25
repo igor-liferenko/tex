@@ -3,9 +3,9 @@ all: change-file web2w/ctangle
 	gcc -g -Og -o virtex tex.c -lm
 	gcc -g -Og -DINIT -o initex tex.c -lm
 	@echo Generating formats
-	@./initex plain.ini >/dev/null && mv plain.fmt TeXformats/
+	@cat plain.ini | ./initex >/dev/null && mv plain.fmt TeXformats/
 	@sed -f no-offset.sed plain.ini | ./initex >/dev/null && mv plain.fmt TeXformats/plain-mpost.fmt
-	@./initex lhplain.ini >/dev/null && mv lhplain.fmt TeXformats/
+	@cat lhplain.ini | ./initex >/dev/null && mv texput.fmt TeXformats/
 	@sed -f no-offset.sed lhplain.ini | ./initex >/dev/null && mv texput.fmt TeXformats/lhplain-mpost.fmt
 
 SHELL=/bin/bash
