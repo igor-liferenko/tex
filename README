@@ -8,3 +8,7 @@ Now utex.patch cat be applied to ctex.w, generated using web2w.ch
 Also, tex.ch is created from *.ch files with `tie'.
 I don't use kpathsea because I don't need it - I use absolute path to
 TeXinputs (see path.ch) and add symlinks to necessary files in it.
+
+Limitations:
+1. You can't use non-ascii characters in paths to fonts, formats and inputs. But it easily fixed with symlinks.
+2. You can't use "extended character set".
