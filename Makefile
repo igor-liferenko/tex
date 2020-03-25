@@ -5,7 +5,7 @@ all: change-file web2w/ctangle
 	@echo Generating formats
 	@cat plain.ini | ./initex >/dev/null && mv plain.fmt TeXformats/
 	@sed -f no-offset.sed plain.ini | ./initex >/dev/null && mv plain.fmt TeXformats/plain-mpost.fmt
-	@cat lhplain.ini | ./initex >/dev/null && mv texput.fmt TeXformats/
+	@cat lhplain.ini | ./initex >/dev/null && mv texput.fmt TeXformats/lhplain.fmt
 	@sed -f no-offset.sed lhplain.ini | ./initex >/dev/null && mv texput.fmt TeXformats/lhplain-mpost.fmt
 
 SHELL=/bin/bash
