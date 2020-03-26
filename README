@@ -12,5 +12,3 @@ TeXinputs (see path.ch) and add symlinks to necessary files in it.
 Limitations:
 1. You can't use non-ascii characters in paths to fonts, formats and inputs (see comment after `bufntombslen'). But it easily fixed with symlinks.
 2. You can't use "extended character set" (because in editor and in terminal such characters can't be displayed).
-
-libc6 ver 2.30 is needed
