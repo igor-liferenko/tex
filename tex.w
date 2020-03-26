@@ -877,7 +877,7 @@ These procedures should not generate error messages if a file is
 being closed before it has been successfully opened.
 
 @p void a_close(alpha_file *f) /*close a text file*/ 
-{@+close((*f));(*f).f=NULL;
+{@+close((*f));
 } 
 @#
 void b_close(byte_file *f) /*close a binary file*/ 
@@ -24347,8 +24347,6 @@ if (log_opened)
     slow_print(log_name);print_char('.');
     } 
   } 
-for (int i=0;i<max_in_open;i++)
-if (input_file[i].f) a_close(&input_file[i]); a_close(&term_in);
 } 
 
 @ The present section goes directly to the log file instead of using
