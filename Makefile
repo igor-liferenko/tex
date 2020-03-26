@@ -1,10 +1,9 @@
 all: change-file web2w/ctangle
 	web2w/ctangle -bhp tex tex
-	gcc -g -Og -o virtex tex.c -lm
 	gcc -g -Og -DINIT -o initex tex.c -lm
-	@echo Generating formats
 	@echo 'plain \input offset \dump' | ./initex >/dev/null; mv plain.fmt TeXformats/
 	@echo 'тех \input offset \dump' | ./initex >/dev/null; mv тех.fmt TeXformats/
+	gcc -g -Og -o virtex tex.c -lm
 
 SHELL=/bin/bash
 triptex: change-file web2w/ctangle
