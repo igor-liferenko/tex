@@ -12,7 +12,6 @@ all:
 	@diff tex/tripos.tex tripos.tex
 	@diff tex/8terminal.tex 8terminal.tex
 	@sed -i -f triplog.sed trip.log
-	@perl -i -pe's/\xd0\x90/^^80/g;s/\xd0\x92/^^82/g;s/\xd0\x93/^^83/g' trip.log
 	@diff tex/trip.log trip.log
 	@sed -i -f tripfot.sed trip.fot
 	@diff tex/trip.fot trip.fot

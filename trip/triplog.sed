@@ -17,3 +17,6 @@ s/Memory usage before: 776&278; after: 464&278; still untouched: 175/Memory usag
 s/Memory usage before: 819&278; after: 720&278; still untouched: 175/Memory usage before: 819\&428; after: 720\&426; still untouched: 175/
 s/Memory usage before: 895&278; after: 290&278; still untouched: 175/Memory usage before: 895\&439; after: 290\&420; still untouched: 175/
 s/Memory usage before: 334&278; after: 292&278; still untouched: 175/Memory usage before: 334\&431; after: 292\&418; still untouched: 175/
+s/А/^^80/
+s/В/^^82/
+s/Г/^^83/
