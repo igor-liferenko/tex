@@ -12,6 +12,9 @@ all:
 	@diff tex/tripos.tex tripos.tex
 	@diff tex/8terminal.tex 8terminal.tex
 	@sed -i -f triplog.sed trip.log
+	@perl -i -pe 'BEGIN{($$x)=grep/0x80/,`cat ../mapping`;$$x=~s/.*\x27(.*)\x27;\n/$$1/}s/$$x/^^80/' trip.log
+	@perl -i -pe 'BEGIN{($$x)=grep/0x82/,`cat ../mapping`;$$x=~s/.*\x27(.*)\x27;\n/$$1/}s/$$x/^^82/' trip.log
+	@perl -i -pe 'BEGIN{($$x)=grep/0x83/,`cat ../mapping`;$$x=~s/.*\x27(.*)\x27;\n/$$1/}s/$$x/^^83/' trip.log
 	@diff tex/trip.log trip.log
 	@sed -i -f tripfot.sed trip.fot
 	@diff tex/trip.fot trip.fot
