@@ -8,7 +8,7 @@
 @x
 @d time	int_par(time_code)
 @y
-@d minute	int_par(time_code)
+@d minute int_par(time_code)
 @z
 
 @x
