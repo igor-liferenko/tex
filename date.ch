@@ -1,8 +1,8 @@
 @x
 @h
 @y
-@h
 #include <time.h>
+@h
 @z
 
 @x
