@@ -9,7 +9,7 @@ t_open_in;
 @y
 t_open_in;
   if (argc > 1) {
-    last = first;
+    last = loc = first;
     for (int i = 1; i < argc; i++) {
       for (int k = 0; k < strlen(argv[i]); k++) {
         wchar_t wc;
@@ -17,10 +17,9 @@ t_open_in;
         buffer[last++] = xord(wc);
         k += len - 1;
       }
-      if (i < argc - 1) /* this check is needed for |loc| and |last| to be the same as when this input is done after `**' */
-        buffer[last++] = ' ';
+      if (i < argc - 1) /* this makes |last| the same as when input is done after `**' */
+        buffer[last++] = ' '; /* separate args with space */
     }
-    loc = first;
     return true;
   }
 @z
