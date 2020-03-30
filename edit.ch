@@ -6,6 +6,18 @@ principle and replace call to jump_out() with its contents.
 So we may put required code after close_files_and_terminate().
 As such, we don't need auxilary variables.
 
+Here is a reminder about modes:
+batch_mode		0 /*omits all stops and omits terminal output*/ 
+nonstop_mode		1 /*omits all stops*/ 
+scroll_mode		2 /*omits error stops*/ 
+error_stop_mode		3 /*stops at every opportunity to interact*/ 
+
+Questions to SX:
+
+1. why interaction=scroll_mode is done? `interaction' is not used in close_files_and_terminate(), so its value is irrelevant
+
+2. why interaction>batch_mode is checked in tex-sparc/initex.ch? it is a-proiri >=scroll_mode (and so >batch_mode), otherwise there will be no prompt to execute the 'E' case in the first place
+
 @x
 case 'E': if (base_ptr > 0)
   {@+print_nl("You want to edit file ");
@@ -28,7 +40,7 @@ case 'E':
         char mb[MB_CUR_MAX];
         int len = wctomb(mb, xchr[str_pool[j]]);
         for (int i = 0; i < len; i++) {
-          incr(k);
+          k++;
           ed_name[k-1] = mb[i];
         }
       }
