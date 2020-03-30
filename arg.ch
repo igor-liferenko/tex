@@ -1,21 +1,13 @@
 @x
-@ The following program does the required initialization
-without retrieving a possible command line.
-It should be clear how to modify this routine to deal with command lines,
-if the system permits them.
-@^system dependencies@>
-
 @p bool init_terminal(void) /*gets the terminal input started*/
-{@+
+@y
+@p bool init_terminal(int argc, char **argv)
+@z
+
+@x
 t_open_in;
 @y
-@ The following program does the required initialization
-and also retrieves a possible command line.
-@^system dependencies@>
-
-@p bool init_terminal(int argc, char **argv)
-{
-  t_open_in;
+t_open_in;
   if (argc > 1) {
     last = first;
     for (int i = 1; i < argc; i++) {
@@ -25,7 +17,8 @@ and also retrieves a possible command line.
         buffer[last++] = xord(wc);
         k += len - 1;
       }
-      if (i < argc - 1) buffer[last++] = ' ';
+      if (i < argc - 1) /* this check is needed for |loc| and |last| to be the same as when this input is done after `**' */
+        buffer[last++] = ' ';
     }
     loc = first;
     return true;
@@ -41,5 +34,5 @@ if (!init_terminal(argc,argv)) exit(0);
 @x
 @p int main(void) {@! /*|start_here|*/
 @y
-@p int main(int argc, char **argv) {@! /*|start_here|*/
+@p int main(int argc, char **argv) {
 @z
