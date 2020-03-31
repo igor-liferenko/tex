@@ -14,7 +14,14 @@ error_stop_mode		3 /*stops at every opportunity to interact*/
 
 Questions to SX:
 
-1. why interaction=scroll_mode is done? `interaction' is not used in close_files_and_terminate(), so its value is irrelevant
+1. why interaction:=scroll_mode is done before jump_out()?
+change it to error_stop_mode and run on this file:
+\ERRORA
+\ERRORB
+and press 'e' - tex behaves the same way as when interaction:=scroll_mode
+this means that `interaction' is irrelevant here
+interaction:=scroll_mode is also set in `@d succumb' and in 'X' menu item
+the only place where it is checked is prompt_file_name()
 
 2. why interaction>batch_mode is checked in tex-sparc/initex.ch? it is a-proiri >=scroll_mode (and so >batch_mode), otherwise there will be no prompt to execute the 'E' case in the first place
 
