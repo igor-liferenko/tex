@@ -3,7 +3,7 @@
     cp tex.w utex.w
     diff -u ctex.w utex.w >utex.patch
     rm ctex.w utex.w
-Now utex.patch cat be applied to ctex.w, generated using web2w.ch
+Now utex.patch cat be applied to ctex.w, generated using printable.ch
 "mapping" file is used with it.
 Also, tex.ch is created from *.ch files with `tie'.
 I don't use kpathsea because I don't need it - I use absolute path to
