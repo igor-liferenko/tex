@@ -6,27 +6,7 @@ principle and replace call to jump_out() with its contents.
 So we may put required code after close_files_and_terminate().
 As such, we don't need auxilary variables.
 
-Here is a reminder about modes:
-batch_mode		0 /*omits all stops and omits terminal output*/ 
-nonstop_mode		1 /*omits all stops*/ 
-scroll_mode		2 /*omits error stops*/ 
-error_stop_mode		3 /*stops at every opportunity to interact*/ 
-
-Questions to SX:
-
-1. why interaction:=scroll_mode is done before jump_out()?
-change it to error_stop_mode and run on this file:
-\ERRORA
-\ERRORB
-and press 'e' - tex behaves the same way as when interaction:=scroll_mode
-this means that `interaction' is irrelevant here
-interaction:=scroll_mode is also set in `@d succumb' and in 'X' menu item
-the only place where it is checked is prompt_file_name()
-
-2. why interaction>batch_mode is checked in tex-sparc/initex.ch? it is a-proiri >=scroll_mode (and so >batch_mode), otherwise there will be no prompt to execute the 'E' case in the first place
-
 @x
-case 'E': if (base_ptr > 0)
   {@+print_nl("You want to edit file ");
 @.You want to edit file x@>
   slow_print(input_stack[base_ptr].name_field);
@@ -34,35 +14,31 @@ case 'E': if (base_ptr > 0)
   interaction=scroll_mode;jump_out();
   } @+break;
 @y
-case 'E':
-  if (base_ptr > 0) {
+  {
     close_files_and_terminate();
-    if (interaction > batch_mode) { /* FIXME: why we check |interaction|?
-             and why |interaction=scroll_mode;| is used above? */
-      char ed_name[file_name_size+1]; /* because this file was opened,
-                                         it is guaranteed to fit into |file_name_size| */
-      int k = 0;
-      for (pool_pointer j=str_start[input_stack[base_ptr].name_field];
-           j<str_start[input_stack[base_ptr].name_field+1]; j++) {
-        char mb[MB_CUR_MAX];
-        int len = wctomb(mb, xchr[str_pool[j]]);
-        for (int i = 0; i < len; i++) {
-          k++;
-          ed_name[k-1] = mb[i];
-        }
+    char ed_name[file_name_size+1]; /* because this file was opened,
+                                       it is guaranteed to fit into |file_name_size| */
+    int k = 0;
+    for (pool_pointer j=str_start[input_stack[base_ptr].name_field];
+         j<str_start[input_stack[base_ptr].name_field+1]; j++) {
+      char mb[MB_CUR_MAX];
+      int len = wctomb(mb, xchr[str_pool[j]]);
+      for (int i = 0; i < len; i++) {
+        k++;
+        ed_name[k-1] = mb[i];
       }
-      ed_name[k] = '\0';
-      char cmd[500];
-      int r;
-      if (strstr(ed_name, "TeXinputs/") == ed_name)
-        r = snprintf(cmd, sizeof cmd, "em %s%s %d", str(TEX_area), ed_name+strlen("TeXinputs/"), line);
-          /* restore what was changed in out.ch */
-      else
-        r = snprintf(cmd, sizeof cmd, "em %s %d", ed_name, line);
-      if (r >= sizeof cmd)
-        fwprintf(stderr, L"Buffer is too small\n");
-      else if (system(cmd) != 0) fwprintf(stderr, L"Trouble executing command `%s'\n", cmd);
     }
+    ed_name[k] = '\0';
+    char cmd[500];
+    int r;
+    if (strstr(ed_name, "TeXinputs/") == ed_name)
+      r = snprintf(cmd, sizeof cmd, "em %s%s %d", str(TEX_area), ed_name+strlen("TeXinputs/"), line);
+        /* restore what was changed in out.ch */
+    else
+      r = snprintf(cmd, sizeof cmd, "em %s %d", ed_name, line);
+    if (r >= sizeof cmd)
+      fwprintf(stderr, L"Buffer is too small\n");
+    else if (system(cmd) != 0) fwprintf(stderr, L"Trouble executing command `%s'\n", cmd);
     exit(0);
   }
   break;
