@@ -13,10 +13,11 @@ As such, we don't need auxilary variables.
   print_str(" at line ");print_int(line);
   interaction=scroll_mode;jump_out();
 @y
-{
+{ /* |interaction=scroll_mode| is spurious */
   close_files_and_terminate();
-  char ed_name[file_name_size+1]; /* because this file was opened,
-                                     it is guaranteed to fit into |file_name_size| */
+
+  char ed_name[file_name_size+1];
+    /* because this file was opened, it is guaranteed to fit into |file_name_size| */
   int k = 0;
   for (pool_pointer j=str_start[input_stack[base_ptr].name_field];
        j<str_start[input_stack[base_ptr].name_field+1]; j++) {
@@ -38,5 +39,6 @@ As such, we don't need auxilary variables.
   if (r >= sizeof cmd)
     fwprintf(stderr, L"Buffer is too small\n");
   else if (system(cmd) != 0) fwprintf(stderr, L"Trouble executing command `%s'\n", cmd);
+
   exit(0);
 @z
