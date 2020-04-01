@@ -1,5 +1,5 @@
 In comparison with tex-sparc/initex.ch we do simpler here.
-Knuth tries to preserve structure of pascal code, where in jump_out() goto is used.
+DEK tries to preserve structure of pascal code, where in jump_out() goto is used.
 But in C non-local goto statements don't exist, so jump_out() is different in tex.w
 (read doc-part of section where jump_out() is defined). So here we use the same
 principle and replace call to jump_out() with its contents.
