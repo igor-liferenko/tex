@@ -8,10 +8,10 @@ NOTE: if using gdb, input format explicitly via &
 ready_already=314159;
 @y
 if (strstr(argv[0], "initex") == NULL && strstr(argv[0], "triptex") == NULL && strstr(argv[0], "virtex") == NULL) {
-  strcat(strcpy(name_of_file+1, argv[0]), ".fmt");
+  strcat(strcpy(name_of_file+1, argv[0]), ".fmt"); /* first try in current directory */
   if (w_open_in(&fmt_file)) goto found;
   strncpy(name_of_file+1, TEX_format_default+1, format_area_length);
-  strcat(strcat(name_of_file+1, argv[0]), ".fmt");
+  strcat(strcat(name_of_file+1, argv[0]), ".fmt"); /* then try in TeXformats/ */
   if (w_open_in(&fmt_file)) {
 found:
     if (!load_fmt_file()) {
