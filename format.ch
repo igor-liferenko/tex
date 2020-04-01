@@ -11,7 +11,7 @@ if (strstr(argv[0], "initex") == NULL && strstr(argv[0], "triptex") == NULL && s
   strcat(strcpy(name_of_file+1, argv[0]), ".fmt"); /* first try in current directory */
   if (w_open_in(&fmt_file)) goto found;
   strncpy(name_of_file+1, TEX_format_default+1, format_area_length);
-  strcat(strcat(name_of_file+1, argv[0]), ".fmt"); /* then try in TeXformats/ */
+  strcat(strcat(name_of_file+1, argv[0]), ".fmt"); /* then try in system file area */
   if (w_open_in(&fmt_file)) {
 found:
     if (!load_fmt_file()) {
