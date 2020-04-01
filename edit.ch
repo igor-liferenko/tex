@@ -1,8 +1,8 @@
 In tex.web in jump_out() `goto' is used.
 But in C non-local goto statements don't exist, so jump_out() is different in tex.w
 (read doc-part of section where jump_out() is defined) - `goto'
-is replaced by close_files_and_terminate() and `exit'. Here we do similar - replace
-call to jump_out() with close_files_and_terminate() and `exit'.
+is replaced by close_files_and_terminate() and exit(0). Here we do similar - replace
+call to jump_out() with close_files_and_terminate() and exit(0).
 And we put required code after close_files_and_terminate().
 
 @x
