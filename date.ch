@@ -19,11 +19,11 @@ year=1776; /*Anno Domini*/
 @y
 {
   time_t clock = time(NULL);
-  struct tm *date = localtime(&clock);
-  year = date->tm_year + 1900;
-  month = date->tm_mon + 1;
-  day = date->tm_mday;
-  minute = date->tm_hour * 60 + date->tm_min;
+  struct tm *time = localtime(&clock);
+  year = time->tm_year + 1900;
+  month = time->tm_mon + 1;
+  day = time->tm_mday;
+  minute = time->tm_hour * 60 + time->tm_min;
 @z
 
 @x
