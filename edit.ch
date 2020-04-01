@@ -35,9 +35,14 @@ And we put required code after close_files_and_terminate().
         /* restore what was changed in out.ch */
     else
       r = snprintf(cmd, sizeof cmd, "em %s %d", ed_name, line);
-    if (r >= sizeof cmd)
+    if (r >= sizeof cmd) {
       fwprintf(stderr, L"Buffer is too small\n");
-    else if (system(cmd) != 0) fwprintf(stderr, L"Trouble executing command `%s'\n", cmd);
+      history = error_message_issued;
+    }
+    else if (system(cmd) != 0) {
+      fwprintf(stderr, L"Trouble executing command `%s'\n", cmd);
+      history = error_message_issued;
+    }
   }
 
   exit(0);
