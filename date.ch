@@ -18,8 +18,8 @@ month=7; /*seventh month of the year*/
 year=1776; /*Anno Domini*/ 
 @y
 {
-  time_t now = time(NULL);
-  struct tm *date = localtime(&now);
+  time_t clock = time(NULL);
+  struct tm *date = localtime(&clock);
   year = date->tm_year + 1900;
   month = date->tm_mon + 1;
   day = date->tm_mday;
