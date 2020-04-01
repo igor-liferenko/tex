@@ -32,7 +32,7 @@ And we put required code after close_files_and_terminate().
     int r;
     if (strstr(ed_name, "TeXinputs/") == ed_name)
       r = snprintf(cmd, sizeof cmd, "em %s%s %d", str(TEX_area), ed_name+strlen("TeXinputs/"), line);
-        /* restore what was changed in out.ch */
+        /* restore what was changed in output.ch */
     else
       r = snprintf(cmd, sizeof cmd, "em %s %d", ed_name, line);
     if (r >= sizeof cmd) {

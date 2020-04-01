@@ -12,7 +12,7 @@ triptex: change-file web2w/ctangle
 	gcc -DINIT -DSTAT triptex.c -lm -o trip/triptex
 
 change-file:
-	tie -bhp -c tex.ch tex.w banner.ch newline.ch constants.ch path.ch interrupt.ch arg.ch out.ch edit.ch format.ch date.ch exit.ch
+	tie -bhp -c tex.ch tex.w banner.ch newline.ch constants.ch path.ch interrupt.ch arg.ch output.ch edit.ch format.ch date.ch exit.ch
 
 web2w/ctangle:
 	make -C web2w ctangle
