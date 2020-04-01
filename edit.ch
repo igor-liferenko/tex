@@ -28,6 +28,7 @@ And we put required code after close_files_and_terminate().
       }
     }
     ed_name[k] = '\0';
+
     char cmd[500];
     int r;
     if (strstr(ed_name, "TeXinputs/") == ed_name)
@@ -35,14 +36,8 @@ And we put required code after close_files_and_terminate().
         /* restore what was changed in output.ch */
     else
       r = snprintf(cmd, sizeof cmd, "em %s %d", ed_name, line);
-    if (r >= sizeof cmd) {
-      fwprintf(stderr, L"Buffer is too small\n");
-      history = error_message_issued;
-    }
-    else if (system(cmd) != 0) {
-      fwprintf(stderr, L"Trouble executing command `%s'\n", cmd);
-      history = error_message_issued;
-    }
+    if (r >= sizeof cmd) fwprintf(stderr, L"! Not enough memory to issue editor command\n");
+    else if (system(cmd) != 0) fwprintf(stderr, L"! Trouble executing command %s\n", cmd);
   }
 
   exit(0);
