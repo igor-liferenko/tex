@@ -1,6 +1,3 @@
-in tex-sparc/initex.ch setting signal handler is done in fix_date_and_time() because signal handler can't be set from pascal, and
-DEK searches some function which can't be done in pascal to put setting signal handler there
-
 @x
 @h
 @y
