@@ -5,6 +5,12 @@
 @z
 
 @x
+case 'Q': {@+print_esc(@[@<|"batchmode"|@>@]);decr(selector);
+@y
+case 'Q': {@+print_esc(@[@<|"batchmode"|@>@]);wterm_cr;decr(selector);
+@z
+
+@x
     slow_print(log_name);print_char('.');
     }
   }
