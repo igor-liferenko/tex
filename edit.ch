@@ -9,12 +9,30 @@ int edit_line;
 @z
 
 @x
-void jump_out(void)
-{@+ close_files_and_terminate(); exit(0);
+case 'E': if (base_ptr > 0) 
+  {@+print_nl("You want to edit file ");
+@.You want to edit file x@>
+  slow_print(input_stack[base_ptr].name_field);
+  print_str(" at line ");print_int(line);
+  interaction=scroll_mode;jump_out();
 @y
-void jump_out(void)
-{
-  close_files_and_terminate();
+case 'E': if (base_ptr > 0) {
+  ed_name_start = str_start[input_stack[base_ptr].name_field];
+  ed_name_end = str_start[input_stack[base_ptr].name_field+1] - 1;
+  edit_line = line;
+  jump_out();
+@z
+
+@x
+    slow_print(log_name);print_char('.');
+    }
+  }
+  print_ln();
+@y
+    slow_print(log_name);print_char('.');
+    }
+  }
+  print_ln();
 
   if (ed_name_start && interaction > batch_mode) {
     char ed_name[file_name_size+1];
@@ -40,21 +58,4 @@ void jump_out(void)
     if (r >= sizeof cmd) fwprintf(stderr, L"! Not enough memory to issue editor command\n");
     else if (system(cmd) != 0) fwprintf(stderr, L"! Trouble executing command %s\n", cmd);
   }
-
-  exit(0);
-@z
-
-@x
-case 'E': if (base_ptr > 0) 
-  {@+print_nl("You want to edit file ");
-@.You want to edit file x@>
-  slow_print(input_stack[base_ptr].name_field);
-  print_str(" at line ");print_int(line);
-  interaction=scroll_mode;jump_out();
-@y
-case 'E': if (base_ptr > 0) {
-  ed_name_start = str_start[input_stack[base_ptr].name_field];
-  ed_name_end = str_start[input_stack[base_ptr].name_field+1] - 1;
-  edit_line = line;
-  jump_out();
 @z
