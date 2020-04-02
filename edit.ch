@@ -55,7 +55,6 @@ case 'E': if (base_ptr > 0) {
         /* restore what was changed in output.ch */
     else
       r = snprintf(cmd, sizeof cmd, "em %s %d", ed_name, edit_line);
-    if (r >= sizeof cmd) print_err("Buffer too small for editor command")
-    else if (system(cmd) != 0) print_err("Trouble executing editor command")
+    if (r < sizeof cmd) system(cmd);
   }
 @z
