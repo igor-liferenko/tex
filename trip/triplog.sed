@@ -1,4 +1,4 @@
-s/(preloaded format=trip .....[0-9]\+.[0-9]\+)  [0-9]\+ ... .... ..:..$/(preloaded format=trip 2014.1.7)  7 JAN 2014 09:59/
+s/\((HINT) \)\?(preloaded format=trip .....[0-9]\+.[0-9]\+)  [0-9]\+ ... .... ..:..$/(preloaded format=trip 2014.1.7)  7 JAN 2014 09:59/
 s/47 strings out of 2307/47 strings out of 1674/
 s/253 string characters out of [0-9]\+/253 string characters out of 8354/
 s/Memory usage before: 159&278; after: 102&278; still untouched: 1613/Memory usage before: 159\&313; after: 102\&278; still untouched: 1613/

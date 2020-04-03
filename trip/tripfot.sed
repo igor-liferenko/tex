@@ -1,5 +1,6 @@
 s/\*\*(trip.tex ##/\*\* \&trip  trip \
 (trip.tex ##/
+s/\((HINT) \)\?(INITEX)/(INITEX)/
 s/Transcript written on trip.log./Transcript written on trip.log.\
 /
 s/Memory usage before: 159&278; after: 102&278; still untouched: 1613/Memory usage before: 159\&313; after: 102\&278; still untouched: 1613/
