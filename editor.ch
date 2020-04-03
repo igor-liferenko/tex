@@ -9,15 +9,13 @@ int edit_line;
 @z
 
 @x
-case 'E': if (base_ptr > 0) 
   {@+print_nl("You want to edit file ");
 @.You want to edit file x@>
   slow_print(input_stack[base_ptr].name_field);
   print_str(" at line ");print_int(line);
   interaction=scroll_mode;jump_out();
 @y
-case 'E': if (base_ptr > 0) {
-  ed_name_start = str_start[input_stack[base_ptr].name_field];
+{ ed_name_start = str_start[input_stack[base_ptr].name_field];
   ed_name_end = str_start[input_stack[base_ptr].name_field+1] - 1;
   edit_line = line;
   jump_out();
