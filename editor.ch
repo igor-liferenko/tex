@@ -1,4 +1,7 @@
-NOTE: for deeper understanding, see https://tex.stackexchange.com/questions/536084/
+NOTE: @<Get user's advice and |return|@> may be entered again after 'E' was selected (see
+https://tex.stackexchange.com/questions/536084/), so we save the fact that 'E' was selected
+NOTE: editor is called in the end of close_files_and_terminate(), not after it, because close_files_and_terminate() is called
+from two places - from jump_out() and from main()
 
 @x
 @<Global variables@>@;
