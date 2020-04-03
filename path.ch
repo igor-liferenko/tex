@@ -38,3 +38,5 @@ use absolute paths
 @y
 @d str_507 "/home/user/ctex/TeXfonts/"
 @z
+
+NOTE: see 29.513 in http://tug.ctan.org/tex-archive/systems/knuth/local/tex-sparc/initex.ch
