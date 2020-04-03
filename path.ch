@@ -1,4 +1,4 @@
-+NOTE: see 29.513 in http://tug.ctan.org/tex-archive/systems/knuth/local/tex-sparc/initex.ch
+NOTE: see 29.513 in http://tug.ctan.org/tex-archive/systems/knuth/local/tex-sparc/initex.ch
 
 !!! if need more, change type of |name_length| from uint8_t to uint16_t in tex.w !!!
 @x
@@ -40,5 +40,3 @@ use absolute paths
 @y
 @d str_507 "/home/user/ctex/TeXfonts/"
 @z
-
-NOTE: see 29.513 in http://tug.ctan.org/tex-archive/systems/knuth/local/tex-sparc/initex.ch
