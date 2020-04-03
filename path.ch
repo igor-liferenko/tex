@@ -1,3 +1,5 @@
++NOTE: see 29.513 in http://tug.ctan.org/tex-archive/systems/knuth/local/tex-sparc/initex.ch
+
 !!! if need more, change type of |name_length| from uint8_t to uint16_t in tex.w !!!
 @x
 enum {@+@!file_name_size=40@+}; /*file names shouldn't be longer than this*/
