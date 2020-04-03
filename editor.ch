@@ -28,12 +28,10 @@ int edit_line;
     slow_print(log_name);print_char('.');
     }
   }
-  print_ln();
 @y
     slow_print(log_name);print_char('.');
     }
   }
-  print_ln();
 
   if (ed_name_start && interaction > batch_mode) {
     char ed_name[file_name_size+1];
