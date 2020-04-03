@@ -6,8 +6,7 @@
 @z
 
 @x
-close_files_and_terminate();
+return 0; }
 @y
-close_files_and_terminate();
-exit(0);
+exit(0); }
 @z
