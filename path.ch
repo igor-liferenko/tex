@@ -1,7 +1,3 @@
-TODO: see 29.513 in http://tug.ctan.org/tex-archive/systems/knuth/local/tex-sparc/initex.ch,
-http://tug.ctan.org/tex-archive/systems/knuth/local/tex/initex.ch, mytex repo, web2c-tex repo,
-texdoc tex, https://ctan.org/tex-archive/systems/unix/tex-gpc/, https://ctan.org/pkg/tex-fpc
-
 !!! if need more, change type of |name_length| from uint8_t to uint16_t in tex.w !!!
 @x
 enum {@+@!file_name_size=40@+}; /*file names shouldn't be longer than this*/
