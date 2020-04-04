@@ -3,7 +3,7 @@ if (ready_already==314159) goto start_of_TEX;
 @y
 @z
 
-NOTE: if using gdb, input format explicitly via &
+NOTE: if using gdb, input format explicitly via &, or nothing if `plain' (it is loaded by default)
 @x
 ready_already=314159;
 @y
