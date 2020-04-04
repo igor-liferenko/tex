@@ -24841,11 +24841,16 @@ if (cur_length < 256)
 else{@+dvi_out(xxx4);dvi_four(cur_length);
   } 
 for (k=str_start[str_ptr]; k<=pool_ptr-1; k++) {
+  if (str_pool[k]==0x9a) {
       char mb[MB_CUR_MAX];
       int len = wctomb(mb, xchr[str_pool[k]]);
       for (int i = 0; i < len; i++) {
         dvi_out(mb[i]);
       }
+  }
+  else {
+    dvi_out(so(str_pool[k]));
+  }
 }
 pool_ptr=str_start[str_ptr]; /*erase the string*/ 
 } 
