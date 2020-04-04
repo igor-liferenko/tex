@@ -12,7 +12,7 @@ all:
 	@diff tex/trip.typ trip.typ
 	@diff tex/tripos.tex tripos.tex
 	@diff tex/8terminal.tex 8terminal.tex
-	@perl -i -pe 's/\(HINT\) //'trip.log
+	@perl -i -pe 's/\(HINT\) //' trip.log
 	@sed -i -f triplog.sed trip.log
 	@perl -i -pe 'BEGIN{$$x=`grep 0x80 ../mapping`;$$x=~s/.*\x27(.*)\x27;\n/$$1/}s/$$x/^^80/ if$$x' trip.log
 	@perl -i -pe 'BEGIN{$$x=`grep 0x82 ../mapping`;$$x=~s/.*\x27(.*)\x27;\n/$$1/}s/$$x/^^82/ if$$x' trip.log
