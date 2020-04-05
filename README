@@ -7,7 +7,7 @@ Now utex.patch cat be applied to ctex.w, generated using printable.ch
 "mapping" file is used with it.
 
 Limitations:
-1. You can't use non-ascii characters in paths to fonts, formats and inputs (see comment after `bufntombslen'). But it easily fixed with symlinks.
+1. You can't use non-ascii characters in paths to fonts, formats and inputs (see comment after `bufntombslen'). If you need to have non-ascii characters in the name of such a directory, create ascii symlinks to it.
 2. You can't use "extended character set" (because in editor and in terminal such characters can't be displayed).
 3. You can't use non-ascii cheracters in \special (TeX writes dvi files in internal encoding; circumventing this violates the TRIP test).
 4. Filenames can't contain spaces (see first condition in more_name()).
