@@ -18,18 +18,15 @@ int access(const char *str, int type)
   char s[1000];
   strcpy(s, str);
 
-  @<Convert@>@;
-
-  int (*orig_access)(const char *, int);
-  orig_access = dlsym(RTLD_NEXT, "access");
-  return (*orig_access)(s, type);
-}
-
-@ @<Convert@>=
 int match = 0;
 @<If file is picture, set |match| to `1'@>@;
 if (match) {
 @<Foobar@>@;
+}
+
+  int (*orig_access)(const char *, int);
+  orig_access = dlsym(RTLD_NEXT, "access");
+  return (*orig_access)(s, type);
 }
 
 @ @<Foobar@>=
@@ -104,7 +101,11 @@ FILE *fopen(const char *str, const char *mode)
   char s[1000];
   strcpy(s, str);
 
-  @<Convert@>@;
+int match = 0;
+@<If file is picture, set |match| to `1'@>@;
+if (match) {
+@<Foobar@>@;
+}
 
   FILE *(*orig_fopen)(const char *, const char *);
   orig_fopen = dlsym(RTLD_NEXT, "fopen");
@@ -117,7 +118,11 @@ int __xstat(int vers, const char *str, struct stat *buf)
   char s[1000];
   strcpy(s, str);
 
-  @<Convert@>@;
+int match = 0;
+@<If file is picture, set |match| to `1'@>@;
+if (match) {
+@<Foobar@>@;
+}
 
   int (*orig_xstat)(int, const char *, struct stat *);
   orig_xstat = dlsym(RTLD_NEXT, "__xstat");
