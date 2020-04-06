@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdarg.h>
+
 wchar_t xchr[256];
 
 int access(const char *str, int type)
@@ -25,10 +26,14 @@ int access(const char *str, int type)
 }
 
 @ @<Convert@>=
-@i mapping
 int match = 0;
 @<If file is picture, set |match| to `1'@>@;
 if (match) {
+@<Foobar@>@;
+}
+
+@ @<Foobar@>=
+@i mapping
   char *utf8 = s;
   for (const char *p = str; *p != '\0'; p++) {
     if ((unsigned char) *p <= 127)
@@ -39,11 +44,9 @@ if (match) {
       @<Determine number of bytes |n| in UTF-8@>@;
       @<Set first byte of UTF-8 sequence@>@;
       @<Set remaining bytes of UTF-8 sequence@>@;
-      utf8++;
     }
   }
-  *utf8='\0';
-}
+  *utf8 = '\0';
 
 @ The length of the resulting UTF-8 sequence is determined using the
 following chart:
@@ -85,6 +88,7 @@ for (int i=(int)(n-2); i>=0; i--) {
   *utf8 |= (char)(1 << 7);
   *utf8 &= (char)~(1 << 6);
 }
+utf8++;
 
 @ Picture ends in `\.{.<number>}' or `\.{.eps}'.
 
@@ -131,22 +135,7 @@ int __sprintf_chk(char *str, int flag, size_t strlen, const char *format, ...)
   va_end(args);
 
   if (strstr(str, "Could not find figure file") == str) {
-@i mapping
-  char *utf8 = s;
-  for (const char *p = str; *p != '\0'; p++) {
-    if ((unsigned char) *p <= 127)
-      *utf8++ = *p;
-    else {
-      wchar_t c = xchr[(unsigned char) *p];
-      size_t n;
-      @<Determine number of bytes |n| in UTF-8@>@;
-      @<Set first byte of UTF-8 sequence@>@;
-      @<Set remaining bytes of UTF-8 sequence@>@;
-      utf8++;
-    }
-  }
-  *utf8='\0';
- 
+    @<Foobar@>@;
     strcpy(str, s);
   }
 
