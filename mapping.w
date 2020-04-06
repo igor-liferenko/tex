@@ -3,13 +3,12 @@
 @c
 #define _GNU_SOURCE
 
-#include <stdio.h>
 #include <dlfcn.h>
 #include <string.h>
-#include <wchar.h>
-#include <locale.h>
-#include <stdlib.h>
 #include <sys/stat.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <stdint.h>
 
 wchar_t xchr[256];
 
@@ -18,33 +17,82 @@ int access(const char *str, int type)
   char s[1000];
   strcpy(s, str);
 
-  const char *end = str + strlen(str) - 1;
-  if (*end == '1') {
-    printf("In our own access, before %s\n", s);
-    @<Convert@>@;
-    printf("In our own access, after %s\n", s);
-  }
+  @<Convert@>@;
 
-  int (*orig_access)(const char *str, int flags);
+  int (*orig_access)(const char *, int);
   orig_access = dlsym(RTLD_NEXT, "access");
   return (*orig_access)(s, type);
 }
 
 @ @<Convert@>=
 @i mapping
-setlocale(LC_CTYPE, "C.UTF-8");
-char *sp = s;
-for (const char *p = str; *p != '\0'; p++) {
-  if ((unsigned char) *p <= 127)
-    *sp++ = *p;
-  else {
-    char mb[MB_CUR_MAX];
-    int len = wctomb(mb, xchr[(unsigned char) *p]);
-    for (int k = 0; k < len; k++)
-      *sp++ = mb[k];
+int match = 0;
+@<If file is picture, set |match| to `1'@>@;
+if (match) {
+  char *utf8 = s;
+  for (const char *p = str; *p != '\0'; p++) {
+    if ((unsigned char) *p <= 127)
+      *utf8++ = *p;
+    else {
+      wchar_t c = xchr[(unsigned char) *p];
+      size_t n;
+      @<Determine number of bytes |n| in UTF-8@>@;
+      @<Set first byte of UTF-8 sequence@>@;
+      @<Set remaining bytes of UTF-8 sequence@>@;
+      utf8++;
+    }
   }
+  *utf8='\0';
 }
-*sp = '\0';
+
+@ The length of the resulting UTF-8 sequence is determined using the
+following chart:
+\medskip
+{\tt\obeylines\obeyspaces
+0xxxxxxx
+110xxxxx      10xxxxxx
+1110xxxx      10xxxxxx      10xxxxxx
+11110xxx      10xxxxxx      10xxxxxx      10xxxxxx
+111110xx      10xxxxxx      10xxxxxx      10xxxxxx      10xxxxxx
+1111110x      10xxxxxx      10xxxxxx      10xxxxxx      10xxxxxx      10xxxxxx
+}
+\medskip
+
+@<Determine number of bytes...@>=
+if (!(c&(wchar_t)~0x7f)) n=1;
+else if (!(c&(wchar_t)~0x7ff)) n=2;
+else if (!(c&(wchar_t)~0xffff)) n=3;
+else if (!(c&(wchar_t)~0x1fffff)) n=4;
+else if (!(c&(wchar_t)~0x3ffffff)) n=5;
+else n=6;
+
+@ Copy to the first byte data bits which belong there. Then set
+its header according to the chart in |@<Determine number of bytes...@>|.
+
+@<Set first byte...@>=
+*utf8 = (char)(c >> 6*(n-1));
+if (n != 1)
+  for (int i=(int)(n-1); i>=0; i--)
+    *utf8 |= (char)(1 << (7-i));
+
+@ Copy to each byte data bits which belong to this byte.
+Then set its header to `10'.
+
+@<Set remaining bytes...@>=
+for (int i=(int)(n-2); i>=0; i--) {
+  utf8++;
+  *utf8 = (char)(c >> 6*i);
+  *utf8 |= (char)(1 << 7);
+  *utf8 &= (char)~(1 << 6);
+}
+
+@ Picture ends in `\.{.<number>}' or `\.{.eps}'.
+
+@<If file is picture...@>=
+const char *end = str + strlen(str) - 1;
+if (*end == '1') {
+  match = 1;
+}
 
 @ @c
 FILE *fopen(const char *str, const char *mode)
@@ -52,12 +100,7 @@ FILE *fopen(const char *str, const char *mode)
   char s[1000];
   strcpy(s, str);
 
-  const char *end = str + strlen(str) - 1;
-  if (*end == '1') {
-    printf("In our own fopen, before %s\n", s);
-    @<Convert@>@;
-    printf("In our own fopen, after %s\n", s);
-  }
+  @<Convert@>@;
 
   FILE *(*orig_fopen)(const char *, const char *);
   orig_fopen = dlsym(RTLD_NEXT, "fopen");
@@ -70,12 +113,7 @@ int __xstat(int vers, const char *str, struct stat *buf)
   char s[1000];
   strcpy(s, str);
 
-  const char *end = str + strlen(str) - 1;
-  if (*end == '1') {
-    printf("In our own stat, before %s\n", s);
-    @<Convert@>@;
-    printf("In our own stat, after %s\n", s);
-  }
+  @<Convert@>@;
 
   int (*orig_xstat)(int, const char *, struct stat *);
   orig_xstat = dlsym(RTLD_NEXT, "__xstat");
