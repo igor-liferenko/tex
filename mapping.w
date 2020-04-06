@@ -9,7 +9,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdint.h>
-
+#include <stdarg.h>
 wchar_t xchr[256];
 
 int access(const char *str, int type)
@@ -118,4 +118,37 @@ int __xstat(int vers, const char *str, struct stat *buf)
   int (*orig_xstat)(int, const char *, struct stat *);
   orig_xstat = dlsym(RTLD_NEXT, "__xstat");
   return (*orig_xstat)(vers, s, buf);
+}
+
+@ @c
+int __sprintf_chk(char *str, int flag, size_t strlen, const char *format, ...)
+{
+  char s[1000];
+
+  va_list args;
+  va_start(args, format);
+  int r = vsprintf(str, format, args);
+  va_end(args);
+
+  if (strstr(str, "Could not find figure file") == str) {
+@i mapping
+  char *utf8 = s;
+  for (const char *p = str; *p != '\0'; p++) {
+    if ((unsigned char) *p <= 127)
+      *utf8++ = *p;
+    else {
+      wchar_t c = xchr[(unsigned char) *p];
+      size_t n;
+      @<Determine number of bytes |n| in UTF-8@>@;
+      @<Set first byte of UTF-8 sequence@>@;
+      @<Set remaining bytes of UTF-8 sequence@>@;
+      utf8++;
+    }
+  }
+  *utf8='\0';
+ 
+    strcpy(str, s);
+  }
+
+  return r;
 }
