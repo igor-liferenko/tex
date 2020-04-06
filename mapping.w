@@ -18,32 +18,32 @@ int access(const char *str, int type)
   char s[1000];
   strcpy(s, str);
 
-int match = 0;
-@<If file is picture, set |match| to `1'@>@;
-if (match) {
-@<Foobar@>@;
-}
+  int match = 0;
+  @<If file is picture, set |match| to `1'@>@;
+  if (match) {
+    @<Convert@>@;
+  }
 
   int (*orig_access)(const char *, int);
   orig_access = dlsym(RTLD_NEXT, "access");
   return (*orig_access)(s, type);
 }
 
-@ @<Foobar@>=
+@ @<Convert@>=
 @i mapping
-  char *utf8 = s;
-  for (const char *p = str; *p != '\0'; p++) {
-    if ((unsigned char) *p <= 127)
-      *utf8++ = *p;
-    else {
-      wchar_t c = xchr[(unsigned char) *p];
-      size_t n;
-      @<Determine number of bytes |n| in UTF-8@>@;
-      @<Set first byte of UTF-8 sequence@>@;
-      @<Set remaining bytes of UTF-8 sequence@>@;
-    }
+char *utf8 = s;
+for (const char *p = str; *p != '\0'; p++) {
+  if ((unsigned char) *p <= 127)
+    *utf8++ = *p;
+  else {
+    wchar_t c = xchr[(unsigned char) *p];
+    size_t n;
+    @<Determine number of bytes |n| in UTF-8@>@;
+    @<Set first byte of UTF-8 sequence@>@;
+    @<Set remaining bytes of UTF-8 sequence@>@;
   }
-  *utf8 = '\0';
+}
+*utf8 = '\0';
 
 @ The length of the resulting UTF-8 sequence is determined using the
 following chart:
@@ -101,11 +101,11 @@ FILE *fopen(const char *str, const char *mode)
   char s[1000];
   strcpy(s, str);
 
-int match = 0;
-@<If file is picture, set |match| to `1'@>@;
-if (match) {
-@<Foobar@>@;
-}
+  int match = 0;
+  @<If file is picture, set |match| to `1'@>@;
+  if (match) {
+    @<Convert@>@;
+  }
 
   FILE *(*orig_fopen)(const char *, const char *);
   orig_fopen = dlsym(RTLD_NEXT, "fopen");
@@ -118,11 +118,11 @@ int __xstat(int vers, const char *str, struct stat *buf)
   char s[1000];
   strcpy(s, str);
 
-int match = 0;
-@<If file is picture, set |match| to `1'@>@;
-if (match) {
-@<Foobar@>@;
-}
+  int match = 0;
+  @<If file is picture, set |match| to `1'@>@;
+  if (match) {
+    @<Convert@>@;
+  }
 
   int (*orig_xstat)(int, const char *, struct stat *);
   orig_xstat = dlsym(RTLD_NEXT, "__xstat");
@@ -140,7 +140,7 @@ int __sprintf_chk(char *str, int flag, size_t strlen, const char *format, ...)
   va_end(args);
 
   if (strstr(str, "Could not find figure file") == str) {
-    @<Foobar@>@;
+    @<Convert@>@;
     strcpy(str, s);
   }
 
