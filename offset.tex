@@ -1,14 +1,12 @@
 % the only places in TeXbook which may be influenced by this are p.252,253,335,342,406
 
-% in dvips this option must be used: -O -1in,-1in
-
-\hoffset=22.45mm % (210mm - 6.5in)/2
-\voffset=34.2mm % (297mm - 9in)/2
+\hoffset=-2.95mm % (210mm - 6.5in)/2 - 1in = (210mm - 8.5in)/2
+\voffset=8.8mm % (297mm - 11in)/2
 \catcode`\@=11
 \def\m@g{\mag\count@
   \hsize6.5truein
   \vsize8.9truein
   \dimen\footins8truein
-  \hoffset=22.45truemm
-  \voffset=34.2truemm}
+  \hoffset=-2.95truemm
+  \voffset=8.8truemm}
 \catcode`\@=12
