@@ -1,4 +1,12 @@
 @* Intro.
+TeX writes dvi files in internal encoding.
+This presents a problem with filenames for {\sl psfile\/} in \.{\\special}.
+To overcome this, convert filenames to external encoding in \.{dvips}
+by overloading its procedures for file access.
+
+\noindent To compile this program: \.{gcc -Wall -fPIC -shared -o mapping.so mapping.c -ldl}
+
+\noindent To use this program: \.{LD\_PRELOAD=mapping.so dvips}
 
 @c
 #define _GNU_SOURCE
