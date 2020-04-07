@@ -23,17 +23,21 @@ wchar_t xchr[256];
 
 @ Picture ends in `\.{.<number>}' or `\.{.eps}'.
 
-@<If |s| matches figure, convert it@>=
-if (s[sizeof s - 1] != '\0') { s[sizeof s - 1] = '\0'; goto out; }
+@ @<Match@>=
+if (*(s + strlen(s) - 1) == '1') match = 1;
+
+@ @<If |s| matches figure, convert it@>=
+if (s[sizeof s - 1] != '\0') {
+  s[sizeof s - 1] = '\0';
+  printf("!!! buffer too small (strncpy)\n");
+  goto out;
+}
 int match = 0;
 @<Match@>@;
 if (match) {
   @<Convert@>@;
 }
 out:;
-
-@ @<Match@>=
-if (*(s + strlen(s) - 1) == '1') match = 1;
 
 @ @<Convert@>=
 @i mapping
@@ -54,8 +58,10 @@ while (*arg != '\0') {
 }
 if (sptr-s < sizeof s)
   *sptr = '\0';
-else
+else {
   s[sizeof s - 1] = '\0';
+  printf("!!! buffer too small (utf8)\n");
+}
 
 @ The length of the resulting UTF-8 sequence is determined using the
 following chart:
@@ -154,6 +160,7 @@ int __sprintf_chk(char *str, int flag, size_t len, const char *format, ...)
     char s[1000];
     @<Convert@>@;
     if (strlen(s) < len) strcpy(str, s);
+    else printf("!!! string too big\n");
   }
 
   return r;
