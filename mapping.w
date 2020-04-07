@@ -24,12 +24,14 @@ wchar_t xchr[256];
 @ Picture ends in `\.{.<number>}' or `\.{.eps}'.
 
 @<If |s| matches figure, convert it@>=
+int match = 0;
 @<Match@>@;
-@<Convert@>@;
-out:
+if (match) {
+  @<Convert@>@;
+}
 
 @ @<Match@>=
-if (*(s + strlen(s) - 1) != '1') goto out;
+if (*(s + strlen(s) - 1) == '1') match = 1;
 
 @ @<Convert@>=
 @i mapping
@@ -93,7 +95,7 @@ sptr++;
 @ @c
 int access(const char *pathname, int type)
 {
-  char *arg = pathname;
+  const char *arg = pathname;
   char s[1000];
   strcpy(s, arg);
   @<If |s| matches...@>@;
@@ -106,7 +108,7 @@ int access(const char *pathname, int type)
 @ @c
 FILE *fopen(const char *pathname, const char *mode)
 {
-  char *arg = pathname;
+  const char *arg = pathname;
   char s[1000];
   strcpy(s, arg);
   @<If |s| matches...@>@;
@@ -119,7 +121,7 @@ FILE *fopen(const char *pathname, const char *mode)
 @ @c
 int __xstat(int vers, const char *pathname, struct stat *buf)
 {
-  char *arg = pathname;
+  const char *arg = pathname;
   char s[1000];
   strcpy(s, arg);
   @<If |s| matches...@>@;
@@ -132,8 +134,6 @@ int __xstat(int vers, const char *pathname, struct stat *buf)
 @ @c
 int __sprintf_chk(char *str, int flag, size_t strlen, const char *format, ...)
 {
-  char *arg = str;
-
   va_list args;
   va_start(args, format);
   int r = vsprintf(str, format, args);
