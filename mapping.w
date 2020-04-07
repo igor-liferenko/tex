@@ -21,20 +21,12 @@ by overloading its procedures for file access.
 
 wchar_t xchr[256];
 
-int access(const char *str, int type)
-{
-  char s[1000];
-  strcpy(s, str);
+@ Picture ends in `\.{.<number>}' or `\.{.eps}'.
 
-  int match = 0;
-  @<If file is picture, set |match| to `1'@>@;
-  if (match) {
-    @<Convert@>@;
-  }
-
-  int (*orig_access)(const char *, int);
-  orig_access = dlsym(RTLD_NEXT, "access");
-  return (*orig_access)(s, type);
+@<If file is picture...@>=
+const char *end = str + strlen(str) - 1;
+if (*end == '1') {
+  match = 1;
 }
 
 @ @<Convert@>=
@@ -95,12 +87,21 @@ for (int i=(int)(n-2); i>=0; i--) {
 }
 utf8++;
 
-@ Picture ends in `\.{.<number>}' or `\.{.eps}'.
+@ @c
+int access(const char *str, int type)
+{
+  char s[1000];
+  strcpy(s, str);
 
-@<If file is picture...@>=
-const char *end = str + strlen(str) - 1;
-if (*end == '1') {
-  match = 1;
+  int match = 0;
+  @<If file is picture, set |match| to `1'@>@;
+  if (match) {
+    @<Convert@>@;
+  }
+
+  int (*orig_access)(const char *, int);
+  orig_access = dlsym(RTLD_NEXT, "access");
+  return (*orig_access)(s, type);
 }
 
 @ @c
