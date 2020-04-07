@@ -3,3 +3,12 @@ Move tex repo to web2c repo and this repo to tex repo (with git history).
 unpack web2w.zip from ctan to separate directory, git init, git add, unpack web2w.zip from
 https://w3-o.cs.hm.edu/users/ruckert/public_html/web2w/ and see git diff, and see if my web2w/
 is the same as second web2w.zip
+
+fix dvips and submit a patch:
+    /usr/bin/tex '\special{psfile=^^d0^^81.1} \bye'
+    dvips texput
+output will be:
+    dvips: Could not find figure file .1; continuing.
+if we add ./ after psfile=, then output will be:
+    dvips: Could not find figure file ./Ё.1; continuing.
+the conclusion is that part of filename which starts with non-ascii character up till next ascii character is ignored
