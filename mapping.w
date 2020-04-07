@@ -24,11 +24,13 @@ wchar_t xchr[256];
 @ Picture ends in `\.{.<number>}' or `\.{.eps}'.
 
 @<If |s| matches figure, convert it@>=
+if (s[sizeof s - 1] != '\0') { s[sizeof s - 1] = '\0'; goto out; }
 int match = 0;
 @<Match@>@;
 if (match) {
   @<Convert@>@;
 }
+out:;
 
 @ @<Match@>=
 if (*(s + strlen(s) - 1) == '1') match = 1;
@@ -37,8 +39,10 @@ if (*(s + strlen(s) - 1) == '1') match = 1;
 @i mapping
 char *sptr = s;
 while (*arg != '\0') {
-  if ((unsigned char) *arg <= 127)
-    *sptr++ = *arg;
+  if ((unsigned char) *arg <= 127) {
+    if (sptr-s < sizeof s) *sptr = *arg;
+    sptr++;
+  }
   else {
     wchar_t c = xchr[(unsigned char) *arg];
     size_t n;
@@ -48,7 +52,10 @@ while (*arg != '\0') {
   }
   arg++;
 }
-*sptr = '\0';
+if (sptr-s < sizeof s)
+  *sptr = '\0';
+else
+  s[sizeof s - 1] = '\0';
 
 @ The length of the resulting UTF-8 sequence is determined using the
 following chart:
@@ -75,10 +82,12 @@ else n=6;
 its header according to the chart in |@<Determine number of bytes...@>|.
 
 @<Set first byte...@>=
-*sptr = (char)(c >> 6*(n-1));
-if (n != 1)
-  for (int i=(int)(n-1); i>=0; i--)
-    *sptr |= (char)(1 << (7-i));
+if (sptr-s < sizeof s) {
+  *sptr = (char)(c >> 6*(n-1));
+  if (n != 1)
+    for (int i=(int)(n-1); i>=0; i--)
+      *sptr |= (char)(1 << (7-i));
+}
 
 @ Copy to each byte data bits which belong to this byte.
 Then set its header to `10'.
@@ -86,6 +95,7 @@ Then set its header to `10'.
 @<Set remaining bytes...@>=
 for (int i=(int)(n-2); i>=0; i--) {
   sptr++;
+  if (sptr-s >= sizeof s) break;
   *sptr = (char)(c >> 6*i);
   *sptr |= (char)(1 << 7);
   *sptr &= (char)~(1 << 6);
@@ -97,7 +107,7 @@ int access(const char *pathname, int type)
 {
   const char *arg = pathname;
   char s[1000];
-  strcpy(s, arg);
+  strncpy(s, arg, sizeof s);
   @<If |s| matches...@>@;
 
   int (*orig_access)(const char *, int);
@@ -110,7 +120,7 @@ FILE *fopen(const char *pathname, const char *mode)
 {
   const char *arg = pathname;
   char s[1000];
-  strcpy(s, arg);
+  strncpy(s, arg, sizeof s);
   @<If |s| matches...@>@;
 
   FILE *(*orig_fopen)(const char *, const char *);
@@ -123,7 +133,7 @@ int __xstat(int vers, const char *pathname, struct stat *buf)
 {
   const char *arg = pathname;
   char s[1000];
-  strcpy(s, arg);
+  strncpy(s, arg, sizeof s);
   @<If |s| matches...@>@;
 
   int (*orig_xstat)(int, const char *, struct stat *);
@@ -143,7 +153,7 @@ int __sprintf_chk(char *str, int flag, size_t strlen, const char *format, ...)
     char *arg = str;
     char s[1000];
     @<Convert@>@;
-    strcpy(str, s);
+    if (strlen(s) < strlen) strcpy(str, s);
   }
 
   return r;
