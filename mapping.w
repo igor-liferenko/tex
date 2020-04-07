@@ -142,7 +142,7 @@ int __xstat(int vers, const char *pathname, struct stat *buf)
 }
 
 @ @c
-int __sprintf_chk(char *str, int flag, size_t strlen, const char *format, ...)
+int __sprintf_chk(char *str, int flag, size_t len, const char *format, ...)
 {
   va_list args;
   va_start(args, format);
@@ -153,7 +153,7 @@ int __sprintf_chk(char *str, int flag, size_t strlen, const char *format, ...)
     char *arg = str;
     char s[1000];
     @<Convert@>@;
-    if (strlen(s) < strlen) strcpy(str, s);
+    if (strlen(s) < len) strcpy(str, s);
   }
 
   return r;
