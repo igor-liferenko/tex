@@ -16,7 +16,3 @@ change-file:
 
 web2w/ctangle:
 	make -C web2w ctangle
-
-.PHONY: mapping
-mapping:
-	gcc -Wall -fPIC -shared -o mapping.so mapping.c -ldl
