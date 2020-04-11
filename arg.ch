@@ -4,12 +4,13 @@
 @p bool init_terminal(int argc, char **argv)
 @z
 
+See §36.
 @x
 t_open_in;
 @y
 t_open_in;
   if (argc > 1) {
-    last = loc = first;
+    last = first;
     for (int i = 1; i < argc; i++) {
       for (int k = 0; k < strlen(argv[i]); k++) {
         wchar_t wc;
@@ -20,7 +21,10 @@ t_open_in;
       if (i < argc - 1) /* this makes |last| the same as when input is done after `**' */
         buffer[last++] = ' '; /* separate args with space */
     }
-    if (loc < last) return true;
+    loc = first;
+    while (*loc == ' ') loc++;
+    if (loc < last)
+      return true;
   }
 @z
 
