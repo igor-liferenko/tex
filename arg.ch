@@ -22,7 +22,7 @@ t_open_in;
         buffer[last++] = ' '; /* separate args with space */
     }
     loc = first;
-    while (buffer[loc] == ' ') loc++;
+    while (buffer[loc] == ' ' && loc < last) loc++;
     if (loc < last)
       return true;
   }
