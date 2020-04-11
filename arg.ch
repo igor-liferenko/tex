@@ -20,7 +20,7 @@ t_open_in;
       if (i < argc - 1) /* this makes |last| the same as when input is done after `**' */
         buffer[last++] = ' '; /* separate args with space */
     }
-    return true;
+    if (loc < last) return true;
   }
 @z
 
