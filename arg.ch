@@ -16,7 +16,6 @@ t_open_in;
         wchar_t wc;
         int len = mbtowc(&wc, argv[i]+k, MB_CUR_MAX);
         buffer[last++] = xord(wc);
-        if (buffer[last-1]!=' ') last_nonblank=last;
         k += len - 1;
       }
       if (i < argc - 1) /* this is normally handled inside |input_ln| with |last_nonblank| */
