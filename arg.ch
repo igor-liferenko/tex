@@ -4,7 +4,7 @@
 @p bool init_terminal(int argc, char **argv)
 @z
 
-See §36.
+See §36. NOTE: it is assumed that last character is nonblank; buffer overfull is not checked
 @x
 t_open_in;
 @y
@@ -16,13 +16,14 @@ t_open_in;
         wchar_t wc;
         int len = mbtowc(&wc, argv[i]+k, MB_CUR_MAX);
         buffer[last++] = xord(wc);
+        if (buffer[last-1]!=' ') last_nonblank=last;
         k += len - 1;
       }
-      if (i < argc - 1) /* this makes |last| the same as when input is done after `**' */
-        buffer[last++] = ' '; /* separate args with space */
+      if (i < argc - 1) /* this is normally handled inside |input_ln| with |last_nonblank| */
+        buffer[last++] = ' ';
     }
     loc = first;
-    while (buffer[loc] == ' ' && loc < last) loc++;
+    while (loc < last && buffer[loc] == ' ') loc++;
     if (loc < last)
       return true;
   }
