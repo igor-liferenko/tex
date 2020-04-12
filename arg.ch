@@ -4,7 +4,7 @@
 @p bool init_terminal(int argc, char **argv)
 @z
 
-See §36. NOTE: it is assumed that last character is nonblank; buffer overfull is not checked
+See §36. TODO: check if buffer overfull is checked in initex.ch*
 @x
 t_open_in;
 @y
@@ -18,9 +18,9 @@ t_open_in;
         buffer[last++] = xord(wc);
         k += len - 1;
       }
-      if (i < argc - 1) /* this is normally handled inside |input_ln| with |last_nonblank| */
-        buffer[last++] = ' ';
+      buffer[last++] = ' ';
     }
+    while (last > first && buffer[last-1] == ' ') last--;
     loc = first;
     while (loc < last && buffer[loc] == ' ') loc++;
     if (loc < last)
