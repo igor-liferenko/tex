@@ -4,7 +4,7 @@
 @p bool init_terminal(int argc, char **argv)
 @z
 
-See §36. TODO: check if buffer overfull is checked in initex.ch*
+See §36.
 @x
 t_open_in;
 @y
@@ -18,12 +18,12 @@ t_open_in;
         buffer[last++] = xord(wc);
         k += len - 1;
       }
-      buffer[last++] = ' ';
+      buffer[last++] = ' '; /* separate args with space */
     }
-    while (last > first && buffer[last-1] == ' ') last--;
+    while (last > first && buffer[last-1] == ' ') last--; /* strip trailing blanks */
     loc = first;
-    while (loc < last && buffer[loc] == ' ') loc++;
-    if (loc < last)
+    while (loc < last && buffer[loc] == ' ') loc++; /* strip leading blanks */
+    if (loc < last) /* if buffer non-empty */
       return true;
   }
 @z
