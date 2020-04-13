@@ -6,7 +6,7 @@
       \if#2m%
         \if#3m%
           \if#4i%
-            cmmi#5
+            xcmmi#5
           \else
             lhm#4#5
           \fi
@@ -56,8 +56,6 @@
 
 \input plain
 
-\newfam\cyrfam % to use one-letter identifiers in CWEB
-
   \let\font\originalfont
   \let\originalfont\undefined
   \let\transformfont\undefined
@@ -71,16 +69,12 @@
     \sfcode`#2=1000
 
     \count255=256
-    \multiply\count255 by \cyrfam
     \advance\count255 by `#1
     \mathcode`#1=\count255
     \count255=256
-    \multiply\count255 by \cyrfam
     \advance\count255 by `#2
     \mathcode`#2=\count255
   }
-
-  \textfont\cyrfam=\tenit % there are no cyrillic math fonts, so use ordinary
 
   \set А а
 
