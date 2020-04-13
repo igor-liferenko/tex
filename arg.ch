@@ -18,12 +18,12 @@ t_open_in;
         buffer[last++] = xord(wc);
         k += len - 1;
       }
-      buffer[last++] = ' '; /* separate args with space */
+      buffer[last++] = ' ';
     }
-    while (last > first && buffer[last-1] == ' ') last--; /* strip trailing blanks */
+    while (last > first && buffer[last-1] == ' ') last--;
     loc = first;
-    while (loc < last && buffer[loc] == ' ') loc++; /* strip leading blanks */
-    if (loc < last) /* if buffer non-empty */
+    while (loc < last && buffer[loc] == ' ') loc++;
+    if (loc < last)
       return true;
   }
 @z
