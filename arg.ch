@@ -20,7 +20,6 @@ t_open_in;
       }
       buffer[last++] = ' ';
     }
-    while (last > first && buffer[last-1] == ' ') last--;
     loc = first;
     while (loc < last && buffer[loc] == ' ') loc++;
     if (loc < last)
