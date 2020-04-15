@@ -12,7 +12,7 @@ t_open_in;
     last = loc = first;
     for (int k = 0; k < strlen(argv[1]); k++) {
       wchar_t wc;
-      int len = mbtowc(&wc, argv[i]+k, MB_CUR_MAX);
+      int len = mbtowc(&wc, argv[1]+k, MB_CUR_MAX);
       buffer[last++] = xord(wc);
       k += len - 1;
     }
