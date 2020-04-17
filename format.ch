@@ -3,7 +3,7 @@ if (ready_already==314159) goto start_of_TEX;
 @y
 @z
 
-NOTE: if using gdb, input format explicitly via &, or nothing if `plain' (it is loaded by default)
+NOTE: `plain' format is loaded by default when run as `virtex'
 @x
 ready_already=314159;
 @y
