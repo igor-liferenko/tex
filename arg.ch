@@ -8,15 +8,15 @@
 t_open_in;
 @y
 t_open_in;
-  if (argc == 2) {
-    last = loc = first;
-    for (int k = 0, len; k < strlen(argv[1]); k += len) {
-      wchar_t wc;
-      len = mbtowc(&wc, argv[1]+k, MB_CUR_MAX);
-      buffer[last++] = xord(wc);
-    }
-    return true;
+if (argc == 2) {
+  last = loc = first;
+  for (int k = 0, len; k < strlen(argv[1]); k += len) {
+    wchar_t wc;
+    len = mbtowc(&wc, argv[1]+k, MB_CUR_MAX);
+    buffer[last++] = xord(wc);
   }
+  return true;
+}
 @z
 
 @x
