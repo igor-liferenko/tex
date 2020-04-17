@@ -10139,27 +10139,12 @@ since the error will be detected in another way when a strange file name
 isn't found.
 @^system dependencies@>
 
-@p size_t bufntombslen(ASCII_code *s, size_t len)
-{
-  size_t n = 0;
-  size_t l = 0;
-  char mb[MB_CUR_MAX];
-  while (l<len) {
-    n+=wctomb(mb, xchr[*(s+l)]);
-    l++;
-  }
-  return n;
-}
-/* "TeXfonts/" and "TeXinputs/" paths and ".fmt" must contain only ASCII characters, because
-web2w doesn't use pool-file; path in |TEX_format_default| for uniformity with the other paths
-must contain only ASCII characters. And filename in |TEX_format_default| is not supposed to be
-changed. So there is no point to ever use non-ASCII characters in |TEX_format_default|. */
-void pack_buffered_name(small_number @!n, int @!a, int @!b)
+@p void pack_buffered_name(small_number @!n, int @!a, int @!b)
 {@+int k; /*number of positions filled in |name_of_file|*/ 
 ASCII_code @!c; /*character being packed*/ 
 int @!j; /*index into |buffer| or |TEX_format_default|*/ 
-if (n+bufntombslen(buffer+a,b-a+1)+format_ext_length > file_name_size)
-  b=a-1;
+if (n+b-a+1+format_ext_length > file_name_size) 
+  b=a+file_name_size-n-1-format_ext_length;
 k=0;
 for (j=1; j<=n; j++) append_to_name(TEX_format_default[j]);
 for (j=a; j<=b; j++) append_to_name(buffer[j]);
