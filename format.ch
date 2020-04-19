@@ -13,12 +13,13 @@ if (ready_already==314159) goto start_of_TEX;
 @x
 ready_already=314159;
 @y
-strcat(strcpy(name_of_file+1, progname), ".fmt"); /* first try in current directory */
-if (w_open_in(&fmt_file)) goto found;
-strncpy(name_of_file+1, TEX_format_default+1, format_area_length);
-strcat(strcat(name_of_file+1, progname), ".fmt"); /* then try in system file area */
-if (w_open_in(&fmt_file)) {
-found:
+if (strcmp(progname, "initex") != 0 && strcmp(progname, "triptex") != 0) {
+  strncpy(name_of_file+1, TEX_format_default+1, format_area_length);
+  strcat(strcat(name_of_file+1, progname), ".fmt");
+  if (!w_open_in(&fmt_file)) {
+    wterm_ln(L"I can't find the format file!");
+    exit(0);
+  }
   if (!load_fmt_file()) {
     w_close(&fmt_file);
     exit(0);
