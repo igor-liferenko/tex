@@ -17,7 +17,7 @@ if (strcmp(progname, "initex") != 0 && strcmp(progname, "triptex") != 0) {
   strncpy(name_of_file+1, TEX_format_default+1, format_area_length);
   strcat(strcat(name_of_file+1, progname), ".fmt");
   if (!w_open_in(&fmt_file)) {
-    wterm_ln(L"I can't find the format file!");
+    write(term_out, L"I can't find the format file!");
     exit(0);
   }
   if (!load_fmt_file()) {
