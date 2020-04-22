@@ -1,9 +1,4 @@
-@x
-@h
-@y
-@h
-#define progname strrchr(argv[0], '/') == NULL ? argv[0] : strrchr(argv[0], '/') + 1
-@z
+NOTE: using &format feature is not supposed
 
 @x
   wterm_ln(L"I can't find the PLAIN format file!");
@@ -20,7 +15,8 @@ if (ready_already==314159) goto start_of_TEX;
 ready_already=314159;
 @y
 strncpy(name_of_file+1, TEX_format_default+1, format_area_length);
-strcat(strcat(name_of_file+1, progname), ".fmt");
+strcat(strcat(name_of_file+1, strrchr(argv[0], '/') == NULL ?
+  argv[0] : strrchr(argv[0], '/') + 1), ".fmt");
 if (w_open_in(&fmt_file)) {
   if (!load_fmt_file()) {
     w_close(&fmt_file);
