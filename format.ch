@@ -6,6 +6,12 @@
 @z
 
 @x
+  wterm_ln(L"I can't find the PLAIN format file!");
+@y
+  wterm(L"Don't run VIRTEX!");
+@z
+
+@x
 if (ready_already==314159) goto start_of_TEX;
 @y
 @z
@@ -13,11 +19,9 @@ if (ready_already==314159) goto start_of_TEX;
 @x
 ready_already=314159;
 @y
-if (strcmp(progname, "initex") != 0 && strcmp(progname, "triptex") != 0) {
-  strncpy(name_of_file+1, TEX_format_default+1, format_area_length);
-  strcat(strcat(name_of_file+1, progname), ".fmt");
-  if (!w_open_in(&fmt_file))
-    exit(0);
+strncpy(name_of_file+1, TEX_format_default+1, format_area_length);
+strcat(strcat(name_of_file+1, progname), ".fmt");
+if (w_open_in(&fmt_file)) {
   if (!load_fmt_file()) {
     w_close(&fmt_file);
     exit(0);
