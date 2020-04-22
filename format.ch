@@ -1,5 +1,6 @@
 NOTE: using &format feature is not supposed
 
+NOTE: also nonexistent format file is specified in path.ch
 @x
   wterm_ln(L"I can't find the PLAIN format file!");
 @y
