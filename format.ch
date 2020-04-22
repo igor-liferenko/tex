@@ -1,14 +1,3 @@
-NOTE: Using &format feature is not supposed: UTF-8 conversion is not done for it;
-command line argument can be only one (file name); error message does not correspond
-when format cannot be found.
-
-NOTE: also nonexistent format file is specified in path.ch
-@x
-  wterm_ln(L"I can't find the PLAIN format file!");
-@y
-  wterm(L"Don't run VIRTEX!");
-@z
-
 @x
 if (ready_already==314159) goto start_of_TEX;
 @y
