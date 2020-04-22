@@ -1,4 +1,6 @@
-NOTE: using &format feature is not supposed
+NOTE: Using &format feature is not supposed: UTF-8 conversion is not done for it;
+command line argument can be only one (file name); error message does not correspond
+when format cannot be found.
 
 NOTE: also nonexistent format file is specified in path.ch
 @x
