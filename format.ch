@@ -12,7 +12,7 @@ strcat(name_of_file+1, ".fmt");
 if (w_open_in(&fmt_file)) {
   if (!load_fmt_file()) {
     w_close(&fmt_file);
-    exit(0);
+    return 1;
   }
   w_close(&fmt_file);
 }
