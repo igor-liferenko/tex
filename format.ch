@@ -10,10 +10,7 @@ strncpy(name_of_file+1, TEX_format_default+1, format_area_length);
 strcat(name_of_file+1, strrchr(argv[0], '/') == NULL ? argv[0] : strrchr(argv[0], '/') + 1);
 strcat(name_of_file+1, ".fmt");
 if (w_open_in(&fmt_file)) {
-  if (!load_fmt_file()) {
-    w_close(&fmt_file);
-    return 1;
-  }
+  if (!load_fmt_file()) return 1;
   w_close(&fmt_file);
 }
 @z
