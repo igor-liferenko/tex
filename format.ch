@@ -1,3 +1,10 @@
+NOTE: remove this later
+@x
+if (ready_already==314159) goto start_of_TEX;
+@y
+if (ready_already!=0) { fwprintf(stderr, L"error: this can not be"); exit(0); }
+@z
+
 @x
 ready_already=314159;
 @y NOTE: for simplicity we assume initex.fmt and triptex.fmt never exist, and if format does not exist program behaves as without this change-file
