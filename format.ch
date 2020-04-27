@@ -6,6 +6,7 @@ if (ready_already!=0) { fwprintf(stderr, L"error: this can not be"); exit(0); }
 @z
 
 NOTE: this code was taken verbatim from @<Get the first line...@> (except that open_fmt_file is replaced with w_open_in)
+NOTE: length of progname (in bytes) must be <= file_name_size-format_area_length-4
 @x
 initialize(); /*set global variables to their starting values*/ 
 @y
@@ -22,5 +23,3 @@ if (!load_fmt_file()) {
 w_close(&fmt_file);
 #endif
 @z
-
-TODO: check size of name_of_file like in pack_buffered_name() and pack_file_name()
