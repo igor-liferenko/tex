@@ -1,11 +1,11 @@
-NOTE: remove this later
+NOTE: remove this after some time (when ensured)
 @x
 if (ready_already==314159) goto start_of_TEX;
 @y
 if (ready_already!=0) { fwprintf(stderr, L"error: this can not be"); exit(0); }
 @z
 
-NOTE: the code was taken verbatim from @<Get the first line...@> (except that open_fmt_file is replaced with w_open_in)
+NOTE: this code was taken verbatim from @<Get the first line...@> (except that open_fmt_file is replaced with w_open_in)
 @x
 initialize(); /*set global variables to their starting values*/ 
 @y
