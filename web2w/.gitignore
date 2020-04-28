@@ -10,6 +10,3 @@ ctangle.o
 ctangle
 common.c
 common.o
-cweave.c
-cweave.o
-cweave
