@@ -25791,6 +25791,7 @@ itself will get a new section number.
 @<|".dvi"|@>=@+510
 @ 
 @d str_511 "input file name"
+@<|"input file name"|@>=@+511
 @ 
 @d str_512 ".tex"
 @<|".tex"|@>=@+512
