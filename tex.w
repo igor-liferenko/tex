@@ -398,13 +398,13 @@ in production versions of \TeX.
 @^system dependencies@>
 
 @<Constants...@>=
-enum {@+@!mem_max=30000@+}; /*greatest index in \TeX's internal |mem| array;
+enum {@+@!mem_max=65534@+}; /*greatest index in \TeX's internal |mem| array;
   must be strictly less than |max_halfword|;
   must be equal to |mem_top| in \.{INITEX}, otherwise | >= mem_top|*/ 
 enum {@+@!mem_min=0@+}; /*smallest index in \TeX's internal |mem| array;
   must be |min_halfword| or more;
   must be equal to |mem_bot| in \.{INITEX}, otherwise | <= mem_bot|*/ 
-enum {@+@!buf_size=500@+}; /*maximum number of characters simultaneously present in
+enum {@+@!buf_size=2048@+}; /*maximum number of characters simultaneously present in
   current lines of open files and in control sequences between
   \.{\\csname} and \.{\\endcsname}; must not exceed |max_halfword|*/ 
 enum {@+@!error_line=72@+}; /*width of context lines on terminal error messages*/ 
@@ -414,26 +414,26 @@ enum {@+@!max_print_line=79@+}; /*width of longest text lines output; should be 
 enum {@+@!stack_size=200@+}; /*maximum number of simultaneous input sources*/ 
 enum {@+@!max_in_open=6@+}; /*maximum number of input files and error insertions that
   can be going on simultaneously*/ 
-enum {@+@!font_max=75@+}; /*maximum internal font number; must not exceed |max_quarterword|
+enum {@+@!font_max=250@+}; /*maximum internal font number; must not exceed |max_quarterword|
   and must be at most |font_base+256|*/ 
-enum {@+@!font_mem_size=20000@+}; /*number of words of |font_info| for all fonts*/ 
+enum {@+@!font_mem_size=65535@+}; /*number of words of |font_info| for all fonts*/ 
 enum {@+@!param_size=60@+}; /*maximum number of simultaneous macro parameters*/ 
-enum {@+@!nest_size=40@+}; /*maximum number of semantic levels simultaneously active*/ 
-enum {@+@!max_strings=3000@+}; /*maximum number of strings; must not exceed |max_halfword|*/ 
-enum {@+@!string_vacancies=8000@+}; /*the minimum number of characters that should be
+enum {@+@!nest_size=400@+}; /*maximum number of semantic levels simultaneously active*/ 
+enum {@+@!max_strings=30000@+}; /*maximum number of strings; must not exceed |max_halfword|*/ 
+enum {@+@!string_vacancies=75000@+}; /*the minimum number of characters that should be
   available for the user's control sequences and font names,
   after \TeX's own error messages are stored*/ 
-enum {@+@!pool_size=32000@+}; /*maximum number of characters in strings, including all
+enum {@+@!pool_size=400000@+}; /*maximum number of characters in strings, including all
   error messages and help texts, and the names of all fonts and
   control sequences; must exceed |string_vacancies| by the total
   length of \TeX's own strings, which is currently about 23000*/ 
 enum {@+@!save_size=600@+}; /*space for saving values outside of current group; must be
   at most |max_halfword|*/ 
-enum {@+@!trie_size=8000@+}; /*space for hyphenation patterns; should be larger for
+enum {@+@!trie_size=65534@+}; /*space for hyphenation patterns; should be larger for
   \.{INITEX} than it is in production versions of \TeX*/ 
-enum {@+@!trie_op_size=500@+}; /*space for ``opcodes'' in the hyphenation patterns*/ 
-enum {@+@!dvi_buf_size=800@+}; /*size of the output buffer; must be a multiple of 8*/ 
-enum {@+@!file_name_size=40@+}; /*file names shouldn't be longer than this*/ 
+enum {@+@!trie_op_size=65534@+}; /*space for ``opcodes'' in the hyphenation patterns*/ 
+enum {@+@!dvi_buf_size=8@+}; /*size of the output buffer; must be a multiple of 8*/ 
+enum {@+@!file_name_size=1024@+}; /*file names shouldn't be longer than this*/ 
 const char *@!pool_name="TeXformats:TEX.POOL                     ";
    /*string of length |file_name_size|; tells where the string pool appears*/ 
 @.TeXformats@>
@@ -451,15 +451,15 @@ emphasize this distinction.
 
 @d mem_bot	0 /*smallest index in the |mem| array dumped by \.{INITEX};
   must not be less than |mem_min|*/ 
-@d mem_top	30000 /*largest index in the |mem| array dumped by \.{INITEX};
+@d mem_top	65534 /*largest index in the |mem| array dumped by \.{INITEX};
   must be substantially larger than |mem_bot|
   and not greater than |mem_max|*/ 
 @d font_base	0 /*smallest internal font number; must not be less
   than |min_quarterword|*/ 
-@d hash_size	2100 /*maximum number of control sequences; it should be at most
+@d hash_size	15000 /*maximum number of control sequences; it should be at most
   about |(mem_max-mem_min)/(double)10|*/ 
-@d hash_prime	1777 /*a prime number equal to about 85\pct! of |hash_size|*/ 
-@d hyph_size	307 /*another prime; the number of \.{\\hyphenation} exceptions*/ 
+@d hash_prime	12721 /*a prime number equal to about 85\pct! of |hash_size|*/ 
+@d hyph_size	607 /*another prime; the number of \.{\\hyphenation} exceptions*/ 
 @^system dependencies@>
 
 @ In case somebody has inadvertently made bad settings of the ``constants,''
@@ -806,7 +806,7 @@ implement \TeX\ can open a file whose external name is specified by
 @<Glob...@>=
 uint8_t @!name_of_file0[file_name_size+1]={0}, *const @!name_of_file = @!name_of_file0-1;@;@/
    /*on some systems this may be a \&{record} variable*/ 
-uint8_t @!name_length;@/ /*this many characters are actually
+uint16_t @!name_length;@/ /*this many characters are actually
   relevant in |name_of_file| (the rest are blank)*/ 
 
 @ The \ph\ compiler with which the present version of \TeX\ was prepared has
@@ -1145,7 +1145,7 @@ we access the string pool only via macros that can easily be redefined.
 @d so(X)	X /*convert from |packed_ASCII_code| to |ASCII_code|*/ 
 
 @<Types...@>=
-typedef uint16_t pool_pointer; /*for variables that point into |str_pool|*/ 
+typedef uint32_t pool_pointer; /*for variables that point into |str_pool|*/ 
 typedef uint16_t str_number; /*for variables that point into |str_start|*/ 
 typedef uint8_t packed_ASCII_code; /*elements of |str_pool| array*/ 
 
@@ -4361,8 +4361,8 @@ typedef struct { int16_t @!mode_field;@+
 
 @<Glob...@>=
 list_state_record @!nest[nest_size+1];
-uint8_t @!nest_ptr; /*first unused location of |nest|*/ 
-uint8_t @!max_nest_stack; /*maximum of |nest_ptr| when pushing*/ 
+uint16_t @!nest_ptr; /*first unused location of |nest|*/ 
+uint16_t @!max_nest_stack; /*maximum of |nest_ptr| when pushing*/ 
 list_state_record @!cur_list; /*the ``top'' semantic state*/ 
 int16_t @!shown_mode; /*most recent mode shown by \.{\\tracingcommands}*/ 
 
@@ -8378,7 +8378,7 @@ the internal quantity to be scanned; an error will be signalled if
 @p void scan_something_internal(small_number @!level, bool @!negative)
    /*fetch an internal parameter*/ 
 {@+halfword m; /*|chr_code| part of the operand token*/ 
-uint8_t @!p; /*index into |nest|*/ 
+uint16_t @!p; /*index into |nest|*/ 
 m=cur_chr;
 switch (cur_cmd) {
 case def_code: @<Fetch a character code from some table@>@;@+break;
@@ -11910,7 +11910,7 @@ the next byte to be generated will be number |dvi_offset+dvi_ptr|.
 A byte is present in the buffer only if its number is | >= dvi_gone|.
 
 @<Types...@>=
-typedef uint16_t dvi_index; /*an index into the output buffer*/ 
+typedef uint8_t dvi_index; /*an index into the output buffer*/ 
 
 @ Some systems may find it more efficient to make |dvi_buf| a ||
 array, since output of four bytes at once may be facilitated.
@@ -18425,7 +18425,7 @@ of patterns.
 @<Declare procedures for preprocessing hyph...@>=
 quarterword new_trie_op(small_number @!d, small_number @!n, quarterword @!v)
 {@+
-int16_t h; /*trial hash location*/ 
+int32_t h; /*trial hash location*/ 
 quarterword @!u; /*trial op code*/ 
 uint16_t @!l; /*pointer to stored data*/ 
 h=abs(n+313*d+361*v+1009*cur_lang)%(trie_op_size+trie_op_size)
@@ -23211,7 +23211,7 @@ else{@+c=cur_chr;scan_optional_equals();
 
 @ @<Declare subprocedures for |prefixed_command|@>=
 void alter_prev_graf(void)
-{@+uint8_t p; /*index into |nest|*/ 
+{@+uint16_t p; /*index into |nest|*/ 
 nest[nest_ptr]=cur_list;p=nest_ptr;
 while (abs(nest[p].mode_field)!=vmode) decr(p);
 scan_optional_equals();scan_int();
