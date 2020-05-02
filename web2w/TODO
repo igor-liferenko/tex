@@ -1,1 +1,0 @@
-create utex.patch before 30.04.2020 and apply it to current web2w/tex.w - there must be no difference with ctex/tex.w

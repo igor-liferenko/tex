@@ -1,3 +1,10 @@
+!!! if need more, change type of |name_length| from uint8_t to uint16_t in tex.w !!!
+@x
+enum {@+@!file_name_size=40@+}; /*file names shouldn't be longer than this*/
+@y
+enum {@+@!file_name_size=255@+}; /*file names shouldn't be longer than this*/
+@z
+
 @x
   if ((c=='>')||(c==':')) 
 @y
