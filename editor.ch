@@ -40,10 +40,8 @@ int edit_line;
     for (pool_pointer j=ed_name_start; j<=ed_name_end; j++) {
       char mb[MB_CUR_MAX];
       int len = wctomb(mb, xchr[str_pool[j]]);
-      for (int i = 0; i < len; i++) {
-        k++;
-        ed_name[k-1] = mb[i];
-      }
+      for (int i = 0; i < len; i++)
+        ed_name[k++] = mb[i];
     }
     ed_name[k] = '\0';
 
