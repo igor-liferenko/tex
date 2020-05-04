@@ -1,5 +1,5 @@
 all: change-file web2w/ctangle
-	web2w/ctangle -bhp tex tex # if you need to disable ch-file, put `#' after constants.ch, not here
+	web2w/ctangle -bhp tex tex
 	gcc -g -Og -DINIT -o initex tex.c -lm
 	@echo 'plain \input offset \dump' | ./initex >/dev/null; mv plain.fmt TeXformats/
 	@echo 'тех \input offset \dump' | ./initex >/dev/null; mv тех.fmt TeXformats/
