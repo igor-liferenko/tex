@@ -7,7 +7,7 @@ all: change-file web2w/ctangle
 
 SHELL=/bin/bash
 triptex: web2w/ctangle
-	tie -bhp -c triptex.ch trip/constants.ch $(CHF)
+	tie -bhp -c triptex.ch tex.w trip/constants.ch $(CHF)
 	web2w/ctangle -bhp tex.w triptex.ch triptex.c
 	gcc -DINIT -DSTAT triptex.c -lm -o trip/triptex
 
