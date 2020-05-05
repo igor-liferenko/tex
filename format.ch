@@ -1,5 +1,4 @@
 NOTE: this code was taken verbatim from @<Get the first line...@> (except that open_fmt_file is replaced with w_open_in)
-NOTE: length of progname (in bytes) must be <= file_name_size-format_area_length-4
 @x
 initialize(); /*set global variables to their starting values*/ 
 @y
