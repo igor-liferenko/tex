@@ -47,7 +47,7 @@ int edit_line;
 
     char cmd[500];
     int r;
-    if (strstr(ed_name, "TeXinputs/") != NULL)
+    if (strstr(ed_name, "TeXinputs/"))
       r = snprintf(cmd, sizeof cmd, "em %s%s %d", str(TEX_area), ed_name+strlen("TeXinputs/"), line);
         /* restore what was changed in output.ch */
     else
