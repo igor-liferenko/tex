@@ -10,9 +10,9 @@ triptex: web2w/ctangle
 	web2w/ctangle -bhp tex tex
 	gcc -DINIT -DSTAT tex.c -lm -o trip/triptex
 
-CHF=path.ch interrupt.ch arg.ch output.ch editor.ch format.ch time.ch banner.ch exit.ch
 change-file:
 	tie -bhp -c tex.ch tex.w constants.ch $(CHF)
+CHF=path.ch interrupt.ch arg.ch output.ch editor.ch format.ch time.ch banner.ch exit.ch
 
 web2w/ctangle:
 	make -C web2w ctangle

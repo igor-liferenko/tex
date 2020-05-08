@@ -804,7 +804,7 @@ implement \TeX\ can open a file whose external name is specified by
 @^system dependencies@>
 
 @<Glob...@>=
-char @!name_of_file0[file_name_size+1]={0}, *const @!name_of_file = @!name_of_file0-1;@;@/
+uint8_t @!name_of_file0[file_name_size+1]={0}, *const @!name_of_file = @!name_of_file0-1;@;@/
    /*on some systems this may be a \&{record} variable*/ 
 uint8_t @!name_length;@/ /*this many characters are actually
   relevant in |name_of_file| (the rest are blank)*/ 
