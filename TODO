@@ -1,5 +1,3 @@
-Move tex repo to web2c repo and this repo to tex repo (with git history).
-
 unpack web2w.zip from ctan to separate directory, git init, git add, unpack web2w.zip from
 https://w3-o.cs.hm.edu/users/ruckert/public_html/web2w/ and see git diff, and see if my web2w/
 is the same as second web2w.zip
