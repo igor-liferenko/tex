@@ -1,7 +1,3 @@
-    make -C web2w
-    mv web2w/tex.w ctex.w
-    cp tex.w utex.w
-    diff -u ctex.w utex.w >utex.patch
-    rm ctex.w utex.w
-Now utex.patch cat be applied to ctex.w, generated using printable.ch
-"mapping" file is used with it.
+# UTF-8 changes to original tex.w can be seen as follows:
+make -C web2w
+diff -u web2w/tex.w tex.w
