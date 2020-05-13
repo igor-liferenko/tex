@@ -1,5 +1,5 @@
 all: ctangle
-	./ctangle -bhp web2w printable
+	./ctangle web2w printable >/dev/null
 	flex -o web.lex.c web.l
 	bison --warnings=none -d -v pascal.y
 	gcc -o web2w web2w.c web.lex.c pascal.tab.c
@@ -7,8 +7,8 @@ all: ctangle
 	patch tex.w ctex.patch
 
 ctangle:
-	/var/local/bin/ctangle -bhp common.w /home/user/cweb-git/utf8/comm-show.ch
+	ctangle common.w >/dev/null
 	gcc -w -c common.c
-	/var/local/bin/ctangle -bhp ctangle.w /home/user/cweb-git/utf8/ctang-show.ch
+	ctangle ctangle.w >/dev/null
 	gcc -w -c ctangle.c
 	gcc -w -o ctangle ctangle.o common.o
