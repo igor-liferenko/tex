@@ -6,12 +6,12 @@ all: web2w/ctangle change-file
 	gcc -g -Og -o virtex tex.c -lm
 
 triptex: web2w/ctangle
-	if ! tie -c tex.ch tex.w trip/constants.ch $(CHF) >tie.out; then cat tie.out; exit 1; fi
+	ctie -c tex.ch tex.w trip/constants.ch $(CHF) >/dev/null
 	web2w/ctangle -bhp tex tex
 	gcc -DINIT -DSTAT tex.c -lm -o trip/triptex
 
 change-file:
-	if ! tie -c tex.ch tex.w constants.ch $(CHF) >tie.out; then cat tie.out; exit 1; fi
+	ctie -c tex.ch tex.w constants.ch $(CHF) >/dev/null
 CHF=path.ch interrupt.ch arg.ch output.ch editor.ch format.ch time.ch banner.ch exit.ch
 
 web2w/ctangle:
