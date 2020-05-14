@@ -1149,7 +1149,7 @@ a status of 0 if and only if only harmless messages were printed.
 
 @c
 int wrap_up() {
-  putchar('\n');
+  if (show_happiness) putchar('\n');
   if (show_stats)
     print_stats(); /* print statistics about memory usage */
   @<Print the job |history|@>;
