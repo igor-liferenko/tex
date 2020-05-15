@@ -10091,7 +10091,9 @@ allows both lowercase and uppercase letters in the file name.
     if (k <= file_name_size) name_of_file[k] = mb[i];
     else if (k - i <= file_name_size)
       for (int x = k - i; x <= file_name_size; x++)
-        name_of_file[x] = '\0';
+        name_of_file[x] = '\0'; /* fill with zeros all the bytes of this multibyte character that
+        did not fit in available space (it is used as indicator where previous complete multibyte
+        character ended to roll back |name_length| to that position in |pack_file_name|) */
   } 
 }
 
