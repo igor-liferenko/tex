@@ -6,7 +6,7 @@ using the new mapping)
 
 Recent version of glibc must be used (otherwise you may get "Segmentation fault" errors).
 
-It is assumed that this repo is in /home/user.
+It is assumed that this repo is in /home/user/.
 
 For MetaPost add 'TEX = tex' to texmf.cnf
 
