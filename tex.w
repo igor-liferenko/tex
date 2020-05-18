@@ -10089,11 +10089,11 @@ allows both lowercase and uppercase letters in the file name.
   for (int i = 0; i < len; i++) {
     incr(k);
     if (k <= file_name_size) name_of_file[k] = mb[i];
-    else if (k - i <= file_name_size)
-      for (int x = k - i; x <= file_name_size; x++)
-        name_of_file[x] = '\0'; /* fill with zeros all the bytes of this multibyte character that
-        did not fit in available space (it is used as indicator where previous complete multibyte
-        character ended to roll back |name_length| to that position in |pack_file_name|) */
+    else for (int x = k - i; x <= file_name_size; x++)
+        name_of_file[x] = '\0'; /* if |name_of_file| ended in the midst of a multibyte character,
+          set to zero the bytes of the multibyte character which were appended so far; using the
+          zero bytes, in |pack_file_name| |name_length| will be rolled back to the end of previous
+          (complete) multibyte character */
   } 
 }
 
