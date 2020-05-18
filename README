@@ -1,3 +1,5 @@
+See http://mruckert.userweb.mwn.de/hint/web2w.html
+
 UTF-8 changes can be seen as follows:
   make -C web2w
   diff -u web2w/tex.w tex.w
@@ -10,3 +12,6 @@ It is assumed that this repo is in /home/user/.
 
 For MetaPost add 'TEX = tex' to texmf.cnf
 
+To use debugger, run "gdb plain"
+
+To run TeX, use "exec /home/user/tex/plain"
