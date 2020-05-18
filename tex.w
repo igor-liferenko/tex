@@ -10084,17 +10084,13 @@ allows both lowercase and uppercase letters in the file name.
 @^system dependencies@>
 
 @d append_to_name(X)	{@+c=X;
+  if (k >= file_name_size) continue;
   char mb[MB_CUR_MAX];
   int len = wctomb(mb, xchr[c]);
-  for (int i = 0; i < len; i++) {
-    incr(k);
-    if (k <= file_name_size) name_of_file[k] = mb[i];
-    else for (int x = k - i; x <= file_name_size; x++)
-        name_of_file[x] = '\0'; /* if |name_of_file| ended in the midst of a multibyte character,
-          set to zero the bytes of the multibyte character which were appended so far; using the
-          zero bytes, in |pack_file_name| |name_length| will be rolled back to the end of previous
-          (complete) multibyte character */
-  } 
+  if (k+len <= file_name_size)
+    for (int i = 0; i < len; i++) name_of_file[++k] = mb[i];
+  else
+    k = file_name_size;
 }
 
 @p void pack_file_name(str_number @!n, str_number @!a, str_number @!e)
@@ -10106,7 +10102,6 @@ for (j=str_start[a]; j<=str_start[a+1]-1; j++) append_to_name(so(str_pool[j]));
 for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
 for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
 if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
-while (name_length != 0 && name_of_file[name_length] == '\0') name_length--;
 name_of_file[name_length+1]=0;
 } 
 
