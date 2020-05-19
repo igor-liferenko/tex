@@ -10084,13 +10084,14 @@ allows both lowercase and uppercase letters in the file name.
 @^system dependencies@>
 
 @d append_to_name(X)	{@+c=X;
-  if (k >= file_name_size) continue;
-  char mb[MB_CUR_MAX];
-  int len = wctomb(mb, xchr[c]);
-  if (k+len <= file_name_size)
-    for (int i = 0; i < len; i++) name_of_file[++k] = mb[i];
-  else
-    k = file_name_size;
+  if (k >= 0 && k < file_name_size) {
+    char mb[MB_CUR_MAX];
+    int len = wctomb(mb, xchr[c]);
+    if (k+len <= file_name_size)
+      for (int i = 0; i < len; i++) name_of_file[++k] = mb[i];
+    else
+      k = -(k + 1);
+  }
 }
 
 @p void pack_file_name(str_number @!n, str_number @!a, str_number @!e)
@@ -10101,6 +10102,7 @@ k=0;
 for (j=str_start[a]; j<=str_start[a+1]-1; j++) append_to_name(so(str_pool[j]));
 for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
 for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
+if (k < 0) k = -k;
 if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
 name_of_file[name_length+1]=0;
 } 
