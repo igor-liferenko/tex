@@ -10084,13 +10084,13 @@ allows both lowercase and uppercase letters in the file name.
 @^system dependencies@>
 
 @d append_to_name(X)	{@+c=X;
-  if (k >= 0 && k < file_name_size) {
+  if (k >= 0) {
     char mb[MB_CUR_MAX];
     int len = wctomb(mb, xchr[c]);
     if (k+len <= file_name_size)
       for (int i = 0; i < len; i++) name_of_file[++k] = mb[i];
     else
-      k = -(k + 1);
+      k = -k;
   }
 }
 
