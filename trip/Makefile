@@ -12,6 +12,7 @@ all:
 	@diff tex/tripos.tex tripos.tex
 	@diff tex/8terminal.tex 8terminal.tex
 	@sed -i -f triplog.sed trip.log
+	@#these perl commands help to avoid regenerating tex.w without printable.ch
 	@perl -i -pe 'BEGIN{$$x=`grep 0x80 ../mapping`;$$x=~s/.*\x27(.*)\x27;\n/$$1/}s/$$x/^^80/ if$$x' trip.log
 	@perl -i -pe 'BEGIN{$$x=`grep 0x82 ../mapping`;$$x=~s/.*\x27(.*)\x27;\n/$$1/}s/$$x/^^82/ if$$x' trip.log
 	@perl -i -pe 'BEGIN{$$x=`grep 0x83 ../mapping`;$$x=~s/.*\x27(.*)\x27;\n/$$1/}s/$$x/^^83/ if$$x' trip.log
