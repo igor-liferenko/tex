@@ -1,151 +1,117 @@
-  \catcode`\{=1
-  \catcode`\}=2
-  \catcode`\#=6
-  \def\transformfont#1#2#3#4#5 {%
-    \if#1c%
-      \if#2m%
-        \if#3m%
-          \if#4i%
-            xcmmi#5
+\catcode`\{=1
+\catcode`\}=2
+\catcode`\#=6
+\def\transformfont#1#2#3#4#5 {%
+  \if#1c%
+    \if#2m%
+      \if#3m%
+        \if#4i%
+          xcmmi#5
+        \else
+          lhm#4#5
+        \fi
+      \else
+        \if#3b%
+          \if#4s%
+            cmbs#5
           \else
-            lhm#4#5
+            lhb#4#5
           \fi
         \else
-          \if#3b%
-            \if#4s%
-              cmbs#5
+          \if#3s%
+            \if#4y%
+              cmsy#5
             \else
-              lhb#4#5
+              lhs#4#5
             \fi
           \else
-            \if#3s%
-              \if#4y%
-                cmsy#5
+            \if#3e%
+              \if#4x%
+                cmex#5
               \else
-                lhs#4#5
+                lhe#4#5
               \fi
             \else
-              \if#3e%
-                \if#4x%
-                  cmex#5
+              \if#3t%
+                \if#4e%
+                  cmte#5
                 \else
-                  lhe#4#5
+                  lht#4#5
                 \fi
               \else
-                \if#3t%
-                  \if#4e%
-                    cmte#5
-                  \else
-                    lht#4#5
-                  \fi
-                \else
-                  lh#3#4#5
-                \fi
+                lh#3#4#5
               \fi
             \fi
           \fi
         \fi
-      \else
-        c#2#3#4#5
       \fi
     \else
-      #1#2#3#4#5
-    \fi}
-  \let\originalfont\font
-  \def\font#1=#2 {\originalfont#1=\transformfont#2 }
+      c#2#3#4#5
+    \fi
+  \else
+    #1#2#3#4#5
+  \fi}
+\let\originalfont\font
+\def\font#1=#2 {\originalfont#1=\transformfont#2 }
 
 \input plain
 
-  \let\font\originalfont
-  \let\originalfont\undefined
-  \let\transformfont\undefined
+\let\font\originalfont
+\let\originalfont\undefined
+\let\transformfont\undefined
 
-  \def\set #1 #2 {
-    \lccode`#1=`#2
-    \lccode`#2=`#2
-    \uccode`#1=`#1
-    \uccode`#2=`#1
-    \sfcode`#1=999
-    \sfcode`#2=1000
+\def\set #1 #2 {
+  \lccode`#1=`#2
+  \lccode`#2=`#2
+  \uccode`#1=`#1
+  \uccode`#2=`#1
+  \sfcode`#1=999
+  \sfcode`#2=1000
 
-    \count255=`#1
-    \advance\count255 by "7100
-    \mathcode`#1=\count255
-    \count255=`#2
-    \advance\count255 by "7100
-    \mathcode`#2=\count255
-  }
+  \count255=`#1
+  \advance\count255 by "7100
+  \mathcode`#1=\count255
+  \count255=`#2
+  \advance\count255 by "7100
+  \mathcode`#2=\count255
+}
 
-  \set А а
+\set А а
+\set Б б
+\set В в
+\set Г г
+\set Д д
+\set Е е
+\set Ё ё
+\set Ж ж
+\set З з
+\set И и
+\set Й й
+\set К к
+\set Л л
+\set М м
+\set Н н
+\set О о
+\set П п
+\set Р р
+\set С с
+\set Т т
+\set У у
+\set Ф ф
+\set Х х
+\set Ц ц
+\set Ч ч
+\set Ш ш
+\set Щ щ
+\set Ъ ъ
+\set Ы ы
+\set Ь ь
+\set Э э
+\set Ю ю
+\set Я я
 
-  \set Б б
+\let\set=\undefined
 
-  \set В в
-
-  \set Г г
-
-  \set Д д
-
-  \set Е е
-
-  \set Ё ё
-
-  \set Ж ж
-
-  \set З з
-
-  \set И и
-
-  \set Й й
-
-  \set К к
-
-  \set Л л
-
-  \set М м
-
-  \set Н н
-
-  \set О о
-
-  \set П п
-
-  \set Р р
-
-  \set С с
-
-  \set Т т
-
-  \set У у
-
-  \set Ф ф
-
-  \set Х х
-
-  \set Ц ц
-
-  \set Ч ч
-
-  \set Ш ш
-
-  \set Щ щ
-
-  \set Ъ ъ
-
-  \set Ы ы
-
-  \set Ь ь
-
-  \set Э э
-
-  \set Ю ю
-
-  \set Я я
-
-  \let\set=\undefined
-
-  % Hyphenation:
-
-  \righthyphenmin=2
-  \language1
-  \input ruhyphal
+\righthyphenmin=2
+\language1
+\input ruhyphal
