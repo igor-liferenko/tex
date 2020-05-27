@@ -5,8 +5,3 @@ web.lex.c
 web2w
 web2w.c
 web2w.h
-ctangle.c
-ctangle.o
-ctangle
-common.c
-common.o
