@@ -6,10 +6,10 @@ all: change-file
 	gcc -g -Og -o virtex tex.c -lm
 
 triptex:
-	ctie -c tex.ch tex.w trip/constants.ch $(CHF) >/dev/null
+	tie -c tex.ch tex.w trip/constants.ch $(CHF) >/dev/null
 	/usr/bin/ctangle -bhp tex tex
 	gcc -DINIT -DSTAT tex.c -lm -o trip/triptex
 
 change-file:
-	ctie -c tex.ch tex.w constants.ch $(CHF) >/dev/null
+	tie -c tex.ch tex.w constants.ch $(CHF) >/dev/null
 CHF=path.ch interrupt.ch arg.ch output.ch editor.ch format.ch time.ch banner.ch exit.ch
