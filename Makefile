@@ -12,4 +12,4 @@ triptex:
 
 change-file:
 	tie -c tex.ch tex.w constants.ch $(CHF) >/dev/null
-CHF=path.ch interrupt.ch arg.ch output.ch editor.ch format.ch time.ch banner.ch exit.ch
+CHF=path.ch interrupt.ch arg.ch output.ch editor.ch format.ch time.ch banner.ch exit.ch special.ch
