@@ -6,8 +6,8 @@ else{@+dvi_out(xxx4);dvi_four(cur_length);
   } 
 for (k=str_start[str_ptr]; k<=pool_ptr-1; k++) dvi_out(so(str_pool[k]));
 @y  
-int cur_length_mb = 0;
 char mb[MB_CUR_MAX];
+int cur_length_mb = 0;
 for (k=str_start[str_ptr]; k<=pool_ptr-1; k++)
   cur_length_mb += wctomb(mb, xchr[str_pool[k]]);
 if (cur_length_mb < 256) 
