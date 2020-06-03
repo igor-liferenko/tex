@@ -17,7 +17,7 @@ for (k=str_start[str_ptr]; k<=pool_ptr-1; k++) dvi_out(so(str_pool[k]));
 int cur_length_mb = 0;
 char mb[MB_CUR_MAX];
 for (k=str_start[str_ptr]; k<=pool_ptr-1; k++)
-  cur_length_mb = wctomb(mb, xchr[str_pool[k]]);
+  cur_length_mb += wctomb(mb, xchr[str_pool[k]]);
 if (cur_length_mb < 256) 
   {@+dvi_out(xxx1);dvi_out(cur_length_mb);
   } 
