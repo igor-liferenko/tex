@@ -740,7 +740,7 @@ right of these assignment statements to |chr(i)|.
 @^system dependencies@>
 
 @<Set init...@>=
-for (int i = 128; i < 256; i++) xchr[i] = L' ';
+for (int i = 128; i < 256; i++) xchr[i] = L'\u007F';
   /* this is used in |xord| function (also see next section) */
 
 @ The following system-independent code makes the |xord| array contain a
