@@ -6,14 +6,6 @@ else{@+dvi_out(xxx4);dvi_four(cur_length);
   } 
 for (k=str_start[str_ptr]; k<=pool_ptr-1; k++) dvi_out(so(str_pool[k]));
 @y  
-#ifdef INIT
-if (cur_length < 256) 
-  {@+dvi_out(xxx1);dvi_out(cur_length);
-  } 
-else{@+dvi_out(xxx4);dvi_four(cur_length);
-  } 
-for (k=str_start[str_ptr]; k<=pool_ptr-1; k++) dvi_out(so(str_pool[k]));
-#else
 int cur_length_mb = 0;
 char mb[MB_CUR_MAX];
 for (k=str_start[str_ptr]; k<=pool_ptr-1; k++)
@@ -27,5 +19,4 @@ for (k=str_start[str_ptr]; k<=pool_ptr-1; k++) {
   int len = wctomb(mb, xchr[str_pool[k]]);
   for (int i = 0; i < len; i++) dvi_out(mb[i]);
 }
-#endif
 @z
