@@ -1,4 +1,4 @@
-all: ctangle
+all:
 	/usr/bin/ctangle -bhp web2w printable
 	flex -o web.lex.c web.l
 	bison --warnings=none -d -v pascal.y
