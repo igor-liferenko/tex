@@ -740,8 +740,9 @@ right of these assignment statements to |chr(i)|.
 @^system dependencies@>
 
 @<Set init...@>=
-for (int i = 128; i < 256; i++) xchr[i] = L'\177';
-  /* this is used in |xord| function (also see next section) */
+for (i=0; i<=037; i++) xchr[i] = L' ';
+for (i=0177; i<=0377; i++) xchr[i] = L' ';
+@i mapping
 
 @ The following system-independent code makes the |xord| array contain a
 suitable inverse to the information in |xchr|. Note that if |xchr[i]==xchr[j]|
@@ -750,7 +751,6 @@ where |i < j < 0177|, the value of |xord[xchr[i]]| will turn out to be
 codes below 040 in case there is a coincidence.
 
 @<Set init...@>=
-@i mapping
 
 @* Input and output.
 The bane of portability is the fact that different operating systems treat
