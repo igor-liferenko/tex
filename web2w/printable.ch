@@ -11,8 +11,7 @@ This condition is taken from \.{tex.web}:
   (k < ' ')||(k > '~')
 @y
 @<process the command line@>=
-wchar_t xchr[256];
-for (int i = 128; i < 256; i++) xchr[i] = 0;
+wchar_t xchr[256] = {0};
 @i ../mapping
 @ @<Character |k| cannot be printed@>=
   (k < ' ')||(k == 127)||(k >= 128 && !xchr[k])
