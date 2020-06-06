@@ -583,21 +583,8 @@ that are analogous to \PASCAL's |ord| and |chr| functions.
 @<Glob...@>=
 wchar_t @!xchr[256];
    /*specifies conversion of output characters*/ 
-uint8_t xord(wchar_t wc)
+@<xord@>@;
    /*specifies conversion of input characters*/
-{
-  char mb[MB_CUR_MAX];
-  if (wctomb(mb, wc) == 1) {
-    if (*mb < ' ') return invalid_code;
-    return (uint8_t) *mb;
-  }
-
-  int z;
-  for (z = 0x80; z <= 0xff; z++)
-    if (xchr[z] == wc)
-      return (uint8_t) z;
-  return invalid_code;
-}
 
 @ Since we are assuming that our \PASCAL\ system is able to read and
 write the visible characters of standard ASCII (although not
@@ -750,7 +737,14 @@ where |i < j < 0177|, the value of |xord[xchr[i]]| will turn out to be
 |j| or more; hence, standard ASCII code numbers will be used instead of
 codes below 040 in case there is a coincidence.
 
-@<Set init...@>=
+@<xord@>=
+uint8_t xord(wchar_t wc)
+{
+  int i;
+  for (i=0176; i>=0; i--) if (xchr[i] == wc) return (uint8_t) i;
+  for (i=0200; i<=0377; i++) if (xchr[i] == wc) return (uint8_t) i;
+  return invalid_code;
+}
 
 @* Input and output.
 The bane of portability is the fact that different operating systems treat
