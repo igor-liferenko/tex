@@ -14,5 +14,5 @@ This condition is taken from \.{tex.web}:
 wchar_t xchr[256] = {0};
 @i ../mapping
 @ @<Character |k| cannot be printed@>=
-  (k < ' ')||(k == 127)||(k >= 128 && !xchr[k])
+  ((k < ' ')||(k > '~'))&&!xchr[k]
 @z
