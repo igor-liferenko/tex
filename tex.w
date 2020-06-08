@@ -583,7 +583,8 @@ that are analogous to \PASCAL's |ord| and |chr| functions.
 @<Glob...@>=
 wchar_t @!xchr[256];
    /*specifies conversion of output characters*/ 
-uint8_t xord(wchar_t wc) {
+uint8_t xord(wchar_t wc)
+{
   int i;
   @<specify conversion of input characters@>
 }
