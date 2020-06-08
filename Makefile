@@ -1,5 +1,5 @@
 all: change-file
-	CWEBINPUTS=.:$$CWEBINPUTS /usr/bin/ctangle -bhp tex tex
+	CWEBINPUTS=. /usr/bin/ctangle -bhp tex tex
 	gcc -g -Og -DINIT -o initex tex.c -lm
 	@echo 'plain \input offset \dump' | ./initex >/dev/null; mv plain.fmt TeXformats/
 	@echo 'тех \input offset \dump' | ./initex >/dev/null; mv тех.fmt TeXformats/
@@ -7,7 +7,7 @@ all: change-file
 
 triptex:
 	tie -c tex.ch tex.w trip/constants.ch $(CHF) >/dev/null
-	CWEBINPUTS=.:$$CWEBINPUTS /usr/bin/ctangle -bhp tex tex
+	CWEBINPUTS=. /usr/bin/ctangle -bhp tex tex
 	gcc -DINIT -DSTAT tex.c -lm -o trip/triptex
 
 change-file:

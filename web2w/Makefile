@@ -1,5 +1,5 @@
 all:
-	CWEBINPUTS=.:$$CWEBINPUTS /usr/bin/ctangle -bhp web2w printable
+	CWEBINPUTS=. /usr/bin/ctangle -bhp web2w printable
 	flex -o web.lex.c web.l
 	bison --warnings=none -d -v pascal.y
 	gcc -o web2w web2w.c web.lex.c pascal.tab.c
