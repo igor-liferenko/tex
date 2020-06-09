@@ -381,7 +381,8 @@ invalid UTF-8 sequence is considered as end of file
 
 convert file name from internal encoding to UTF-8
 freeze the value of k if the next multibyte sequence does not fit into the buffer
-
+it is ok, because value of k is irrelevant in original anyway if buffer size is
+depassed, as file_name_size is used instead of it
 < @d append_to_name(X)	{@+c=X;incr(k);
 <   if (k <= file_name_size) name_of_file[k]=xchr[c];
 <   } 
