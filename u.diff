@@ -6,6 +6,7 @@ in §20 of tex.web it is said:
 The TEX processor converts between ASCII code and the user’s external character set by means of
 arrays xord and xchr that are analogous to Pascal’s ord and chr functions.
 make xord more analogous to ord by making it a function.
+array cannot be used, because array cannot be indexed by 32-bit value
 xchr array must be before xord function because xchr array is used in xord function
 < ASCII_code @!xord[256];
 <    /*specifies conversion of input characters*/ 
@@ -218,8 +219,7 @@ level, not at C level, due to design of web2w which does not use pool file
 > for (i=0177; i<=0377; i++) xchr[i] = L' ';
 > @i mapping
 
-xord function works analogously to xord array. it requires more processing, though,
-but it is unavoidable, because array cannot be indexed by 32-bit value
+xord function works analogously to xord array.
 < @<Set init...@>=
 < for (i=first_text_char; i<=last_text_char; i++) xord[chr(i)]=invalid_code;
 < for (i=0200; i<=0377; i++) xord[xchr[i]]=i;
