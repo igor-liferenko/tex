@@ -525,3 +525,19 @@ redefine it for UTF-8 because in other places it is used for text output
 < case 13: {@+fscanf(term_in.f," %d",&l);print_cmd_chr(n, l);
 ---
 > case 13: {@+fwscanf(term_in.f,L" %d",&l);print_cmd_chr(n, l);
+
+-----------------------------------
+
+Here is how to create site-local version of TeX which works with
+extended character set from Appendix C of TeXbook:
+
+git clone git://github.com/igor-liferenko/tex
+cd tex/
+make -C web2w
+diff web2w/tex.w tex.w >u.diff
+Replace file "mapping" with this:
+make -C web2w
+patch web2w/tex.w u.diff -o tex.w
+rm web2w/tex.w u.diff
+make -C trip # check that everything is OK
+
