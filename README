@@ -6,6 +6,8 @@ UTF-8 changes can be seen as follows:
 (if you need a new mapping, regenerate tex.w using these changes on web2w/tex.w, obtained
 using the new mapping)
 
+To build, run 'make tex'
+
 Recent version of glibc must be used (otherwise you may get "Segmentation fault" errors).
 
 It is assumed that this repo is in /home/user/.
