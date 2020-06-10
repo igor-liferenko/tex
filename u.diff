@@ -319,10 +319,9 @@ define functions for handling text files
 > #define a_reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
 >                                  (file).f!=NULL?a_get(file):0)@]
 
-1457,1458c1420,1421
+invalid UTF-8 sequence is considered as end of file
 < #define eof(file)    @[feof((file).f)@]
 > #define eof(file)    @[(feof((file).f)||ferror((file).f))@]
-invalid UTF-8 sequence is considered as end of file
 
 < #define eoln(file)    @[((file).d=='\n'||eof(file))@]
 ---
@@ -541,3 +540,4 @@ patch web2w/tex.w u.diff -o tex.w
 rm web2w/tex.w u.diff
 make -C trip # check that everything is OK
 
+Add here contents of printable.ch
