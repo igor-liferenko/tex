@@ -1,3 +1,5 @@
+Condition from §49 of tex.web cannot be changed in tex.w - it must be changed in web2w.
+
 @x
   else wput(k);
 @y
