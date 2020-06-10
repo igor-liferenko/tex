@@ -16,13 +16,13 @@ day=4; /*fourth day of the month*/
 month=7; /*seventh month of the year*/ 
 year=1776; /*Anno Domini*/ 
 @y
-{ time_t clock = time(NULL);
-  struct tm *time = localtime(&clock);
+{ time_t timestamp = time(NULL);
+  struct tm *tm = localtime(&timestamp);
 
-  int_par(time_code) = time->tm_hour * 60 + time->tm_min;
-  day = time->tm_mday;
-  month = time->tm_mon + 1;
-  year = time->tm_year + 1900;
+  int_par(time_code) = tm->tm_hour * 60 + tm->tm_min;
+  day = tm->tm_mday;
+  month = tm->tm_mon + 1;
+  year = tm->tm_year + 1900;
 @z
 
 @x
