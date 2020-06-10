@@ -210,8 +210,7 @@ xchr array must be before xord function because xchr array is used in xord funct
 > xchr[0175]= L'}' ;
 > xchr[0176]= L'~' ;@/
 
-do mapping here directly because printable characters are integrated into tex.w at ctangle
-level, not at C level, due to design of web2w which does not use pool file
+"mapping" must be used here because it is used in printable.ch
 < for (i=0; i<=037; i++) xchr[i]= ' ' ;
 < for (i=0177; i<=0377; i++) xchr[i]= ' ' ;
 ---
