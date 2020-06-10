@@ -1,4 +1,4 @@
-use headers for automatic conversion of input and output to and from UTF-8
+necessary headers
 > #include <wchar.h>
 > #include <locale.h>
 
@@ -6,16 +6,18 @@ in §20 of tex.web it is said:
 The TEX processor converts between ASCII code and the user’s external character set by means of
 arrays xord and xchr that are analogous to Pascal’s ord and chr functions.
 make xord more analogous to ord by making it a function.
-array cannot be used, because array cannot be indexed by 32-bit value
-xchr array must be before xord function because xchr array is used in xord function
+Array cannot be used, because array cannot be indexed by 32-bit value.
+Change
 < ASCII_code @!xord[256];
-<    /*specifies conversion of input characters*/ 
+<    /*specifies conversion of input characters*/
+to
+> uint8_t xord(wchar_t wc)
+>    { @<specifies conversion of input characters@> }
+and put it after declaration of xchr array (because xchr is used in xord)
+
 < uint8_t @!xchr[256];
 ---
 > wchar_t @!xchr[256];
-585a586,587
-> uint8_t xord(wchar_t wc)
->    { @<specifies conversion of input characters@> }
 
 597,691c599,693
 < xchr[040]= ' ' ;
