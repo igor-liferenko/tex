@@ -584,7 +584,7 @@ that are analogous to \PASCAL's |ord| and |chr| functions.
 wchar_t @!xchr[256];
    /*specifies conversion of output characters*/ 
 uint8_t xord(wchar_t wc)
-   { int i; @<specifies conversion of input characters@> }
+   { @<specifies conversion of input characters@> }
 
 @ Since we are assuming that our \PASCAL\ system is able to read and
 write the visible characters of standard ASCII (although not
@@ -738,8 +738,8 @@ where |i < j < 0177|, the value of |xord[xchr[i]]| will turn out to be
 codes below 040 in case there is a coincidence.
 
 @<spec...@>=
-for (i=0176; i>=0; i--) if (xchr[i] == wc) return i;
-for (i=0200; i<=0377; i++) if (xchr[i] == wc) return i;
+for (int i=0176; i>=0; i--) if (xchr[i] == wc) return i;
+for (int i=0200; i<=0377; i++) if (xchr[i] == wc) return i;
 return invalid_code;
 
 @* Input and output.

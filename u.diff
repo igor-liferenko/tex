@@ -15,7 +15,7 @@ xchr array must be before xord function because xchr array is used in xord funct
 > wchar_t @!xchr[256];
 585a586,587
 > uint8_t xord(wchar_t wc)
->    { int i; @<specifies conversion of input characters@> }
+>    { @<specifies conversion of input characters@> }
 
 597,691c599,693
 < xchr[040]= ' ' ;
@@ -226,8 +226,8 @@ xord function works analogously to xord array.
 < for (i=0; i<=0176; i++) xord[xchr[i]]=i;
 ---
 > @<spec...@>=
-> for (i=0176; i>=0; i--) if (xchr[i] == wc) return i;
-> for (i=0200; i<=0377; i++) if (xchr[i] == wc) return i;
+> for (int i=0176; i>=0; i--) if (xchr[i] == wc) return i;
+> for (int i=0200; i<=0377; i++) if (xchr[i] == wc) return i;
 > return invalid_code;
 
 778c781
