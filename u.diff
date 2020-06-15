@@ -406,8 +406,10 @@ in pack_buffered_name while calculation of excess characters
 to be dropped. But I do not use `&'-feature (except that it is used in TRIP test,
 where it is in ASCII).
 
-Don't use "xord" - TEX_format_default is in ASCII,
-so no conversion needs to be done.
+TEX_format_default must be in ascii (i.e., of "char" type), in order to leave the code
+which works with it unchanged (ascii is subset of UTF-8).
+And as TEX_format_default is of "char" type, we can't use "xord" with it.
+But this is not necessary, because no conversion needs to be done (internal encoding is ascii).
 < for (j=1; j<=n; j++) append_to_name(xord[TEX_format_default[j]]);
 ---
 > for (j=1; j<=n; j++) append_to_name(TEX_format_default[j]);
