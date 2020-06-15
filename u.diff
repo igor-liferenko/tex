@@ -401,9 +401,13 @@ depassed, as file_name_size is used instead of it
 unfreeze the value of k
 > if (k < 0) k = -k;
 
-I did this, but decided to remove it to keep number of changes to the minimum.
-This feature is not used in practice.
-This is only used in trip test, but there it is ascii, so do not convert.
+If format file name input via `&' is not ASCII-only, conversion to UTF-8 is needed
+in pack_buffered_name while calculation of excess characters
+to be dropped. But I do not use `&'-feature (except that it is used in TRIP test,
+where it is in ASCII).
+
+Don't use "xord" - TEX_format_default is in ASCII,
+so no conversion needs to be done.
 < for (j=1; j<=n; j++) append_to_name(xord[TEX_format_default[j]]);
 ---
 > for (j=1; j<=n; j++) append_to_name(TEX_format_default[j]);
