@@ -1,5 +1,7 @@
 External encoding is Unicode. From UTF-8 to Unicode libc converts automatically while reading files and terminal. From Unicode to UTF-8 libc converts automatically while writing files and terminal.
 In certain situations, like processing file names, we have to convert between Unicode and UTF-8 manually.
+Theoretically, it would be possible to convert directly from UTF-8 to internal encoding, but
+it seems implementing it would be harder than using facilities of libc.
 
 necessary headers
 > #include <wchar.h>
