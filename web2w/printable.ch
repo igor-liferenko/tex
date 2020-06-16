@@ -1,4 +1,5 @@
-Condition from §49 of tex.web cannot be changed in tex.w - it must be changed in web2w.
+Condition from §49 of tex.web is not used in tex.w, because pool file is not read
+(all strings are stored in internal encoding directly in tex.w).
 
 @x
   else wput(k);
