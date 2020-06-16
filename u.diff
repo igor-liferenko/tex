@@ -548,3 +548,5 @@ make -C trip # check that everything is OK
 Add here contents of printable.ch
 
 Discuss arg.ch, editor.ch (without output.ch), path.ch
+
+mention issue with special.ch
