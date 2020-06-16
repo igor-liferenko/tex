@@ -25,7 +25,8 @@ ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fm
 ASCII_code @!TEX_format_default[1+format_default_length+1]=" /home/user/tex/TeXformats/plain.fmt";
 @z
 
-If you need non-ASCII here, grep required characters one by one in "mapping" and put here via "\x".
+If you need non-ASCII here, grep required characters one by one in "mapping" and put here via "\x"
+(all strings are stored in internal encoding directly in tex.w).
 @x
 @d str_506 "TeXinputs/"
 @y
