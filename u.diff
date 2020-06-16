@@ -2,6 +2,7 @@ External encoding is Unicode. From UTF-8 to Unicode libc converts automatically 
 In certain situations, like processing file names, we have to convert between Unicode and UTF-8 manually.
 Theoretically, it would be possible to convert directly from UTF-8 to internal encoding, but
 it seems implementing it would be harder than using facilities of libc.
+External encoding in strings is equal to internal encoding.
 
 necessary headers
 > #include <wchar.h>
@@ -408,6 +409,9 @@ unfreeze the value of k
 
 TEX_format_default and format name input via `&' must be ASCII.
 ("xord" was used because this path is not read from pool file)
+This is the only place where details are too convoluted.
+Trying to explain them will bring more confusion than it will
+bring clarity.
 < for (j=1; j<=n; j++) append_to_name(xord[TEX_format_default[j]]);
 ---
 > for (j=1; j<=n; j++) append_to_name(TEX_format_default[j]);
