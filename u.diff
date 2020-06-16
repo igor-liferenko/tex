@@ -401,15 +401,7 @@ depassed, as file_name_size is used instead of it
 unfreeze the value of k
 > if (k < 0) k = -k;
 
-If format file name input via `&' is not ASCII-only, conversion to UTF-8 is needed
-in pack_buffered_name while calculation of excess characters
-to be dropped. But I do not use `&'-feature (except that it is used in TRIP test,
-where it is in ASCII).
-
-TEX_format_default must be in ascii (i.e., of "char" type), in order to leave the code
-which works with it unchanged (ascii is subset of UTF-8).
-And as TEX_format_default is of "char" type, we can't use "xord" with it.
-But this is not necessary, because no conversion needs to be done (internal encoding is ascii).
+TEX_format_default and format name input via `&' must be ASCII.
 < for (j=1; j<=n; j++) append_to_name(xord[TEX_format_default[j]]);
 ---
 > for (j=1; j<=n; j++) append_to_name(TEX_format_default[j]);
