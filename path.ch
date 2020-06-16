@@ -11,7 +11,6 @@ enum {@+@!file_name_size=255@+}; /*file names shouldn't be longer than this*/
   if (c=='/')
 @z
 
-use absolute path
 @x
 @d format_default_length	20 /*length of the |TEX_format_default| string*/
 @d format_area_length	11 /*length of its area part*/
@@ -19,14 +18,14 @@ use absolute path
 @d format_default_length	35 /*length of the |TEX_format_default| string*/
 @d format_area_length	26 /*length of its area part*/
 @z
-
+This must be ASCII:
 @x
 ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
 @y
 ASCII_code @!TEX_format_default[1+format_default_length+1]=" /home/user/tex/TeXformats/plain.fmt";
 @z
 
-use absolute paths
+If you need non-ASCII here, grep required characters one by one in "mapping" and put here via "\x".
 @x
 @d str_506 "TeXinputs/"
 @y
