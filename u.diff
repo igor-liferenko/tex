@@ -402,6 +402,7 @@ unfreeze the value of k
 > if (k < 0) k = -k;
 
 TEX_format_default and format name input via `&' must be ASCII.
+("xord" was used because this path is not read from pool file)
 < for (j=1; j<=n; j++) append_to_name(xord[TEX_format_default[j]]);
 ---
 > for (j=1; j<=n; j++) append_to_name(TEX_format_default[j]);
