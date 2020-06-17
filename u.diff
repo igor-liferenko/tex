@@ -407,11 +407,17 @@ depassed, as file_name_size is used instead of it
 unfreeze the value of k
 > if (k < 0) k = -k;
 
-TEX_format_default and format name input via `&' must be ASCII.
-("xord" was used because this path is not read from pool file)
-This is the only place where details are too convoluted.
-Trying to explain them will bring more confusion than it will
-bring clarity.
+The code which works with TEX_format_default (this concerns also format name input via `&')
+assumes that one byte in internal encoding is
+translated to one byte in external encoding. In our case we also convert from
+external encoding to UTF-8, so one byte must result from conversion to UTF-8.
+This only holds when the value of each character in TEX_format_default (in internal encoding)
+is in ASCII range.
+Unicode values for ASCII characters are the same as ASCII values.
+This means that conversion of TEX_format_default from external encoding to internal encoding
+is not necessary and there is no sense for TEX_format_default to be in external encoding.
+So, we make TEX_format_default be stored in a simple (non-wide) string and don't convert it
+to internal encoding.
 < for (j=1; j<=n; j++) append_to_name(xord[TEX_format_default[j]]);
 ---
 > for (j=1; j<=n; j++) append_to_name(TEX_format_default[j]);
