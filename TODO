@@ -2,4 +2,4 @@ unpack web2w.zip from ctan to separate directory, git init, git add, unpack web2
 https://w3-o.cs.hm.edu/users/ruckert/public_html/web2w/ and see git diff, and see if my web2w/
 is the same as second web2w.zip
 
-compare md5sums of TeXfonts/* with /usr/local/share/texmf/
+compare md5sums of TeXfonts/lh*.tfm with /usr/local/share/texmf/ when there will be no "FAIL" for mftrace in /var/log/installer/syslog
