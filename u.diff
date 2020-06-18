@@ -218,13 +218,16 @@ and put it after declaration of xchr array (because xchr is used in xord)
 > xchr[0175]= L'}' ;
 > xchr[0176]= L'~' ;@/
 
-"mapping" must be used here because it is used in printable.ch
+The file "mapping" is the whole point why this implementation was created, so we use it here.
 < for (i=0; i<=037; i++) xchr[i]= ' ' ;
 < for (i=0177; i<=0377; i++) xchr[i]= ' ' ;
 ---
 > for (i=0; i<=037; i++) xchr[i] = L' ';
 > for (i=0177; i<=0377; i++) xchr[i] = L' ';
 > @i mapping
+We also make characters from the "mapping" printable by generating tex.w with the following
+change-file for web2w:
+<contents of printable.ch>
 
 xord function works analogously to xord array.
 < @<Set init...@>=
@@ -554,8 +557,6 @@ make -C web2w
 patch web2w/tex.w u.diff -o tex.w
 rm web2w/tex.w u.diff
 make -C trip # check that everything is OK
-
-Add here contents of printable.ch
 
 Discuss arg.ch, editor.ch (without output.ch), path.ch
 
