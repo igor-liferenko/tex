@@ -1,10 +1,11 @@
-Condition from §49 of tex.web is not used in tex.w, because pool file is not read.
+Condition from §49 of tex.web is not used in tex.w, because pool file is not read
+(instead, this condition is hard-coded in tex.w by web2w).
 
 @x
   else wput(k);
 @y
-  else if (k>=128) fprintf(w,"\\x%x", k);
-  else wput(k);
+  else if (k>=128) fprintf(w,"\\x%x",k);
+  else fprintf(w,"\\%02o",k);
 @z
 
 @x
