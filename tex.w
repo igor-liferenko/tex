@@ -729,7 +729,7 @@ right of these assignment statements to |chr(i)|.
 @<Set init...@>=
 for (i=0; i<=037; i++) xchr[i] = L' ';
 for (i=0177; i<=0377; i++) xchr[i] = L' ';
-@i mapping
+@i mapping.w
 
 @ The following system-independent code makes the |xord| array contain a
 suitable inverse to the information in |xchr|. Note that if |xchr[i]==xchr[j]|
