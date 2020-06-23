@@ -1,0 +1,635 @@
+--- web2w/tex.w	2020-06-23 08:41:23.848983879 +0700
++++ tex.w	2020-06-23 08:39:34.070139720 +0700
+@@ -344,6 +344,8 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <math.h>
++#include <wchar.h>
++#include <locale.h>
+ 
+ #define odd(X)       ((X)&1)
+ #define chr(X)       ((unsigned char)(X))
+@@ -579,10 +581,10 @@
+ that are analogous to \PASCAL's |ord| and |chr| functions.
+ 
+ @<Glob...@>=
+-ASCII_code @!xord[256];
+-   /*specifies conversion of input characters*/ 
+-uint8_t @!xchr[256];
++wchar_t @!xchr[256];
+    /*specifies conversion of output characters*/ 
++uint8_t xord(wchar_t wc)
++   { @<specifies conversion of input characters@> }
+ 
+ @ Since we are assuming that our \PASCAL\ system is able to read and
+ write the visible characters of standard ASCII (although not
+@@ -594,101 +596,101 @@
+ @^system dependencies@>
+ 
+ @<Set init...@>=
+-xchr[040]= ' ' ;
+-xchr[041]= '!' ;
+-xchr[042]= '"' ;
+-xchr[043]= '#' ;
+-xchr[044]= '$' ;
+-xchr[045]= '%' ;
+-xchr[046]= '&' ;
+-xchr[047]= '\'' ;@/
+-xchr[050]= '(' ;
+-xchr[051]= ')' ;
+-xchr[052]= '*' ;
+-xchr[053]= '+' ;
+-xchr[054]= ',' ;
+-xchr[055]= '-' ;
+-xchr[056]= '.' ;
+-xchr[057]= '/' ;@/
+-xchr[060]= '0' ;
+-xchr[061]= '1' ;
+-xchr[062]= '2' ;
+-xchr[063]= '3' ;
+-xchr[064]= '4' ;
+-xchr[065]= '5' ;
+-xchr[066]= '6' ;
+-xchr[067]= '7' ;@/
+-xchr[070]= '8' ;
+-xchr[071]= '9' ;
+-xchr[072]= ':' ;
+-xchr[073]= ';' ;
+-xchr[074]= '<' ;
+-xchr[075]= '=' ;
+-xchr[076]= '>' ;
+-xchr[077]= '?' ;@/
+-xchr[0100]= '@@' ;
+-xchr[0101]= 'A' ;
+-xchr[0102]= 'B' ;
+-xchr[0103]= 'C' ;
+-xchr[0104]= 'D' ;
+-xchr[0105]= 'E' ;
+-xchr[0106]= 'F' ;
+-xchr[0107]= 'G' ;@/
+-xchr[0110]= 'H' ;
+-xchr[0111]= 'I' ;
+-xchr[0112]= 'J' ;
+-xchr[0113]= 'K' ;
+-xchr[0114]= 'L' ;
+-xchr[0115]= 'M' ;
+-xchr[0116]= 'N' ;
+-xchr[0117]= 'O' ;@/
+-xchr[0120]= 'P' ;
+-xchr[0121]= 'Q' ;
+-xchr[0122]= 'R' ;
+-xchr[0123]= 'S' ;
+-xchr[0124]= 'T' ;
+-xchr[0125]= 'U' ;
+-xchr[0126]= 'V' ;
+-xchr[0127]= 'W' ;@/
+-xchr[0130]= 'X' ;
+-xchr[0131]= 'Y' ;
+-xchr[0132]= 'Z' ;
+-xchr[0133]= '[' ;
+-xchr[0134]= '\\' ;
+-xchr[0135]= ']' ;
+-xchr[0136]= '^' ;
+-xchr[0137]= '_' ;@/
+-xchr[0140]= '`' ;
+-xchr[0141]= 'a' ;
+-xchr[0142]= 'b' ;
+-xchr[0143]= 'c' ;
+-xchr[0144]= 'd' ;
+-xchr[0145]= 'e' ;
+-xchr[0146]= 'f' ;
+-xchr[0147]= 'g' ;@/
+-xchr[0150]= 'h' ;
+-xchr[0151]= 'i' ;
+-xchr[0152]= 'j' ;
+-xchr[0153]= 'k' ;
+-xchr[0154]= 'l' ;
+-xchr[0155]= 'm' ;
+-xchr[0156]= 'n' ;
+-xchr[0157]= 'o' ;@/
+-xchr[0160]= 'p' ;
+-xchr[0161]= 'q' ;
+-xchr[0162]= 'r' ;
+-xchr[0163]= 's' ;
+-xchr[0164]= 't' ;
+-xchr[0165]= 'u' ;
+-xchr[0166]= 'v' ;
+-xchr[0167]= 'w' ;@/
+-xchr[0170]= 'x' ;
+-xchr[0171]= 'y' ;
+-xchr[0172]= 'z' ;
+-xchr[0173]= '{' ;
+-xchr[0174]= '|' ;
+-xchr[0175]= '}' ;
+-xchr[0176]= '~' ;@/
++xchr[040]= L' ' ;
++xchr[041]= L'!' ;
++xchr[042]= L'"' ;
++xchr[043]= L'#' ;
++xchr[044]= L'$' ;
++xchr[045]= L'%' ;
++xchr[046]= L'&' ;
++xchr[047]= L'\'' ;@/
++xchr[050]= L'(' ;
++xchr[051]= L')' ;
++xchr[052]= L'*' ;
++xchr[053]= L'+' ;
++xchr[054]= L',' ;
++xchr[055]= L'-' ;
++xchr[056]= L'.' ;
++xchr[057]= L'/' ;@/
++xchr[060]= L'0' ;
++xchr[061]= L'1' ;
++xchr[062]= L'2' ;
++xchr[063]= L'3' ;
++xchr[064]= L'4' ;
++xchr[065]= L'5' ;
++xchr[066]= L'6' ;
++xchr[067]= L'7' ;@/
++xchr[070]= L'8' ;
++xchr[071]= L'9' ;
++xchr[072]= L':' ;
++xchr[073]= L';' ;
++xchr[074]= L'<' ;
++xchr[075]= L'=' ;
++xchr[076]= L'>' ;
++xchr[077]= L'?' ;@/
++xchr[0100]= L'@@' ;
++xchr[0101]= L'A' ;
++xchr[0102]= L'B' ;
++xchr[0103]= L'C' ;
++xchr[0104]= L'D' ;
++xchr[0105]= L'E' ;
++xchr[0106]= L'F' ;
++xchr[0107]= L'G' ;@/
++xchr[0110]= L'H' ;
++xchr[0111]= L'I' ;
++xchr[0112]= L'J' ;
++xchr[0113]= L'K' ;
++xchr[0114]= L'L' ;
++xchr[0115]= L'M' ;
++xchr[0116]= L'N' ;
++xchr[0117]= L'O' ;@/
++xchr[0120]= L'P' ;
++xchr[0121]= L'Q' ;
++xchr[0122]= L'R' ;
++xchr[0123]= L'S' ;
++xchr[0124]= L'T' ;
++xchr[0125]= L'U' ;
++xchr[0126]= L'V' ;
++xchr[0127]= L'W' ;@/
++xchr[0130]= L'X' ;
++xchr[0131]= L'Y' ;
++xchr[0132]= L'Z' ;
++xchr[0133]= L'[' ;
++xchr[0134]= L'\\' ;
++xchr[0135]= L']' ;
++xchr[0136]= L'^' ;
++xchr[0137]= L'_' ;@/
++xchr[0140]= L'`' ;
++xchr[0141]= L'a' ;
++xchr[0142]= L'b' ;
++xchr[0143]= L'c' ;
++xchr[0144]= L'd' ;
++xchr[0145]= L'e' ;
++xchr[0146]= L'f' ;
++xchr[0147]= L'g' ;@/
++xchr[0150]= L'h' ;
++xchr[0151]= L'i' ;
++xchr[0152]= L'j' ;
++xchr[0153]= L'k' ;
++xchr[0154]= L'l' ;
++xchr[0155]= L'm' ;
++xchr[0156]= L'n' ;
++xchr[0157]= L'o' ;@/
++xchr[0160]= L'p' ;
++xchr[0161]= L'q' ;
++xchr[0162]= L'r' ;
++xchr[0163]= L's' ;
++xchr[0164]= L't' ;
++xchr[0165]= L'u' ;
++xchr[0166]= L'v' ;
++xchr[0167]= L'w' ;@/
++xchr[0170]= L'x' ;
++xchr[0171]= L'y' ;
++xchr[0172]= L'z' ;
++xchr[0173]= L'{' ;
++xchr[0174]= L'|' ;
++xchr[0175]= L'}' ;
++xchr[0176]= L'~' ;@/
+ 
+ @ Some of the ASCII codes without visible characters have been given symbolic
+ names in this program because they are used with a special meaning.
+@@ -725,8 +727,9 @@
+ @^system dependencies@>
+ 
+ @<Set init...@>=
+-for (i=0; i<=037; i++) xchr[i]= ' ' ;
+-for (i=0177; i<=0377; i++) xchr[i]= ' ' ;
++for (i=0; i<=037; i++) xchr[i] = L' ';
++for (i=0177; i<=0377; i++) xchr[i] = L' ';
++@i mapping.w
+ 
+ @ The following system-independent code makes the |xord| array contain a
+ suitable inverse to the information in |xchr|. Note that if |xchr[i]==xchr[j]|
+@@ -734,10 +737,10 @@
+ |j| or more; hence, standard ASCII code numbers will be used instead of
+ codes below 040 in case there is a coincidence.
+ 
+-@<Set init...@>=
+-for (i=first_text_char; i<=last_text_char; i++) xord[chr(i)]=invalid_code;
+-for (i=0200; i<=0377; i++) xord[xchr[i]]=i;
+-for (i=0; i<=0176; i++) xord[xchr[i]]=i;
++@<spec...@>=
++for (int i=0176; i>=0; i--) if (xchr[i] == wc) return i;
++for (int i=0200; i<=0377; i++) if (xchr[i] == wc) return i;
++return invalid_code;
+ 
+ @* Input and output.
+ The bane of portability is the fact that different operating systems treat
+@@ -775,7 +778,7 @@
+ 
+ @<Types...@>=
+ typedef uint8_t eight_bits; /*unsigned one-byte quantity*/ 
+-typedef struct {@+FILE *f;@+text_char@,d;@+} alpha_file; /*files that contain textual data*/ 
++typedef struct {@+FILE *f;@+wchar_t@,d;@+} alpha_file; /*files that contain textual data*/
+ typedef struct {@+FILE *f;@+eight_bits@,d;@+} byte_file; /*files that contain binary data*/ 
+ 
+ @ Most of what we need to do with respect to input and output can be handled
+@@ -824,7 +827,7 @@
+ 
+ @p bool a_open_in(alpha_file *f)
+    /*open a text file for input*/ 
+-{@+reset((*f), name_of_file,"r");return reset_OK((*f));
++{@+a_reset((*f), name_of_file,"r");return reset_OK((*f));
+ } 
+ @#
+ bool a_open_out(alpha_file *f)
+@@ -939,7 +942,7 @@
+ @p bool input_ln(alpha_file *f, bool @!bypass_eoln)
+    /*inputs the next line or returns |false|*/ 
+ {@+uint16_t last_nonblank; /*|last| with trailing blanks removed*/ 
+-if (bypass_eoln) if (!eof((*f))) get((*f));
++if (bypass_eoln) if (!eof((*f))) a_get((*f));
+    /*input the first character of the line into |f.d|*/ 
+ last=first; /*cf.\ Matthew 19\thinspace:\thinspace30*/ 
+ if (eof((*f))) return false;
+@@ -950,7 +953,7 @@
+       if (max_buf_stack==buf_size) 
+         @<Report overflow of the input buffer, and abort@>;
+       } 
+-    buffer[last]=xord[(*f).d];get((*f));incr(last);
++    buffer[last]=xord((*f).d);a_get((*f));incr(last);
+     if (buffer[last-1]!=' ') last_nonblank=last;
+     } 
+   last=last_nonblank;return true;
+@@ -1069,11 +1072,11 @@
+ @p bool init_terminal(void) /*gets the terminal input started*/ 
+ {@+
+ t_open_in;
+-loop@+{@+wake_up_terminal;write(term_out,"**");update_terminal;
++loop@+{@+wake_up_terminal;write(term_out,L"**");update_terminal;
+ @.**@>
+   if (!input_ln(&term_in, true))  /*this shouldn't happen*/ 
+     {@+write_ln(term_out);
+-    write(term_out,"! End of file on the terminal... why?");
++    write(term_out,L"! End of file on the terminal... why?");
+ @.End of file on the terminal@>
+     return false;
+     } 
+@@ -1324,57 +1327,14 @@
+   a_close(&pool_file);return false;
+   } 
+ @<Read the other strings...@>=
+-{@+int k;@+for(k=1; k<=file_name_size;k++)name_of_file[k]=pool_name[k-1];@+} /*we needn't set |name_length|*/ 
+-if (a_open_in(&pool_file)) 
+-  {@+c=false;
+-  @/do@+{@<Read one string, but return |false| if the string memory space is getting
+-too tight for comfort@>;
+-  }@+ while (!(c));
+-  a_close(&pool_file);return true;
+-  } 
+-else bad_pool("! I can't read TEX.POOL.")
+-@.I can't read TEX.POOL@>
+-
+-@ @<Read one string...@>=
+-{@+if (eof(pool_file)) bad_pool("! TEX.POOL has no check sum.");
+-@.TEX.POOL has no check sum@>
+-read(pool_file, m);@+read(pool_file, n); /*read two digits of string length*/ 
+-if (m== '*' ) @<Check the pool check sum@>@;
+-else{@+if ((xord[m] < '0')||(xord[m] > '9')||@|
+-      (xord[n] < '0')||(xord[n] > '9')) 
+-    bad_pool("! TEX.POOL line doesn't begin with two digits.");
+-@.TEX.POOL line doesn't...@>
+-  l=xord[m]*10+xord[n]-'0'*11; /*compute the length*/ 
+-  if (pool_ptr+l+string_vacancies > pool_size) 
+-    bad_pool("! You have to increase POOLSIZE.");
+-@.You have to increase POOLSIZE@>
+-  for (k=1; k<=l; k++) 
+-    {@+if (eoln(pool_file)) m= ' ' ;@+else read(pool_file, m);
+-    append_char(xord[m]);
+-    } 
+-  read_ln(pool_file);g=make_string();
+-  } 
+-} 
++
++@ 
+ 
+ @ The \.{WEB} operation \.{@@\$} denotes the value that should be at the
+ end of this \.{TEX.POOL} file; any other value means that the wrong pool
+ file has been loaded.
+ @^check sum@>
+ 
+-@<Check the pool check sum@>=
+-{@+a=0;k=1;
+-loop@+{@+if ((xord[n] < '0')||(xord[n] > '9')) 
+-  bad_pool("! TEX.POOL check sum doesn't have nine digits.");
+-@.TEX.POOL check sum...@>
+-  a=10*a+xord[n]-'0';
+-  if (k==9) goto done;
+-  incr(k);read(pool_file, n);
+-  } 
+-done: if (a!=0) bad_pool("! TEX.POOL doesn't match; TANGLE me again.");
+-@.TEX.POOL doesn't match@>
+-c=true;
+-} 
+-
+ @* On-line and off-line printing.
+ Messages that are sent to a user's terminal and to the transcript-log file
+ are produced by several `|print|' procedures. These procedures will
+@@ -1448,28 +1408,31 @@
+ 
+ @<Compiler directives@>=
+ #define put(file)    @[fwrite(&((file).d),sizeof((file).d),1,(file).f)@]
++#define a_get(file)    @[((file).d = fgetwc((file).f))@]
+ #define get(file)    @[fread(&((file).d),sizeof((file).d),1,(file).f)@]
+ 
++#define a_reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
++                                 (file).f!=NULL?a_get(file):0)@]
+ #define reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
+                                  (file).f!=NULL?get(file):0)@]
+ #define rewrite(file,name,mode) @[((file).f=fopen((char *)(name)+1,mode))@]
+ #define close(file)    @[fclose((file).f)@]
+-#define eof(file)    @[feof((file).f)@]
+-#define eoln(file)    @[((file).d=='\n'||eof(file))@]
++#define eof(file)    @[(feof((file).f)||ferror((file).f))@]
++#define eoln(file)    @[((file).d==L'\n'||eof(file))@]
+ #define erstat(file)   @[((file).f==NULL?-1:ferror((file).f))@]
+ 
+ #define read(file,x) @[((x)=(file).d,get(file))@]
+ #define read_ln(file)  @[do get(file); while (!eoln(file))@]
+ 
+-#define write(file, format,...)    @[fprintf(file.f,format,## __VA_ARGS__)@]
+-#define write_ln(file,...)	   @[write(file,__VA_ARGS__"\n")@]
++#define write(file, format,...)    @[fwprintf(file.f,format,## __VA_ARGS__)@]
++#define write_ln(file,...)	   @[write(file,__VA_ARGS__ L"\n")@]
+ 
+ #define wterm(format,...)	@[write(term_out,format, ## __VA_ARGS__)@]
+-#define wterm_ln(format,...)	@[wterm(format "\n", ## __VA_ARGS__)@]
+-#define wterm_cr	        @[write(term_out,"\n")@]
++#define wterm_ln(format,...)	@[wterm(format L"\n", ## __VA_ARGS__)@]
++#define wterm_cr	        @[write(term_out,L"\n")@]
+ #define wlog(format, ...)	@[write(log_file,format, ## __VA_ARGS__)@]
+-#define wlog_ln(format, ...)   @[wlog(format "\n", ## __VA_ARGS__)@]
+-#define wlog_cr	        @[write(log_file,"\n")@]
++#define wlog_ln(format, ...)   @[wlog(format L"\n", ## __VA_ARGS__)@]
++#define wlog_cr	        @[write(log_file,L"\n")@]
+ 
+ @ To end a line of text output, we call |print_ln|.
+ 
+@@ -1500,7 +1463,7 @@
+   {@+print_ln();return;
+   } 
+ switch (selector) {
+-case term_and_log: {@+wterm("%c",xchr[s]);wlog("%c",xchr[s]);
++case term_and_log: {@+wterm(L"%lc",xchr[s]);wlog(L"%lc",xchr[s]);
+   incr(term_offset);incr(file_offset);
+   if (term_offset==max_print_line) 
+     {@+wterm_cr;term_offset=0;
+@@ -1509,17 +1472,17 @@
+     {@+wlog_cr;file_offset=0;
+     } 
+   } @+break;
+-case log_only: {@+wlog("%c",xchr[s]);incr(file_offset);
++case log_only: {@+wlog(L"%lc",xchr[s]);incr(file_offset);
+   if (file_offset==max_print_line) print_ln();
+   } @+break;
+-case term_only: {@+wterm("%c",xchr[s]);incr(term_offset);
++case term_only: {@+wterm(L"%lc",xchr[s]);incr(term_offset);
+   if (term_offset==max_print_line) print_ln();
+   } @+break;
+ case no_print: do_nothing;@+break;
+ case pseudo: if (tally < trick_count) trick_buf[tally%error_line]=s;@+break;
+ case new_string: {@+if (pool_ptr < pool_size) append_char(s);
+   } @+break; /*we drop characters if the string space is full*/ 
+-default:write(write_file[selector],"%c", xchr[s]);
++default:write(write_file[selector],L"%lc", xchr[s]);
+ } @/
+ incr(tally);
+ } 
+@@ -1588,8 +1551,8 @@
+ character positions.
+ 
+ @<Initialize the output...@>=
+-wterm("%s",banner);
+-if (format_ident==0) wterm_ln(" (no format preloaded)");
++wterm(L"%s",banner);
++if (format_ident==0) wterm_ln(L" (no format preloaded)");
+ else{@+slow_print(format_ident);print_ln();
+   } 
+ update_terminal;
+@@ -10110,9 +10073,16 @@
+ allows both lowercase and uppercase letters in the file name.
+ @^system dependencies@>
+ 
+-@d append_to_name(X)	{@+c=X;incr(k);
+-  if (k <= file_name_size) name_of_file[k]=xchr[c];
+-  } 
++@d append_to_name(X)	{@+c=X;
++  if (k >= 0) {
++    char mb[MB_CUR_MAX];
++    int len = wctomb(mb, xchr[c]);
++    if (k+len <= file_name_size)
++      for (int i = 0; i < len; i++) name_of_file[++k] = mb[i];
++    else
++      k = -k;
++  }
++}
+ 
+ @p void pack_file_name(str_number @!n, str_number @!a, str_number @!e)
+ {@+int k; /*number of positions filled in |name_of_file|*/ 
+@@ -10122,6 +10092,7 @@
+ for (j=str_start[a]; j<=str_start[a+1]-1; j++) append_to_name(so(str_pool[j]));
+ for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
+ for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
++if (k < 0) k = -k;
+ if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
+ name_of_file[name_length+1]=0;
+ } 
+@@ -10164,10 +10135,10 @@
+ if (n+b-a+1+format_ext_length > file_name_size) 
+   b=a+file_name_size-n-1-format_ext_length;
+ k=0;
+-for (j=1; j<=n; j++) append_to_name(xord[TEX_format_default[j]]);
++for (j=1; j<=n; j++) append_to_name(TEX_format_default[j]);
+ for (j=a; j<=b; j++) append_to_name(buffer[j]);
+ for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
+-  append_to_name(xord[TEX_format_default[j]]);
++  append_to_name(TEX_format_default[j]);
+ if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
+ name_of_file[name_length+1]=0;
+ } 
+@@ -10193,7 +10164,7 @@
+      /*now try the system format file area*/ 
+   if (w_open_in(&fmt_file)) goto found;
+   wake_up_terminal;
+-  wterm_ln("Sorry, I can't find that format; will try PLAIN.");
++  wterm_ln(L"Sorry, I can't find that format; will try PLAIN.");
+ @.Sorry, I can't find...@>
+   update_terminal;
+   } 
+@@ -10201,7 +10172,7 @@
+ pack_buffered_name(format_default_length-format_ext_length, 1, 0);
+ if (!w_open_in(&fmt_file)) 
+   {@+wake_up_terminal;
+-  wterm_ln("I can't find the PLAIN format file!");
++  wterm_ln(L"I can't find the PLAIN format file!");
+ @.I can't find PLAIN...@>
+ @.plain@>
+   return false;
+@@ -10224,7 +10195,12 @@
+ if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
+  (cur_length > 0)) 
+   return'?';
+-else{@+for (k=1; k<=name_length; k++) append_char(xord[name_of_file[k]]);
++else{@+for (k=1; k<=name_length; k++) {
++      wchar_t wc;
++      int len = mbtowc(&wc, name_of_file+k, MB_CUR_MAX);
++      append_char(xord(wc));
++      k += len - 1;
++    }
+   return make_string();
+   } 
+ } 
+@@ -10394,10 +10370,10 @@
+ } 
+ 
+ @ @<Print the banner...@>=
+-{@+wlog("%s",banner);
++{@+wlog(L"%s",banner);
+ slow_print(format_ident);print_str("  ");
+ print_int(day);print_char(' ');
+-for (k=3*month-2; k<=3*month; k++) wlog("%c",months[k]);
++for (k=3*month-2; k<=3*month; k++) wlog(L"%c",months[k]);
+ print_char(' ');print_int(year);print_char(' ');
+ print_two(time/60);print_char(':');print_two(time%60);
+ } 
+@@ -11958,7 +11934,7 @@
+ 
+ @p void write_dvi(dvi_index @!a, dvi_index @!b)
+ {@+int k;
+-for (k=a; k<=b; k++) write(dvi_file, "%c", dvi_buf[k]);
++for (k=a; k<=b; k++) fprintf(dvi_file.f, "%c", dvi_buf[k]);
+ } 
+ 
+ @ To put a byte in the buffer without paying the cost of invoking a procedure
+@@ -23781,7 +23757,7 @@
+ incompatible with the present \TeX\ table sizes, etc.
+ 
+ @d too_small(X)	{@+wake_up_terminal;
+-  wterm_ln("---! Must increase the %s", X);
++  wterm_ln(L"---! Must increase the %s", X);
+ @.Must increase the x@>
+   goto bad_fmt;
+   } 
+@@ -23802,7 +23778,7 @@
+ @<Undump a couple more things and the closing check word@>;
+ return true; /*it worked!*/ 
+ bad_fmt: wake_up_terminal;
+-  wterm_ln("(Fatal format file error; I'm stymied)");
++  wterm_ln(L"(Fatal format file error; I'm stymied)");
+ @.Fatal format file error@>
+ return false;
+ } 
+@@ -24289,13 +24265,14 @@
+ @^system dependencies@>
+ 
+ @p int main(void) {@! /*|start_here|*/ 
++setlocale(LC_CTYPE, "C.UTF-8");
+ history=fatal_error_stop; /*in case we quit during initialization*/ 
+ t_open_out; /*open the terminal for output*/ 
+ if (ready_already==314159) goto start_of_TEX;
+ @<Check the ``constant'' values...@>@;
+ if (bad > 0) 
+-  {@+wterm_ln("Ouch---my internal constants have been clobbered!"
+-    "---case %d", bad);
++  {@+wterm_ln(L"Ouch---my internal constants have been clobbered!"
++    L"---case %d", bad);
+ @.Ouch...clobbered@>
+   exit(0);
+   } 
+@@ -24352,24 +24329,24 @@
+ 
+ @<Output statistics...@>=
+ if (log_opened) 
+-  {@+wlog_ln(" ");
+-  wlog_ln("Here is how much of TeX's memory you used:");
++  {@+wlog_ln(L" ");
++  wlog_ln(L"Here is how much of TeX's memory you used:");
+ @.Here is how much...@>
+-  wlog(" %d string", str_ptr-init_str_ptr);
+-  if (str_ptr!=init_str_ptr+1) wlog( "s" );
+-  wlog_ln( " out of %d", max_strings-init_str_ptr);@/
+-  wlog_ln( " %d string characters out of %d", pool_ptr-init_pool_ptr,
++  wlog(L" %d string", str_ptr-init_str_ptr);
++  if (str_ptr!=init_str_ptr+1) wlog( L"s" );
++  wlog_ln( L" out of %d", max_strings-init_str_ptr);@/
++  wlog_ln( L" %d string characters out of %d", pool_ptr-init_pool_ptr,
+     pool_size-init_pool_ptr);@/
+-  wlog_ln(" %d words of memory out of %d", lo_mem_max-mem_min+mem_end-hi_mem_min+2,@|
++  wlog_ln(L" %d words of memory out of %d", lo_mem_max-mem_min+mem_end-hi_mem_min+2,@|
+     mem_end+1-mem_min);@/
+-  wlog_ln(" %d multiletter control sequences out of %d", cs_count, hash_size);@/
+-  wlog(" %d words of font info for %d font", fmem_ptr, font_ptr-font_base);
+-  if (font_ptr!=font_base+1) wlog("s");
+-  wlog_ln( ", out of %d for %d", font_mem_size, font_max-font_base);@/
+-  wlog(" %d hyphenation exception", hyph_count);
+-  if (hyph_count!=1) wlog("s");
+-  wlog_ln( " out of %d", hyph_size);@/
+-  wlog_ln(" %di,%dn,%dp,%db,%ds stack positions out of %di,%dn,%dp,%db,%ds", 
++  wlog_ln(L" %d multiletter control sequences out of %d", cs_count, hash_size);@/
++  wlog(L" %d words of font info for %d font", fmem_ptr, font_ptr-font_base);
++  if (font_ptr!=font_base+1) wlog(L"s");
++  wlog_ln( L", out of %d for %d", font_mem_size, font_max-font_base);@/
++  wlog(L" %d hyphenation exception", hyph_count);
++  if (hyph_count!=1) wlog(L"s");
++  wlog_ln( L" out of %d", hyph_size);@/
++  wlog_ln(L" %di,%dn,%dp,%db,%ds stack positions out of %di,%dn,%dp,%db,%ds",
+     max_in_stack, max_nest_stack,@|
+     max_param_stack,@|
+     max_buf_stack+1,@|
+@@ -24498,13 +24475,13 @@
+ loop{@+wake_up_terminal;
+   print_nl("debug # (-1 to exit):");update_terminal;
+ @.debug \#@>
+-  if (fscanf(term_in.f," %d",&m)<1 ||
++  if (fwscanf(term_in.f,L" %d",&m)<1 ||
+       m < 0) return;
+   else if (m==0) 
+     {@+goto breakpoint; /*go to every label at least once*/ 
+     breakpoint: m=0;/*'BREAKPOINT'*/
+     } 
+-  else{@+fscanf(term_in.f," %d",&n);
++  else{@+fwscanf(term_in.f,L" %d",&n);
+     switch (m) {
+     @t\4@>@<Numbered cases for |debug_help|@>@;
+     default:print_str("?");
+@@ -24530,7 +24507,7 @@
+ case 10: slow_print(n);@+break;
+ case 11: check_mem(n > 0);@+break; /*check wellformedness; print new busy locations if |n > 0|*/ 
+ case 12: search_mem(n);@+break; /*look for pointers to |n|*/ 
+-case 13: {@+fscanf(term_in.f," %d",&l);print_cmd_chr(n, l);
++case 13: {@+fwscanf(term_in.f,L" %d",&l);print_cmd_chr(n, l);
+   } @+break;
+ case 14: for (k=0; k<=n; k++) print(buffer[k]);@+break;
+ case 15: {@+font_in_short_display=null_font;short_display(n);
