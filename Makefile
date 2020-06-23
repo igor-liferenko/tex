@@ -1,5 +1,5 @@
 all:
-	make -C web2w && patch -o tex.w web2w/tex.w utex.patch
+	make -C web2w && patch -so tex.w web2w/tex.w utex.patch
 	tie -c tex.ch tex.w constants.ch special.ch $(CHF) >/dev/null
 	/bin/ctangle tex tex
 	gcc -g -Og -DINIT -o initex tex.c -lm
@@ -8,7 +8,7 @@ all:
 	gcc -g -Og -DSTAT -o virtex tex.c -lm
 
 triptex:
-	make -C web2w && patch -o tex.w web2w/tex.w utex.patch
+	make -C web2w && patch -so tex.w web2w/tex.w utex.patch
 	tie -c tex.ch tex.w trip/constants.ch $(CHF) >/dev/null
 	/bin/ctangle tex tex
 	gcc -DINIT -DSTAT tex.c -lm -o trip/triptex
