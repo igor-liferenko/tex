@@ -5,7 +5,8 @@ Condition from §49 of tex.web is not used in tex.w, because pool file is not re
   else wput(k);
 @y
   else if (k>=128) fprintf(w,"\\x%x",k);
-  else fprintf(w,"\\%02o",k);
+  else if (k<' '||k==127) fprintf(w,"\\%02o",k);
+  else wput(k);
 @z
 
 @x
