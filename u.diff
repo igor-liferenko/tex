@@ -545,19 +545,17 @@ redefine it for UTF-8 because in other places it is used for text output
 
 -----------------------------------
 
-Here is how to create site-local version of TeX which works with
-extended character set from Appendix C of TeXbook:
-
-git clone git://github.com/igor-liferenko/tex
-cd tex/
-make -C web2w
-diff web2w/tex.w tex.w >u.diff
-Replace file "mapping" with this:
-make -C web2w
-patch web2w/tex.w u.diff -o tex.w
-rm web2w/tex.w u.diff
-make -C trip # check that everything is OK
+For example, to be able to use characters ∧ ∨ ≠ ≤ ≥ in TeX (see Appendix C of TeXbook),
+get the source from http://github.com/igor-liferenko/tex,
+create file /home/user/tex/mapping.w with the following content:
+xchr[0x04] = L'∧';
+xchr[0x1f] = L'∨';
+xchr[0x1a] = L'≠';
+xchr[0x1c] = L'≤';
+xchr[0x1d] = L'≥';
+and in /home/user/tex/ type CWEBINPUTS=.:/home/user/tex make
+and CWEBINPUTS=.:/home/user/tex make -C trip
 
 Discuss arg.ch, editor.ch (without output.ch), path.ch
 
-mention issue with special.ch
+special.ch is like screen.ch in MF - in trap and in production they are different (in production it is system-dependent) - just that in trip \special is left as-is - in internal encoding
