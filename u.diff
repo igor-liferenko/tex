@@ -1,7 +1,5 @@
 External encoding is Unicode. Mapping from Unicode to internal encoding is done by xord(). Mapping from internal encoding to Unicode is done by xchr. From UTF-8 to Unicode libc converts automatically while reading files and terminal. From Unicode to UTF-8 libc converts automatically while writing files and terminal.
 When converting from internal encoding to file name, conversion from Unicode to UTF-8 is done manually by wctomb; when converting from file name to internal encoding, conversion from UTF-8 to Unicode is done manually by mbtowc.
-Theoretically, it would be possible to convert directly from UTF-8 to internal encoding, but
-it seems implementing it would be harder than using facilities of libc.
 External encoding in strings is equal to internal encoding.
 
 necessary headers
