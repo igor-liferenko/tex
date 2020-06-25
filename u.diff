@@ -545,7 +545,7 @@ redefine it for UTF-8 because in other places it is used for text output
 
 -----------------------------------
 
-For example, to be able to use characters ∧ ∨ ≠ ≤ ≥ in TeX (see Appendix C of TeXbook),
+For example, to be able to use characters ∧ ∨ ≠ ≤ ≥ ≡ in TeX (see Appendix C of TeXbook),
 get the source from http://github.com/igor-liferenko/tex,
 create file /home/user/tex/mapping.w with the following content:
 xchr[0x04] = L'∧';
@@ -553,8 +553,8 @@ xchr[0x1f] = L'∨';
 xchr[0x1a] = L'≠';
 xchr[0x1c] = L'≤';
 xchr[0x1d] = L'≥';
+xchr[0x1e] = L'≡';
 and in /home/user/tex/ type CWEBINPUTS=.:/home/user/tex make
-and CWEBINPUTS=.:/home/user/tex make -C trip
 
 Discuss arg.ch, editor.ch (without output.ch), path.ch
 
