@@ -4,7 +4,8 @@ all:
 	/bin/ctangle tex tex
 	gcc -g -Og -DINIT -o initex tex.c -lm
 	@echo 'plain \input offset \dump' | ./initex >/dev/null; mv plain.fmt TeXformats/
-	@echo 'тех \input offset \dump' | ./initex >/dev/null; mv тех.fmt TeXformats/
+	@if grep -q 'xchr.0x[8-9A-F][0-9][A-F]' tex.c; then \
+	@  echo 'тех \input offset \dump' | ./initex >/dev/null; mv тех.fmt TeXformats/; fi
 	gcc -g -Og -DSTAT -o virtex tex.c -lm
 
 triptex:
