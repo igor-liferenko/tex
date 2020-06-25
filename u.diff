@@ -1,5 +1,5 @@
-External encoding is Unicode. From UTF-8 to Unicode libc converts automatically while reading files and terminal. From Unicode to UTF-8 libc converts automatically while writing files and terminal.
-In certain situations, like processing file names, we have to convert between Unicode and UTF-8 manually.
+External encoding is Unicode. Mapping from Unicode to internal encoding is done by xord(). Mapping from internal encoding to Unicode is done by xchr. From UTF-8 to Unicode libc converts automatically while reading files and terminal. From Unicode to UTF-8 libc converts automatically while writing files and terminal.
+When converting from internal encoding to file name, conversion from Unicode to UTF-8 is done manually by wctomb; when converting from file name to internal encoding, conversion from UTF-8 to Unicode is done manually by mbtowc.
 Theoretically, it would be possible to convert directly from UTF-8 to internal encoding, but
 it seems implementing it would be harder than using facilities of libc.
 External encoding in strings is equal to internal encoding.
@@ -10,9 +10,10 @@ necessary headers
 
 in §20 of tex.web it is said:
 The TEX processor converts between ASCII code and the user’s external character set by means of
-arrays xord and xchr that are analogous to Pascal’s ord and chr functions.
-make xord more analogous to ord by making it a function.
-Array cannot be used, because array cannot be indexed by 32-bit value.
+*arrays* xord and xchr that are *analogous* to Pascal’s ord and chr *functions*.
+So, if array is analogous to function, function is also analogous to array.
+xord array cannot be used, because array cannot be indexed by 32-bit value,
+so we make xord a function.
 Change
 < ASCII_code @!xord[256];
 <    /*specifies conversion of input characters*/
