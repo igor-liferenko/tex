@@ -1,8 +1,8 @@
 all:
-ifeq ($(MAKELEVEL),1)
-	/bin/ctangle web2w printable
-else
+ifeq ($(MAKELEVEL),2)
 	/bin/ctangle web2w
+else
+	/bin/ctangle web2w printable
 endif
 	flex -o web.lex.c web.l
 	bison --warnings=none -d -v pascal.y
