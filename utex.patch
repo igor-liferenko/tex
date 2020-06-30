@@ -1,5 +1,5 @@
---- web2w/tex.w	2020-06-23 08:41:23.848983879 +0700
-+++ tex.w	2020-06-23 08:39:34.070139720 +0700
+--- web2w/tex.w	2020-06-30 08:00:45.036692434 +0700
++++ tex.w	2020-06-30 08:12:22.189472049 +0700
 @@ -344,6 +344,8 @@
  #include <stdlib.h>
  #include <string.h>
@@ -297,67 +297,16 @@
  @.End of file on the terminal@>
      return false;
      } 
-@@ -1324,57 +1327,14 @@
-   a_close(&pool_file);return false;
-   } 
- @<Read the other strings...@>=
--{@+int k;@+for(k=1; k<=file_name_size;k++)name_of_file[k]=pool_name[k-1];@+} /*we needn't set |name_length|*/ 
--if (a_open_in(&pool_file)) 
--  {@+c=false;
--  @/do@+{@<Read one string, but return |false| if the string memory space is getting
--too tight for comfort@>;
--  }@+ while (!(c));
--  a_close(&pool_file);return true;
--  } 
--else bad_pool("! I can't read TEX.POOL.")
--@.I can't read TEX.POOL@>
--
--@ @<Read one string...@>=
--{@+if (eof(pool_file)) bad_pool("! TEX.POOL has no check sum.");
--@.TEX.POOL has no check sum@>
--read(pool_file, m);@+read(pool_file, n); /*read two digits of string length*/ 
--if (m== '*' ) @<Check the pool check sum@>@;
--else{@+if ((xord[m] < '0')||(xord[m] > '9')||@|
--      (xord[n] < '0')||(xord[n] > '9')) 
--    bad_pool("! TEX.POOL line doesn't begin with two digits.");
--@.TEX.POOL line doesn't...@>
--  l=xord[m]*10+xord[n]-'0'*11; /*compute the length*/ 
--  if (pool_ptr+l+string_vacancies > pool_size) 
--    bad_pool("! You have to increase POOLSIZE.");
--@.You have to increase POOLSIZE@>
--  for (k=1; k<=l; k++) 
--    {@+if (eoln(pool_file)) m= ' ' ;@+else read(pool_file, m);
--    append_char(xord[m]);
--    } 
--  read_ln(pool_file);g=make_string();
--  } 
--} 
-+
-+@ 
+@@ -1256,8 +1259,6 @@
+ bool @!c; /*check sum has been checked*/ 
+ pool_ptr=0;str_ptr=0;str_start[0]=0;
+ @<Make the first 256 strings@>;
+-@<Read the other strings from the \.{TEX.POOL} file and return |true|, or give an
+-error message and return |false|@>;
+ } 
+ #endif
  
- @ The \.{WEB} operation \.{@@\$} denotes the value that should be at the
- end of this \.{TEX.POOL} file; any other value means that the wrong pool
- file has been loaded.
- @^check sum@>
- 
--@<Check the pool check sum@>=
--{@+a=0;k=1;
--loop@+{@+if ((xord[n] < '0')||(xord[n] > '9')) 
--  bad_pool("! TEX.POOL check sum doesn't have nine digits.");
--@.TEX.POOL check sum...@>
--  a=10*a+xord[n]-'0';
--  if (k==9) goto done;
--  incr(k);read(pool_file, n);
--  } 
--done: if (a!=0) bad_pool("! TEX.POOL doesn't match; TANGLE me again.");
--@.TEX.POOL doesn't match@>
--c=true;
--} 
--
- @* On-line and off-line printing.
- Messages that are sent to a user's terminal and to the transcript-log file
- are produced by several `|print|' procedures. These procedures will
-@@ -1448,28 +1408,31 @@
+@@ -1448,28 +1449,31 @@
  
  @<Compiler directives@>=
  #define put(file)    @[fwrite(&((file).d),sizeof((file).d),1,(file).f)@]
@@ -397,7 +346,7 @@
  
  @ To end a line of text output, we call |print_ln|.
  
-@@ -1500,7 +1463,7 @@
+@@ -1500,7 +1504,7 @@
    {@+print_ln();return;
    } 
  switch (selector) {
@@ -406,7 +355,7 @@
    incr(term_offset);incr(file_offset);
    if (term_offset==max_print_line) 
      {@+wterm_cr;term_offset=0;
-@@ -1509,17 +1472,17 @@
+@@ -1509,17 +1513,17 @@
      {@+wlog_cr;file_offset=0;
      } 
    } @+break;
@@ -427,7 +376,7 @@
  } @/
  incr(tally);
  } 
-@@ -1588,8 +1551,8 @@
+@@ -1588,8 +1592,8 @@
  character positions.
  
  @<Initialize the output...@>=
@@ -438,7 +387,7 @@
  else{@+slow_print(format_ident);print_ln();
    } 
  update_terminal;
-@@ -10110,9 +10073,16 @@
+@@ -10110,9 +10114,16 @@
  allows both lowercase and uppercase letters in the file name.
  @^system dependencies@>
  
@@ -458,7 +407,7 @@
  
  @p void pack_file_name(str_number @!n, str_number @!a, str_number @!e)
  {@+int k; /*number of positions filled in |name_of_file|*/ 
-@@ -10122,6 +10092,7 @@
+@@ -10122,6 +10133,7 @@
  for (j=str_start[a]; j<=str_start[a+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
@@ -466,7 +415,7 @@
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
  name_of_file[name_length+1]=0;
  } 
-@@ -10164,10 +10135,10 @@
+@@ -10164,10 +10176,10 @@
  if (n+b-a+1+format_ext_length > file_name_size) 
    b=a+file_name_size-n-1-format_ext_length;
  k=0;
@@ -479,7 +428,7 @@
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
  name_of_file[name_length+1]=0;
  } 
-@@ -10193,7 +10164,7 @@
+@@ -10193,7 +10205,7 @@
       /*now try the system format file area*/ 
    if (w_open_in(&fmt_file)) goto found;
    wake_up_terminal;
@@ -488,7 +437,7 @@
  @.Sorry, I can't find...@>
    update_terminal;
    } 
-@@ -10201,7 +10172,7 @@
+@@ -10201,7 +10213,7 @@
  pack_buffered_name(format_default_length-format_ext_length, 1, 0);
  if (!w_open_in(&fmt_file)) 
    {@+wake_up_terminal;
@@ -497,7 +446,7 @@
  @.I can't find PLAIN...@>
  @.plain@>
    return false;
-@@ -10224,7 +10195,12 @@
+@@ -10224,7 +10236,12 @@
  if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
   (cur_length > 0)) 
    return'?';
@@ -511,7 +460,7 @@
    return make_string();
    } 
  } 
-@@ -10394,10 +10370,10 @@
+@@ -10394,10 +10411,10 @@
  } 
  
  @ @<Print the banner...@>=
@@ -524,7 +473,7 @@
  print_char(' ');print_int(year);print_char(' ');
  print_two(time/60);print_char(':');print_two(time%60);
  } 
-@@ -11958,7 +11934,7 @@
+@@ -11958,7 +11975,7 @@
  
  @p void write_dvi(dvi_index @!a, dvi_index @!b)
  {@+int k;
@@ -533,7 +482,7 @@
  } 
  
  @ To put a byte in the buffer without paying the cost of invoking a procedure
-@@ -23781,7 +23757,7 @@
+@@ -23781,7 +23798,7 @@
  incompatible with the present \TeX\ table sizes, etc.
  
  @d too_small(X)	{@+wake_up_terminal;
@@ -542,7 +491,7 @@
  @.Must increase the x@>
    goto bad_fmt;
    } 
-@@ -23802,7 +23778,7 @@
+@@ -23802,7 +23819,7 @@
  @<Undump a couple more things and the closing check word@>;
  return true; /*it worked!*/ 
  bad_fmt: wake_up_terminal;
@@ -551,7 +500,7 @@
  @.Fatal format file error@>
  return false;
  } 
-@@ -24289,13 +24265,14 @@
+@@ -24289,13 +24306,14 @@
  @^system dependencies@>
  
  @p int main(void) {@! /*|start_here|*/ 
@@ -568,7 +517,7 @@
  @.Ouch...clobbered@>
    exit(0);
    } 
-@@ -24352,24 +24329,24 @@
+@@ -24352,24 +24370,24 @@
  
  @<Output statistics...@>=
  if (log_opened) 
@@ -608,7 +557,7 @@
      max_in_stack, max_nest_stack,@|
      max_param_stack,@|
      max_buf_stack+1,@|
-@@ -24498,13 +24475,13 @@
+@@ -24498,13 +24516,13 @@
  loop{@+wake_up_terminal;
    print_nl("debug # (-1 to exit):");update_terminal;
  @.debug \#@>
@@ -624,7 +573,7 @@
      switch (m) {
      @t\4@>@<Numbered cases for |debug_help|@>@;
      default:print_str("?");
-@@ -24530,7 +24507,7 @@
+@@ -24530,7 +24548,7 @@
  case 10: slow_print(n);@+break;
  case 11: check_mem(n > 0);@+break; /*check wellformedness; print new busy locations if |n > 0|*/ 
  case 12: search_mem(n);@+break; /*look for pointers to |n|*/ 
