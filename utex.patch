@@ -557,28 +557,3 @@
      max_in_stack, max_nest_stack,@|
      max_param_stack,@|
      max_buf_stack+1,@|
-@@ -24498,13 +24516,13 @@
- loop{@+wake_up_terminal;
-   print_nl("debug # (-1 to exit):");update_terminal;
- @.debug \#@>
--  if (fscanf(term_in.f," %d",&m)<1 ||
-+  if (fwscanf(term_in.f,L" %d",&m)<1 ||
-       m < 0) return;
-   else if (m==0) 
-     {@+goto breakpoint; /*go to every label at least once*/ 
-     breakpoint: m=0;/*'BREAKPOINT'*/
-     } 
--  else{@+fscanf(term_in.f," %d",&n);
-+  else{@+fwscanf(term_in.f,L" %d",&n);
-     switch (m) {
-     @t\4@>@<Numbered cases for |debug_help|@>@;
-     default:print_str("?");
-@@ -24530,7 +24548,7 @@
- case 10: slow_print(n);@+break;
- case 11: check_mem(n > 0);@+break; /*check wellformedness; print new busy locations if |n > 0|*/ 
- case 12: search_mem(n);@+break; /*look for pointers to |n|*/ 
--case 13: {@+fscanf(term_in.f," %d",&l);print_cmd_chr(n, l);
-+case 13: {@+fwscanf(term_in.f,L" %d",&l);print_cmd_chr(n, l);
-   } @+break;
- case 14: for (k=0; k<=n; k++) print(buffer[k]);@+break;
- case 15: {@+font_in_short_display=null_font;short_display(n);
