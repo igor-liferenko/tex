@@ -1,5 +1,5 @@
 all:
-ifeq ($(MAKELEVEL),2)
+ifeq ($(MAKELEVEL),2) # for TRIP
 	/bin/ctangle web2w
 else
 	/bin/ctangle web2w printable
