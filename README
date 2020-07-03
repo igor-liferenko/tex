@@ -1,5 +1,7 @@
 See http://mruckert.userweb.mwn.de/hint/web2w.html
 
+File mapping.w is in http://github.com/igor-liferenko/cweb
+
 Recent version of glibc must be used (otherwise you may get "Segmentation fault" errors).
 
 It is assumed that this repo is in /home/user/.
