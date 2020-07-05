@@ -4,7 +4,7 @@ initialize(); /*set global variables to their starting values*/
 @y
 initialize(); /*set global variables to their starting values*/ 
 #ifndef INIT
-strncpy(name_of_file+1, TEX_format_default+1, format_area_length);
+strcpy(name_of_file+1, "/home/user/tex/TeXformats/");
 strcat(name_of_file+1, strrchr(argv[0], '/') + 1);
 strcat(name_of_file+1, ".fmt");
 if (!w_open_in(&fmt_file)) exit(0);
