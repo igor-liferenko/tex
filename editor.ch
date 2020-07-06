@@ -36,12 +36,8 @@ int edit_line;
   if (ed_name_start && interaction > batch_mode) {
     char ed_name[file_name_size+1];
     int k = 0;
-    for (pool_pointer j=ed_name_start; j<=ed_name_end; j++) {
-      char mb[MB_CUR_MAX];
-      int len = wctomb(mb, xchr[str_pool[j]]);
-      for (int i = 0; i < len; i++)
-        ed_name[k++] = mb[i];
-    }
+    for (pool_pointer j=ed_name_start; j<=ed_name_end; j++)
+      k += wctomb(ed_name+k, xchr[str_pool[j]]);
     ed_name[k] = '\0';
 
     char cmd[500];
