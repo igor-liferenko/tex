@@ -424,7 +424,7 @@
  @.TeXformats@>
  @.plain@>
  @^system dependencies@>
-@@ -10164,10 +10176,10 @@
+@@ -10164,10 +10176,11 @@
  if (n+b-a+1+format_ext_length > file_name_size) 
    b=a+file_name_size-n-1-format_ext_length;
  k=0;
@@ -434,10 +434,11 @@
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
 -  append_to_name(xord[TEX_format_default[j]]);
 +  append_to_name(xord(TEX_format_default[j]));
++if (k < 0) k = -k;
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
  name_of_file[name_length+1]=0;
  } 
-@@ -10193,7 +10205,7 @@
+@@ -10193,7 +10206,7 @@
       /*now try the system format file area*/ 
    if (w_open_in(&fmt_file)) goto found;
    wake_up_terminal;
@@ -446,7 +447,7 @@
  @.Sorry, I can't find...@>
    update_terminal;
    } 
-@@ -10201,7 +10213,7 @@
+@@ -10201,7 +10214,7 @@
  pack_buffered_name(format_default_length-format_ext_length, 1, 0);
  if (!w_open_in(&fmt_file)) 
    {@+wake_up_terminal;
@@ -455,7 +456,7 @@
  @.I can't find PLAIN...@>
  @.plain@>
    return false;
-@@ -10224,7 +10236,12 @@
+@@ -10224,7 +10237,12 @@
  if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
   (cur_length > 0)) 
    return'?';
@@ -469,7 +470,7 @@
    return make_string();
    } 
  } 
-@@ -10394,10 +10411,10 @@
+@@ -10394,10 +10412,10 @@
  } 
  
  @ @<Print the banner...@>=
@@ -482,7 +483,7 @@
  print_char(' ');print_int(year);print_char(' ');
  print_two(time/60);print_char(':');print_two(time%60);
  } 
-@@ -11958,7 +11975,7 @@
+@@ -11958,7 +11976,7 @@
  
  @p void write_dvi(dvi_index @!a, dvi_index @!b)
  {@+int k;
@@ -491,7 +492,7 @@
  } 
  
  @ To put a byte in the buffer without paying the cost of invoking a procedure
-@@ -23781,7 +23798,7 @@
+@@ -23781,7 +23799,7 @@
  incompatible with the present \TeX\ table sizes, etc.
  
  @d too_small(X)	{@+wake_up_terminal;
@@ -500,7 +501,7 @@
  @.Must increase the x@>
    goto bad_fmt;
    } 
-@@ -23802,7 +23819,7 @@
+@@ -23802,7 +23820,7 @@
  @<Undump a couple more things and the closing check word@>;
  return true; /*it worked!*/ 
  bad_fmt: wake_up_terminal;
@@ -509,7 +510,7 @@
  @.Fatal format file error@>
  return false;
  } 
-@@ -24289,13 +24306,14 @@
+@@ -24289,13 +24307,14 @@
  @^system dependencies@>
  
  @p int main(void) {@! /*|start_here|*/ 
@@ -526,7 +527,7 @@
  @.Ouch...clobbered@>
    exit(0);
    } 
-@@ -24352,24 +24370,24 @@
+@@ -24352,24 +24371,24 @@
  
  @<Output statistics...@>=
  if (log_opened) 
