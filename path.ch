@@ -21,9 +21,9 @@ Unix directory separator.
 @z
 
 @x
-wchar_t @!TEX_format_default[1+format_default_length+1]=L" TeXformats/plain.fmt";
+text_char @!TEX_format_default[1+format_default_length+1]=L" TeXformats/plain.fmt";
 @y
-wchar_t @!TEX_format_default[1+format_default_length+1]=L" /home/user/tex/TeXformats/plain.fmt";
+text_char @!TEX_format_default[1+format_default_length+1]=L" /home/user/tex/TeXformats/plain.fmt";
 @z
 
 If you need non-ASCII here, grep required characters one by one in "mapping" and put here via "\x".

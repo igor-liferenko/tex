@@ -29,7 +29,7 @@
 +ASCII_code @!xord[65536];
     /*specifies conversion of input characters*/ 
 -uint8_t @!xchr[256];
-+wchar_t @!xchr[256];
++text_char @!xchr[256];
     /*specifies conversion of output characters*/ 
  
  @ Since we are assuming that our \PASCAL\ system is able to read and
@@ -105,9 +105,8 @@
  #define rewrite(file,name,mode) @[((file).f=fopen((char *)(name)+1,mode))@]
  #define close(file)    @[fclose((file).f)@]
 -#define eof(file)    @[feof((file).f)@]
--#define eoln(file)    @[((file).d=='\n'||eof(file))@]
 +#define eof(file)    @[(feof((file).f)||ferror((file).f))@]
-+#define eoln(file)    @[((file).d==L'\n'||eof(file))@]
+ #define eoln(file)    @[((file).d=='\n'||eof(file))@]
  #define erstat(file)   @[((file).f==NULL?-1:ferror((file).f))@]
  
  #define read(file,x) @[((x)=(file).d,get(file))@]
@@ -205,7 +204,7 @@
  
  @<Glob...@>=
 -ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
-+wchar_t @!TEX_format_default[1+format_default_length+1]=L" TeXformats/plain.fmt";
++text_char @!TEX_format_default[1+format_default_length+1]=L" TeXformats/plain.fmt";
  @.TeXformats@>
  @.plain@>
  @^system dependencies@>
