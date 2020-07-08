@@ -9,20 +9,30 @@
  
  #define odd(X)       ((X)&1)
  #define chr(X)       ((unsigned char)(X))
-@@ -579,10 +581,10 @@
+@@ -567,9 +569,9 @@
+ adjusted if necessary.
+ @^system dependencies@>
+ 
+-@d text_char	unsigned char /*the data type of characters in text files*/ 
++@d text_char	wchar_t /*the data type of characters in text files*/ 
+ @d first_text_char	0 /*ordinal number of the smallest element of |text_char|*/ 
+-@d last_text_char	255 /*ordinal number of the largest element of |text_char|*/ 
++@d last_text_char	65535 /*ordinal number of the largest element of |text_char|*/ 
+ 
+ @<Local variables for init...@>=
+ int @!i;
+@@ -579,9 +581,9 @@
  that are analogous to \PASCAL's |ord| and |chr| functions.
  
  @<Glob...@>=
 -ASCII_code @!xord[256];
--   /*specifies conversion of input characters*/ 
++ASCII_code @!xord[65536];
+    /*specifies conversion of input characters*/ 
 -uint8_t @!xchr[256];
 +wchar_t @!xchr[256];
     /*specifies conversion of output characters*/ 
-+uint8_t xord(wchar_t wc)
-+   { @<specifies conversion of input characters@> }
  
  @ Since we are assuming that our \PASCAL\ system is able to read and
- write the visible characters of standard ASCII (although not
 @@ -594,101 +596,101 @@
  @^system dependencies@>
  
@@ -232,30 +242,6 @@
  
  @ The following system-independent code makes the |xord| array contain a
  suitable inverse to the information in |xchr|. Note that if |xchr[i]==xchr[j]|
-@@ -734,10 +737,10 @@
- |j| or more; hence, standard ASCII code numbers will be used instead of
- codes below 040 in case there is a coincidence.
- 
--@<Set init...@>=
--for (i=first_text_char; i<=last_text_char; i++) xord[chr(i)]=invalid_code;
--for (i=0200; i<=0377; i++) xord[xchr[i]]=i;
--for (i=0; i<=0176; i++) xord[xchr[i]]=i;
-+@<spec...@>=
-+for (int i=0176; i>=0; i--) if (xchr[i] == wc) return i;
-+for (int i=0200; i<=0377; i++) if (xchr[i] == wc) return i;
-+return invalid_code;
- 
- @* Input and output.
- The bane of portability is the fact that different operating systems treat
-@@ -775,7 +778,7 @@
- 
- @<Types...@>=
- typedef uint8_t eight_bits; /*unsigned one-byte quantity*/ 
--typedef struct {@+FILE *f;@+text_char@,d;@+} alpha_file; /*files that contain textual data*/ 
-+typedef struct {@+FILE *f;@+wchar_t@,d;@+} alpha_file; /*files that contain textual data*/
- typedef struct {@+FILE *f;@+eight_bits@,d;@+} byte_file; /*files that contain binary data*/ 
- 
- @ Most of what we need to do with respect to input and output can be handled
 @@ -824,7 +827,7 @@
  
  @p bool a_open_in(alpha_file *f)
@@ -279,7 +265,7 @@
          @<Report overflow of the input buffer, and abort@>;
        } 
 -    buffer[last]=xord[(*f).d];get((*f));incr(last);
-+    buffer[last]=xord((*f).d);a_get((*f));incr(last);
++    buffer[last]=xord[(*f).d];a_get((*f));incr(last);
      if (buffer[last-1]!=' ') last_nonblank=last;
      } 
    last=last_nonblank;return true;
@@ -424,16 +410,10 @@
  @.TeXformats@>
  @.plain@>
  @^system dependencies@>
-@@ -10164,10 +10176,11 @@
- if (n+b-a+1+format_ext_length > file_name_size) 
-   b=a+file_name_size-n-1-format_ext_length;
- k=0;
--for (j=1; j<=n; j++) append_to_name(xord[TEX_format_default[j]]);
-+for (j=1; j<=n; j++) append_to_name(xord(TEX_format_default[j]));
+@@ -10168,6 +10180,7 @@
  for (j=a; j<=b; j++) append_to_name(buffer[j]);
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
--  append_to_name(xord[TEX_format_default[j]]);
-+  append_to_name(xord(TEX_format_default[j]));
+   append_to_name(xord[TEX_format_default[j]]);
 +if (k < 0) k = -k;
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
  name_of_file[name_length+1]=0;
@@ -464,7 +444,7 @@
 +else{@+for (k=1; k<=name_length; k++) {
 +      wchar_t wc;
 +      int len = mbtowc(&wc, name_of_file+k, MB_CUR_MAX);
-+      append_char(xord(wc));
++      append_char(xord[wc]);
 +      k += len - 1;
 +    }
    return make_string();
