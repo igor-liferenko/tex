@@ -29,7 +29,7 @@
 +ASCII_code @!xord[65536];
     /*specifies conversion of input characters*/ 
 -uint8_t @!xchr[256];
-+text_char @!xchr[256];
++text_char @!xchr[256]; /* fix bug of web2w */
     /*specifies conversion of output characters*/ 
  
  @ Since we are assuming that our \PASCAL\ system is able to read and
