@@ -241,9 +241,8 @@
 -else{@+for (k=1; k<=name_length; k++) append_char(xord[name_of_file[k]]);
 +else{@+for (k=1; k<=name_length; k++) {
 +      wchar_t wc;
-+      int len = mbtowc(&wc, name_of_file+k, MB_CUR_MAX);
++      k += mbtowc(&wc, name_of_file+k, MB_CUR_MAX) - 1;
 +      append_char(xord[wc]);
-+      k += len - 1;
 +    }
    return make_string();
    } 
