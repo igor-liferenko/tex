@@ -204,7 +204,7 @@
  
  @<Glob...@>=
 -ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
-+text_char @!TEX_format_default[1+format_default_length+1]=L" TeXformats/plain.fmt";
++wchar_t @!TEX_format_default[1+format_default_length+1]=L" TeXformats/plain.fmt";
  @.TeXformats@>
  @.plain@>
  @^system dependencies@>
