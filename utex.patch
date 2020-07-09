@@ -234,7 +234,7 @@
  @.I can't find PLAIN...@>
  @.plain@>
    return false;
-@@ -10224,7 +10237,12 @@
+@@ -10224,7 +10237,11 @@
  if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
   (cur_length > 0)) 
    return'?';
@@ -247,7 +247,7 @@
    return make_string();
    } 
  } 
-@@ -10394,10 +10412,10 @@
+@@ -10394,10 +10411,10 @@
  } 
  
  @ @<Print the banner...@>=
@@ -260,7 +260,7 @@
  print_char(' ');print_int(year);print_char(' ');
  print_two(time/60);print_char(':');print_two(time%60);
  } 
-@@ -11958,7 +11976,7 @@
+@@ -11958,7 +11975,7 @@
  
  @p void write_dvi(dvi_index @!a, dvi_index @!b)
  {@+int k;
@@ -269,7 +269,7 @@
  } 
  
  @ To put a byte in the buffer without paying the cost of invoking a procedure
-@@ -23781,7 +23799,7 @@
+@@ -23781,7 +23798,7 @@
  incompatible with the present \TeX\ table sizes, etc.
  
  @d too_small(X)	{@+wake_up_terminal;
@@ -278,7 +278,7 @@
  @.Must increase the x@>
    goto bad_fmt;
    } 
-@@ -23802,7 +23820,7 @@
+@@ -23802,7 +23819,7 @@
  @<Undump a couple more things and the closing check word@>;
  return true; /*it worked!*/ 
  bad_fmt: wake_up_terminal;
@@ -287,7 +287,7 @@
  @.Fatal format file error@>
  return false;
  } 
-@@ -24289,13 +24307,14 @@
+@@ -24289,13 +24306,14 @@
  @^system dependencies@>
  
  @p int main(void) {@! /*|start_here|*/ 
@@ -304,7 +304,7 @@
  @.Ouch...clobbered@>
    exit(0);
    } 
-@@ -24352,24 +24371,24 @@
+@@ -24352,24 +24370,24 @@
  
  @<Output statistics...@>=
  if (log_opened) 
