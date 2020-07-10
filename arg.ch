@@ -12,9 +12,9 @@ t_open_in;
 t_open_in;
 if (argc == 2) {
   last = loc = first;
-  for (int k = 0, len; k < strlen(argv[1]); k += len) {
+  for (int k = 0; k < strlen(argv[1]); ) {
     wchar_t wc;
-    len = mbtowc(&wc, argv[1]+k, MB_CUR_MAX);
+    k += mbtowc(&wc, argv[1]+k, MB_CUR_MAX);
     buffer[last++] = xord[wc];
   }
   return true;
