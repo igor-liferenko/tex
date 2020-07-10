@@ -1,15 +1,16 @@
 @x
-#include <wchar.h>
+@p void pack_buffered_name(small_number @!n, int @!a, int @!b)
 @y
-#include <wchar.h>
-size_t u8len(wchar_t *s, size_t len)
+@p
+int format_area_u8_length(void)
 {
-  size_t n = 0;
+  int n = 0;
   char mb[MB_CUR_MAX];
-  for (size_t l = 0; l < len; l++)
-    n += wctomb(mb, s[l]);
+  for (int k = 1; k <= format_area_length; k++)
+    n += wctomb(mb, TEX_format_default[k]);
   return n;
 }
+void pack_buffered_name(small_number @!n, int @!a, int @!b)
 @z
 
 NOTE: this code was taken verbatim from @<Get the first line...@> (except that open_fmt_file is replaced with w_open_in)
@@ -19,8 +20,7 @@ initialize(); /*set global variables to their starting values*/
 @y
 initialize(); /*set global variables to their starting values*/ 
 #ifndef INIT
-if (strlen(strrchr(argv[0],'/')+1)+u8len(TEX_format_default+1,format_area_length)+4>file_name_size)
-  exit(0);
+if (format_area_u8_length() + strlen(strrchr(argv[0],'/')+1) + 4 > file_name_size) exit(0);
 for (int k=1,i=1; i <= format_area_length; i++) k += wctomb(name_of_file+k, TEX_format_default[i]);
 strcat(name_of_file+1, strrchr(argv[0], '/') + 1);
 strcat(name_of_file+1, ".fmt");
