@@ -2,15 +2,12 @@
 #include <wchar.h>
 @y
 #include <wchar.h>
-size_t wcsntombslen(wchar_t *s, size_t len)
+size_t u8len(wchar_t *s, size_t len)
 {
   size_t n = 0;
-  size_t l = 0;
   char mb[MB_CUR_MAX];
-  while (l<len) {
-    n+=wctomb(mb, *(s+l));
-    l++;
-  }
+  for (size_t l = 0; l < len; l++)
+    n += wctomb(mb, s[l]);
   return n;
 }
 @z
@@ -22,8 +19,8 @@ initialize(); /*set global variables to their starting values*/
 @y
 initialize(); /*set global variables to their starting values*/ 
 #ifndef INIT
-if (strlen(strrchr(argv[0],'/')+1) + wcsntombslen(TEX_format_default+1, format_area_length)
-    + 4 > file_name_size) exit(0);
+if (strlen(strrchr(argv[0],'/')+1)+u8len(TEX_format_default+1,format_area_length)+4>file_name_size)
+  exit(0);
 for (int k=1,i=1; i <= format_area_length; i++) k += wctomb(name_of_file+k, TEX_format_default[i]);
 strcat(name_of_file+1, strrchr(argv[0], '/') + 1);
 strcat(name_of_file+1, ".fmt");
