@@ -82,16 +82,7 @@
  @.End of file on the terminal@>
      return false;
      } 
-@@ -1256,8 +1259,6 @@
- bool @!c; /*check sum has been checked*/ 
- pool_ptr=0;str_ptr=0;str_start[0]=0;
- @<Make the first 256 strings@>;
--@<Read the other strings from the \.{TEX.POOL} file and return |true|, or give an
--error message and return |false|@>;
- } 
- #endif
- 
-@@ -1448,28 +1449,31 @@
+@@ -1448,28 +1451,31 @@
  
  @<Compiler directives@>=
  #define put(file)    @[fwrite(&((file).d),sizeof((file).d),1,(file).f)@]
@@ -130,7 +121,7 @@
  
  @ To end a line of text output, we call |print_ln|.
  
-@@ -1500,7 +1504,7 @@
+@@ -1500,7 +1506,7 @@
    {@+print_ln();return;
    } 
  switch (selector) {
@@ -139,7 +130,7 @@
    incr(term_offset);incr(file_offset);
    if (term_offset==max_print_line) 
      {@+wterm_cr;term_offset=0;
-@@ -1509,17 +1513,17 @@
+@@ -1509,17 +1515,17 @@
      {@+wlog_cr;file_offset=0;
      } 
    } @+break;
@@ -160,7 +151,7 @@
  } @/
  incr(tally);
  } 
-@@ -1588,8 +1592,8 @@
+@@ -1588,8 +1594,8 @@
  character positions.
  
  @<Initialize the output...@>=
@@ -171,7 +162,7 @@
  else{@+slow_print(format_ident);print_ln();
    } 
  update_terminal;
-@@ -10110,9 +10114,16 @@
+@@ -10110,9 +10116,16 @@
  allows both lowercase and uppercase letters in the file name.
  @^system dependencies@>
  
@@ -191,7 +182,7 @@
  
  @p void pack_file_name(str_number @!n, str_number @!a, str_number @!e)
  {@+int k; /*number of positions filled in |name_of_file|*/ 
-@@ -10122,6 +10133,7 @@
+@@ -10122,6 +10135,7 @@
  for (j=str_start[a]; j<=str_start[a+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
@@ -199,7 +190,7 @@
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
  name_of_file[name_length+1]=0;
  } 
-@@ -10138,7 +10150,7 @@
+@@ -10138,7 +10152,7 @@
  @d format_extension_str ".fmt" /*the extension, as a \.{WEB} constant*/ 
  
  @<Glob...@>=
@@ -208,7 +199,7 @@
  @.TeXformats@>
  @.plain@>
  @^system dependencies@>
-@@ -10168,6 +10180,7 @@
+@@ -10168,6 +10182,7 @@
  for (j=a; j<=b; j++) append_to_name(buffer[j]);
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
    append_to_name(xord[TEX_format_default[j]]);
@@ -216,7 +207,7 @@
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
  name_of_file[name_length+1]=0;
  } 
-@@ -10193,7 +10206,7 @@
+@@ -10193,7 +10208,7 @@
       /*now try the system format file area*/ 
    if (w_open_in(&fmt_file)) goto found;
    wake_up_terminal;
@@ -225,7 +216,7 @@
  @.Sorry, I can't find...@>
    update_terminal;
    } 
-@@ -10201,7 +10214,7 @@
+@@ -10201,7 +10216,7 @@
  pack_buffered_name(format_default_length-format_ext_length, 1, 0);
  if (!w_open_in(&fmt_file)) 
    {@+wake_up_terminal;
@@ -234,7 +225,7 @@
  @.I can't find PLAIN...@>
  @.plain@>
    return false;
-@@ -10224,7 +10237,11 @@
+@@ -10224,7 +10239,11 @@
  if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
   (cur_length > 0)) 
    return'?';
@@ -247,7 +238,7 @@
    return make_string();
    } 
  } 
-@@ -10394,10 +10411,10 @@
+@@ -10394,10 +10413,10 @@
  } 
  
  @ @<Print the banner...@>=
@@ -260,7 +251,7 @@
  print_char(' ');print_int(year);print_char(' ');
  print_two(time/60);print_char(':');print_two(time%60);
  } 
-@@ -11958,7 +11975,7 @@
+@@ -11958,7 +11977,7 @@
  
  @p void write_dvi(dvi_index @!a, dvi_index @!b)
  {@+int k;
@@ -269,7 +260,7 @@
  } 
  
  @ To put a byte in the buffer without paying the cost of invoking a procedure
-@@ -23781,7 +23798,7 @@
+@@ -23781,7 +23800,7 @@
  incompatible with the present \TeX\ table sizes, etc.
  
  @d too_small(X)	{@+wake_up_terminal;
@@ -278,7 +269,7 @@
  @.Must increase the x@>
    goto bad_fmt;
    } 
-@@ -23802,7 +23819,7 @@
+@@ -23802,7 +23821,7 @@
  @<Undump a couple more things and the closing check word@>;
  return true; /*it worked!*/ 
  bad_fmt: wake_up_terminal;
@@ -287,7 +278,7 @@
  @.Fatal format file error@>
  return false;
  } 
-@@ -24289,13 +24306,14 @@
+@@ -24289,13 +24308,14 @@
  @^system dependencies@>
  
  @p int main(void) {@! /*|start_here|*/ 
@@ -304,7 +295,7 @@
  @.Ouch...clobbered@>
    exit(0);
    } 
-@@ -24352,24 +24370,24 @@
+@@ -24352,24 +24372,24 @@
  
  @<Output statistics...@>=
  if (log_opened) 
