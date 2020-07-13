@@ -190,7 +190,7 @@
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
  name_of_file[name_length+1]=0;
  } 
-@@ -10138,7 +10152,7 @@
+@@ -10138,13 +10152,13 @@
  @d format_extension_str ".fmt" /*the extension, as a \.{WEB} constant*/ 
  
  @<Glob...@>=
@@ -199,6 +199,13 @@
  @.TeXformats@>
  @.plain@>
  @^system dependencies@>
+ 
+ @ @<Check the ``constant'' values for consistency@>=
+-if (format_default_length > file_name_size) bad=31;
++if (wcsntombs(NULL,TEX_format_default+1,0) > file_name_size) bad=31;
+ 
+ @ Here is the messy routine that was just mentioned. It sets |name_of_file|
+ from the first |n| characters of |TEX_format_default|, followed by
 @@ -10168,6 +10182,7 @@
  for (j=a; j<=b; j++) append_to_name(buffer[j]);
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
