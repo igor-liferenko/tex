@@ -5,13 +5,6 @@ enum {@+@!file_name_size=40@+}; /*file names shouldn't be longer than this*/
 enum {@+@!file_name_size=255@+}; /*file names shouldn't be longer than this*/
 @z
 
-Unix directory separator.
-@x
-  if ((c=='>')||(c==':')) 
-@y
-  if (c=='/')
-@z
-
 @x
 @d format_default_length	20 /*length of the |TEX_format_default| string*/
 @d format_area_length	11 /*length of its area part*/
