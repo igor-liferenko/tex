@@ -4,8 +4,7 @@ initialize(); /*set global variables to their starting values*/
 @y
 initialize(); /*set global variables to their starting values*/ 
 #ifndef INIT
-const wchar_t *TEX_format_default0 = TEX_format_default + 1;
-wcsnrtombs(name_of_file+1, &TEX_format_default0, format_area_length, file_name_size, NULL);
+for (int i = 1, k = 0; i <= format_area_length; i++) append_to_name(xord[TEX_format_default[i]]);
 strncat(name_of_file+1, strrchr(argv[0], '/') + 1, file_name_size - strlen(name_of_file+1));
 strncat(name_of_file+1, ".fmt", file_name_size - strlen(name_of_file+1));
 if (!w_open_in(&fmt_file)) exit(0);
