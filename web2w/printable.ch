@@ -1,6 +1,7 @@
 Condition from §49 of tex.web is not used in tex.w, because pool file is not read
 (instead, this condition is hard-coded in tex.w by web2w).
 
+To open tex.w in editor, it must contain only visible characters:
 @x
   else wput(k);
 @y
