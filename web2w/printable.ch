@@ -4,8 +4,8 @@ Condition from §49 of tex.web is not used in tex.w, because pool file is not re
 @x
   else wput(k);
 @y
-  else if (k>=128) fprintf(w,"\\x%x",k);
-  else if (k<' '||k==127) fprintf(w,"\\%02o",k);
+  else if (k>=128) fprintf(w,"\\x%x",k); /* same width as ^^xx, so that 'diff' will be lined up */
+  else if (k<' '||k==127) fprintf(w,"\\%02o",k); /* same width as ^^a (except 127) */
   else wput(k);
 @z
 
