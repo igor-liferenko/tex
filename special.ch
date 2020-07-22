@@ -32,10 +32,11 @@ for (k=str_start[str_ptr]; k<=pool_ptr-1; k++) {
 @ @<Global...@>=
 int cur_length_u8(void)
 {
-  char mb[MB_CUR_MAX];
   int len = 0;
-  for (int k=str_start[str_ptr]; k<=pool_ptr-1; k++)
+  for (int k=str_start[str_ptr]; k<=pool_ptr-1; k++) {
+    char mb[MB_CUR_MAX];
     len += wctomb(mb, xchr[str_pool[k]]);
+  }
   return len;
 }
 
