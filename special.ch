@@ -1,4 +1,19 @@
 @x
+void special_out(pointer @!p)
+@y
+int cur_length_u8(void)
+{
+  int len = 0;
+  for (int k=str_start[str_ptr]; k<=pool_ptr-1; k++) {
+    char mb[MB_CUR_MAX];
+    len += wctomb(mb, xchr[str_pool[k]]);
+  }
+  return len;
+}
+void special_out(pointer @!p)
+@z
+
+@x
 if (cur_length < 256)
 @y
 if (cur_length_u8() < 256)
@@ -24,21 +39,4 @@ for (k=str_start[str_ptr]; k<=pool_ptr-1; k++) {
   int len = wctomb(mb, xchr[str_pool[k]]);
   for (int i = 0; i < len; i++) dvi_out(mb[i]);
 }
-@z
-
-@x
-@ Appendix: Replacement of the string pool file.
-@y
-@ @<Global...@>=
-int cur_length_u8(void)
-{
-  int len = 0;
-  for (int k=str_start[str_ptr]; k<=pool_ptr-1; k++) {
-    char mb[MB_CUR_MAX];
-    len += wctomb(mb, xchr[str_pool[k]]);
-  }
-  return len;
-}
-
-@ Appendix: Replacement of the string pool file.
 @z
