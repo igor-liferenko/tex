@@ -1,0 +1,18 @@
+`wterm_cr' is used in `exit' because newline was automatically printed on PDP-10.
+The changes in http://tug.ctan.org/tex-archive/systems/knuth/local/tex-sparc/initex.ch:
+    < write(term_out,'! End of file on the terminal... why?');
+    > write_ln(term_out,'! End of file on the terminal... why?');
+and
+    <    slow_print(log_name); print_char(".");
+    <    end;
+    <  end;
+    >    slow_print(log_name); print_char(".");
+    >    end;
+    >  end;
+    > print_ln;
+are worse than my way, because they cannot handle the case when 'q' is pressed,
+and behavios in therefore as in TL's tex.
+And in answer #6 https://www.tug.org/TUGboat/tb11-4/tb30knut-exercises.pdf
+to https://www.tug.org/TUGboat/tb11-2/tb28knut.pdf
+the clue may be confused with the change-file error - after \batchmode *must*
+appear newline before terminal prompt.
