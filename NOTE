@@ -1,1 +1,2 @@
 To ensure that only BMP characters are in input files, check if `(*f).d' is not greater than 65535 before using it as index to `xord', and if it is greater, store `invalid_code' in `buffer'.
+And mapping.w must contain only BMP characters.
