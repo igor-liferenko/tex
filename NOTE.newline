@@ -1,10 +1,8 @@
 `wterm_cr' is used in `exit' because newline was automatically printed on PDP-10.
-In answer #6 [1] it is meant print_ln() which is after '...' - but before
-shell prompt newline *must* be printed (it is another newline - not which is
-meant in the answer).
-
-Therefore in TL's tex it is an error that before shell prompt newline is
-not printed. And the following changes from http://tug.ctan.org/tex-archive/systems/knuth/local/tex-sparc/initex.ch are also wrong, because they don't allow newline before shell prompt to be printed:
+In answer #6 [1] is meant the <return> produced by print_ln() which goes right after printing '...' - before shell prompt newline must be present, because PDP-10 aptomatically adds it
+(see https://tex.stackexchange.com/questions/536306/).
+In TL's tex behavior is wrong, since newline before shell prompt is not printed.
+And I recall that until I used `exit' to add newline, I could not achieve correct behavior trying to add newline as in http://tug.ctan.org/tex-archive/systems/knuth/local/tex-sparc/initex.ch, namely:
     < write(term_out,'! End of file on the terminal... why?');
     > write_ln(term_out,'! End of file on the terminal... why?');
 and
@@ -16,4 +14,4 @@ and
     >  end;
     > print_ln;
 
-[1] https://www.tug.org/TUGboat/tb11-4/tb30knut-exercises.pdf
+[1]: https://www.tug.org/TUGboat/tb11-4/tb30knut-exercises.pdf
