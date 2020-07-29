@@ -46,7 +46,7 @@
  @p bool a_open_in(alpha_file *f)
     /*open a text file for input*/ 
 -{@+reset((*f), name_of_file,"r");return reset_OK((*f));
-+{@+if(((*f).f=fopen(name_of_file+1,"r"))!=NULL)a_get(*f);return reset_OK((*f));
++{if(((*f).f=fopen(name_of_file+1,"r"))!=NULL)(*f).d=fgetwc((*f).f);return reset_OK(*f);
  } 
  @#
  bool a_open_out(alpha_file *f)
@@ -55,7 +55,7 @@
     /*inputs the next line or returns |false|*/ 
  {@+uint16_t last_nonblank; /*|last| with trailing blanks removed*/ 
 -if (bypass_eoln) if (!eof((*f))) get((*f));
-+if (bypass_eoln) if (!eof((*f))) a_get((*f));
++if (bypass_eoln) if (!eof((*f))) (*f).d=fgetwc((*f).f);
     /*input the first character of the line into |f.d|*/ 
  last=first; /*cf.\ Matthew 19\thinspace:\thinspace30*/ 
  if (eof((*f))) return false;
@@ -64,7 +64,7 @@
          @<Report overflow of the input buffer, and abort@>;
        } 
 -    buffer[last]=xord[(*f).d];get((*f));incr(last);
-+    buffer[last]=xord[(*f).d];a_get((*f));incr(last);
++    buffer[last]=xord[(*f).d];(*f).d=fgetwc((*f).f);incr(last);
      if (buffer[last-1]!=' ') last_nonblank=last;
      } 
    last=last_nonblank;return true;
@@ -82,15 +82,7 @@
  @.End of file on the terminal@>
      return false;
      } 
-@@ -1448,6 +1451,7 @@
- 
- @<Compiler directives@>=
- #define put(file)    @[fwrite(&((file).d),sizeof((file).d),1,(file).f)@]
-+#define a_get(file)    @[((file).d = fgetwc((file).f))@]
- #define get(file)    @[fread(&((file).d),sizeof((file).d),1,(file).f)@]
- 
- #define reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
-@@ -1461,15 +1465,15 @@
+@@ -1461,15 +1464,15 @@
  #define read(file,x) @[((x)=(file).d,get(file))@]
  #define read_ln(file)  @[do get(file); while (!eoln(file))@]
  
@@ -112,7 +104,7 @@
  
  @ To end a line of text output, we call |print_ln|.
  
-@@ -1500,7 +1504,7 @@
+@@ -1500,7 +1503,7 @@
    {@+print_ln();return;
    } 
  switch (selector) {
@@ -121,7 +113,7 @@
    incr(term_offset);incr(file_offset);
    if (term_offset==max_print_line) 
      {@+wterm_cr;term_offset=0;
-@@ -1509,17 +1513,17 @@
+@@ -1509,17 +1512,17 @@
      {@+wlog_cr;file_offset=0;
      } 
    } @+break;
@@ -142,7 +134,7 @@
  } @/
  incr(tally);
  } 
-@@ -1588,8 +1592,8 @@
+@@ -1588,8 +1591,8 @@
  character positions.
  
  @<Initialize the output...@>=
@@ -153,7 +145,7 @@
  else{@+slow_print(format_ident);print_ln();
    } 
  update_terminal;
-@@ -10110,9 +10114,16 @@
+@@ -10110,9 +10113,16 @@
  allows both lowercase and uppercase letters in the file name.
  @^system dependencies@>
  
@@ -173,7 +165,7 @@
  
  @p void pack_file_name(str_number @!n, str_number @!a, str_number @!e)
  {@+int k; /*number of positions filled in |name_of_file|*/ 
-@@ -10122,6 +10133,7 @@
+@@ -10122,6 +10132,7 @@
  for (j=str_start[a]; j<=str_start[a+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
@@ -181,7 +173,7 @@
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
  name_of_file[name_length+1]=0;
  } 
-@@ -10138,13 +10150,13 @@
+@@ -10138,13 +10149,13 @@
  @d format_extension_str ".fmt" /*the extension, as a \.{WEB} constant*/ 
  
  @<Glob...@>=
@@ -197,7 +189,7 @@
  
  @ Here is the messy routine that was just mentioned. It sets |name_of_file|
  from the first |n| characters of |TEX_format_default|, followed by
-@@ -10168,6 +10180,7 @@
+@@ -10168,6 +10179,7 @@
  for (j=a; j<=b; j++) append_to_name(buffer[j]);
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
    append_to_name(xord[TEX_format_default[j]]);
@@ -205,7 +197,7 @@
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
  name_of_file[name_length+1]=0;
  } 
-@@ -10193,7 +10206,7 @@
+@@ -10193,7 +10205,7 @@
       /*now try the system format file area*/ 
    if (w_open_in(&fmt_file)) goto found;
    wake_up_terminal;
@@ -214,7 +206,7 @@
  @.Sorry, I can't find...@>
    update_terminal;
    } 
-@@ -10201,7 +10214,7 @@
+@@ -10201,7 +10213,7 @@
  pack_buffered_name(format_default_length-format_ext_length, 1, 0);
  if (!w_open_in(&fmt_file)) 
    {@+wake_up_terminal;
@@ -223,7 +215,7 @@
  @.I can't find PLAIN...@>
  @.plain@>
    return false;
-@@ -10224,7 +10237,11 @@
+@@ -10224,7 +10236,11 @@
  if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
   (cur_length > 0)) 
    return'?';
@@ -236,7 +228,7 @@
    return make_string();
    } 
  } 
-@@ -10394,10 +10411,10 @@
+@@ -10394,10 +10410,10 @@
  } 
  
  @ @<Print the banner...@>=
@@ -249,7 +241,7 @@
  print_char(' ');print_int(year);print_char(' ');
  print_two(time/60);print_char(':');print_two(time%60);
  } 
-@@ -11958,7 +11975,7 @@
+@@ -11958,7 +11974,7 @@
  
  @p void write_dvi(dvi_index @!a, dvi_index @!b)
  {@+int k;
@@ -258,7 +250,7 @@
  } 
  
  @ To put a byte in the buffer without paying the cost of invoking a procedure
-@@ -23781,7 +23798,7 @@
+@@ -23781,7 +23797,7 @@
  incompatible with the present \TeX\ table sizes, etc.
  
  @d too_small(X)	{@+wake_up_terminal;
@@ -267,7 +259,7 @@
  @.Must increase the x@>
    goto bad_fmt;
    } 
-@@ -23802,7 +23819,7 @@
+@@ -23802,7 +23818,7 @@
  @<Undump a couple more things and the closing check word@>;
  return true; /*it worked!*/ 
  bad_fmt: wake_up_terminal;
@@ -276,7 +268,7 @@
  @.Fatal format file error@>
  return false;
  } 
-@@ -24289,13 +24306,14 @@
+@@ -24289,13 +24305,14 @@
  @^system dependencies@>
  
  @p int main(void) {@! /*|start_here|*/ 
@@ -293,7 +285,7 @@
  @.Ouch...clobbered@>
    exit(0);
    } 
-@@ -24352,24 +24370,24 @@
+@@ -24352,24 +24369,24 @@
  
  @<Output statistics...@>=
  if (log_opened) 
