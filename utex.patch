@@ -82,7 +82,7 @@
  @.End of file on the terminal@>
      return false;
      } 
-@@ -1448,28 +1451,31 @@
+@@ -1448,8 +1451,11 @@
  
  @<Compiler directives@>=
  #define put(file)    @[fwrite(&((file).d),sizeof((file).d),1,(file).f)@]
@@ -94,12 +94,7 @@
  #define reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
                                   (file).f!=NULL?get(file):0)@]
  #define rewrite(file,name,mode) @[((file).f=fopen((char *)(name)+1,mode))@]
- #define close(file)    @[fclose((file).f)@]
--#define eof(file)    @[feof((file).f)@]
-+#define eof(file)    @[(feof((file).f)||ferror((file).f))@]
- #define eoln(file)    @[((file).d=='\n'||eof(file))@]
- #define erstat(file)   @[((file).f==NULL?-1:ferror((file).f))@]
- 
+@@ -1461,15 +1467,15 @@
  #define read(file,x) @[((x)=(file).d,get(file))@]
  #define read_ln(file)  @[do get(file); while (!eoln(file))@]
  
