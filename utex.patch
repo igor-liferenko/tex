@@ -1,6 +1,6 @@
 --- web2w/tex.w	2020-06-30 08:00:45.036692434 +0700
 +++ tex.w	2020-06-30 08:12:22.189472049 +0700
-@@ -344,6 +344,8 @@
+@@ -344,9 +344,11 @@
  #include <stdlib.h>
  #include <string.h>
  #include <math.h>
@@ -8,7 +8,11 @@
 +#include <locale.h>
  
  #define odd(X)       ((X)&1)
- #define chr(X)       ((unsigned char)(X))
+-#define chr(X)       ((unsigned char)(X))
++#define chr(X)       (X) /* fix ctex.patch */
+ #define ord(X)       ((int)(X))
+ #define abs(X)       ((X)>-(X)?(X):-(X))
+ #define round(X)     ((int)((X)>=0.0?floor((X)+0.5):ceil((X)-0.5)))
 @@ -567,9 +569,9 @@
  adjusted if necessary.
  @^system dependencies@>
