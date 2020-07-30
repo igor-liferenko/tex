@@ -8,6 +8,6 @@ It is assumed that this repo is in /home/user/.
 
 For MetaPost add 'TEX = tex' to texmf.cnf
 
-To use debugger, compile with `-g -Og' and run "gdb plain"
+To use debugger, run "gdb plain"
 
 To run TeX, use "exec /home/user/tex/plain"

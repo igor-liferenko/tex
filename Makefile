@@ -2,10 +2,10 @@ all:
 	make -C web2w && patch -so tex.w web2w/tex.w utex.patch
 	tie -c tex.ch tex.w constants.ch special.ch $(CHF) >/dev/null
 	/bin/ctangle tex tex
-	gcc -DINIT -o initex tex.c -lm
+	gcc -g -Og -DINIT -o initex tex.c -lm
 	@echo 'plain \input offset \dump' | ./initex >/dev/null; mv plain.fmt TeXformats/
 	@echo 'тех \input offset \dump' | ./initex >/dev/null; mv тех.fmt TeXformats/
-	gcc -DSTAT -o virtex tex.c -lm
+	gcc -g -Og -DSTAT -o virtex tex.c -lm
 
 triptex:
 	make -C web2w && patch -so tex.w web2w/tex.w utex.patch
