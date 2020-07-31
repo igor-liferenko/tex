@@ -1,17 +1,3 @@
-`wterm_cr' is used in `exit' because newline was automatically printed on PDP-10.
-In answer #6 [1] is meant the <return> produced by print_ln() which goes right after printing '...' - before shell prompt newline must be present, because PDP-10 aptomatically adds it
-(see https://tex.stackexchange.com/questions/536306/).
-In TL's tex behavior is wrong, since newline before shell prompt is not printed.
-And I recall that until I used `exit' to add newline, I could not achieve correct behavior trying to add newline as in http://tug.ctan.org/tex-archive/systems/knuth/local/tex-sparc/initex.ch, namely:
-    < write(term_out,'! End of file on the terminal... why?');
-    > write_ln(term_out,'! End of file on the terminal... why?');
-and
-    <    slow_print(log_name); print_char(".");
-    <    end;
-    <  end;
-    >    slow_print(log_name); print_char(".");
-    >    end;
-    >  end;
-    > print_ln;
-
+`wterm_cr' is used in `exit' because newline was automatically printed on PDP-10 (where TeX was created) after program exit. Incidentally, the way how final newline in TL's tex is done is redundant (it is fixed in many places instead of one (as my) - after "why?" and "transcript written", and they should have fixed it also after inputting "q", but they didn't).
+(In answer #6 [1] is meant the <return> produced by print_ln() which goes right after printing '...' - not the final <return> before shell prompt.)
 [1]: https://www.tug.org/TUGboat/tb11-4/tb30knut-exercises.pdf
