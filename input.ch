@@ -8,9 +8,8 @@
 @x
 {@+if(((*f).f=fopen(name_of_file+1,"r"))!=NULL)(*f).d=fgetwc((*f).f);return reset_OK((*f));
 @y
-{
-  if (((*f).f=fopen(name_of_file+1,"r"))!=NULL)
-    if (((*f).d=fgetwc((*f).f)) > 65535 || ferror((*f).f)) kill(getpid(), SIGABRT), pause();
+{@+if(((*f).f=fopen(name_of_file+1,"r"))!=NULL)
+  if (((*f).d=fgetwc((*f).f)) > 65535 || ferror((*f).f)) kill(getpid(), SIGABRT), pause();
   return reset_OK((*f));
 @z
 
