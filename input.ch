@@ -1,3 +1,5 @@
+Ensure that input consists only of BMP characters and is valid UTF-8.
+
 @x
 @h
 @y
