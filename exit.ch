@@ -1,4 +1,4 @@
-NOTE: printing final newline and returning exit code must be done at the last moment before exiting, like it is done here; at http://tug.ctan.org/tex-archive/systems/knuth/local/tex-sparc/initex.ch it is done wrong
+NOTE: printing final newline and returning exit code must be done at the last moment before exiting, like it is done here; at http://tug.ctan.org/tex-archive/systems/knuth/local/tex-sparc/initex.ch and in web2c it is done wrong
 
 @x
 @h
