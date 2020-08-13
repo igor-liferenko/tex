@@ -1,5 +1,5 @@
 diff --git a/tex.w b/tex.w
-index 1257793..efc6e26 100644
+index 1257793..e468f90 100644
 --- a/tex.w
 +++ b/tex.w
 @@ -1020,14 +1020,10 @@ consist of the remainder of the command line, after the part that invoked
@@ -57,11 +57,12 @@ index 1257793..efc6e26 100644
  main_control(); /*come to life*/ 
  final_cleanup(); /*prepare for death*/ 
  close_files_and_terminate();
-+final_end:
- ready_already=0;
+-ready_already=0;
 -return 0; }
++final_end:
 +wterm_cr;
-+if (history <= warning_issued) return 0; else return 1; }
++if (history <= warning_issued) return 0;
++else return 1; }
  
  @ Here we do whatever is needed to complete \TeX's job gracefully on the
  local operating system. The code here might come into play after a fatal
