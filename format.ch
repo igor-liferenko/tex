@@ -7,10 +7,10 @@ initialize(); /*set global variables to their starting values*/
 wcstombs(name_of_file+1, TEX_format_default+1, file_name_size+1);
 strcpy(strrchr(name_of_file+1, '/'), strrchr(argv[0], '/'));
 strcat(name_of_file+1, ".fmt");
-if (!w_open_in(&fmt_file)) exit(0);
+if (!w_open_in(&fmt_file)) goto final_end;
 if (!load_fmt_file()) {
   w_close(&fmt_file);
-  exit(0);
+  goto final_end;
 } 
 w_close(&fmt_file);
 #endif

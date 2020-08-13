@@ -22,9 +22,9 @@ if (argc == 2) {
 @z
 
 @x
-if (!init_terminal()) exit(0);
+if (!init_terminal()) goto final_end;
 @y
-if (!init_terminal(argc,argv)) exit(0);
+if (!init_terminal(argc,argv)) goto final_end;
 @z
 
 @x
