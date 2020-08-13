@@ -1,5 +1,5 @@
 diff --git a/tex.w b/tex.w
-index 1257793..3196468 100644
+index 1257793..efc6e26 100644
 --- a/tex.w
 +++ b/tex.w
 @@ -1020,14 +1020,10 @@ consist of the remainder of the command line, after the part that invoked
@@ -18,7 +18,7 @@ index 1257793..3196468 100644
  @.Buffer size exceeded@>
    } 
  else{@+cur_input.loc_field=first;cur_input.limit_field=last-1;
-@@ -1884,15 +1880,11 @@ help_ptr=0;use_err_help=false;
+@@ -1884,15 +1880,9 @@ help_ptr=0;use_err_help=false;
  goes to |end_of_TEX|. This is the only nontrivial |@!goto| statement in the
  whole program. It is used when there is no recovery from a particular error.
  
@@ -31,13 +31,11 @@ index 1257793..3196468 100644
  @<Error hand...@>=
  void jump_out(void)
 -{@+ close_files_and_terminate(); exit(0);
-+{@+ close_files_and_terminate();
-+wterm_cr;
-+if (history <= warning_issued) exit(0); else exit(1);
++{@+ close_files_and_terminate(); wterm_cr; exit(1);
  } 
  
  @ Here now is the general |error| routine.
-@@ -7164,7 +7156,7 @@ scanner_status=normal;warning_index=null;first=1;
+@@ -7164,7 +7154,7 @@ scanner_status=normal;warning_index=null;first=1;
  state=new_line;start=1;index=0;line=0;name=0;
  force_eof=false;
  align_state=1000000;@/
@@ -46,7 +44,7 @@ index 1257793..3196468 100644
  limit=last;first=last+1; /*|init_terminal| has set |loc| and |last|*/ 
  } 
  
-@@ -24314,7 +24306,7 @@ if (bad > 0)
+@@ -24314,7 +24304,7 @@ if (bad > 0)
    {@+wterm_ln(L"Ouch---my internal constants have been clobbered!"
      L"---case %d", bad);
  @.Ouch...clobbered@>
@@ -55,7 +53,7 @@ index 1257793..3196468 100644
    } 
  initialize(); /*set global variables to their starting values*/ 
  #ifdef @!INIT
-@@ -24328,8 +24320,10 @@ history=spotless; /*ready to go!*/
+@@ -24328,8 +24318,10 @@ history=spotless; /*ready to go!*/
  main_control(); /*come to life*/ 
  final_cleanup(); /*prepare for death*/ 
  close_files_and_terminate();
@@ -67,7 +65,7 @@ index 1257793..3196468 100644
  
  @ Here we do whatever is needed to complete \TeX's job gracefully on the
  local operating system. The code here might come into play after a fatal
-@@ -24470,9 +24464,9 @@ But when we finish this part of the program, \TeX\ is ready to call on the
+@@ -24470,9 +24462,9 @@ But when we finish this part of the program, \TeX\ is ready to call on the
  {@+@<Initialize the input routines@>;
  if ((format_ident==0)||(buffer[loc]=='&')) 
    {@+if (format_ident!=0) initialize(); /*erase preloaded format*/ 
