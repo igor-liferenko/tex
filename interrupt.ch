@@ -21,7 +21,7 @@ initialize(); /*set global variables to their starting values*/
 struct sigaction sa;
 sa.sa_handler = catchint;
 sigemptyset(&sa.sa_mask);
-sa.sa_flags = 0;
+sa.sa_flags = SA_RESTART;
 sigaction(SIGINT, &sa, NULL);
 initialize(); /*set global variables to their starting values*/ 
 @z
