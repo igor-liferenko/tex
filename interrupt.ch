@@ -1,4 +1,4 @@
-FIXTHIS: setting sa_flags to SA_RESTART has the effect that interrupts are ignored if we are waiting for input; make sa_flags zero and read https://tug.org/pipermail/tex-k/2020-August/003297.html
+FIXTHIS: setting sa_flags to SA_RESTART has the effect that interrupts are ignored if we are waiting for input; make sa_flags zero and read https://tug.org/pipermail/tex-k/2020-August/003315.html
 
 @x
 @h
