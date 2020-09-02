@@ -2,7 +2,7 @@ Condition from §49 of tex.web is not used in tex.w, because pool file is not re
 (instead, this condition is hard-coded in tex.w by web2w).
 
 Use backslash notation to represent non-visible characters, created by the next change
-(above 127 are not valid UTF-8 and below 32 are a problem for text editor).
+(they are a problem for text editor and above 127 are not valid UTF-8).
 @x
   else wput(k);
 @y
