@@ -1,4 +1,6 @@
-Now part of input before ^C is ignored.
+^C is ignored when TeX is waiting for input.
+
+The code in this change-file ignores part of input before ^C.
 Test for a while and if Abort will not happen in response to ^C, make so that part of input before
 ^C will not be ignored:
 1) set sa_flags to SA_RESTART
