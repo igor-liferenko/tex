@@ -20,6 +20,8 @@ if (bypass_eoln) if (!eof((*f))) {
 }
  @z
 
+and do the same in mf/interrupt.ch
+
 @x
 @h
 @y
