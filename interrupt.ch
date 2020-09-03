@@ -1,5 +1,5 @@
 Now part of input before ^C is ignored.
-Test for a while and if Abort will not happen in response to ^C, make that input before
+Test for a while and if Abort will not happen in response to ^C, make so that part of input before
 ^C will not be ignored:
 1) set sa_flags to SA_RESTART
 2) rm EILSEQ and errno.h from input.ch
