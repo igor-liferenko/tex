@@ -11,8 +11,8 @@ Use backslash notation to represent non-visible characters, created by the next 
   else wput(k);
 @z
 
-Normally, the printability condition is set independently from xord/xchr mapping,
-but here it makes sense to tie it to the mapping.
+Normally, the non-printability condition is set independently from xchr,
+but here the non-printable characters (defined as in tex.web) are made printable usig xchr.
 @x
 This condition is taken from \.{tex.web}:
 @<Character |k| cannot be printed@>=
