@@ -7,7 +7,7 @@ Test for a while and if Abort will not happen in response to ^C, make so that pa
 4) in catchint do
   if (!waiting_for_input) interrupt = 1;
 and create global variable waiting_for_input and
-add here the following change:
+add here the following change (and put interrupt.ch after input.ch in Makefile):
 
  @x
 if (bypass_eoln) if (!eof((*f)))
