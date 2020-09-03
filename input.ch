@@ -19,7 +19,8 @@ Ensure that input consists only of BMP characters and is valid UTF-8.
 if (bypass_eoln) if (!eof((*f))) (*f).d=fgetwc((*f).f);
 @y
 if (bypass_eoln) if (!eof((*f)))
-  if (((*f).d=fgetwc((*f).f)) > 65535 || ferror((*f).f)) kill(getpid(), SIGABRT), pause();
+  if (((*f).d=fgetwc((*f).f)) > 65535 || (ferror((*f).f) && errno == EILSEQ))
+    kill(getpid(), SIGABRT), pause();
 @z
 
 @x
