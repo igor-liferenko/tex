@@ -4,6 +4,7 @@ Ensure that input consists only of BMP characters and is valid UTF-8.
 @h
 @y
 #include <unistd.h>
+#include <errno.h>
 @h
 @z
 
