@@ -1,8 +1,8 @@
 Condition from §49 of tex.web is not used in tex.w, because pool file is not read
 (instead, this condition is hard-coded in tex.w by web2w).
 
-Use backslash notation to represent non-visible characters, created by the next change
-(they are a problem for text editor and above 127 are not valid UTF-8).
+The next change creates character codes that do not have a character representation.
+To avoid problems in a text editor, use backslash notation for such character codes.
 @x
   else wput(k);
 @y
@@ -12,7 +12,7 @@ Use backslash notation to represent non-visible characters, created by the next 
 @z
 
 Normally, the non-printability condition is set independently from xchr,
-but here the non-printable characters (defined as in tex.web) are made printable usig xchr.
+but here the non-printable characters (defined as in tex.web) are made printable using mapping.w
 @x
 This condition is taken from \.{tex.web}:
 @<Character |k| cannot be printed@>=
