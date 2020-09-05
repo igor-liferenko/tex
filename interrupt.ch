@@ -1,54 +1,8 @@
-^C is ignored when TeX is waiting for input.
-
-The code in this change-file ignores part of input before ^C.
-Test for a while and if Abort will not happen in response to ^C, make so that part of input before
-^C will not be ignored:
-1) set sa_flags to SA_RESTART
-2) rm EILSEQ and errno.h from input.ch
-3) rm changes with "ferror" and "restart:" from here
-4) in catchint do
-  if (!waiting_for_input) interrupt = 1;
-and create global variable waiting_for_input and
-add here the following change (and put interrupt.ch after input.ch in Makefile):
-
- @x
-if (bypass_eoln) if (!eof((*f)))
-  if (((*f).d=fgetwc((*f).f)) > 65535 || ferror((*f).f)) kill(getpid(), SIGABRT), pause();
- @y
-if (bypass_eoln) if (!eof((*f))) {
-  waiting_for_input = 1;
-  if (((*f).d=fgetwc((*f).f)) > 65535 || ferror((*f).f)) kill(getpid(), SIGABRT), pause();
-  waiting_for_input = 0;
-}
- @z
-
-or simply 'interrupt = 0;' instead of 'waiting_for_input = 0;'
-
-and do analogously in mf/interrupt.ch
-
 @x
 @h
 @y
 #include <signal.h>
 @h
-@z
-
-@x
-{@+uint16_t last_nonblank; /*|last| with trailing blanks removed*/
-@y
-{@+uint16_t last_nonblank; /*|last| with trailing blanks removed*/
-restart:
-@z
-
-@x
-  while (!eoln((*f)))
-@y
-  if (ferror((*f).f)) {
-    interrupt = 0;
-    clearerr((*f).f);
-    goto restart;
-  }
-  while (!eoln((*f)))
 @z
 
 @x
