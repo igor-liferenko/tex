@@ -22,6 +22,8 @@ if (bypass_eoln) if (!eof((*f))) {
 }
  @z
 
+or simply 'interrupt = 0;' instead of 'waiting_for_input = 0;'
+
 and do analogously in mf/interrupt.ch
 
 @x
