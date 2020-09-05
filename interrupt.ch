@@ -1,3 +1,6 @@
+NOTE: Aborting on ^C whet TeX is waiting for input is done automatically
+      by input.ch
+
 @x
 @h
 @y
