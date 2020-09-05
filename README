@@ -11,3 +11,14 @@ For MetaPost add 'TEX = tex' to texmf.cnf
 To use debugger, run "gdb plain"
 
 To run TeX, use "exec /home/user/tex/plain"
+
+Add this change to beginning of web2w/printable.ch if you need to
+use (part of) extended character set from Appendix C of TeXbook
+to avoid this CTANGLE error:
+    ! This can't happen: macro defs have strange char
+@x
+  else wput(k);
+@y
+  else if (k<' ') fprintf(w,"\\x%x",k);
+  else wput(k);
+@z
