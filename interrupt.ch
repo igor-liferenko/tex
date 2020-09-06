@@ -1,3 +1,5 @@
+Terminate the program when ^C is pressed when waiting for input.
+
 @x
 @h
 @y
