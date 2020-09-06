@@ -23,7 +23,7 @@ int waiting_for_input = 0;
 volatile int @!interrupt;
 void catchint(int signum)
 {
-  if (waiting_for_input) exit(1);
+  if (waiting_for_input) wterm_cr, exit(1);
   interrupt = 1;
 }
 @z
