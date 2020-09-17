@@ -193,15 +193,26 @@
  
  @ Here is the messy routine that was just mentioned. It sets |name_of_file|
  from the first |n| characters of |TEX_format_default|, followed by
-@@ -10168,6 +10179,7 @@
+@@ -10161,11 +10172,16 @@
+ {@+int k; /*number of positions filled in |name_of_file|*/ 
+ ASCII_code @!c; /*character being packed*/ 
+ int @!j; /*index into |buffer| or |TEX_format_default|*/ 
+-if (n+b-a+1+format_ext_length > file_name_size) 
+-  b=a+file_name_size-n-1-format_ext_length;
+ k=0;
+ for (j=1; j<=n; j++) append_to_name(xord[TEX_format_default[j]]);
  for (j=a; j<=b; j++) append_to_name(buffer[j]);
++if (k < 0) k = -k;
++int i=k;
++while (i+wcstombs(NULL,TEX_format_default+
++       format_default_length-format_ext_length+1,0) > file_name_size
++       && mblen(name_of_file+i, k-i+1)!=-1)
++  i--;
++k=i-1;
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
    append_to_name(xord[TEX_format_default[j]]);
-+if (k < 0) k = -k;
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
- name_of_file[name_length+1]=0;
- } 
-@@ -10193,7 +10205,7 @@
+@@ -10193,7 +10209,7 @@
       /*now try the system format file area*/ 
    if (w_open_in(&fmt_file)) goto found;
    wake_up_terminal;
@@ -210,7 +221,7 @@
  @.Sorry, I can't find...@>
    update_terminal;
    } 
-@@ -10201,7 +10213,7 @@
+@@ -10201,7 +10217,7 @@
  pack_buffered_name(format_default_length-format_ext_length, 1, 0);
  if (!w_open_in(&fmt_file)) 
    {@+wake_up_terminal;
@@ -219,7 +230,7 @@
  @.I can't find PLAIN...@>
  @.plain@>
    return false;
-@@ -10224,7 +10236,11 @@
+@@ -10224,7 +10240,11 @@
  if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
   (cur_length > 0)) 
    return'?';
@@ -232,7 +243,7 @@
    return make_string();
    } 
  } 
-@@ -10394,10 +10410,10 @@
+@@ -10394,10 +10414,10 @@
  } 
  
  @ @<Print the banner...@>=
@@ -245,7 +256,7 @@
  print_char(' ');print_int(year);print_char(' ');
  print_two(time/60);print_char(':');print_two(time%60);
  } 
-@@ -11958,7 +11974,7 @@
+@@ -11958,7 +11978,7 @@
  
  @p void write_dvi(dvi_index @!a, dvi_index @!b)
  {@+int k;
@@ -254,7 +265,7 @@
  } 
  
  @ To put a byte in the buffer without paying the cost of invoking a procedure
-@@ -23781,7 +23797,7 @@
+@@ -23781,7 +23801,7 @@
  incompatible with the present \TeX\ table sizes, etc.
  
  @d too_small(X)	{@+wake_up_terminal;
@@ -263,7 +274,7 @@
  @.Must increase the x@>
    goto bad_fmt;
    } 
-@@ -23802,7 +23818,7 @@
+@@ -23802,7 +23822,7 @@
  @<Undump a couple more things and the closing check word@>;
  return true; /*it worked!*/ 
  bad_fmt: wake_up_terminal;
@@ -272,7 +283,7 @@
  @.Fatal format file error@>
  return false;
  } 
-@@ -24289,13 +24305,14 @@
+@@ -24289,13 +24309,14 @@
  @^system dependencies@>
  
  @p int main(void) {@! /*|start_here|*/ 
@@ -289,7 +300,7 @@
  @.Ouch...clobbered@>
    exit(0);
    } 
-@@ -24352,24 +24369,24 @@
+@@ -24352,24 +24373,24 @@
  
  @<Output statistics...@>=
  if (log_opened) 
