@@ -203,12 +203,12 @@
  for (j=1; j<=n; j++) append_to_name(xord[TEX_format_default[j]]);
  for (j=a; j<=b; j++) append_to_name(buffer[j]);
 +if (k < 0) k = -k;
-+int i=k;
-+while (i+wcstombs(NULL,TEX_format_default+
-+       format_default_length-format_ext_length+1,0) > file_name_size
-+       && mblen(name_of_file+i, k-i+1)!=-1)
-+  i--;
-+k=i-1;
++while (k+wcstombs(NULL,TEX_format_default+format_default_length
++       -format_ext_length+1,0) > file_name_size) {
++  k--;
++  while(mblen(name_of_file+k, MB_CUR_MAX)==-1)
++    k--;
++}
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
    append_to_name(xord[TEX_format_default[j]]);
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
