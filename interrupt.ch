@@ -1,5 +1,3 @@
-NOTE: line discipline clears input buffer on ^C
-
 @x
 @h
 @y
