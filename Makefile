@@ -15,6 +15,6 @@ triptex:
 	patch -s tex.w goto.patch
 	tie -c tex.ch tex.w trip/constants.ch $(CHF) >/dev/null
 	/bin/ctangle tex tex
-	gcc -DINIT -DSTAT -o trip/triptex tex.c -lm
+	gcc -DINIT -DSTAT -o trip/triptex tex.c
 
 CHF=path.ch interrupt.ch arg.ch output.ch editor.ch format.ch time.ch banner.ch input.ch debug.ch
