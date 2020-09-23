@@ -4,10 +4,10 @@ all:
 	patch -s tex.w goto.patch
 	tie -c tex.ch tex.w constants.ch special.ch $(CHF) >/dev/null
 	/bin/ctangle tex tex
-	gcc -g -Og -DINIT -o initex tex.c -lm
-	@echo 'plain \dump' | ./initex >/dev/null; mv plain.fmt TeXformats/
-	@echo 'тех \dump' | ./initex >/dev/null; mv тех.fmt TeXformats/
-	gcc -g -Og -DSTAT -o virtex tex.c -lm
+	gcc -g -Og -DINIT -o initex tex.c
+	@printf 'plain \dump' | ./initex >/dev/null; mv plain.fmt TeXformats/
+	@printf 'тех \dump' | ./initex >/dev/null; mv тех.fmt TeXformats/
+	gcc -g -Og -DSTAT -o virtex tex.c
 
 triptex:
 	make -C web2w
