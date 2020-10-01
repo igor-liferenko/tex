@@ -1,12 +1,8 @@
-See http://mruckert.userweb.mwn.de/hint/web2w.html
-
-File mapping.w is in http://github.com/igor-liferenko/cweb
+See http://mruckert.userweb.mwn.de/hint/web2w.html # TODO: replace this with URL of tugboat article
 
 Recent version of glibc must be used (otherwise you may get "Segmentation fault" errors).
 
-It is assumed that this repo is in /home/user/.
-
-For MetaPost add 'TEX = tex' to texmf.cnf
+Run as "exec /path/to/tex/plain"
 
 To use debugger, compile with "-g -Og" flags and run "gdb plain"
 Use this change-file to make stepping over this line with `n' command faster:
@@ -15,8 +11,6 @@ for (i=first_text_char; i<=last_text_char; i++) xord[chr(i)]=invalid_code;
 @y
 memset(xord, invalid_code, sizeof xord);
 @z
-
-To run TeX, use "exec /path/to/tex/plain"
 
 Add this change to beginning of web2w/printable.ch if you need to
 use (part of) extended character set from Appendix C of TeXbook
