@@ -8,9 +8,15 @@ It is assumed that this repo is in /home/user/.
 
 For MetaPost add 'TEX = tex' to texmf.cnf
 
-To use debugger, run "gdb plain"
+To use debugger, compile with "-g -Og" flags and run "gdb plain"
+Use this change-file to make stepping over this line with `n' command faster:
+@x
+for (i=first_text_char; i<=last_text_char; i++) xord[chr(i)]=invalid_code;
+@y
+memset(xord, invalid_code, sizeof xord);
+@z
 
-To run TeX, use "exec /home/user/tex/plain"
+To run TeX, use "exec /path/to/tex/plain"
 
 Add this change to beginning of web2w/printable.ch if you need to
 use (part of) extended character set from Appendix C of TeXbook
