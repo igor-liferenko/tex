@@ -1,4 +1,4 @@
-See http://mruckert.userweb.mwn.de/hint/web2w.html # TODO: replace this with URL of tugboat article
+See http://mruckert.userweb.mwn.de/hint/web2w.html # TODO: replace this URL with "utf8.pdf" and move here tugboat.sty, tugboat.cmn and utf8.tex
 
 Recent version of glibc must be used (otherwise you may get "Segmentation fault" errors).
 
