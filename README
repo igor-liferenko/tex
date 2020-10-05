@@ -1,6 +1,6 @@
 See http://mruckert.userweb.mwn.de/hint/web2w.html # TODO: replace this URL with "utf8.pdf" and move here tugboat.sty, tugboat.cmn and utf8.tex
 
-Recent version of glibc must be used (otherwise you may get "Segmentation fault" errors).
+Recent version of glibc must be used (otherwise you may get "Segmentation fault" error).
 
 Run as "exec /path/to/tex/plain"
 
@@ -22,3 +22,4 @@ to avoid this CTANGLE error:
   else if (k<' ') fprintf(w,"\\x%x",k);
   else wput(k);
 @z
+and add "tex.w.orig" to web2w/.gitignore

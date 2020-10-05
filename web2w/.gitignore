@@ -5,5 +5,3 @@ web.lex.c
 web2w
 web2w.c
 web2w.h
-# this is necessary because there is fuzz of 2 lines (default) if codes after '@d str_0_255' in ctex.patch are changed in printable.ch:
-tex.w.orig
