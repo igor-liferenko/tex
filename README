@@ -1,6 +1,6 @@
-See http://mruckert.userweb.mwn.de/hint/web2w.html # TODO: replace this URL with "utf8.pdf" and move here tugboat.sty, tugboat.cmn and utf8.tex
+See utf8.pdf
 
-Recent version of glibc must be used (otherwise you may get "Segmentation fault" error).
+Recent version of glibc must be used (otherwise you may get "Segmentation fault").
 
 Run as "exec /path/to/tex/plain"
 
