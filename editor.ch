@@ -1,8 +1,3 @@
-NOTE: @<Get user's advice and |return|@> may be entered again after 'E' was selected (see
-https://tex.stackexchange.com/questions/536084/), so we save the fact that 'E' was selected
-NOTE: editor is called in the end of close_files_and_terminate(), not after it, because close_files_and_terminate() is called
-from two places - from jump_out() and from main()
-
 @x
 @<Global variables@>@;
 @y
@@ -16,12 +11,10 @@ int edit_line;
 @.You want to edit file x@>
   slow_print(input_stack[base_ptr].name_field);
   print_str(" at line ");print_int(line);
-  interaction=scroll_mode;jump_out();
 @y
 { ed_name_start = str_start[input_stack[base_ptr].name_field];
   ed_name_end = str_start[input_stack[base_ptr].name_field+1] - 1;
   edit_line = line;
-  jump_out();
 @z
 
 @x
