@@ -31,7 +31,7 @@ int edit_line;
     int k = 0;
     for (pool_pointer j=ed_name_start; j<=ed_name_end; j++)
       k += wctomb(ed_name+k, xchr[str_pool[j]]);
-    ed_name[k] = 0;
+    ed_name[k] = '\0';
 
     char cmd[500];
     int r;
