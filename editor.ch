@@ -2,7 +2,7 @@
 @<Global variables@>@;
 @y
 @<Global variables@>@;
-pool_pointer ed_name_start = 0, ed_name_end;
+pool_pointer ed_name_start, ed_name_end;
 int edit_line;
 @z
 
@@ -26,12 +26,12 @@ int edit_line;
     }
   }
 
-  if (ed_name_start && interaction > batch_mode) {
+  if (edit_line) {
     char ed_name[file_name_size+1];
     int k = 0;
     for (pool_pointer j=ed_name_start; j<=ed_name_end; j++)
       k += wctomb(ed_name+k, xchr[str_pool[j]]);
-    ed_name[k] = '\0';
+    ed_name[k] = 0;
 
     char cmd[500];
     int r;
