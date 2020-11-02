@@ -7,25 +7,9 @@ int edit_line;
 @z
 
 @x
-  {@+print_nl("You want to edit file ");
-@.You want to edit file x@>
-  slow_print(input_stack[base_ptr].name_field);
-  print_str(" at line ");print_int(line);
+{@+ close_files_and_terminate(); wterm_cr; exit(1);
 @y
-{ ed_name_start = str_start[input_stack[base_ptr].name_field];
-  ed_name_end = str_start[input_stack[base_ptr].name_field+1] - 1;
-  edit_line = line;
-@z
-
-@x
-    slow_print(log_name);print_char('.');
-    }
-  }
-@y
-    slow_print(log_name);print_char('.');
-    }
-  }
-
+{ close_files_and_terminate();
   if (edit_line) {
     char ed_name[file_name_size+1];
     int k = 0;
@@ -36,4 +20,16 @@ int edit_line;
     char cmd[500];
     if (snprintf(cmd, sizeof cmd, "em %s %d", ed_name, edit_line) < sizeof cmd) system(cmd);
   }
+  wterm_cr; exit(1);
+@z
+
+@x
+  {@+print_nl("You want to edit file ");
+@.You want to edit file x@>
+  slow_print(input_stack[base_ptr].name_field);
+  print_str(" at line ");print_int(line);
+@y
+{ ed_name_start = str_start[input_stack[base_ptr].name_field];
+  ed_name_end = str_start[input_stack[base_ptr].name_field+1] - 1;
+  edit_line = line;
 @z
