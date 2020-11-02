@@ -12,7 +12,8 @@ print_char('(');incr(open_parens);slow_print(name);update_terminal;
 @y
 print_char('(');incr(open_parens);
 if (strstr(name_of_file+1, str(TEX_area))) {
-  for (int k=strstr(str(TEX_area), "TeXinputs/") - str(TEX_area) + 1; k<=name_length; k++) {
+/* FIXME: can this check from slow_print be true here?  if ((s >= str_ptr)||(s < 256)) print(s); */
+  for (int k = strstr(str(TEX_area), "TeXinputs/") - str(TEX_area) + 1; k <= name_length; k++) {
     wchar_t wc;
     k += mbtowc(&wc, name_of_file+k, MB_CUR_MAX) - 1;
     print(xord[wc]);
