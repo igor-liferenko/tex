@@ -8,11 +8,17 @@
 
 Display "TeXinputs/" instead of full path to it in log files and on terminal.
 @x
-else{@+for (k=1; k<=name_length; k++) {
+print_char('(');incr(open_parens);slow_print(name);update_terminal;
 @y
-else {
-  k=1;
-  if (strstr(name_of_file+1, str(TEX_area)))
-    k = strstr(str(TEX_area), "TeXinputs/") - str(TEX_area) + 1;
-  for (; k<=name_length; k++) {
+print_char('(');incr(open_parens);
+if (str_start[name+1]-str_start[name] > strlen(str(TEX_area)) &&
+    strncmp(str_pool+str_start[name], str(TEX_area), strlen(str(TEX_area))) == 0) {
+  pool_pointer j; /*current character code position*/ 
+  j=str_start[name]+strlen(str(TEX_area));
+  while (j < str_start[name+1]) {
+    print(str_pool[j]); j++;
+  }
+}
+else slow_print(name);
+update_terminal;
 @z

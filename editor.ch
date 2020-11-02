@@ -34,12 +34,6 @@ int edit_line;
     ed_name[k] = '\0';
 
     char cmd[500];
-    int r;
-    if (strstr(ed_name, "TeXinputs/"))
-      r = snprintf(cmd, sizeof cmd, "em %s%s %d", str(TEX_area), ed_name+strlen("TeXinputs/"), line);
-        /* restore what was changed in output.ch */
-    else
-      r = snprintf(cmd, sizeof cmd, "em %s %d", ed_name, edit_line);
-    if (r < sizeof cmd) system(cmd);
+    if (snprintf(cmd, sizeof cmd, "em %s %d", ed_name, edit_line) < sizeof cmd) system(cmd);
   }
 @z
