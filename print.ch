@@ -1,18 +1,19 @@
-The string that is specified here will be replaced by "TeXinputs/" in the beginning of
-`name_of_file' while printing it on log file and terminal.
-Use non-ASCII here directly.
+Print "TeXinputs/" instead of full path to it in log file and on terminal.
 
+NOTE: X_area is in UTF-8 encoding (cf. TEX_area)
 @x
 @p str_number make_name_string(void)
-{@+int k; /*index into |name_of_file|*/ 
 @y
-@d MY_area "/home/user/tex/TeXinputs/"
+@d X_area "/home/user/tex/TeXinputs/"
 @p str_number make_name_string(void)
-{ if (strstr(name_of_file+1, MY_area)) {
-    char fname[file_name_size+1];
-    strcpy(fname, name_of_file+1);
-    strcat(strcpy(name_of_file+1, "TeXinputs/"), fname + strlen(MY_area));
-    name_length = strlen(name_of_file+1);
-  }
-  int k; /*index into |name_of_file|*/
+@z
+
+@x
+else{@+for (k=1; k<=name_length; k++) {
+@y
+else {
+  k=1;
+  if (strstr(name_of_file+1, str(X_area)))
+    k = k + strstr(str(X_area), "TeXinputs/") - str(X_area);
+  for (; k<=name_length; k++) {
 @z
