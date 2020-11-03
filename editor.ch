@@ -2,23 +2,30 @@
 @<Global variables@>@;
 @y
 @<Global variables@>@;
-pool_pointer ed_name_start, ed_name_end;
+FILE *edit_file;
 int edit_line;
+@z
+
+@x
+@h
+@y
+#include <unistd.h>
+@h
 @z
 
 @x
 {@+ close_files_and_terminate(); wterm_cr; exit(1);
 @y
 { close_files_and_terminate();
-  if (edit_line) {
-    char ed_name[file_name_size+1];
-    int k = 0;
-    for (pool_pointer j=ed_name_start; j<=ed_name_end; j++)
-      k += wctomb(ed_name+k, xchr[str_pool[j]]);
-    ed_name[k] = '\0';
+  if (edit_file) {
+    char tmp[30];
+    assert(snprintf(tmp, sizeof tmp, "/proc/self/fd/%d", fileno(edit_file)) < sizeof tmp);
+    char fname[1000] = { };
+    assert(readlink(tmp, fname, sizeof fname) != -1 && fname[sizeof fname - 1] == '\0');
 
     char cmd[500];
-    if (snprintf(cmd, sizeof cmd, "em %s %d", ed_name, edit_line) < sizeof cmd) system(cmd);
+    assert(snprintf(cmd, sizeof cmd, "em %s %d", fname, edit_line) < sizeof cmd);
+    system(cmd);
   }
   wterm_cr; exit(1);
 @z
@@ -29,7 +36,6 @@ int edit_line;
   slow_print(input_stack[base_ptr].name_field);
   print_str(" at line ");print_int(line);
 @y
-{ ed_name_start = str_start[input_stack[base_ptr].name_field];
-  ed_name_end = str_start[input_stack[base_ptr].name_field+1] - 1;
+{ edit_file = cur_file.f;
   edit_line = line;
 @z
