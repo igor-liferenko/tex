@@ -1,24 +1,18 @@
-@x
-@h
-@y
-@h
-#define str_(x) str_ ## x
-#define str(x) str_(x)
-@z
+The string that is specified here will be replaced by "TeXinputs/" in the beginning of
+`name_of_file' while printing it on log file and terminal.
+Use non-ASCII here directly.
 
-Display "TeXinputs/" instead of full path to it in log files and on terminal.
 @x
-print_char('(');incr(open_parens);slow_print(name);update_terminal;
+@p str_number make_name_string(void)
+{@+int k; /*index into |name_of_file|*/ 
 @y
-print_char('(');incr(open_parens);
-if (strstr(name_of_file+1, str(TEX_area))) {
-/* FIXME: can this check from slow_print be true here?  if ((s >= str_ptr)||(s < 256)) print(s); */
-  for (int k = strstr(str(TEX_area), "TeXinputs/") - str(TEX_area) + 1; k <= name_length; k++) {
-    wchar_t wc;
-    k += mbtowc(&wc, name_of_file+k, MB_CUR_MAX) - 1;
-    print(xord[wc]);
+@d MY_area "/home/user/tex/TeXinputs/"
+@p str_number make_name_string(void)
+{ if (strstr(name_of_file+1, MY_area)) {
+    char fname[file_name_size+1];
+    strcpy(fname, name_of_file+1);
+    strcat(strcpy(name_of_file+1, "TeXinputs/"), fname + strlen(MY_area));
+    name_length = strlen(name_of_file+1);
   }
-}
-else slow_print(name);
-update_terminal;
+  int k; /*index into |name_of_file|*/
 @z
