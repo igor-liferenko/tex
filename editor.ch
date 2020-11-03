@@ -1,16 +1,10 @@
 @x
-@<Global variables@>@;
-@y
-@<Global variables@>@;
-FILE *edit_file;
-int edit_line;
-@z
-
-@x
 @h
 @y
+#include <assert.h>
 #include <unistd.h>
 @h
+int edit_file, edit_line;
 @z
 
 @x
@@ -19,8 +13,8 @@ int edit_line;
 { close_files_and_terminate();
   if (edit_file) {
     char tmp[30];
-    assert(snprintf(tmp, sizeof tmp, "/proc/self/fd/%d", fileno(edit_file)) < sizeof tmp);
-    char fname[1000] = { };
+    assert(snprintf(tmp, sizeof tmp, "/proc/self/fd/%d", edit_file) < sizeof tmp);
+    char fname[500] = { };
     assert(readlink(tmp, fname, sizeof fname) != -1 && fname[sizeof fname - 1] == '\0');
 
     char cmd[500];
@@ -36,6 +30,6 @@ int edit_line;
   slow_print(input_stack[base_ptr].name_field);
   print_str(" at line ");print_int(line);
 @y
-{ edit_file = cur_file.f;
+{ edit_file = fileno(cur_file.f);
   edit_line = line;
 @z
