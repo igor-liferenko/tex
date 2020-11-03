@@ -13,7 +13,7 @@ else{@+for (k=1; k<=name_length; k++) {
 @y
 else {
   k=1;
-  if (strstr(name_of_file+1, str(X_area)))
-    k = k + strstr(str(X_area), "TeXinputs/") - str(X_area);
+  if (strstr(name_of_file+1, X_area))
+    k = k + strstr(X_area, "TeXinputs/") - X_area;
   for (; k<=name_length; k++) {
 @z
