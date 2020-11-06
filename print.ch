@@ -12,13 +12,14 @@ Print "TeXinputs/" instead of full path to it in log file and on terminal.
 else{@+for (k=1; k<=name_length; k++) {
 @y
 else {
+  wchar_t EXT_area[strlen(str(TEX_area))+1];
+  for (k=0; k<strlen(str(TEX_area)); k++)
+    EXT_area[k] = xchr[(ASCII_code) *(str(TEX_area)+k)];
+  EXT_area[k] = L'\0';
+  char U8_area[wcstombs(NULL,EXT_area,0)+1];
+  wcstombs(U8_area, EXT_area, sizeof U8_area);
   k=1;
-  wchar_t W_area[strlen(str(TEX_area))+1];
-  for (int i = 0; i < strlen(str(TEX_area)); i++) W_area[i] = xchr[(ASCII_code)*(str(TEX_area)+i)];
-  W_area[strlen(str(TEX_area))] = L'\0';
-  char U_area[wcstombs(NULL,W_area,0)+1];
-  wcstombs(U_area, W_area, sizeof U_area);
-  if (strstr(name_of_file+1, U_area) && strstr(U_area, "TeXinputs/"))
-    k += strstr(U_area, "TeXinputs/") - U_area;
+  if (strstr(name_of_file+1, U8_area) && strstr(U8_area, "TeXinputs/"))
+    k += strstr(U8_area, "TeXinputs/") - U8_area;
   for (; k<=name_length; k++) {
 @z
