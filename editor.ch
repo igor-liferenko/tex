@@ -20,7 +20,7 @@ void jump_out(void)
     assert(readlink(tmp, fname, sizeof fname) != -1 && fname[sizeof fname - 1] == '\0');
 
     char cmd[500];
-    assert(snprintf(cmd, sizeof cmd, "echo %s %d", fname, edit_line) < sizeof cmd);
+    assert(snprintf(cmd, sizeof cmd, "em %s %d", fname, edit_line) < sizeof cmd);
     system(cmd);
   }
   wterm_cr; exit(1);
