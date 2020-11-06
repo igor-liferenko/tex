@@ -1,13 +1,6 @@
 Ensure that input consists only of BMP characters and is valid UTF-8.
 
 @x
-@h
-@y
-#include <assert.h>
-@h
-@z
-
-@x
 {@+if(((*f).f=fopen(name_of_file+1,"r"))!=NULL)(*f).d=fgetwc((*f).f);return reset_OK((*f));
 @y
 {@+if(((*f).f=fopen(name_of_file+1,"r"))!=NULL)

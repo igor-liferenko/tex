@@ -1,6 +1,7 @@
 @x
 @h
 @y
+#include <assert.h>
 #include <unistd.h>
 @h
 @z
