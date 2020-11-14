@@ -70,7 +70,7 @@
      if (buffer[last-1]!=' ') last_nonblank=last;
      } 
    last=last_nonblank;return true;
-@@ -1069,11 +1072,11 @@
+@@ -1065,11 +1068,11 @@
  @p bool init_terminal(void) /*gets the terminal input started*/ 
  {@+
  t_open_in;
@@ -84,7 +84,7 @@
  @.End of file on the terminal@>
      return false;
      } 
-@@ -1461,15 +1464,15 @@
+@@ -1457,15 +1460,15 @@
  #define read(file,x) @[((x)=(file).d,get(file))@]
  #define read_ln(file)  @[do get(file); while (!eoln(file))@]
  
@@ -106,7 +106,7 @@
  
  @ To end a line of text output, we call |print_ln|.
  
-@@ -1500,7 +1503,7 @@
+@@ -1496,7 +1499,7 @@
    {@+print_ln();return;
    } 
  switch (selector) {
@@ -115,7 +115,7 @@
    incr(term_offset);incr(file_offset);
    if (term_offset==max_print_line) 
      {@+wterm_cr;term_offset=0;
-@@ -1509,17 +1512,17 @@
+@@ -1505,17 +1508,17 @@
      {@+wlog_cr;file_offset=0;
      } 
    } @+break;
@@ -136,18 +136,16 @@
  } @/
  incr(tally);
  } 
-@@ -1588,8 +1591,8 @@
+@@ -1584,7 +1587,7 @@
  character positions.
  
  @<Initialize the output...@>=
 -wterm("%s",banner);
--if (format_ident==0) wterm_ln(" (no format preloaded)");
 +wterm(L"%s",banner);
-+if (format_ident==0) wterm_ln(L" (no format preloaded)");
+ if (format_ident==0) wterm_ln(" (no format preloaded)");
  else{@+slow_print(format_ident);print_ln();
    } 
- update_terminal;
-@@ -10110,9 +10113,16 @@
+@@ -10100,9 +10103,16 @@
  allows both lowercase and uppercase letters in the file name.
  @^system dependencies@>
  
@@ -167,7 +165,7 @@
  
  @p void pack_file_name(str_number @!n, str_number @!a, str_number @!e)
  {@+int k; /*number of positions filled in |name_of_file|*/ 
-@@ -10122,6 +10132,7 @@
+@@ -10112,6 +10122,7 @@
  for (j=str_start[a]; j<=str_start[a+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
@@ -175,7 +173,7 @@
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
  name_of_file[name_length+1]=0;
  } 
-@@ -10138,13 +10149,13 @@
+@@ -10128,13 +10139,13 @@
  @d format_extension_str ".fmt" /*the extension, as a \.{WEB} constant*/ 
  
  @<Glob...@>=
@@ -191,7 +189,7 @@
  
  @ Here is the messy routine that was just mentioned. It sets |name_of_file|
  from the first |n| characters of |TEX_format_default|, followed by
-@@ -10161,11 +10172,16 @@
+@@ -10151,11 +10162,16 @@
  {@+int k; /*number of positions filled in |name_of_file|*/ 
  ASCII_code @!c; /*character being packed*/ 
  int @!j; /*index into |buffer| or |TEX_format_default|*/ 
@@ -210,25 +208,7 @@
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
    append_to_name(xord[TEX_format_default[j]]);
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
-@@ -10193,7 +10209,7 @@
-      /*now try the system format file area*/ 
-   if (w_open_in(&fmt_file)) goto found;
-   wake_up_terminal;
--  wterm_ln("Sorry, I can't find that format; will try PLAIN.");
-+  wterm_ln(L"Sorry, I can't find that format; will try PLAIN.");
- @.Sorry, I can't find...@>
-   update_terminal;
-   } 
-@@ -10201,7 +10217,7 @@
- pack_buffered_name(format_default_length-format_ext_length, 1, 0);
- if (!w_open_in(&fmt_file)) 
-   {@+wake_up_terminal;
--  wterm_ln("I can't find the PLAIN format file!");
-+  wterm_ln(L"I can't find the PLAIN format file!");
- @.I can't find PLAIN...@>
- @.plain@>
-   return false;
-@@ -10224,7 +10240,11 @@
+@@ -10214,7 +10230,11 @@
  if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
   (cur_length > 0)) 
    return'?';
@@ -241,7 +221,7 @@
    return make_string();
    } 
  } 
-@@ -10394,10 +10414,10 @@
+@@ -10384,10 +10404,10 @@
  } 
  
  @ @<Print the banner...@>=
@@ -254,7 +234,7 @@
  print_char(' ');print_int(year);print_char(' ');
  print_two(time/60);print_char(':');print_two(time%60);
  } 
-@@ -11958,7 +11978,7 @@
+@@ -11948,7 +11968,7 @@
  
  @p void write_dvi(dvi_index @!a, dvi_index @!b)
  {@+int k;
@@ -263,25 +243,7 @@
  } 
  
  @ To put a byte in the buffer without paying the cost of invoking a procedure
-@@ -23781,7 +23801,7 @@
- incompatible with the present \TeX\ table sizes, etc.
- 
- @d too_small(X)	{@+wake_up_terminal;
--  wterm_ln("---! Must increase the %s", X);
-+  wterm_ln(L"---! Must increase the %s", X);
- @.Must increase the x@>
-   goto bad_fmt;
-   } 
-@@ -23802,7 +23822,7 @@
- @<Undump a couple more things and the closing check word@>;
- return true; /*it worked!*/ 
- bad_fmt: wake_up_terminal;
--  wterm_ln("(Fatal format file error; I'm stymied)");
-+  wterm_ln(L"(Fatal format file error; I'm stymied)");
- @.Fatal format file error@>
- return false;
- } 
-@@ -24289,13 +24309,14 @@
+@@ -24279,6 +24299,7 @@
  @^system dependencies@>
  
  @p int main(void) {@! /*|start_here|*/ 
@@ -289,52 +251,29 @@
  history=fatal_error_stop; /*in case we quit during initialization*/ 
  t_open_out; /*open the terminal for output*/ 
  if (ready_already==314159) goto start_of_TEX;
- @<Check the ``constant'' values...@>@;
- if (bad > 0) 
--  {@+wterm_ln("Ouch---my internal constants have been clobbered!"
--    "---case %d", bad);
-+  {@+wterm_ln(L"Ouch---my internal constants have been clobbered!"
-+    L"---case %d", bad);
- @.Ouch...clobbered@>
-   exit(0);
-   } 
-@@ -24352,24 +24373,24 @@
- 
- @<Output statistics...@>=
- if (log_opened) 
--  {@+wlog_ln(" ");
--  wlog_ln("Here is how much of TeX's memory you used:");
-+  {@+wlog_ln(L" ");
-+  wlog_ln(L"Here is how much of TeX's memory you used:");
+@@ -24347,19 +24368,19 @@
+   {@+wlog_ln(" ");
+   wlog_ln("Here is how much of TeX's memory you used:");
  @.Here is how much...@>
 -  wlog(" %d string", str_ptr-init_str_ptr);
 -  if (str_ptr!=init_str_ptr+1) wlog( "s" );
--  wlog_ln( " out of %d", max_strings-init_str_ptr);@/
--  wlog_ln( " %d string characters out of %d", pool_ptr-init_pool_ptr,
 +  wlog(L" %d string", str_ptr-init_str_ptr);
 +  if (str_ptr!=init_str_ptr+1) wlog( L"s" );
-+  wlog_ln( L" out of %d", max_strings-init_str_ptr);@/
-+  wlog_ln( L" %d string characters out of %d", pool_ptr-init_pool_ptr,
+   wlog_ln( " out of %d", max_strings-init_str_ptr);@/
+   wlog_ln( " %d string characters out of %d", pool_ptr-init_pool_ptr,
      pool_size-init_pool_ptr);@/
--  wlog_ln(" %d words of memory out of %d", lo_mem_max-mem_min+mem_end-hi_mem_min+2,@|
-+  wlog_ln(L" %d words of memory out of %d", lo_mem_max-mem_min+mem_end-hi_mem_min+2,@|
+   wlog_ln(" %d words of memory out of %d", lo_mem_max-mem_min+mem_end-hi_mem_min+2,@|
      mem_end+1-mem_min);@/
--  wlog_ln(" %d multiletter control sequences out of %d", cs_count, hash_size);@/
+   wlog_ln(" %d multiletter control sequences out of %d", cs_count, hash_size);@/
 -  wlog(" %d words of font info for %d font", fmem_ptr, font_ptr-font_base);
 -  if (font_ptr!=font_base+1) wlog("s");
--  wlog_ln( ", out of %d for %d", font_mem_size, font_max-font_base);@/
--  wlog(" %d hyphenation exception", hyph_count);
--  if (hyph_count!=1) wlog("s");
--  wlog_ln( " out of %d", hyph_size);@/
--  wlog_ln(" %di,%dn,%dp,%db,%ds stack positions out of %di,%dn,%dp,%db,%ds", 
-+  wlog_ln(L" %d multiletter control sequences out of %d", cs_count, hash_size);@/
 +  wlog(L" %d words of font info for %d font", fmem_ptr, font_ptr-font_base);
 +  if (font_ptr!=font_base+1) wlog(L"s");
-+  wlog_ln( L", out of %d for %d", font_mem_size, font_max-font_base);@/
+   wlog_ln( ", out of %d for %d", font_mem_size, font_max-font_base);@/
+-  wlog(" %d hyphenation exception", hyph_count);
+-  if (hyph_count!=1) wlog("s");
 +  wlog(L" %d hyphenation exception", hyph_count);
 +  if (hyph_count!=1) wlog(L"s");
-+  wlog_ln( L" out of %d", hyph_size);@/
-+  wlog_ln(L" %di,%dn,%dp,%db,%ds stack positions out of %di,%dn,%dp,%db,%ds",
+   wlog_ln( " out of %d", hyph_size);@/
+   wlog_ln(" %di,%dn,%dp,%db,%ds stack positions out of %di,%dn,%dp,%db,%ds", 
      max_in_stack, max_nest_stack,@|
-     max_param_stack,@|
-     max_buf_stack+1,@|
