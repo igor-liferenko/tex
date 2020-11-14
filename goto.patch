@@ -41,8 +41,8 @@
  } 
  
 @@ -24318,7 +24308,7 @@
-   {@+wterm_ln(L"Ouch---my internal constants have been clobbered!"
-     L"---case %d", bad);
+   {@+wterm_ln("Ouch---my internal constants have been clobbered!"
+     "---case %d", bad);
  @.Ouch...clobbered@>
 -  exit(0);
 +  goto final_end;
