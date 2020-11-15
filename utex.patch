@@ -70,7 +70,7 @@
      if (buffer[last-1]!=' ') last_nonblank=last;
      } 
    last=last_nonblank;return true;
-@@ -1065,11 +1068,11 @@
+@@ -1069,11 +1072,11 @@
  @p bool init_terminal(void) /*gets the terminal input started*/ 
  {@+
  t_open_in;
@@ -84,7 +84,7 @@
  @.End of file on the terminal@>
      return false;
      } 
-@@ -1457,15 +1460,15 @@
+@@ -1461,15 +1464,15 @@
  #define read(file,x) @[((x)=(file).d,get(file))@]
  #define read_ln(file)  @[do get(file); while (!eoln(file))@]
  
@@ -106,7 +106,7 @@
  
  @ To end a line of text output, we call |print_ln|.
  
-@@ -1496,7 +1499,7 @@
+@@ -1500,7 +1503,7 @@
    {@+print_ln();return;
    } 
  switch (selector) {
@@ -115,7 +115,7 @@
    incr(term_offset);incr(file_offset);
    if (term_offset==max_print_line) 
      {@+wterm_cr;term_offset=0;
-@@ -1505,17 +1508,17 @@
+@@ -1509,17 +1512,17 @@
      {@+wlog_cr;file_offset=0;
      } 
    } @+break;
@@ -136,7 +136,7 @@
  } @/
  incr(tally);
  } 
-@@ -1584,7 +1587,7 @@
+@@ -1588,7 +1591,7 @@
  character positions.
  
  @<Initialize the output...@>=
@@ -145,7 +145,7 @@
  if (format_ident==0) wterm_ln(" (no format preloaded)");
  else{@+slow_print(format_ident);print_ln();
    } 
-@@ -10100,9 +10103,16 @@
+@@ -10110,9 +10113,16 @@
  allows both lowercase and uppercase letters in the file name.
  @^system dependencies@>
  
@@ -165,7 +165,7 @@
  
  @p void pack_file_name(str_number @!n, str_number @!a, str_number @!e)
  {@+int k; /*number of positions filled in |name_of_file|*/ 
-@@ -10112,6 +10122,7 @@
+@@ -10122,6 +10132,7 @@
  for (j=str_start[a]; j<=str_start[a+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
@@ -173,7 +173,7 @@
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
  name_of_file[name_length+1]=0;
  } 
-@@ -10128,13 +10139,13 @@
+@@ -10138,13 +10149,13 @@
  @d format_extension_str ".fmt" /*the extension, as a \.{WEB} constant*/ 
  
  @<Glob...@>=
@@ -189,7 +189,7 @@
  
  @ Here is the messy routine that was just mentioned. It sets |name_of_file|
  from the first |n| characters of |TEX_format_default|, followed by
-@@ -10151,11 +10162,16 @@
+@@ -10161,11 +10172,16 @@
  {@+int k; /*number of positions filled in |name_of_file|*/ 
  ASCII_code @!c; /*character being packed*/ 
  int @!j; /*index into |buffer| or |TEX_format_default|*/ 
@@ -208,7 +208,7 @@
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
    append_to_name(xord[TEX_format_default[j]]);
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
-@@ -10214,7 +10230,11 @@
+@@ -10224,7 +10240,11 @@
  if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
   (cur_length > 0)) 
    return'?';
@@ -221,7 +221,7 @@
    return make_string();
    } 
  } 
-@@ -10384,10 +10404,10 @@
+@@ -10394,10 +10414,10 @@
  } 
  
  @ @<Print the banner...@>=
@@ -234,7 +234,7 @@
  print_char(' ');print_int(year);print_char(' ');
  print_two(time/60);print_char(':');print_two(time%60);
  } 
-@@ -11948,7 +11968,7 @@
+@@ -11958,7 +11978,7 @@
  
  @p void write_dvi(dvi_index @!a, dvi_index @!b)
  {@+int k;
@@ -243,7 +243,7 @@
  } 
  
  @ To put a byte in the buffer without paying the cost of invoking a procedure
-@@ -24279,6 +24299,7 @@
+@@ -24289,6 +24309,7 @@
  @^system dependencies@>
  
  @p int main(void) {@! /*|start_here|*/ 
@@ -251,7 +251,7 @@
  history=fatal_error_stop; /*in case we quit during initialization*/ 
  t_open_out; /*open the terminal for output*/ 
  if (ready_already==314159) goto start_of_TEX;
-@@ -24347,19 +24368,19 @@
+@@ -24355,19 +24376,19 @@
    {@+wlog_ln(" ");
    wlog_ln("Here is how much of TeX's memory you used:");
  @.Here is how much...@>
