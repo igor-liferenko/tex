@@ -1,24 +1,13 @@
 \input tugboat.sty
-\openin0=tugboat.dates
-\ifeof0 \let\writelastpage=\gobble
-\else \closein0 \input tugboat.dates \TUBfinal\fi
 
-%%% Start of metadata %%%
 \title * {\ninebf UTF}-8 installations of \TeX *
 \author * Igor Liferenko *
-\address * \tt igor.liferenko (at) gmail dot com *
-%\address Ovrazhnaya 49-1
-%         Zelenogorsk, Krasnoyarsk krai, 663691
-%         RUSSIA
-%%% End of metadata %%%
 
 \article
 
 \head * Abstract *
 
-\def\thetitle{\UTF-8 installations of \TeX}% ugly workaround
-
-In its design \TeX\ has the concepts of ``internal
+\indent In its design \TeX\ has the concepts of ``internal
 encoding'' and ``external encoding''. This fact
 allows \TeX\ to work with any encoding.
 
@@ -127,17 +116,17 @@ text files (including the terminal) must be written
 with the C~library function \hbox{\it fwprintf\/} [4].
 
 In |ctex.w|
-the macro {\it write\/}
+the macro {\it pascal\_write\/}
 is used for writing text files in all cases but one.
 So, we change |fprintf|
-to |fwprintf| in the definition of {\it write\/}.
-The one case where {\it write\/} is used is
+to |fwprintf| in its definition.
+The one case where {\it pascal\_write\/} is used is
 for writing \DVI\ files \Dash there we just use
 its old expansion.
 \medskip
-In addition to redefining the macro {\it write\/}, we need to add the
+In addition to redefining the macro {\it pascal\_write\/}, we need to add the
 `|L|' prefix to strings
-which are used in the macros that call the macro {\it write\/}.
+which are used in the macros that call the macro {\it pascal\_write\/}.
 These changes are trivial and there are quite a few of
 them so we will not list them here. Instead, we show the following
 cases, where the conversion specifier
@@ -150,10 +139,10 @@ in the {\it printf}-style directives also needs to change:
 > wlog(L"%lc",xchr[s]);
 \endverbatim
 \begingroup
-\everyverbatim={\advance\parindent by -6.5pt }
+\everyverbatim={\advance\parindent by -28pt }
 \verbatim
-< write(write_file[selector],"%c",xchr[s]);
-> write(write_file[selector],L"%lc",xchr[s]);
+< pascal_write(write_file[selector],"%c",xchr[s]);
+> pascal_write(write_file[selector],L"%lc",xchr[s]);
 \endverbatim
 \endgroup
 
@@ -293,7 +282,4 @@ while (k+wcstombs(NULL,TEX_format_default+
 
 \par\endgroup
 
-\advance\signaturewidth by 10pt
-\makesignature
-\writelastpage{+1}
 \endarticle
