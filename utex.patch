@@ -70,48 +70,21 @@
      if (buffer[last-1]!=' ') last_nonblank=last;
      } 
    last=last_nonblank;return true;
-@@ -1069,11 +1072,11 @@
- @p bool init_terminal(void) /*gets the terminal input started*/ 
- {@+
- t_open_in;
--loop@+{@+wake_up_terminal;pascal_write(term_out,"**");update_terminal;
-+loop@+{@+wake_up_terminal;pascal_write(term_out,L"**");update_terminal;
- @.**@>
-   if (!input_ln(&term_in, true))  /*this shouldn't happen*/ 
-     {@+write_ln(term_out);
--    pascal_write(term_out,"! End of file on the terminal... why?");
-+    pascal_write(term_out,L"! End of file on the terminal... why?");
- @.End of file on the terminal@>
-     return false;
-     } 
-@@ -1461,15 +1464,15 @@
+@@ -1461,7 +1464,7 @@
  #define pascal_read(file,x) @[((x)=(file).d,get(file))@]
  #define read_ln(file)  @[do get(file); while (!eoln(file))@]
  
 -#define pascal_write(file, format,...)    @[fprintf(file.f,format,## __VA_ARGS__)@]
--#define write_ln(file,...)	   @[pascal_write(file,__VA_ARGS__"\n")@]
-+#define pascal_write(file, format,...)    @[fwprintf(file.f,format,## __VA_ARGS__)@]
-+#define write_ln(file,...)	   @[pascal_write(file,__VA_ARGS__ L"\n")@]
++#define pascal_write(file, format,...)    @[fwprintf(file.f,format L"",## __VA_ARGS__)@]
+ #define write_ln(file,...)	   @[pascal_write(file,__VA_ARGS__"\n")@]
  
  #define wterm(format,...)	@[pascal_write(term_out,format, ## __VA_ARGS__)@]
--#define wterm_ln(format,...)	@[wterm(format "\n", ## __VA_ARGS__)@]
--#define wterm_cr	        @[pascal_write(term_out,"\n")@]
-+#define wterm_ln(format,...)	@[wterm(format L"\n", ## __VA_ARGS__)@]
-+#define wterm_cr	        @[pascal_write(term_out,L"\n")@]
- #define wlog(format, ...)	@[pascal_write(log_file,format, ## __VA_ARGS__)@]
--#define wlog_ln(format, ...)   @[wlog(format "\n", ## __VA_ARGS__)@]
--#define wlog_cr	        @[pascal_write(log_file,"\n")@]
-+#define wlog_ln(format, ...)   @[wlog(format L"\n", ## __VA_ARGS__)@]
-+#define wlog_cr	        @[pascal_write(log_file,L"\n")@]
- 
- @ To end a line of text output, we call |print_ln|.
- 
 @@ -1500,7 +1503,7 @@
    {@+print_ln();return;
    } 
  switch (selector) {
 -case term_and_log: {@+wterm("%c",xchr[s]);wlog("%c",xchr[s]);
-+case term_and_log: {@+wterm(L"%lc",xchr[s]);wlog(L"%lc",xchr[s]);
++case term_and_log: {@+wterm("%lc",xchr[s]);wlog("%lc",xchr[s]);
    incr(term_offset);incr(file_offset);
    if (term_offset==max_print_line) 
      {@+wterm_cr;term_offset=0;
@@ -120,11 +93,11 @@
      } 
    } @+break;
 -case log_only: {@+wlog("%c",xchr[s]);incr(file_offset);
-+case log_only: {@+wlog(L"%lc",xchr[s]);incr(file_offset);
++case log_only: {@+wlog("%lc",xchr[s]);incr(file_offset);
    if (file_offset==max_print_line) print_ln();
    } @+break;
 -case term_only: {@+wterm("%c",xchr[s]);incr(term_offset);
-+case term_only: {@+wterm(L"%lc",xchr[s]);incr(term_offset);
++case term_only: {@+wterm("%lc",xchr[s]);incr(term_offset);
    if (term_offset==max_print_line) print_ln();
    } @+break;
  case no_print: do_nothing;@+break;
@@ -132,19 +105,10 @@
  case new_string: {@+if (pool_ptr < pool_size) append_char(s);
    } @+break; /*we drop characters if the string space is full*/ 
 -default:pascal_write(write_file[selector],"%c", xchr[s]);
-+default:pascal_write(write_file[selector],L"%lc", xchr[s]);
++default:pascal_write(write_file[selector],"%lc", xchr[s]);
  } @/
  incr(tally);
  } 
-@@ -1588,7 +1591,7 @@
- character positions.
- 
- @<Initialize the output...@>=
--wterm("%s",banner);
-+wterm(L"%s",banner);
- if (format_ident==0) wterm_ln(" (no format preloaded)");
- else{@+slow_print(format_ident);print_ln();
-   } 
 @@ -10110,9 +10113,16 @@
  allows both lowercase and uppercase letters in the file name.
  @^system dependencies@>
@@ -221,19 +185,6 @@
    return make_string();
    } 
  } 
-@@ -10394,10 +10414,10 @@
- } 
- 
- @ @<Print the banner...@>=
--{@+wlog("%s",banner);
-+{@+wlog(L"%s",banner);
- slow_print(format_ident);print_str("  ");
- print_int(day);print_char(' ');
--for (k=3*month-2; k<=3*month; k++) wlog("%c",months[k]);
-+for (k=3*month-2; k<=3*month; k++) wlog(L"%c",months[k]);
- print_char(' ');print_int(year);print_char(' ');
- print_two(time/60);print_char(':');print_two(time%60);
- } 
 @@ -11958,7 +11978,7 @@
  
  @p void write_dvi(dvi_index @!a, dvi_index @!b)
@@ -251,29 +202,3 @@
  history=fatal_error_stop; /*in case we quit during initialization*/ 
  t_open_out; /*open the terminal for output*/ 
  if (ready_already==314159) goto start_of_TEX;
-@@ -24355,19 +24376,19 @@
-   {@+wlog_ln(" ");
-   wlog_ln("Here is how much of TeX's memory you used:");
- @.Here is how much...@>
--  wlog(" %d string", str_ptr-init_str_ptr);
--  if (str_ptr!=init_str_ptr+1) wlog( "s" );
-+  wlog(L" %d string", str_ptr-init_str_ptr);
-+  if (str_ptr!=init_str_ptr+1) wlog( L"s" );
-   wlog_ln( " out of %d", max_strings-init_str_ptr);@/
-   wlog_ln( " %d string characters out of %d", pool_ptr-init_pool_ptr,
-     pool_size-init_pool_ptr);@/
-   wlog_ln(" %d words of memory out of %d", lo_mem_max-mem_min+mem_end-hi_mem_min+2,@|
-     mem_end+1-mem_min);@/
-   wlog_ln(" %d multiletter control sequences out of %d", cs_count, hash_size);@/
--  wlog(" %d words of font info for %d font", fmem_ptr, font_ptr-font_base);
--  if (font_ptr!=font_base+1) wlog("s");
-+  wlog(L" %d words of font info for %d font", fmem_ptr, font_ptr-font_base);
-+  if (font_ptr!=font_base+1) wlog(L"s");
-   wlog_ln( ", out of %d for %d", font_mem_size, font_max-font_base);@/
--  wlog(" %d hyphenation exception", hyph_count);
--  if (hyph_count!=1) wlog("s");
-+  wlog(L" %d hyphenation exception", hyph_count);
-+  if (hyph_count!=1) wlog(L"s");
-   wlog_ln( " out of %d", hyph_size);@/
-   wlog_ln(" %di,%dn,%dp,%db,%ds stack positions out of %di,%dn,%dp,%db,%ds", 
-     max_in_stack, max_nest_stack,@|
