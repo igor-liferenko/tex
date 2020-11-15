@@ -117,32 +117,38 @@ with the C~library function \hbox{\it fwprintf\/} [4].
 
 In |ctex.w|
 the macro {\it pascal\_write\/}
-is used for writing text files in all cases but one.
+is used for writing text files (including the terminal) in all cases but one.
 So, we change |fprintf|
 to |fwprintf| in its definition.
 The one case where {\it pascal\_write\/} is used is
 for writing \DVI\ files \Dash there we just use
 its old expansion.
 \medskip
-In addition to redefining the macro {\it pascal\_write\/}, we need to add the
-`|L|' prefix to strings
-which are used in the macros that call the macro {\it pascal\_write\/}.
-These changes are trivial and there are quite a few of
-them so we will not list them here. Instead, we show the following
-cases, where the conversion specifier
-in the {\it printf}-style directives also needs to change:
+Strings which are passed to {\it pascal\_write\/} are in
+\TeX's external encoding. Instead of adding the
+`|L|' prefix to them, we use the fact that compiler automatically
+casts non-widechar strings to widechar strings if they are merged
+with widechar strings. So, we just merge with an empty widechar
+string in the definition of {\it pascal\_write\/}:
+\verbatim
+< fprintf(file.f,format,## __VA_ARGS__)
+> fwprintf(file.f,format L"",## __VA_ARGS__)
+\endverbatim
+In the places where \TeX's internal encoding is converted to
+\TeX's external encoding, we change the conversion specifier
+in the {\it printf}-style directives:
 \verbatim
 < wterm("%c",xchr[s]);
-> wterm(L"%lc",xchr[s]);
+> wterm("%lc",xchr[s]);
 
 < wlog("%c",xchr[s]);
-> wlog(L"%lc",xchr[s]);
+> wlog("%lc",xchr[s]);
 \endverbatim
 \begingroup
-\everyverbatim={\advance\parindent by -28pt }
+\everyverbatim={\advance\parindent by -23pt }
 \verbatim
 < pascal_write(write_file[selector],"%c",xchr[s]);
-> pascal_write(write_file[selector],L"%lc",xchr[s]);
+> pascal_write(write_file[selector],"%lc",xchr[s]);
 \endverbatim
 \endgroup
 
@@ -277,8 +283,7 @@ while (k+wcstombs(NULL,TEX_format_default+
 [3] Knuth, Donald E. {\sl \TeX: The Program\/}, 1986. ISBN~0201134373.
 
 [4] Single Unix Specification. Introduction to ISO~C Amendment 1
-(Multibyte Support Environment).\\
-{\tt\catcode`_=11 http://unix.org/version2/whatsnew/\\login_mse.html}
+(Multibyte Support Environment).
 
 \par\endgroup
 
