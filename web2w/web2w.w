@@ -2432,9 +2432,9 @@ SYM_PTR("register")->name="internal_register";
 @#
 SYM_PTR("exit")->name="end";
 SYM_PTR("free")->name="is_free";
-SYM_PTR("write")->name="write";
-SYM_PTR("read")->name="read";
-SYM_PTR("close")->name="close";
+SYM_PTR("write")->name="pascal_write";
+SYM_PTR("read")->name="pascal_read";
+SYM_PTR("close")->name="pascal_close";
 @#
 SYM_PTR("xclause")->name="else";
 SYM_PTR("remainder")->name="rem";
