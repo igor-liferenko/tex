@@ -23,8 +23,3 @@ to avoid this CTANGLE error:
   else wput(k);
 @z
 and add "tex.w.orig" to web2w/.gitignore
-
-It differs from current web2w in following:
-write -> pascal_write
-read -> pascal_read
-close -> pascal_close
