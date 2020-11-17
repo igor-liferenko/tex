@@ -19,7 +19,7 @@ else {
   char U8_area[wcstombs(NULL,EXT_area,0)+1];
   wcstombs(U8_area, EXT_area, sizeof U8_area);
   k=1;
-  if (strstr(name_of_file+1, U8_area) && strstr(U8_area, "TeXinputs/"))
+  if (strstr(name_of_file+1, U8_area))
     k += strstr(U8_area, "TeXinputs/") - U8_area;
   for (; k<=name_length; k++) {
 @z
