@@ -111,46 +111,21 @@ we change |get((*f))| to |(*f).d=fgetwc((*f).f)|
 
 \head * 3. Output *
 
-For automatic conversion from Unicode to \UTF-8,
-text files (including the terminal) must be written
-with the C~library function \hbox{\it fwprintf\/} [4].
-
-In |ctex.w|
-the macro {\it pascal\_write\/}
-is used for writing text files (including the terminal) in all cases but one.
-So, we change |fprintf|
-to |fwprintf| in its definition.
-The one case where {\it pascal\_write\/} is used is
-for writing \DVI\ files \Dash there we just use
-its old expansion.
-\medskip
-Strings which are passed to {\it pascal\_write\/} are in
-\TeX's external encoding. Instead of adding the
-`|L|' prefix to them, we use the fact that compiler automatically
-casts non-widechar strings to widechar strings if they are merged
-with widechar strings. So, we just merge with an empty widechar
-string in the definition of {\it pascal\_write\/}:
-\verbatim
-< fprintf(file.f,format,## __VA_ARGS__)
-> fwprintf(file.f,format L"",## __VA_ARGS__)
-\endverbatim
-In the places where \TeX's internal encoding is converted to
-\TeX's external encoding, we change the conversion specifier
-in the {\it printf}-style directives:
+To convert Unicode to \UTF-8, we change the conversion specifier
+in the {\it printf}-style directives
+in the places where \TeX's internal encoding is converted to
+\TeX's external encoding.
+\smallskip
 \verbatim
 < wterm("%c",xchr[s]);
 > wterm("%lc",xchr[s]);
 
 < wlog("%c",xchr[s]);
 > wlog("%lc",xchr[s]);
+
+< write(write_file[selector],"%c",xchr[s]);
+> write(write_file[selector],"%lc",xchr[s]);
 \endverbatim
-\begingroup
-\everyverbatim={\advance\parindent by -23pt }
-\verbatim
-< pascal_write(write_file[selector],"%c",xchr[s]);
-> pascal_write(write_file[selector],"%lc",xchr[s]);
-\endverbatim
-\endgroup
 
 \head * 4. The file name buffer *
 

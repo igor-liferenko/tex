@@ -70,15 +70,6 @@
      if (buffer[last-1]!=' ') last_nonblank=last;
      } 
    last=last_nonblank;return true;
-@@ -1461,7 +1464,7 @@
- #define pascal_read(file,x) @[((x)=(file).d,get(file))@]
- #define read_ln(file)  @[do get(file); while (!eoln(file))@]
- 
--#define pascal_write(file, format,...)    @[fprintf(file.f,format,## __VA_ARGS__)@]
-+#define pascal_write(file, format,...)    @[fwprintf(file.f,format L"",## __VA_ARGS__)@]
- #define write_ln(file,...)	   @[pascal_write(file,__VA_ARGS__"\n")@]
- 
- #define wterm(format,...)	@[pascal_write(term_out,format, ## __VA_ARGS__)@]
 @@ -1500,7 +1503,7 @@
    {@+print_ln();return;
    } 
@@ -185,15 +176,6 @@
    return make_string();
    } 
  } 
-@@ -11958,7 +11978,7 @@
- 
- @p void write_dvi(dvi_index @!a, dvi_index @!b)
- {@+int k;
--for (k=a; k<=b; k++) pascal_write(dvi_file, "%c", dvi_buf[k]);
-+for (k=a; k<=b; k++) fprintf(dvi_file.f, "%c", dvi_buf[k]);
- } 
- 
- @ To put a byte in the buffer without paying the cost of invoking a procedure
 @@ -24289,6 +24309,7 @@
  @^system dependencies@>
  
