@@ -71,8 +71,12 @@ installation of \TeX, for example:
 ||https://github.com/igor-liferenko/cweb||
 \medskip
 {\it TEX\_format\_default\/} is in \TeX's external encoding.
+It follows from \S523, where {\it xord\/} is used for it.
+So, here we allow {\it TEX\_format\_default\/} to contain also
+characters from |mapping.w|, although in |tex.web| it is
+assumed to be ASCII-only.
 \verbatim
-< ASCII_code TEX_format_default
+< char TEX_format_default
 <    [1+format_default_length+1]
 <  =" TeXformats/plain.fmt";
 
@@ -111,10 +115,9 @@ we change |get((*f))| to |(*f).d=fgetwc((*f).f)|
 
 \head * 3. Output *
 
-To convert Unicode to \UTF-8, we change the conversion specifier
-in the {\it printf}-style directives
-in the places where \TeX's internal encoding is converted to
-\TeX's external encoding.
+In the places where the transition from \TeX's internal encoding to
+\TeX's external encoding happens, we just need to change the conversion specifier
+in the {\it printf}-style directives:
 \smallskip
 \verbatim
 < wterm("%c",xchr[s]);
