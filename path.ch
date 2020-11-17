@@ -20,7 +20,7 @@ enum {@+@!file_name_size=255@+}; /*file names shouldn't be longer than this*/
 @z
 
 NOTE: use only ASCII (like in tex.web)
-NOTE: web2w-generated type is fixed to match tex.web (ASCII_code is for string pool)
+NOTE: web2w-generated type is fixed to match tex.web (ASCII_code is for internal encoding)
 @x
 ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
 @y
