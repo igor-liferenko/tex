@@ -1,4 +1,4 @@
-See https://tug.org/TUGboat/production/41-3/tb129liferenko-utf8.pdf
+See readme.tex - it is successor to article in TUGBoat 41-3.
 
 Recent version of glibc must be used (otherwise you may get "Segmentation fault").
 
