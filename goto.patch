@@ -40,7 +40,7 @@
  limit=last;first=last+1; /*|init_terminal| has set |loc| and |last|*/ 
  } 
  
-@@ -24318,7 +24308,7 @@
+@@ -24316,7 +24306,7 @@
    {@+wterm_ln("Ouch---my internal constants have been clobbered!"
      "---case %d", bad);
  @.Ouch...clobbered@>
@@ -49,7 +49,7 @@
    } 
  initialize(); /*set global variables to their starting values*/ 
  #ifdef @!INIT
-@@ -24332,8 +24322,10 @@
+@@ -24330,8 +24320,10 @@
  main_control(); /*come to life*/ 
  final_cleanup(); /*prepare for death*/ 
  close_files_and_terminate();
@@ -62,7 +62,7 @@
  
  @ Here we do whatever is needed to complete \TeX's job gracefully on the
  local operating system. The code here might come into play after a fatal
-@@ -24474,9 +24466,9 @@
+@@ -24472,9 +24464,9 @@
  {@+@<Initialize the input routines@>;
  if ((format_ident==0)||(buffer[loc]=='&')) 
    {@+if (format_ident!=0) initialize(); /*erase preloaded format*/ 
