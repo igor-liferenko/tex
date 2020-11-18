@@ -1,4 +1,4 @@
-@@ -1020,14 +1020,10 @@
+@@ -1021,14 +1021,10 @@
  The first line is special also because it may be read before \TeX\ has
  input a format file. In such cases, normal error messages cannot yet
  be given. The following code uses concepts that will be explained later.
@@ -14,7 +14,7 @@
  @.Buffer size exceeded@>
    } 
  else{@+cur_input.loc_field=first;cur_input.limit_field=last-1;
-@@ -1884,15 +1880,9 @@
+@@ -1885,15 +1881,9 @@
  goes to |end_of_TEX|. This is the only nontrivial |@!goto| statement in the
  whole program. It is used when there is no recovery from a particular error.
  
@@ -31,7 +31,7 @@
  } 
  
  @ Here now is the general |error| routine.
-@@ -7164,7 +7154,7 @@
+@@ -7165,7 +7155,7 @@
  state=new_line;start=1;index=0;line=0;name=0;
  force_eof=false;
  align_state=1000000;@/
@@ -40,7 +40,7 @@
  limit=last;first=last+1; /*|init_terminal| has set |loc| and |last|*/ 
  } 
  
-@@ -24316,7 +24306,7 @@
+@@ -24317,7 +24307,7 @@
    {@+wterm_ln("Ouch---my internal constants have been clobbered!"
      "---case %d", bad);
  @.Ouch...clobbered@>
@@ -49,7 +49,7 @@
    } 
  initialize(); /*set global variables to their starting values*/ 
  #ifdef @!INIT
-@@ -24330,8 +24320,10 @@
+@@ -24331,8 +24321,10 @@
  main_control(); /*come to life*/ 
  final_cleanup(); /*prepare for death*/ 
  close_files_and_terminate();
@@ -62,7 +62,7 @@
  
  @ Here we do whatever is needed to complete \TeX's job gracefully on the
  local operating system. The code here might come into play after a fatal
-@@ -24472,9 +24464,9 @@
+@@ -24473,9 +24465,9 @@
  {@+@<Initialize the input routines@>;
  if ((format_ident==0)||(buffer[loc]=='&')) 
    {@+if (format_ident!=0) initialize(); /*erase preloaded format*/ 
