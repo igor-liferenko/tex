@@ -1,4 +1,4 @@
-Remove unnecessary cast in "chr" which is harmful when utex.patch is used
+Remove unnecessary cast in "chr" which is wrong when utex.patch is used
 Fix types to make ctex.w consistent with tex.web
 Keep "char" as it is in tex.web and use "char_t" for ordinary "char"
 
