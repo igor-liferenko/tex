@@ -115,9 +115,8 @@ we change |get((*f))| to |(*f).d=fgetwc((*f).f)|
 
 \head * 3. Output *
 
-In the places where the transition from \TeX's internal encoding to
-\TeX's external encoding happens, we just need to change the conversion specifier
-in the {\it printf}-style directives:
+In the places where {\it text\_char\/} is output,
+we change |%c| to |%lc|:
 \smallskip
 \verbatim
 < wterm("%c",xchr[s]);
