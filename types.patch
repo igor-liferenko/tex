@@ -1,5 +1,6 @@
-Fix types to make ctex.w consistent with tex.web and use "char" type only in the sense in which it is used in tex.web
-and remove unnecessary cast in "chr" which will be harmful for utex.patch
+Remove unnecessary cast in "chr" which is harmful when utex.patch is used
+Fix types to make ctex.w consistent with tex.web
+Keep "char" as it is in tex.web and use "char_t" for ordinary "char"
 
 @@ -346,7 +346,7 @@
  #include <math.h>
