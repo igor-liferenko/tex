@@ -19,15 +19,12 @@ enum {@+@!file_name_size=255@+}; /*file names shouldn't be longer than this*/
 @d format_area_length    26
 @z
 
-NOTE: use only ASCII (like in tex.web)
-NOTE: web2w-generated type is fixed to match tex.web (ASCII_code is for internal encoding)
 @x
-ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
+char @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
 @y
 char @!TEX_format_default[1+format_default_length+1]=" /home/user/tex/TeXformats/plain.fmt";
 @z
 
-NOTE: to simplify print.ch use only ASCII
 @x
 @d str_506 "TeXinputs/"
 @y

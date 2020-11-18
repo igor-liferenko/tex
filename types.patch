@@ -1,0 +1,55 @@
+@@ -346,7 +346,7 @@
+ #include <math.h>
+ 
+ #define odd(X)       ((X)&1)
+-#define chr(X)       ((unsigned char)(X))
++#define chr(X)       (X)
+ #define ord(X)       ((int)(X))
+ #define abs(X)       ((X)>-(X)?(X):-(X))
+ #define round(X)     ((int)((X)>=0.0?floor((X)+0.5):ceil((X)-0.5)))
+@@ -567,7 +567,8 @@
+ adjusted if necessary.
+ @^system dependencies@>
+ 
+-@d text_char	unsigned char /*the data type of characters in text files*/ 
++@d char		uint8_t
++@d text_char		char /*the data type of characters in text files*/
+ @d first_text_char	0 /*ordinal number of the smallest element of |text_char|*/ 
+ @d last_text_char	255 /*ordinal number of the largest element of |text_char|*/ 
+ 
+@@ -581,7 +582,7 @@
+ @<Glob...@>=
+ ASCII_code @!xord[256];
+    /*specifies conversion of input characters*/ 
+-uint8_t @!xchr[256];
++text_char @!xchr[256];
+    /*specifies conversion of output characters*/ 
+ 
+ @ Since we are assuming that our \PASCAL\ system is able to read and
+@@ -791,7 +792,7 @@
+ @^system dependencies@>
+ 
+ @<Glob...@>=
+-uint8_t @!name_of_file0[file_name_size+1]={0}, *const @!name_of_file = @!name_of_file0-1;@;@/
++char @!name_of_file0[file_name_size+1]={0}, *const @!name_of_file = @!name_of_file0-1;@;@/
+    /*on some systems this may be a \&{record} variable*/ 
+ uint8_t @!name_length;@/ /*this many characters are actually
+   relevant in |name_of_file| (the rest are blank)*/ 
+@@ -10138,7 +10139,7 @@
+ @d format_extension_str ".fmt" /*the extension, as a \.{WEB} constant*/ 
+ 
+ @<Glob...@>=
+-ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
++char @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
+ @.TeXformats@>
+ @.plain@>
+ @^system dependencies@>
+@@ -10355,7 +10356,7 @@
+ {@+uint8_t old_setting; /*previous |selector| setting*/ 
+ int @!k; /*index into |months| and |buffer|*/ 
+ uint16_t @!l; /*end of first input line*/ 
+-@!ASCII_code @!months[]=" JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC"; /*abbreviations of month names*/ 
++char @!months[]=" JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC"; /*abbreviations of month names*/
+ old_setting=selector;
+ if (job_name==0) job_name=@[@<|"texput"|@>@];
+ @.texput@>
