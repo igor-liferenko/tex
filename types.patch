@@ -7,7 +7,7 @@
  #define ord(X)       ((int)(X))
  #define abs(X)       ((X)>-(X)?(X):-(X))
  #define round(X)     ((int)((X)>=0.0?floor((X)+0.5):ceil((X)-0.5)))
-@@ -567,7 +567,8 @@
+@@ -567,9 +567,11 @@
  adjusted if necessary.
  @^system dependencies@>
  
@@ -16,8 +16,11 @@
 +@d text_char		char /*the data type of characters in text files*/
  @d first_text_char	0 /*ordinal number of the smallest element of |text_char|*/ 
  @d last_text_char	255 /*ordinal number of the largest element of |text_char|*/ 
++@d char_t       uint8_t
  
-@@ -581,7 +582,7 @@
+ @<Local variables for init...@>=
+ int @!i;
+@@ -581,7 +583,7 @@
  @<Glob...@>=
  ASCII_code @!xord[256];
     /*specifies conversion of input characters*/ 
@@ -26,7 +29,7 @@
     /*specifies conversion of output characters*/ 
  
  @ Since we are assuming that our \PASCAL\ system is able to read and
-@@ -791,7 +792,7 @@
+@@ -791,7 +793,7 @@
  @^system dependencies@>
  
  @<Glob...@>=
@@ -35,64 +38,64 @@
     /*on some systems this may be a \&{record} variable*/ 
  uint8_t @!name_length;@/ /*this many characters are actually
    relevant in |name_of_file| (the rest are blank)*/ 
-@@ -1450,9 +1451,9 @@
+@@ -1450,9 +1452,9 @@
  #define put(file)    @[fwrite(&((file).d),sizeof((file).d),1,(file).f)@]
  #define get(file)    @[fread(&((file).d),sizeof((file).d),1,(file).f)@]
  
 -#define reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
-+#define reset(file,name,mode)   @[((file).f=fopen((int8_t *)(name)+1,mode),\
++#define reset(file,name,mode)   @[((file).f=fopen((name)+1,mode),\
                                   (file).f!=NULL?get(file):0)@]
 -#define rewrite(file,name,mode) @[((file).f=fopen((char *)(name)+1,mode))@]
-+#define rewrite(file,name,mode) @[((file).f=fopen((int8_t *)(name)+1,mode))@]
++#define rewrite(file,name,mode) @[((file).f=fopen((name)+1,mode))@]
  #define pascal_close(file)    @[fclose((file).f)@]
  #define eof(file)    @[feof((file).f)@]
  #define eoln(file)    @[((file).d=='\n'||eof(file))@]
-@@ -1562,7 +1563,7 @@
+@@ -1562,7 +1564,7 @@
    } 
  } 
  
 -void print_str(char *s) /* the simple version */
-+void print_str(int8_t *s) /* the simple version */
++void print_str(char_t *s) /* the simple version */
  {while (*s!=0) print_char(*s++);@+
  } 
  
-@@ -1598,7 +1599,7 @@
+@@ -1598,7 +1600,7 @@
  string appears at the beginning of a new line.
  
  @<Basic print...@>=
 -void print_nl(char *@!s) /*prints string |s| at beginning of line*/ 
-+void print_nl(int8_t *@!s) /*prints string |s| at beginning of line*/
++void print_nl(char_t *@!s) /*prints string |s| at beginning of line*/
  {@+if (((term_offset > 0)&&(odd(selector)))||@|
    ((file_offset > 0)&&(selector >= log_only))) print_ln();
  print_str(s);
-@@ -1870,7 +1871,7 @@
+@@ -1870,7 +1872,7 @@
  @d help6	@+{@+help_ptr=6;hlp6 /*use this with six help lines*/ 
  
  @<Glob...@>=
 -char *@!help_line[6]; /*helps for the next |error|*/ 
-+int8_t *@!help_line[6]; /*helps for the next |error|*/
++char_t *@!help_line[6]; /*helps for the next |error|*/
  uint8_t @!help_ptr; /*the number of help lines present*/ 
  bool @!use_err_help; /*should the |err_help| list be shown?*/ 
  
-@@ -2079,7 +2080,7 @@
+@@ -2079,7 +2081,7 @@
    } 
  
  @<Error hand...@>=
 -void fatal_error(char *@!s) /*prints |s|, and that's it*/ 
-+void fatal_error(int8_t *@!s) /*prints |s|, and that's it*/
++void fatal_error(char_t *@!s) /*prints |s|, and that's it*/
  {@+normalize_selector();@/
  print_err("Emergency stop");help1(s);succumb;
  @.Emergency stop@>
-@@ -2088,7 +2089,7 @@
+@@ -2088,7 +2090,7 @@
  @ Here is the most dreaded error message.
  
  @<Error hand...@>=
 -void overflow(char *@!s, int @!n) /*stop due to finiteness*/ 
-+void overflow(int8_t *@!s, int @!n) /*stop due to finiteness*/
++void overflow(char_t *@!s, int @!n) /*stop due to finiteness*/
  {@+normalize_selector();
  print_err("TeX capacity exceeded, sorry [");
  @.TeX capacity exceeded ...@>
-@@ -10138,7 +10139,7 @@
+@@ -10138,7 +10140,7 @@
  @d format_extension_str ".fmt" /*the extension, as a \.{WEB} constant*/ 
  
  @<Glob...@>=
@@ -101,16 +104,16 @@
  @.TeXformats@>
  @.plain@>
  @^system dependencies@>
-@@ -10299,7 +10300,7 @@
+@@ -10299,7 +10301,7 @@
  variables |cur_name|, |cur_area|, |cur_ext|, and |name_of_file| are
  ready for another attempt at file opening.
  
 -@p void prompt_file_name(char *@!s, str_number @!e)
-+@p void prompt_file_name(int8_t *@!s, str_number @!e)
++@p void prompt_file_name(char_t *@!s, str_number @!e)
  {@+
  uint16_t k; /*index into |buffer|*/ 
  if (interaction==scroll_mode) wake_up_terminal;
-@@ -10355,7 +10356,7 @@
+@@ -10355,7 +10357,7 @@
  {@+uint8_t old_setting; /*previous |selector| setting*/ 
  int @!k; /*index into |months| and |buffer|*/ 
  uint16_t @!l; /*end of first input line*/ 
