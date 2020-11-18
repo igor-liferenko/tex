@@ -3,7 +3,7 @@ Only one argument is handled (filename).
 @x
 @p bool init_terminal(void) /*gets the terminal input started*/
 @y
-@p bool init_terminal(int argc, char **argv)
+@p bool init_terminal(int argc, utf8_t **argv)
 @z
 
 @x
@@ -30,5 +30,5 @@ if (!init_terminal(argc,argv)) goto final_end;
 @x
 @p int main(void) {@! /*|start_here|*/
 @y
-@p int main(int argc, char **argv) {
+@p int main(int argc, utf8_t **argv) {
 @z
