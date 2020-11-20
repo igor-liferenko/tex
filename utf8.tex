@@ -2,6 +2,7 @@
 
 \title * {\ninebf UTF}-8 installations of \TeX *
 \author * Igor Liferenko *
+\address * \tt igor.liferenko (at) gmail dot com *
 
 \article
 
@@ -79,6 +80,9 @@ Let's make |char| and |text_char| the same type (by analogy with \S19 in [3]).
 > wchar_t TEX_format_default
 >    [1+format_default_length+1]
 >  =L" TeXformats/plain.fmt";
+
+< char months[]=" JANFEBMARAPRM...
+> wchar_t months[]=L" JANFEBMAR... 
 \endverbatim
 \medskip
 It remains to set the |LC_CTYPE| locale category, on which
@@ -111,10 +115,8 @@ we change |get((*f))| to |(*f).d=fgetwc((*f).f)|
 
 \head * 3. Output *
 
-To convert Unicode to \UTF-8, we change the conversion specifier
-in the {\it printf}-style directives
-in the places where \TeX's internal encoding is converted to
-\TeX's external encoding.
+In the places where values of the type |wchar_t| are printed, change
+|%c| to |%lc| [4]:
 \smallskip
 \verbatim
 < wterm("%c",xchr[s]);
@@ -125,6 +127,9 @@ in the places where \TeX's internal encoding is converted to
 
 < write(write_file[selector],"%c",xchr[s]);
 > write(write_file[selector],"%lc",xchr[s]);
+
+< wlog("%c",months[k]);
+> wlog("%lc",months[k]);
 \endverbatim
 
 \head * 4. The file name buffer *
@@ -258,8 +263,11 @@ while (k+wcstombs(NULL,TEX_format_default+
 [3] Knuth, Donald E. {\sl \TeX: The Program\/}, 1986. ISBN~0201134373.
 
 [4] Single Unix Specification. Introduction to ISO~C Amendment 1
-(Multibyte Support Environment).
+(Multibyte Support Environment).\\
+{\tt\catcode`_=11 http://unix.org/version2/whatsnew/\\login_mse.html}
 
 \par\endgroup
 
+\advance\signaturewidth by 10pt
+\makesignature
 \endarticle
