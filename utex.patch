@@ -1,4 +1,4 @@
-@@ -344,6 +344,8 @@
+@@ -344,9 +344,11 @@
  #include <stdlib.h>
  #include <string.h>
  #include <math.h>
@@ -6,33 +6,36 @@
 +#include <locale.h>
  
  #define odd(X)       ((X)&1)
- #define chr(X)       (X)
-@@ -567,11 +569,12 @@
+-#define chr(X)       ((unsigned char)(X))
++#define chr(X)       (X) /* fix ctex.patch */
+ #define ord(X)       ((int)(X))
+ #define abs(X)       ((X)>-(X)?(X):-(X))
+ #define round(X)     ((int)((X)>=0.0?floor((X)+0.5):ceil((X)-0.5)))
+@@ -567,9 +569,9 @@
  adjusted if necessary.
  @^system dependencies@>
  
--@d char		uint8_t
--@d text_char		char /*the data type of characters in text files*/
-+@d char		int8_t /*ASCII-subset of Unicode*/
-+@d text_char		wchar_t /*the data type of characters in text files*/
+-@d text_char	unsigned char /*the data type of characters in text files*/ 
++@d text_char	wchar_t /*the data type of characters in text files*/ 
  @d first_text_char	0 /*ordinal number of the smallest element of |text_char|*/ 
 -@d last_text_char	255 /*ordinal number of the largest element of |text_char|*/ 
-+@d last_text_char	65535 /*ordinal number of the largest element of |text_char|*/
- @d char_t       uint8_t
-+@d utf8_t	uint8_t
++@d last_text_char	65535 /*ordinal number of the largest element of |text_char|*/ 
  
  @<Local variables for init...@>=
  int @!i;
-@@ -581,7 +584,7 @@
+@@ -579,9 +581,9 @@
  that are analogous to \PASCAL's |ord| and |chr| functions.
  
  @<Glob...@>=
 -ASCII_code @!xord[256];
 +ASCII_code @!xord[65536];
     /*specifies conversion of input characters*/ 
- text_char @!xchr[256];
+-uint8_t @!xchr[256];
++text_char @!xchr[256]; /* fix web2w */
     /*specifies conversion of output characters*/ 
-@@ -729,6 +732,7 @@
+ 
+ @ Since we are assuming that our \PASCAL\ system is able to read and
+@@ -727,6 +729,7 @@
  @<Set init...@>=
  for (i=0; i<=037; i++) xchr[i]= ' ' ;
  for (i=0177; i<=0377; i++) xchr[i]= ' ' ;
@@ -40,18 +43,7 @@
  
  @ The following system-independent code makes the |xord| array contain a
  suitable inverse to the information in |xchr|. Note that if |xchr[i]==xchr[j]|
-@@ -793,8 +797,8 @@
- @^system dependencies@>
- 
- @<Glob...@>=
--char @!name_of_file0[file_name_size+1]={0}, *const @!name_of_file = @!name_of_file0-1;@;@/
--   /*on some systems this may be a \&{record} variable*/ 
-+utf8_t @!name_of_file0[file_name_size+1]={0}, *const @!name_of_file = @!name_of_file0-1;@;@/
-+   /*UTF-8 string*/
- uint8_t @!name_length;@/ /*this many characters are actually
-   relevant in |name_of_file| (the rest are blank)*/ 
- 
-@@ -826,7 +830,7 @@
+@@ -824,7 +827,7 @@
  
  @p bool a_open_in(alpha_file *f)
     /*open a text file for input*/ 
@@ -60,7 +52,7 @@
  } 
  @#
  bool a_open_out(alpha_file *f)
-@@ -941,7 +945,7 @@
+@@ -939,7 +942,7 @@
  @p bool input_ln(alpha_file *f, bool @!bypass_eoln)
     /*inputs the next line or returns |false|*/ 
  {@+uint16_t last_nonblank; /*|last| with trailing blanks removed*/ 
@@ -69,7 +61,7 @@
     /*input the first character of the line into |f.d|*/ 
  last=first; /*cf.\ Matthew 19\thinspace:\thinspace30*/ 
  if (eof((*f))) return false;
-@@ -952,7 +956,7 @@
+@@ -950,7 +953,7 @@
        if (max_buf_stack==buf_size) 
          @<Report overflow of the input buffer, and abort@>;
        } 
@@ -78,7 +70,7 @@
      if (buffer[last-1]!=' ') last_nonblank=last;
      } 
    last=last_nonblank;return true;
-@@ -1502,7 +1506,7 @@
+@@ -1500,7 +1503,7 @@
    {@+print_ln();return;
    } 
  switch (selector) {
@@ -87,7 +79,7 @@
    incr(term_offset);incr(file_offset);
    if (term_offset==max_print_line) 
      {@+wterm_cr;term_offset=0;
-@@ -1511,17 +1515,17 @@
+@@ -1509,17 +1512,17 @@
      {@+wlog_cr;file_offset=0;
      } 
    } @+break;
@@ -108,7 +100,7 @@
  } @/
  incr(tally);
  } 
-@@ -10112,9 +10116,16 @@
+@@ -10110,9 +10113,16 @@
  allows both lowercase and uppercase letters in the file name.
  @^system dependencies@>
  
@@ -117,7 +109,7 @@
 -  } 
 +@d append_to_name(X)	{@+c=X;
 +  if (k >= 0) {
-+    utf8_t mb[MB_CUR_MAX];
++    char mb[MB_CUR_MAX];
 +    int len = wctomb(mb, xchr[c]);
 +    if (k+len <= file_name_size)
 +      for (int i = 0; i < len; i++) name_of_file[++k] = mb[i];
@@ -128,7 +120,7 @@
  
  @p void pack_file_name(str_number @!n, str_number @!a, str_number @!e)
  {@+int k; /*number of positions filled in |name_of_file|*/ 
-@@ -10124,6 +10135,7 @@
+@@ -10122,6 +10132,7 @@
  for (j=str_start[a]; j<=str_start[a+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
@@ -136,7 +128,23 @@
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
  name_of_file[name_length+1]=0;
  } 
-@@ -10163,11 +10175,14 @@
+@@ -10138,13 +10149,13 @@
+ @d format_extension_str ".fmt" /*the extension, as a \.{WEB} constant*/ 
+ 
+ @<Glob...@>=
+-ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
++wchar_t @!TEX_format_default[1+format_default_length+1]=L" TeXformats/plain.fmt";
+ @.TeXformats@>
+ @.plain@>
+ @^system dependencies@>
+ 
+ @ @<Check the ``constant'' values for consistency@>=
+-if (format_default_length > file_name_size) bad=31;
++if (wcstombs(NULL,TEX_format_default+1,0) > file_name_size) bad=31;
+ 
+ @ Here is the messy routine that was just mentioned. It sets |name_of_file|
+ from the first |n| characters of |TEX_format_default|, followed by
+@@ -10161,11 +10172,16 @@
  {@+int k; /*number of positions filled in |name_of_file|*/ 
  ASCII_code @!c; /*character being packed*/ 
  int @!j; /*index into |buffer| or |TEX_format_default|*/ 
@@ -146,14 +154,16 @@
  for (j=1; j<=n; j++) append_to_name(xord[TEX_format_default[j]]);
  for (j=a; j<=b; j++) append_to_name(buffer[j]);
 +if (k < 0) k = -k;
-+while (k+format_ext_length > file_name_size) {
++while (k+wcstombs(NULL,TEX_format_default+format_default_length
++       -format_ext_length+1,0) > file_name_size) {
 +  k--;
-+  while(mblen(name_of_file+k+1, MB_CUR_MAX)==-1) k--;
++  while(mblen(name_of_file+k+1, MB_CUR_MAX)==-1)
++    k--;
 +}
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
    append_to_name(xord[TEX_format_default[j]]);
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
-@@ -10226,7 +10241,11 @@
+@@ -10224,7 +10240,11 @@
  if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
   (cur_length > 0)) 
    return'?';
@@ -166,7 +176,7 @@
    return make_string();
    } 
  } 
-@@ -24291,6 +24310,7 @@
+@@ -24289,6 +24309,7 @@
  @^system dependencies@>
  
  @p int main(void) {@! /*|start_here|*/ 
