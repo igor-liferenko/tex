@@ -81,8 +81,8 @@ Let's make |char| and |text_char| the same type (by analogy with \S19 in [3]).
 >    [1+format_default_length+1]
 >  =L" TeXformats/plain.fmt";
 
-< char months[]=" JANFEBMARAPRM...
-> wchar_t months[]=L" JANFEBMAR... 
+< char months[]=" JANFEBMARAPRMAYJUNJUL...
+> wchar_t months[]=L" JANFEBMARAPRMAYJU... 
 \endverbatim
 \medskip
 It remains to set the |LC_CTYPE| locale category, on which
@@ -116,7 +116,7 @@ we change |get((*f))| to |(*f).d=fgetwc((*f).f)|
 \head * 3. Output *
 
 In the places where values of the type |wchar_t| are printed, change
-|%c| to |%lc| [4]:
+|%c| to |%lc| [4].
 \smallskip
 \verbatim
 < wterm("%c",xchr[s]);
@@ -180,8 +180,7 @@ In {\it pack\_file\_name\/} and {\it pack\_buffered\_name\/}
 we have to ``unfreeze'' its value
 if it was ``frozen''.
 ||if (k < 0) k = -k;||
-\medskip
-In {\it make\_name\_string},
+\indent In {\it make\_name\_string},
 each (multibyte) character from {\it name\_of\_file\/}
 must be converted from \UTF-8 to Unicode,
 before being converted to \TeX's internal encoding.
