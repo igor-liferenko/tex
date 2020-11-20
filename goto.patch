@@ -3,6 +3,7 @@ and I use it on Linux (with line-terminators).
 The problem is the final newline.
 I work around it by doing "wterm_cr" right before exiting.
 For this, "goto final_end" is convenient because I need to add wterm_cr only once.
+Similarly, returning exit status is done only once.
 This patch restores the "final_end" gotos which web2w removes.
 In two places where they are non-local they are not restored.
 In "Buffer size exceeded!" case wterm_cr is not issued because of a bug in TeX,
