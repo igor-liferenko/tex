@@ -1,7 +1,6 @@
 all:
 	make -C web2w
-	patch -so tex.w web2w/ctex.w types.patch
-	patch -s tex.w utex.patch
+	patch -so tex.w web2w/ctex.w utex.patch
 	patch -s tex.w goto.patch
 	tie -c tex.ch tex.w constants.ch special.ch $(CHF) >/dev/null
 	/bin/ctangle tex tex
@@ -12,8 +11,7 @@ all:
 
 triptex:
 	make -C web2w
-	patch -so tex.w web2w/ctex.w types.patch
-	patch -s tex.w utex.patch
+	patch -so tex.w web2w/ctex.w utex.patch
 	patch -s tex.w goto.patch
 	tie -c tex.ch tex.w trip/constants.ch $(CHF) >/dev/null
 	/bin/ctangle tex tex
