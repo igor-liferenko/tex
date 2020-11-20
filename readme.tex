@@ -70,6 +70,17 @@ installation of \TeX, for example:
 \noindent A complete example of |mapping.w| is here:
 ||https://github.com/igor-liferenko/cweb||
 \medskip
+{\it TEX\_format\_default\/} is in \TeX's external encoding.
+\verbatim
+< ASCII_code TEX_format_default
+<    [1+format_default_length+1]
+<  =" TeXformats/plain.fmt";
+
+> wchar_t TEX_format_default
+>    [1+format_default_length+1]
+>  =L" TeXformats/plain.fmt";
+\endverbatim
+\medskip
 It remains to set the |LC_CTYPE| locale category, on which
 depends the behavior of the C~library functions used below
 ||setlocale(LC_CTYPE, "C.UTF-8");||
@@ -100,8 +111,10 @@ we change |get((*f))| to |(*f).d=fgetwc((*f).f)|
 
 \head * 3. Output *
 
-In the places where {\it text\_char\/} is output,
-we change |%c| to |%lc|:
+To convert Unicode to \UTF-8, we change the conversion specifier
+in the {\it printf}-style directives
+in the places where \TeX's internal encoding is converted to
+\TeX's external encoding.
 \smallskip
 \verbatim
 < wterm("%c",xchr[s]);
@@ -178,6 +191,20 @@ This is done using the C~library function
 >   append_char(xord[wc]); }
 \endverbatim
 \medskip
+In the code checking {\it format\_default\_length\/}
+for consistency, we
+use the C~library function {\it wcstombs\/} [4] to count
+the number of bytes in the \UTF-8 representation of
+{\it TEX\_format\_default\/}.
+\verbatim
+< if (format_default_length >
+<     file_name_size)
+
+> if (wcstombs(NULL,
+>     TEX_format_default+1,0) >
+>     file_name_size)
+\endverbatim
+\medskip
 In the function {\it pack\_buffered\_name\/},
 the code that drops excess characters
 assumes that each character is one byte:
@@ -199,10 +226,15 @@ format extension fits in it. We use the C~library
 function {\it mblen\/} [4] to determine
 the start of the next (multibyte) character to be discarded.
 \verbatim
-while (k+format_ext_length > file_name_size)
-  { k--;
+while (k+wcstombs(NULL,TEX_format_default+
+       format_default_length-
+       format_ext_length+1,0) >
+       file_name_size) {
+  k--;
   while (mblen(name_of_file+k+1,MB_CUR_MAX)
-         ==-1) k--; }
+         ==-1)
+    k--;
+}
 \endverbatim
 
 \head * References *
