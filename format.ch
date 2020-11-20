@@ -4,8 +4,8 @@ initialize(); /*set global variables to their starting values*/
 @y
 initialize(); /*set global variables to their starting values*/ 
 #ifndef INIT
-strncpy(name_of_file+1, TEX_format_default+1, format_area_length);
-strcat(name_of_file+1, strrchr(argv[0], '/') + 1);
+wcstombs(name_of_file+1, TEX_format_default+1, file_name_size+1);
+strcpy(strrchr(name_of_file+1, '/'), strrchr(argv[0], '/'));
 strcat(name_of_file+1, ".fmt");
 if (!w_open_in(&fmt_file)) exit(1);
 if (!load_fmt_file()) {
