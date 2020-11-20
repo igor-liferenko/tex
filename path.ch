@@ -20,11 +20,12 @@ enum {@+@!file_name_size=255@+}; /*file names shouldn't be longer than this*/
 @z
 
 @x
-char @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
+wchar_t @!TEX_format_default[1+format_default_length+1]=L" TeXformats/plain.fmt";
 @y
-char @!TEX_format_default[1+format_default_length+1]=" /home/user/tex/TeXformats/plain.fmt";
+wchar_t @!TEX_format_default[1+format_default_length+1]=L" /home/user/tex/TeXformats/plain.fmt";
 @z
 
+If you need non-ASCII here, grep required characters one by one in mapping.w and put here via "\x".
 @x
 @d str_506 "TeXinputs/"
 @y
