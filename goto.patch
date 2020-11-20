@@ -9,7 +9,7 @@ In two places where they are non-local they are not restored.
 In "Buffer size exceeded!" case wterm_cr is not issued because of a bug in TeX,
 which uses "write_ln" instead of "write".
 
-@@ -1023,14 +1023,10 @@
+@@ -1020,14 +1020,10 @@
  The first line is special also because it may be read before \TeX\ has
  input a format file. In such cases, normal error messages cannot yet
  be given. The following code uses concepts that will be explained later.
@@ -25,7 +25,7 @@ which uses "write_ln" instead of "write".
  @.Buffer size exceeded@>
    } 
  else{@+cur_input.loc_field=first;cur_input.limit_field=last-1;
-@@ -1887,15 +1883,9 @@
+@@ -1884,15 +1880,9 @@
  goes to |end_of_TEX|. This is the only nontrivial |@!goto| statement in the
  whole program. It is used when there is no recovery from a particular error.
  
@@ -42,7 +42,7 @@ which uses "write_ln" instead of "write".
  } 
  
  @ Here now is the general |error| routine.
-@@ -7167,7 +7157,7 @@
+@@ -7164,7 +7154,7 @@
  state=new_line;start=1;index=0;line=0;name=0;
  force_eof=false;
  align_state=1000000;@/
@@ -51,7 +51,7 @@ which uses "write_ln" instead of "write".
  limit=last;first=last+1; /*|init_terminal| has set |loc| and |last|*/ 
  } 
  
-@@ -24319,7 +24309,7 @@
+@@ -24318,7 +24308,7 @@
    {@+wterm_ln("Ouch---my internal constants have been clobbered!"
      "---case %d", bad);
  @.Ouch...clobbered@>
@@ -60,7 +60,7 @@ which uses "write_ln" instead of "write".
    } 
  initialize(); /*set global variables to their starting values*/ 
  #ifdef @!INIT
-@@ -24333,8 +24323,10 @@
+@@ -24332,8 +24322,10 @@
  main_control(); /*come to life*/ 
  final_cleanup(); /*prepare for death*/ 
  close_files_and_terminate();
@@ -73,7 +73,7 @@ which uses "write_ln" instead of "write".
  
  @ Here we do whatever is needed to complete \TeX's job gracefully on the
  local operating system. The code here might come into play after a fatal
-@@ -24475,9 +24467,9 @@
+@@ -24474,9 +24466,9 @@
  {@+@<Initialize the input routines@>;
  if ((format_ident==0)||(buffer[loc]=='&')) 
    {@+if (format_ident!=0) initialize(); /*erase preloaded format*/ 
