@@ -71,7 +71,7 @@ installation of \TeX, for example:
 \noindent A complete example of |mapping.w| is here:
 ||https://github.com/igor-liferenko/cweb||
 \medskip
-Let's make |char| and |text_char| the same type (by analogy with \S19 in [3]).
+Let's make |char| and |text_char| the same type by analogy with |tex.web| (see \S19 in [3]).
 \verbatim
 < char TEX_format_default
 <    [1+format_default_length+1]
@@ -180,7 +180,8 @@ In {\it pack\_file\_name\/} and {\it pack\_buffered\_name\/}
 we have to ``unfreeze'' its value
 if it was ``frozen''.
 ||if (k < 0) k = -k;||
-\indent In {\it make\_name\_string},
+\indent
+In {\it make\_name\_string},
 each (multibyte) character from {\it name\_of\_file\/}
 must be converted from \UTF-8 to Unicode,
 before being converted to \TeX's internal encoding.

@@ -176,6 +176,24 @@
    return make_string();
    } 
  } 
+@@ -10355,7 +10375,7 @@
+ {@+uint8_t old_setting; /*previous |selector| setting*/ 
+ int @!k; /*index into |months| and |buffer|*/ 
+ uint16_t @!l; /*end of first input line*/ 
+-@!ASCII_code @!months[]=" JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC"; /*abbreviations of month names*/ 
++wchar_t @!months[]=L" JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC"; /*abbreviations of month names*/ 
+ old_setting=selector;
+ if (job_name==0) job_name=@[@<|"texput"|@>@];
+ @.texput@>
+@@ -10397,7 +10417,7 @@
+ {@+wlog("%s",banner);
+ slow_print(format_ident);print_str("  ");
+ print_int(day);print_char(' ');
+-for (k=3*month-2; k<=3*month; k++) wlog("%c",months[k]);
++for (k=3*month-2; k<=3*month; k++) wlog("%lc",months[k]);
+ print_char(' ');print_int(year);print_char(' ');
+ print_two(time/60);print_char(':');print_two(time%60);
+ } 
 @@ -24289,6 +24309,7 @@
  @^system dependencies@>
  
