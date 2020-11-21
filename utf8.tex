@@ -72,9 +72,10 @@ installation of \TeX, for example:
 ||https://github.com/igor-liferenko/cweb||
 \medskip
 Let's make |char| and |text_char| the same type by analogy with |tex.web| (see \S19 in [3]).
+\smallskip
 \verbatim
-< char TEX_format_d...=" TeXformats/plai...
-> wchar_t TEX_forma...=L" TeXformats/pla...
+< char TEX_format_default[]=" TeXformats...
+> wchar_t TEX_format_default[]=L" TeXfor...
 
 < char months[]=" JANFEBMARAPRMAYJUNJULA...
 > wchar_t months[]=L" JANFEBMARAPRMAYJUN... 
@@ -110,12 +111,12 @@ we change |get((*f))| to |(*f).d=fgetwc((*f).f)|
 
 \head * 3. Output *
 
-Strings passed to the macro {\it write\/}
-can be specified directly in \UTF-8.
-And as they are in ASCII (which is a subset of
-\UTF-8), we don't need to touch them.
-
-In the places where values of the type |wchar_t| are printed, change
+Printed strings can be specified directly in \UTF-8.
+And as they are already in ASCII (which is a
+subset of \UTF-8),
+we need no special treatment for them.
+Except that
+in the places where values of the type |wchar_t| are printed, change
 |%c| to |%lc| [4].
 \smallskip
 \verbatim
