@@ -1,11 +1,14 @@
 Ensure that input consists only of BMP characters and is valid UTF-8.
 
 @x
-{ if ((*f).f=fopen(name_of_file+1,"r")) (*f).d=fgetwc((*f).f); return reset_OK(*f);
+{ (*f).f=fopen(name_of_file+1,"r"); if ((*f).f) (*f).d=fgetwc((*f).f); else return false; if (ferror((*f).f)) return false; else return true;
 @y
-{ if ((*f).f=fopen(name_of_file+1,"r"))
-  assert(((*f).d=fgetwc((*f).f)) <= 65535 && !ferror((*f).f));
-  return reset_OK(*f);
+{ (*f).f=fopen(name_of_file+1,"r");
+  if ((*f).f)
+    assert(((*f).d=fgetwc((*f).f)) <= 65535 && !ferror((*f).f));
+  else
+    return false;
+  return true;
 @z
 
 @x

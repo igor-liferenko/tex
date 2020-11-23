@@ -48,7 +48,7 @@
  @p bool a_open_in(alpha_file *f)
     /*open a text file for input*/ 
 -{@+reset((*f), name_of_file,"r");return reset_OK((*f));
-+{ if ((*f).f=fopen(name_of_file+1,"r")) (*f).d=fgetwc((*f).f); return reset_OK(*f);
++{ (*f).f=fopen(name_of_file+1,"r"); if ((*f).f) (*f).d=fgetwc((*f).f); else return false; if (ferror((*f).f)) return false; else return true;
  } 
  @#
  bool a_open_out(alpha_file *f)
