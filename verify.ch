@@ -1,6 +1,13 @@
 Ensure that input consists only of BMP characters and is valid UTF-8.
 
 @x
+@h
+@y
+#include <errno.h>
+@h
+@z
+
+@x
 { (*f).f=fopen(name_of_file+1,"r"); if ((*f).f) (*f).d=fgetwc((*f).f); return reset_OK(*f); 
 @y
 { (*f).f=fopen(name_of_file+1,"r");
