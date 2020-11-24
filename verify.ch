@@ -8,17 +8,17 @@ Ensure that input consists only of BMP characters and is valid UTF-8.
 @z
 
 @x
-{ (*f).f=fopen(name_of_file+1,"r"); if ((*f).f) (*f).d=fgetwc((*f).f); return reset_OK(*f); 
+{@+if(((*f).f=fopen(name_of_file+1,"r"))!=NULL)(*f).d=fgetwc((*f).f);return reset_OK((*f));
 @y
-{ (*f).f=fopen(name_of_file+1,"r");
-  if ((*f).f) assert(((*f).d=fgetwc((*f).f)) <= 65535 && !(ferror((*f).f) && errno == EILSEQ));
-  return reset_OK(*f);
+{@+if(((*f).f=fopen(name_of_file+1,"r"))!=NULL)
+  assert(((*f).d=fgetwc((*f).f)) <= 65535 && !(ferror((*f).f) && errno == EILSEQ));
+  return reset_OK((*f));
 @z
 
 @x
 if (bypass_eoln) if (!eof((*f))) (*f).d=fgetwc((*f).f);
 @y
-if (bypass_eoln) if (!eof(*f))
+if (bypass_eoln) if (!eof((*f)))
   assert(((*f).d=fgetwc((*f).f)) <= 65535 && !(ferror((*f).f) && errno == EILSEQ));
 @z
 
