@@ -5,7 +5,7 @@ initialize(); /*set global variables to their starting values*/
 initialize(); /*set global variables to their starting values*/ 
 #ifndef INIT
 wcstombs(name_of_file+1, TEX_format_default+1, file_name_size+1);
-strcpy(strrchr(name_of_file+1, '/'), strrchr(argv[0], '/'));
+strcpy(strrchr(name_of_file+1, '/'), strrchr(argv[0], '/')); /* gdb sets $0 to absolute path, we use absolute path in wrapper script; $0 is set via symlink; wrapper script is used to select format */
 strcat(name_of_file+1, ".fmt");
 if (!w_open_in(&fmt_file)) exit(1);
 if (!load_fmt_file()) {
@@ -15,3 +15,4 @@ if (!load_fmt_file()) {
 w_close(&fmt_file);
 #endif
 @z
+
