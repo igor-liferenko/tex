@@ -4,7 +4,7 @@ Recent version of glibc must be used (otherwise you may get "Segmentation fault"
 
 Run as "exec /path/to/tex/plain"
 
-To use debugger, compile with "-g -Og" flags and run "gdb plain"
+To use debugger, compile with "-g -Og" flags ("-lm" becomes unnecessary - why?) and run "gdb plain"
 Use this change-file to make stepping over this line with `n' command faster:
 @x
 for (i=first_text_char; i<=last_text_char; i++) xord[chr(i)]=invalid_code;
