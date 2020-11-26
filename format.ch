@@ -5,7 +5,7 @@ initialize(); /*set global variables to their starting values*/
 initialize(); /*set global variables to their starting values*/ 
 #ifndef INIT
 wcstombs(name_of_file+1, TEX_format_default+1, file_name_size+1);
-strcpy(strrchr(name_of_file+1, '/'), strrchr(argv[0], '/')); /* `/' is always present because gdb sets absolute path automatically and because we use absolute path for execution */
+strcpy(strrchr(name_of_file+1, '/') + 1, strchr(argv[0], '/') ? strrchr(argv[0], '/') + 1 : argv[0]);
 strcat(name_of_file+1, ".fmt");
 if (!w_open_in(&fmt_file)) exit(1);
 if (!load_fmt_file()) {
