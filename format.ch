@@ -1,3 +1,4 @@
+NOTE: gdb adds path automatically, so run via path too
 @x
 @p int main(int argc, char **argv) {
 @y
