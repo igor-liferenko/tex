@@ -1,7 +1,5 @@
 See utf8.pdf (it contains small improvements to the article in TUGBoat 41-3 in sections 1 and 3).
 
-Recent version of glibc must be used - otherwise you may get "Segmentation fault" (this is due to UTF-8 support).
-
 To use debugger, compile with "-g -Og" flags ("-lm" becomes unnecessary - why?) and run "gdb plain"
 Use this change-file to make stepping over this line with `n' command faster:
 @x
