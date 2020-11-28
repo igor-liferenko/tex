@@ -40,7 +40,7 @@ in this article, and for readability we sometimes leave a blank line
 between the pieces. The actual implementation uses the file
 |utex.patch| [2].)
 \verbatim
-< @d text_char unsigned char
+< @d text_char pascal_char
 > @d text_char wchar_t
 \endverbatim
 \medskip
@@ -71,14 +71,26 @@ installation of \TeX, for example:
 \noindent A complete example of |mapping.w| is here:
 ||https://github.com/igor-liferenko/cweb||
 \medskip
-Let's make |char| and |text_char| the same type by analogy with |tex.web| (see \S19 in [3]).
-\smallskip
+Let's make |pascal_char| and |text_char| the same type by analogy with |tex.web| (see \S19 in [3]).
 \verbatim
-< char TEX_format_default[]=" TeXformats...
+< pascal_char TEX_format_default[]=" TeX...
 > wchar_t TEX_format_default[]=L" TeXfor...
 
-< char months[]=" JANFEBMARAPRMAYJUNJULA...
+< pascal_char months[]=" JANFEBMARAPRMAY...
 > wchar_t months[]=L" JANFEBMARAPRMAYJUN... 
+\endverbatim
+The exception is {\it name\_of\_file\/}.
+\verbatim
+< pascal_char name_of_file0
+<             [file_name_size+1] = {0},
+<   *const name_of_file = name_of_file0-1;
+<   /* on some systems this may be a
+<      \&{record} variable */ 
+
+> char name_of_file0
+>      [file_name_size+1] = {0},
+>   *const name_of_file = name_of_file0-1;
+>   /* UTF-8 string */ 
 \endverbatim
 \medskip
 It remains to set the |LC_CTYPE| locale category, on which
@@ -118,18 +130,22 @@ we need no special treatment for them,
 except that |%c| is changed to |%lc|.
 \smallskip
 \verbatim
+< wlog("%c",months[k]);
+> wlog("%lc",months[k]);
+
 < wterm("%c",xchr[s]);
 > wterm("%lc",xchr[s]);
 
 < wlog("%c",xchr[s]);
 > wlog("%lc",xchr[s]);
-
+\endverbatim
+\begingroup
+\everyverbatim={\advance\parindent by -23pt }
+\verbatim
 < write(write_file[selector],"%c",xchr[s]);
 > write(write_file[selector],"%lc",xchr[s]);
-
-< wlog("%c",months[k]);
-> wlog("%lc",months[k]);
 \endverbatim
+\endgroup
 
 \head * 4. The file name buffer *
 
