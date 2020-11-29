@@ -92,7 +92,6 @@ File names must be in \UTF-8.
 > char name_of_file0
 >      [file_name_size+1] = {0},
 >   *const name_of_file = name_of_file0-1;
-
 \endverbatim
 \medskip
 It remains to set the |LC_CTYPE| locale category, on which
@@ -130,7 +129,6 @@ And as they are already in {\font\rm=cmcsc10 \rm ASCII} (which is
 part of \UTF-8)
 we need no special treatment for them,
 except that |%c| is changed to |%lc|.
-\smallskip
 \verbatim
 < wlog("%c",months[k]);
 > wlog("%lc",months[k]);
@@ -142,7 +140,7 @@ except that |%c| is changed to |%lc|.
 > wlog("%lc",xchr[s]);
 \endverbatim
 \begingroup
-\everyverbatim={\advance\parindent by -23pt }
+\everyverbatim={\advance\parindent by -6.5pt }
 \verbatim
 < write(write_file[selector],"%c",xchr[s]);
 > write(write_file[selector],"%lc",xchr[s]);
