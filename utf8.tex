@@ -71,7 +71,9 @@ installation of \TeX, for example:
 \noindent A complete example of |mapping.w| is here:
 ||https://github.com/igor-liferenko/cweb||
 \medskip
-Let's make |pascal_char| and |text_char| the same type by analogy with |tex.web| (see \S19 in [3]).
+In |tex.web| the type |char| is able to contain the same
+characters as in text files (see \S19 in [3]).
+Text characters are now in Unicode.
 \verbatim
 < pascal_char TEX_format_default[]=" TeX...
 > wchar_t TEX_format_default[]=L" TeXfor...
@@ -79,7 +81,7 @@ Let's make |pascal_char| and |text_char| the same type by analogy with |tex.web|
 < pascal_char months[]=" JANFEBMARAPRMAY...
 > wchar_t months[]=L" JANFEBMARAPRMAYJUN... 
 \endverbatim
-The exception is {\it name\_of\_file\/}.
+File names must be in \UTF-8.
 \verbatim
 < pascal_char name_of_file0
 <             [file_name_size+1] = {0},
@@ -90,7 +92,7 @@ The exception is {\it name\_of\_file\/}.
 > char name_of_file0
 >      [file_name_size+1] = {0},
 >   *const name_of_file = name_of_file0-1;
->   /* UTF-8 string */ 
+
 \endverbatim
 \medskip
 It remains to set the |LC_CTYPE| locale category, on which
