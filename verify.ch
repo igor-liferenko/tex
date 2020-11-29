@@ -1,4 +1,4 @@
-Ensure that input consists only of BMP characters and is valid UTF-8.
+Ensure that text input is valid UTF-8, consisting only of BMP characters.
 
 @x
 @h
