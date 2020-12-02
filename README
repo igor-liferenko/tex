@@ -1,6 +1,8 @@
 See utf8.pdf (it contains small improvements to the article in TUGBoat 41-3 on the first page in sections 1 and 3).
 
-To use debugger, compile with "-g -Og" flags (when optimization is enabled, "ceil" and "floor" - used in "round" - are replaced by macros and "-lm" becomes unnecessary) and run "gdb plain"
+To use debugger, compile with "-g -Og" flags and run "gdb plain"
+When optimization is enabled, "ceil" and "floor" (used in "round")
+are replaced by macros and "-lm" becomes unnecessary
 
 Use this change-file to make stepping over this line with `n' command faster:
 @x
