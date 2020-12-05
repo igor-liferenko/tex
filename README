@@ -1,4 +1,4 @@
-See utf8.pdf (it contains small improvements to the article in TUGBoat 41-3 on the first page in sections 1 and 3).
+See utf8.pdf - it contains small improvements to first page of the article in TUGBoat 41-3 (sections 1 and 3).
 
 To use debugger, compile with "-g -Og" flags and run "gdb plain"
 When optimization is enabled, "ceil" and "floor" (used in "round")
