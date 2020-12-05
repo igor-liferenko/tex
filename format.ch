@@ -1,4 +1,5 @@
-NOTE: gdb adds path automatically, so run via full path too
+NOTE: so as gdb sets argv[0] to full path automatically, let argv[0] always be full path
+by starting symlink via full path
 @x
 @p int main(int argc, char **argv) {
 @y
