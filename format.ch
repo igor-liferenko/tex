@@ -1,9 +1,11 @@
-NOTE: gdb adds path automatically, so run via path too
+NOTE: gdb adds path automatically, so run via full path too
 @x
 @p int main(int argc, char **argv) {
 @y
 @p int main(int argc, char **argv) {
-assert(strchr(argv[0], '/'));
+#ifndef INIT
+assert(*argv[0] == '/');
+#endif
 @z
 
 NOTE: this code was taken verbatim from @<Get the first line...@> (except that open_fmt_file is replaced with w_open_in)
