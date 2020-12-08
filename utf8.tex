@@ -1,0 +1,291 @@
+\pdfpagewidth=8.5in \pdfpageheight=11in
+\pdfhorigin=1in \pdfvorigin=1in
+
+\input tugboat.sty
+
+\title * {\ninebf UTF}-8 installations of \TeX *
+\author * Igor Liferenko *
+\address * \tt igor.liferenko (at) gmail dot com *
+
+\article
+
+\head * Abstract *
+
+\indent In its design \TeX\ has the concepts of ``internal
+encoding'' and ``external encoding''. This fact
+allows \TeX\ to work with any encoding.
+
+We use Unicode as \TeX's external encoding.
+Then we change the necessary parts of \TeX\ to
+use \hbox{\UTF-8} as the
+input/output encoding.
+
+The resulting implementation passes
+the |trip| test.
+
+\head * 1. Initialization *
+
+Note: we use the {\sl web2w\/} [1] implementation
+of \TeX, but the ideas described here can be applied
+to any implementation.
+
+First, we change the data type of characters in text files to
+|wchar_t| to accommodate Unicode values.
+
+Background: this predefined C type allocates four bytes
+per character (on most systems). Character constants of this type are
+written as |L'...'| and string constants as |L"..."|.
+
+(For brevity, in the diffs following, the original code from
+{\sl web2w\/}'s |ctex.w| source is preceded with |<| characters, and the
+new code with |>|. Both are sometimes reformatted for presentation
+in this article, and for readability we sometimes leave a blank line
+between the pieces. The actual implementation uses the file
+|utex.patch| [2].)
+\verbatim
+< @d text_char pascal_char
+> @d text_char wchar_t
+\endverbatim
+\medskip
+Use values from the
+basic multilingual plane (\acro{BMP}) of Unicode.
+\verbatim
+< @d last_text_char 255
+> @d last_text_char 65535
+\endverbatim
+\medskip
+Then we change the size of the {\it xord\/} array [3] to
+$2^{16}$ bytes.
+\verbatim
+< ASCII_code xord[256];
+> ASCII_code xord[65536];
+\endverbatim
+\medskip
+Elements in the {\it xchr\/} array [3]
+are overridden using
+the file |mapping.w|.
+||@i mapping.w||
+This file specifies the character(s)
+required for a particular
+installation of \TeX, for example:
+\smallskip
+\indent{\font\tt=cmtt9 \tt xchr[0xf1] = L'\"e';}
+\smallskip
+\noindent A complete example of |mapping.w| is here:
+||https://github.com/igor-liferenko/cweb||
+\medskip
+In |tex.web| the type |char| is able to contain the same
+characters as in text files (see \S19 in [3]).
+Text characters are now in Unicode.
+\verbatim
+< pascal_char TEX_format_default[]=" TeX...
+> wchar_t TEX_format_default[]=L" TeXfor...
+
+< pascal_char months[]=" JANFEBMARAPRMAY...
+> wchar_t months[]=L" JANFEBMARAPRMAYJUN... 
+\endverbatim
+File names must be in \UTF-8.
+\verbatim
+< pascal_char name_of_file0
+<             [file_name_size+1] = {0},
+<   *const name_of_file = name_of_file0-1;
+<   /* on some systems this may be a
+<      \&{record} variable */ 
+
+> char name_of_file0
+>      [file_name_size+1] = {0},
+>   *const name_of_file = name_of_file0-1;
+\endverbatim
+\medskip
+It remains to set the |LC_CTYPE| locale category, on which
+depends the behavior of the C~library functions used below
+||setlocale(LC_CTYPE, "C.UTF-8");||
+and to add the necessary headers.
+\verbatim
+#include <wchar.h>
+#include <locale.h>
+\endverbatim
+
+\head * 2. Input *
+
+For automatic conversion from \UTF-8 to Unicode,
+text files (including the terminal) must be
+read with the C~library function \hbox{\it fgetwc\/} [4].
+
+In |ctex.w| the macro {\it get\/}
+is used for reading text files, as well as
+font metric and format files.
+
+Text files are read in the functions
+{\it a\_open\_in\/} and
+{\it input\_ln\/}.
+In
+{\it a\_open\_in\/} we replace the macro
+{\it reset\/}
+with its expansion and then in both functions
+we change |get((*f))| to |(*f).d=fgetwc((*f).f)|
+
+\head * 3. Output *
+
+Printed strings can be specified directly in \UTF-8.
+And as they are already in {\font\rm=cmcsc10 \rm ASCII} (which is
+part of \UTF-8)
+we need no special treatment for them,
+except that |%c| is changed to |%lc|.
+\verbatim
+< wlog("%c",months[k]);
+> wlog("%lc",months[k]);
+
+< wterm("%c",xchr[s]);
+> wterm("%lc",xchr[s]);
+
+< wlog("%c",xchr[s]);
+> wlog("%lc",xchr[s]);
+\endverbatim
+\begingroup
+\everyverbatim={\advance\parindent by -6.5pt }
+\verbatim
+< write(write_file[selector],"%c",xchr[s]);
+> write(write_file[selector],"%lc",xchr[s]);
+\endverbatim
+\endgroup
+
+\head * 4. The file name buffer *
+
+The name of the file to be opened, which is
+stored in the {\it name\_of\_file\/} buffer,
+must be encoded in \hbox{\UTF-8}.
+Therefore, each character passed to {\it append\_to\_name\/},
+before being added to {\it name\_of\_file\/},
+must
+be converted to \hbox{\UTF-8}. This is done using
+the C~library function {\it wctomb\/} [4].
+
+In the {\it append\_to\_name\/} macro, the variable
+{\it k\/}
+is used as the index into the {\it name\_of\_file\/} buffer
+where the last byte was stored. Originally, {\it k\/} was
+always increased and provisions were made
+that characters will not be written beyond the end of buffer
+(which has the index {\it file\_name\_size\/});
+{\it name\_length\/} was then set to the minimal value
+between {\it k\/} and {\it file\_name\_size\/}.
+
+We cannot do the same in our implementation, because we may reach
+the end of the buffer
+in the midst of
+a multibyte character. Instead, if the next multibyte
+character does not fit into the buffer, we prevent {\it k\/} from
+being increased by negating its value:
+\verbatim
+< @d append_to_name(X) { c=X;incr(k);
+<   if (k <= file_name_size)
+<     name_of_file[k]=xchr[c]; } 
+
+> @d append_to_name(X) { c=X;
+>   if (k >= 0) { /* try to append? */
+>     char mb[MB_CUR_MAX];
+>     int len = wctomb(mb, xchr[c]);
+>     if (k+len <= file_name_size)
+>       for (int i = 0; i < len; i++)
+>         name_of_file[++k] = mb[i];
+>     else
+>       k = -k; /* freeze k */ } }
+\endverbatim
+\medskip
+In {\it pack\_file\_name\/} and {\it pack\_buffered\_name\/}
+(the functions that call {\it append\_to\_name\/}),
+we have to ``unfreeze'' its value
+if it was ``frozen''.
+||if (k < 0) k = -k;||
+\medskip
+In {\it make\_name\_string},
+each (multibyte) character from {\it name\_of\_file\/}
+must be converted from \UTF-8 to Unicode,
+before being converted to \TeX's internal encoding.
+This is done using the C~library function
+{\it mbtowc\/} [4].
+\verbatim
+< append_char(xord[name_of_file[k]]);
+
+> { wchar_t wc;
+>   k += mbtowc(&wc, name_of_file+k,
+>               MB_CUR_MAX) - 1;
+>   append_char(xord[wc]); }
+\endverbatim
+\medskip
+In the code checking {\it format\_default\_length\/}
+for consistency, we
+use the C~library function {\it wcstombs\/} [4] to count
+the number of bytes in the \UTF-8 representation of
+{\it TEX\_format\_default\/}.
+\verbatim
+< if (format_default_length >
+<     file_name_size)
+
+> if (wcstombs(NULL,
+>     TEX_format_default+1,0) >
+>     file_name_size)
+\endverbatim
+\medskip
+In the function {\it pack\_buffered\_name\/},
+the code that drops excess characters
+assumes that each character is one byte:
+\verbatim
+if (n+b-a+1+format_ext_length >
+    file_name_size)
+  b=a+file_name_size-n-1-format_ext_length;
+\endverbatim
+But the number of bytes used to represent
+a character in \hbox{\UTF-8} may be more than one.
+Therefore, we use an equivalent method to drop excess
+characters, the one which will work with multibyte characters:
+After appending
+the contents of
+{\it buffer\/$[a\mathrel{.\,.}b]$\/}
+to {\it name\_of\_file\/}, we roll back in it
+character by character until the
+format extension fits in it. We use the C~library
+function {\it mblen\/} [4] to determine
+the start of the next (multibyte) character to be discarded.
+\verbatim
+while (k+wcstombs(NULL,TEX_format_default+
+       format_default_length-
+       format_ext_length+1,0) >
+       file_name_size) {
+  k--;
+  while (mblen(name_of_file+k+1,MB_CUR_MAX)
+         ==-1)
+    k--;
+}
+\endverbatim
+
+\head * References *
+
+\begingroup
+\vskip-1pt
+
+\frenchspacing
+\parindent=0pt
+\parskip=4pt plus4pt
+\def\\{\hfil\break}
+\everypar{\hangindent=1.5em\relax}
+\raggedright
+
+[1] Ruckert, Martin. WEB to cweb.\\
+{\tt mruckert.userweb.mwn.de/hint/web2w.html}
+
+[2] Source of the present implementation.\\
+{\tt https://github.com/igor-liferenko/tex}
+
+[3] Knuth, Donald E. {\sl \TeX: The Program\/}, 1986. ISBN~0201134373.
+
+[4] Single Unix Specification. Introduction to ISO~C Amendment 1
+(Multibyte Support Environment).\\
+{\tt\catcode`_=11 http://unix.org/version2/whatsnew/\\login_mse.html}
+
+\par\endgroup
+
+\advance\signaturewidth by 10pt
+\makesignature
+\endarticle
