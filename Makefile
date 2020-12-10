@@ -6,7 +6,7 @@ all:
 	/bin/ctangle tex tex
 	gcc -DINIT tex.c -lm -o initex
 	@echo 'plain \dump' | ./initex >/dev/null; mv plain.fmt TeXformats/
-	@#echo 'тех \dump' | ./initex >/dev/null; mv тех.fmt TeXformats/
+	@echo 'тех \dump' | ./initex >/dev/null; mv тех.fmt TeXformats/
 	gcc -DSTAT tex.c -lm -o virtex
 
 triptex:
