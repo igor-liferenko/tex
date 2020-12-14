@@ -52,15 +52,6 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  @* Introduction.
  This is \TeX, a document compiler intended to produce typesetting of high
  quality.
-@@ -188,7 +199,7 @@
- known as `\TeX' [cf.~Stanford Computer Science report CS1027,
- November 1984].
- 
--@d banner	"This is TeX, Version 3.14159265" /*printed when \TeX\ starts*/ 
-+@d banner	"This is TeX, Version 3.14159265 (HINT)" /*printed when \TeX\ starts*/ 
- 
- @ Different \PASCAL s have slightly different conventions, and the present
- @!@:PASCAL H}{\ph@>
 @@ -318,12 +329,35 @@
  @^system dependencies@>
  @^overflow in arithmetic@>
