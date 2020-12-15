@@ -8,6 +8,51 @@ Moreover, origin position (and paper dimensions) can participate in the calculat
 e.g. \pageshift, because automatic unmagnification of origin position
 (and paper dimensions) is done inside TeX before calling dvipdfm.
 
+----------------
+
+@d ensure_dvi_open==if output_file_name=0 then
+  begin if job_name=0 then open_log_file;
+  pack_job_name(output_file_extension);
+  while not dvi_open_out(dvi_file) do
+    prompt_file_name("file name for output",output_file_extension);
+  output_file_name:=b_make_name_string(dvi_file);
+  end
+
+-------------
+
+@x [32.645] l.12780 - use print_file_name
+  print_nl("Output written on "); print_file_name(0, output_file_name, 0);
+@.Output written on x@>
+  print(" ("); print_int(total_pages);
+  if total_pages<>1 then print(" pages")
+  else print(" page");
+  print(", "); print_int(dvi_offset+dvi_ptr); print(" bytes).");
+  b_close(dvi_file);
+@y
+  k:=dvi_close(dvi_file);
+  if k=0 then begin
+    print_nl("Output written on "); print(output_file_name);
+@.Output written on x@>
+    print(" ("); print_int(total_pages);
+    if total_pages<>1 then print(" pages")
+    else print(" page");
+    if no_pdf_output then begin
+      print(", "); print_int(dvi_offset+dvi_ptr); print(" bytes).");
+    end else print(").");
+  end else begin
+    print_nl("Error "); print_int(k); print(" (");
+    if no_pdf_output then print_c_string(strerror(k))
+    else print("driver return code");
+    print(") generating output;");
+    print_nl("file "); print(output_file_name); print(" may not be valid.");
+    history:=output_failure;
+    end;
+@z
+
+-------------------------------------
+
+#define dviopenout(f)                           open_dvi_output(&(f))
+
 int
 open_dvi_output(FILE** fptr)
 {
