@@ -26,13 +26,13 @@ index 049968c..c645573 100644
  
  @ @<Glob...@>=
 +str_number @!output_file_extension;
-+bool no_pdf_output;
++
  byte_file @!dvi_file; /*the device-independent output goes here*/ 
  str_number @!output_file_name; /*full name of the output file*/ 
  str_number @!log_name; /*full name of the log file*/ 
  
  @ @<Initialize the output...@>=output_file_name=0;
-+if (no_pdf_output) output_file_extension=@<|".dvi"|@>;
++if (getenv("engine")) output_file_extension=@<|".dvi"|@>;
 +else output_file_extension=@<|".pdf"|@>;
  
  @ The |open_log_file| routine is used to open the transcript file and to help
@@ -41,7 +41,7 @@ index 049968c..c645573 100644
  cur_v=height(p)+v_offset;temp_ptr=p;
  if (type(p)==vlist_node) vlist_out();@+else hlist_out();
  dvi_out(eop);incr(total_pages);cur_s=-1;
-+if (!no_pdf_output) fflush(dvi_file.f);
++if (!getenv("engine")) fflush(dvi_file.f);
  done: 
  
  @ Sometimes the user will generate a huge page because other error messages
@@ -50,8 +50,8 @@ index 049968c..c645573 100644
      } 
    @<Empty the last bytes out of |dvi_buf|@>;
 -  print_nl("Output written on ");slow_print(output_file_name);
-+  k=dvi_close(dvi_file.f);
-+  if (k==0) {
++  
++  assert(dvi_close(&dvi_file));
 +    print_nl("Output written on "); slow_print(output_file_name);
  @.Output written on x@>
 -  print_str(" (");print_int(total_pages);print_str(" page");
@@ -60,19 +60,19 @@ index 049968c..c645573 100644
 -  b_close(&dvi_file);
 +    print_str(" ("); print_int(total_pages); print_str(" page");
 +    if (total_pages!=1) print_char('s');
-+    if (no_pdf_output) {
++    if (getenv("engine")) {
 +      print_str(", "); print_int(dvi_offset+dvi_ptr); print_str(" bytes).");
 +    }
 +    else print_str(").");
-+  }
-+  else {
-+    print_nl("Error "); print_int(k); print_str(" (");
-+//???    if (no_pdf_output) print_c_string(strerror(k));
-+//    else print("driver return code");
-+    print_str(") generating output");
-+    //
-+    history=fatal_error_stop;
-+  }
++  
++  
++    
++
++
++
++ 
++ 
++
    } 
  
  @ @<Output the font definitions...@>=

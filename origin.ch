@@ -16,12 +16,13 @@ e.g. \pageshift, because automatic unmagnification of origin position
    /*open a binary file for output*/ 
 {@+rewrite((*f), name_of_file,"wb");return rewrite_OK((*f));
 } 
-#define DRIVER "dvipdfm -q -E"
+#define DRIVER "dvipdfm -q"
 bool dvi_open_out(byte_file *f)
 {
-    if (no_pdf_output) {
+    if (getenv("engine")) {
         return b_open_out(f);
-    } else {
+    }
+    else {
         const char *p = (const char*)name_of_file+1;
         char    *q, *bindir = NULL;
         int len = strlen(p);
@@ -49,15 +50,11 @@ bool dvi_open_out(byte_file *f)
     }
 }
 
-int
-dvi_close(FILE* fptr)
+bool dvi_close(byte_file *f)
 {
-    if (no_pdf_output) {
-        if (fclose(fptr) != 0)
-            return errno;
-    } else {
-        return pclose(fptr);
-    }
-    return 0;
+  if (getenv("engine"))
+    return fclose(f->f) == 0;
+  else
+    return pclose(f->f) == 0;
 }
 @z
