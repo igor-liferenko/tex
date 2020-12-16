@@ -2,7 +2,11 @@
    /*open a binary file for output*/ 
 {@+rewrite((*f), name_of_file,"wb");return rewrite_OK((*f));
 @y
-{ f->f=popen("dvipdfm -q", "w");return f->f != NULL;
+{ char cmd[500];
+  strcpy(cmd, "dvipdfm -q -o ");
+  strcat(cmd, name_of_file+1);
+  f->f=popen(cmd, "w");
+  return f->f != NULL;
 @z
 
 @x
