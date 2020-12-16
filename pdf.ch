@@ -5,16 +5,14 @@
 { char cmd[500];
   strcpy(cmd, "dvipdfm -q -o ");
   strcat(cmd, name_of_file+1);
-  f->f=popen(cmd, "w");
+  f->f = popen(cmd, "w");
   return f->f != NULL;
 @z
 
 @x
-  print_str(", ");print_int(dvi_offset+dvi_ptr);print_str(" bytes).");
   b_close(&dvi_file);
 @y
-  print_str(").");
-  pclose(dvi_file.f);
+  assert(pclose(dvi_file.f) == 0);
 @z
 
 @x
