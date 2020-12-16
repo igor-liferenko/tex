@@ -8,111 +8,51 @@ Moreover, origin position (and paper dimensions) can participate in the calculat
 e.g. \pageshift, because automatic unmagnification of origin position
 (and paper dimensions) is done inside TeX before calling dvipdfm.
 
-----------------
-
-@d ensure_dvi_open==if output_file_name=0 then
-  begin if job_name=0 then open_log_file;
-  pack_job_name(output_file_extension);
-  while not dvi_open_out(dvi_file) do
-    prompt_file_name("file name for output",output_file_extension);
-  output_file_name:=b_make_name_string(dvi_file);
-  end
-
--------------
-
-@x [32.645] l.12780 - use print_file_name
-  print_nl("Output written on "); print_file_name(0, output_file_name, 0);
-@.Output written on x@>
-  print(" ("); print_int(total_pages);
-  if total_pages<>1 then print(" pages")
-  else print(" page");
-  print(", "); print_int(dvi_offset+dvi_ptr); print(" bytes).");
-  b_close(dvi_file);
+@x
+   /*open a binary file for output*/ 
+{@+rewrite((*f), name_of_file,"wb");return rewrite_OK((*f));
+} 
 @y
-  k:=dvi_close(dvi_file);
-  if k=0 then begin
-    print_nl("Output written on "); print(output_file_name);
-@.Output written on x@>
-    print(" ("); print_int(total_pages);
-    if total_pages<>1 then print(" pages")
-    else print(" page");
-    if no_pdf_output then begin
-      print(", "); print_int(dvi_offset+dvi_ptr); print(" bytes).");
-    end else print(").");
-  end else begin
-    print_nl("Error "); print_int(k); print(" (");
-    if no_pdf_output then print_c_string(strerror(k))
-    else print("driver return code");
-    print(") generating output;");
-    print_nl("file "); print(output_file_name); print(" may not be valid.");
-    history:=output_failure;
-    end;
-@z
-
--------------------------------------
-
-#define dviopenout(f)                           open_dvi_output(&(f))
-
-int
-open_dvi_output(FILE** fptr)
+   /*open a binary file for output*/ 
+{@+rewrite((*f), name_of_file,"wb");return rewrite_OK((*f));
+} 
+#define DRIVER "dvipdfm -q -E"
+bool dvi_open_out(byte_file *f)
 {
-    if (nopdfoutput) {
-        return open_output(fptr, FOPEN_WBIN_MODE);
+    if (no_pdf_output) {
+        return b_open_out(f);
     } else {
-        const char *p = (const char*)nameoffile+1;
-        char    *cmd, *q, *bindir = NULL;
+        const char *p = (const char*)name_of_file+1;
+        char    *q, *bindir = NULL;
         int len = strlen(p);
         while (*p)
             if (*p++ == '\"')
                 ++len;
-        len += strlen(outputdriver);
-        if (output_directory)
-            len += strlen(output_directory);
+        len += strlen(DRIVER);
         len += 10; /* space for -o flag, quotes, NUL */
-        for (p = (const char*)nameoffile+1; *p; p++)
+        for (p = (const char*)name_of_file+1; *p; p++)
             if (*p == '\"')
                 ++len;  /* allow extra space to escape quotes in filename */
-        cmd = xmalloc(len);
-        strcpy(cmd, outputdriver);
+        char cmd[500];
+        strcpy(cmd, DRIVER);
         strcat(cmd, " -o \"");
-        if (output_directory) {
-            len = strlen(output_directory);
-            if (IS_DIR_SEP(output_directory[len-1]))
-                output_directory[len-1] = '\0';
-            strcat(cmd, output_directory);
-            strcat(cmd, "/");
-        }
         q = cmd + strlen(cmd);
-        for (p = (const char*)nameoffile+1; *p; p++) {
+        for (p = (const char*)name_of_file+1; *p; p++) {
             if (*p == '\"')
                 *q++ = '\\';
             *q++ = *p;
         }
         *q++ = '\"';
         *q = '\0';
-        if (papersize != 0) {
-            char* cmd2 = concat3(cmd, " -p ", papersize);
-            free(cmd);
-            cmd = cmd2;
-        }
-        if (output_directory) {
-            char *fullname = concat3(output_directory, "/", (const char*)nameoffile+1);
-            free(nameoffile);
-            namelength = strlen(fullname);
-            nameoffile = (unsigned char*) xmalloc(namelength + 2);
-            strcpy((char*)nameoffile+1, fullname);
-            free(fullname);
-        }
-        *fptr = popen(cmd, "w");
-        free(cmd);
-        return (*fptr != 0);
+        f->f = popen(cmd, "w");
+        return f->f != NULL;
     }
 }
 
 int
-dviclose(FILE* fptr)
+dvi_close(FILE* fptr)
 {
-    if (nopdfoutput) {
+    if (no_pdf_output) {
         if (fclose(fptr) != 0)
             return errno;
     } else {
@@ -120,4 +60,4 @@ dviclose(FILE* fptr)
     }
     return 0;
 }
-
+@z
