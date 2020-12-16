@@ -1,5 +1,7 @@
 See utf8.pdf - it contains small improvements to sections 1 and 3 of the article in TUGBoat 41-3.
 
+Section numbering differs from tex.web between §521 and §531.
+
 To use debugger, compile with "-g -Og" flags and run "gdb plain"
 NOTE: when optimization is enabled, "ceil" and "floor" (used in "round")
       are replaced by macros and "-lm" becomes unnecessary
