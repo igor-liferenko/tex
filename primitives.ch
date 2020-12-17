@@ -1,10 +1,10 @@
 @x
 @d dimen_pars	21 /*total number of dimension parameters*/ 
 @y
-@d pdf_page_width_code=21 {page width of the PDF output}
-@d pdf_page_height_code=22 {page height of the PDF output}
-@d pdf_h_origin_code=23 {page width of the PDF output}
-@d pdf_v_origin_code=24 {page height of the PDF output}
+@d pdf_page_width_code 21
+@d pdf_page_height_code 22
+@d pdf_h_origin_code 23
+@d pdf_v_origin_code 24
 @d dimen_pars	25 /*total number of dimension parameters*/ 
 @z
 
@@ -45,12 +45,8 @@ primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
 @z
 
 @x
-@ 
-@d str_667 "ext4"
 @<|"ext4"|@>=@+667
 @y
-@ 
-@d str_667 "ext4"
 @<|"ext4"|@>=@+667
 @ 
 @d str_668 "pdfpagewidth"

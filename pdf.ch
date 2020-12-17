@@ -1,12 +1,16 @@
 @x
+bool b_open_out(byte_file *f)
    /*open a binary file for output*/ 
 {@+rewrite((*f), name_of_file,"wb");return rewrite_OK((*f));
+}
 @y
-{ char cmd[500];
-  strcpy(cmd, "dvipdfm -q -p a4 -x 22.45mm -y 34.2mm -o ");
-  strcat(cmd, name_of_file+1);
-  f->f = popen(cmd, "w");
+bool b_open_out(byte_file *f)
+{
+  char pdf[500];
+  assert(snprintf(pdf, sizeof pdf, "dvipdfm -q -p a4 -x 22.45mm -y 34.2mm -o %s", name_of_file+1) < sizeof pdf);
+  f->f = popen(pdf, "w");
   return f->f != NULL;
+}
 @z
 
 ???
