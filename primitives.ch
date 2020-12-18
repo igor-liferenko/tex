@@ -29,10 +29,8 @@ case pdf_v_origin_code:   print_esc(@[@<|"pdfvorigin"|@>@]);@+break;
 @z
 
 @x
-primitive(@[@<|"emergencystretch"|@>@], assign_dimen, dimen_base+emergency_stretch_code);@/
 @!@:emergency_stretch_}{\.{\\emergencystretch} primitive@>
 @y
-primitive(@[@<|"emergencystretch"|@>@], assign_dimen, dimen_base+emergency_stretch_code);@/
 @!@:emergency_stretch_}{\.{\\emergencystretch} primitive@>
 primitive(@[@<|"pdfpagewidth"|@>@], assign_dimen, dimen_base+pdf_page_width_code);@/
 @!@:pdf_page_width_}{\.{\\pdfpagewidth} primitive@>
