@@ -8,7 +8,7 @@ like in pdftex.
   char *pdfpageheight = getenv("pdfpageheight") ? getenv("pdfpageheight") : "297mm";
   char *pdfhorigin = getenv("pdfhorigin") ? getenv("pdfhorigin") : "22.45mm";
   char *pdfvorigin = getenv("pdfvorigin") ? getenv("pdfvorigin") : "34.2mm";
-  assert(snprintf(pdf, sizeof pdf, "dvipdfm -q -p w%s,h%s -x %s -y %s -o %s",
+  assert(snprintf(pdf, sizeof pdf, "dvipdfm -q -p %s,%s -x %s -y %s -o %s",
     pdfpagewidth, pdfpageheight, pdfhorigin, pdfvorigin, name_of_file+1) < sizeof pdf);
 @z
 
