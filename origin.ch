@@ -1,5 +1,11 @@
-We need to specify origin position (and paper dimensions) in tex-file,
-like in pdftex.
+We need to specify origin position (and paper dimensions) in .tex file;
+let's name these quantities the same as in pdftex:
+\pdfpagewidth, \pdfpageheight, \pdfhorigin, \pdfvorigin.
+
+Get these values from input file in wrapper script that starts tex - these
+values are set
+only once, in the beginning of document - and put them to environment to be used here
+for dvipdfm.
 
 @x
   assert(snprintf(pdf, sizeof pdf, "dvipdfm -q -p a4 -x 22.45mm -y 34.2mm -o %s", name_of_file+1) < sizeof pdf);
