@@ -1,7 +1,3 @@
-We need to specify origin position (and paper dimensions) in .tex file;
-let's name these quantities the same as in pdftex:
-\pdfpagewidth, \pdfpageheight, \pdfhorigin, \pdfvorigin.
-
 @x
   assert(snprintf(pdf, sizeof pdf, "dvipdfm -q -p a4 -x 22.45mm -y 34.2mm -o %s", name_of_file+1) < sizeof pdf);
 @y
@@ -16,6 +12,8 @@ let's name these quantities the same as in pdftex:
   assert(snprintf(pdf, sizeof pdf, "dvipdfm -q -p %s,%s -x %s -y %s -o %s",
     pdfpagewidth, pdfpageheight, pdfhorigin, pdfvorigin, name_of_file+1) < sizeof pdf);
 @z
+
+Below are created 4 dimension registers (cf. pdftex), which aren't directly used by TeX (see above):
 
 @x
 @d dimen_pars	21 /*total number of dimension parameters*/ 
