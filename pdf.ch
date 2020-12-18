@@ -13,14 +13,6 @@ bool b_open_out(byte_file *f)
 }
 @z
 
-???
- @x
-dvi_out(eop);incr(total_pages);cur_s=-1;
- @y
-dvi_out(eop);incr(total_pages);cur_s=-1;
-fflush(dvi_file.f);
- @z
-
 @x
   b_close(&dvi_file);
 @y
