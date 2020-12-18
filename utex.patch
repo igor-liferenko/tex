@@ -48,7 +48,7 @@
  @p bool a_open_in(alpha_file *f)
     /*open a text file for input*/ 
 -{@+reset((*f), name_of_file,"r");return reset_OK((*f));
-+{@+if(((*f).f=fopen(name_of_file+1,"r"))!=NULL)(*f).d=fgetwc((*f).f);return reset_OK((*f));
++{ if ((f->f=fopen(name_of_file+1,"r"))!=NULL) f->d=fgetwc(f->f); return reset_OK(*f);
  } 
  @#
  bool a_open_out(alpha_file *f)
@@ -57,7 +57,7 @@
     /*inputs the next line or returns |false|*/ 
  {@+uint16_t last_nonblank; /*|last| with trailing blanks removed*/ 
 -if (bypass_eoln) if (!eof((*f))) get((*f));
-+if (bypass_eoln) if (!eof((*f))) (*f).d=fgetwc((*f).f);
++if (bypass_eoln) if (!eof((*f))) f->d=fgetwc(f->f);
     /*input the first character of the line into |f.d|*/ 
  last=first; /*cf.\ Matthew 19\thinspace:\thinspace30*/ 
  if (eof((*f))) return false;
@@ -66,7 +66,7 @@
          @<Report overflow of the input buffer, and abort@>;
        } 
 -    buffer[last]=xord[(*f).d];get((*f));incr(last);
-+    buffer[last]=xord[(*f).d];(*f).d=fgetwc((*f).f);incr(last);
++    buffer[last]=xord[(*f).d];f->d=fgetwc(f->f);incr(last);
      if (buffer[last-1]!=' ') last_nonblank=last;
      } 
    last=last_nonblank;return true;
