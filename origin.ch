@@ -11,7 +11,7 @@
     pdfpagewidth, pdfpageheight, pdfhorigin, pdfvorigin, name_of_file+1) < sizeof pdf);
 @z
 
-Below are created 4 dimension registers (cf. pdftex), which aren't directly used by TeX (see above):
+Below are created 4 dimension registers, which are used for calculations of TeX's parameters, e.g., \hoffset.
 
 @x
 @d dimen_pars	21 /*total number of dimension parameters*/ 
