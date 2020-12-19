@@ -1,9 +1,7 @@
 @x
   assert(snprintf(pdf, sizeof pdf, "dvipdfm -q -p a4 -x 22.45mm -y 34.2mm -o %s", name_of_file+1) < sizeof pdf);
 @y
-  /* A simple method to get "true" values (using the fact that these arguments to dvipdfm
-     are set for the whole document, so they are assigned in master input file (near the beginning)
-     and don't change afterwards): */
+  /* A simple method to get "true" values: */
   char *pdfpagewidth = getenv("pdfpagewidth") ? getenv("pdfpagewidth") : "210mm";
   char *pdfpageheight = getenv("pdfpageheight") ? getenv("pdfpageheight") : "297mm";
   char *pdfhorigin = getenv("pdfhorigin") ? getenv("pdfhorigin") : "22.45mm";
