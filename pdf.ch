@@ -1,4 +1,5 @@
 TODO: read popen(3)
+TODO: think how to get rid of mktexpk output (called by dvipdfm)
 
 @x
 bool b_open_out(byte_file *f)
