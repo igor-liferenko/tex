@@ -1,5 +1,6 @@
 TODO: read popen(3)
 TODO: think how to get rid of mktexpk output (called by dvipdfm)
+TODO: make dvipdfm return non-zero exit code if psfile does not exist
 
 @x
 bool b_open_out(byte_file *f)
