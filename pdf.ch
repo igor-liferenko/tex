@@ -1,3 +1,5 @@
+TODO: read popen(3)
+
 @x
 bool b_open_out(byte_file *f)
    /*open a binary file for output*/ 
