@@ -1,4 +1,4 @@
-TODO: read popen(3)
+TODO: use fork+exec instead of popen
 TODO: think how to get rid of mktexpk output (called by dvipdfm)
 TODO: make dvipdfm return non-zero exit code if psfile does not exist
 TODO: saying `e' in response to `?' gives segfault
