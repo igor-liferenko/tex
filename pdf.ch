@@ -32,6 +32,7 @@ bool b_open_out(byte_file *f)
     exit(1);
   }
   f->f = fdopen(write_end, "w");
+  setbuf(f->f, NULL);
   return f->f != NULL;
 }
 @z
