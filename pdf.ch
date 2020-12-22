@@ -33,7 +33,7 @@ bool b_open_out(byte_file *f)
   }
   f->f = fdopen(write_end, "w");
   setbuf(f->f, NULL);
-  return f->f != NULL;
+  return rewrite_OK(*f);
 }
 @z
 
