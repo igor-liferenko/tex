@@ -13,7 +13,7 @@
   print_str(" at line ");print_int(line);
 @y
 { char tmp[30];
-  assert(snprintf(tmp, sizeof tmp, "/proc/self/fd/%d", fileno(cur_file.f)) < sizeof tmp);
+  assert(snprintf(tmp, sizeof tmp, "/proc/self/fd/%d", fileno(input_file[in_open].f)) < sizeof tmp);
   char fname[500] = { };
   assert(readlink(tmp, fname, sizeof fname) != -1 && fname[sizeof fname - 1] == '\0');
   char cmd[500];
