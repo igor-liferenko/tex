@@ -1,5 +1,4 @@
 TODO: make dvipdfm return non-zero exit code if psfile does not exist
-TODO: saying `e' in response to `?' gives segfault
 
 @x
 @h
