@@ -13,10 +13,10 @@
   print_str(" at line ");print_int(line);
 @y
 { char tmp[30];
-  assert(snprintf(tmp, sizeof tmp, "/proc/self/fd/%d", fileno(input_file[in_open].f)) < sizeof tmp);
+  assert(snprintf(tmp, sizeof tmp, "/proc/self/fd/%d", fileno(input_file[input_stack[base_ptr].index_field].f)) < sizeof tmp);
   char fname[500] = { };
   assert(readlink(tmp, fname, sizeof fname) != -1 && fname[sizeof fname - 1] == '\0');
   char cmd[500];
-  assert(snprintf(cmd, sizeof cmd, "em %s %d", fname, line) < sizeof cmd);
+  assert(snprintf(cmd, sizeof cmd, "echo TODO: use fork+exec - em %s %d", fname, line) < sizeof cmd);
   system(cmd);
 @z
