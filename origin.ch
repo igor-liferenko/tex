@@ -1,17 +1,174 @@
-@x
-  assert(snprintf(pdf, sizeof pdf, "dvipdfm -q -p a4 -x 22.45mm -y 34.2mm -o %s", name_of_file+1) < sizeof pdf);
-@y
-  /* A simple method to get "true" values: */
-  char *pdfpagewidth = getenv("pdfpagewidth") ? getenv("pdfpagewidth") : "210mm";
-  char *pdfpageheight = getenv("pdfpageheight") ? getenv("pdfpageheight") : "297mm";
-  char *pdfhorigin = getenv("pdfhorigin") ? getenv("pdfhorigin") : "22.45mm";
-  char *pdfvorigin = getenv("pdfvorigin") ? getenv("pdfvorigin") : "34.2mm";
+pdf_print_mag_bp
 
-  assert(snprintf(pdf, sizeof pdf, "dvipdfm -q -p %s,%s -x %s -y %s -o %s",
-    pdfpagewidth, pdfpageheight, pdfhorigin, pdfvorigin, name_of_file+1) < sizeof pdf);
+in prepare_mag add assert that mag must be as when dvi was opened
+
+@x
+@<Global variables@>@;
+@y
+@<Global variables@>@;
+int ten_pow[10]; /* $10^0..10^9$ */
+char pdf_buf[100];
+char *pdf_ptr;
+int scaled_out; /* amount of |scaled| that was taken out in |divide_scaled| */
+scaled one_hundred_bp; /* scaled value corresponds to 100bp */
+int fixed_decimal_digits;
 @z
 
-Below are created 4 dimension registers, which are used for calculations of TeX's parameters, e.g., \hoffset.
+@x
+@<Set initial values of key variables@>@;
+@y
+@<Set initial values of key variables@>@;
+ten_pow[0] = 1;
+for (int i = 1; i <= 9; i++)
+  ten_pow[i] = 10*ten_pow[i-1];
+pdf_ptr = pdf_buf;
+one_hundred_bp = 6578176;
+@z
+
+@x
+bool b_open_out(byte_file *f)
+@y
+int fix_int(int val, int min, int max)
+{
+    if (val < min)
+        return min;
+    else if (val > max)
+        return max;
+    else
+        return val;
+}
+
+void pdf_print_int(int @!n) /*prints an integer in decimal form*/ 
+{@+uint8_t k; /*index to current digit; we assume that $|n|<10^{23}$*/ 
+int @!m; /*used to negate |n| in possibly dangerous cases*/ 
+k=0;
+if (n < 0) 
+  {  *pdf_ptr++ = '-';
+  if (n > -100000000) negate(n);
+  else{@+m=-1-n;n=m/10;m=(m%10)+1;k=1;
+    if (m < 10) dig[0]=m;
+    else{@+dig[0]=0;incr(n);
+      } 
+    } 
+  } 
+@/do@+{dig[k]=n%10;n=n/10;incr(k);
+}@+ while (!(n==0));
+  while (k>0) {
+    decr(k);
+    *pdf_ptr++ = '0'+dig[k];
+  }
+} 
+
+
+void pdf_print_real(int m, int d) /* print $m/10^d$ as real */
+{
+  if (m < 0) {
+    *pdf_ptr++ = '-';
+    m = -m;
+  }
+  pdf_print_int(m / ten_pow[d]);
+  m = m % ten_pow[d];
+  if (m > 0) {
+    *pdf_ptr++ = '.';
+    decr(d);
+    while (m < ten_pow[d]) {
+      *pdf_ptr++ = '0';
+      decr(d);
+    }
+    while ((m % 10) == 0)
+      m = m / 10;
+    pdf_print_int(m);
+  }
+}
+
+scaled divide_scaled(scaled s, scaled m, int dd) /* divide |s| by |m|; |dd| is number of decimal digits */
+{
+  scaled q, r;
+  int sign, i;
+
+  sign = 1;
+  if (s < 0) {
+    sign = -sign;
+    s = -s;
+  }
+  if (m < 0) {
+    sign = -sign;
+    m = -m;
+  }
+  if (m = 0)
+    assert(0); // pdf_error("arithmetic", "divided by zero");
+  else if (m >= (2147483647 / 10)) // printf INT_MAX 2^31 - 1
+    assert(0); // pdf_error("arithmetic", "number too big");
+  q = s / m;
+  r = s % m;
+  for (int i = 1; i<= dd; i++) {
+    q = 10*q + (10*r) / m;
+    r = (10*r) % m;
+  }
+  if (2*r >= m) {
+    incr(q);
+    r = r - m;
+  }
+  scaled_out = sign*(s - (r / ten_pow[dd]));
+  return sign*q;
+}
+
+scaled round_xn_over_d(scaled x, int n, int d)
+{
+  bool positive; /* was |x>=0|? */
+  unsigned int t,u,v; /* intermediate quantities */
+  if (x>=0) positive=true;
+  else {
+    negate(x); positive=false;
+  }
+  t=(x % 0100000)*n;
+  u=(x / 0100000)*n+(t / 0100000);
+  v=(u % d)*0100000 + (t % 0100000);
+  if ((u/d) >= 0100000) arith_error=true;
+  else u=0100000*(u/d) + (v/d);
+  v = v % d;
+  if (2*v >= d)
+    incr(u);
+  if (positive)
+    return u;
+  else
+    return -u;
+}
+
+void pdf_print_bp(scaled s)
+{
+  pdf_print_real(divide_scaled(s, one_hundred_bp, fixed_decimal_digits + 2), fixed_decimal_digits);
+}
+
+void pdf_print_mag_bp(scaled s)
+{
+//  prepare_mag();
+//  if (mag != 1000)
+//    s = round_xn_over_d(s, mag, 1000);
+  s = round_xn_over_d(s, 1200, 1000);
+  pdf_print_bp(s);
+  fprintf(stderr, "*********** %.*s ********\n", pdf_ptr-pdf_buf, pdf_buf);
+}
+
+bool b_open_out(byte_file *f)
+@z
+
+@x
+  assert(pipe(fd) != -1);
+@y
+  fixed_decimal_digits = fix_int(3 /*pdf_decimal_digits*/, 0, 4);
+  pdf_print_mag_bp(pdf_page_width);
+  assert(pipe(fd) != -1);
+@z
+
+ @x
+  assert(snprintf(pdf, sizeof pdf, "dvipdfm -q -p a4 -x 22.45mm -y 34.2mm -o %s", name_of_file+1) < sizeof pdf);
+ @y
+//TODO: check which pdf.ch corresponded to this:
+//  dup2(open("/dev/null", O_WRONLY), STDERR_FILENO);
+//  assert(snprintf(pdf, sizeof pdf, "dvipdfm -q -p %s,%s -x %s -y %s -o %s",
+//    pdfpagewidth, pdfpageheight, pdfhorigin, pdfvorigin, name_of_file+1) < sizeof pdf);
+ @z
 
 @x
 @d dimen_pars	21 /*total number of dimension parameters*/ 
