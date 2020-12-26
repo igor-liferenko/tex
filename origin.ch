@@ -4,6 +4,7 @@ add assert that when prepare_mag is called, mymag != 0
 @<Global variables@>@;
 @y
 @<Global variables@>@;
+int mymag = 0;
 int ten_pow[10]; /* $10^0..10^9$ */
 char pdf_buf[100];
 char *pdf_ptr;
@@ -25,6 +26,7 @@ one_hundred_bp = 6578176;
 
 @x
 bool b_open_out(byte_file *f)
+{
 @y
 int fix_int(int val, int min, int max)
 {
@@ -149,6 +151,7 @@ void pdf_print_mag_bp(scaled s)
 }
 
 bool b_open_out(byte_file *f)
+{ mymag = mag;
 @z
 
 @x
@@ -201,6 +204,16 @@ primitive(@[@<|"pdfhorigin"|@>@], assign_dimen, dimen_base+pdf_h_origin_code);@/
 @!@:pdf_h_origin_}{\.{\\pdfhorigin} primitive@>
 primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
 @!@:pdf_v_origin_}{\.{\\pdfvorigin} primitive@>
+@z
+
+@x
+@p void prepare_mag(void)
+{@+if ((mag_set > 0)&&(mag!=mag_set))
+@y
+@p void prepare_mag(void)
+{ assert(mymag == mag);
+  assert(mymag != 0);
+  if ((mag_set > 0)&&(mag!=mag_set))
 @z
 
 @x
