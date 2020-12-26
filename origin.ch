@@ -161,15 +161,6 @@ bool b_open_out(byte_file *f)
   assert(pipe(fd) != -1);
 @z
 
- @x
-  assert(snprintf(pdf, sizeof pdf, "dvipdfm -q -p a4 -x 22.45mm -y 34.2mm -o %s", name_of_file+1) < sizeof pdf);
- @y
-//TODO: check which pdf.ch corresponded to this:
-//  dup2(open("/dev/null", O_WRONLY), STDERR_FILENO);
-//  assert(snprintf(pdf, sizeof pdf, "dvipdfm -q -p %s,%s -x %s -y %s -o %s",
-//    pdfpagewidth, pdfpageheight, pdfhorigin, pdfvorigin, name_of_file+1) < sizeof pdf);
- @z
-
 @x
 @d dimen_pars	21 /*total number of dimension parameters*/ 
 @y
