@@ -1,5 +1,3 @@
-in prepare_mag add assert that mag must be as when dvi was opened - save mag to mymag in b_open_out
-add assert that when prepare_mag is called, mymag != 0 
 @x
 @<Global variables@>@;
 @y
