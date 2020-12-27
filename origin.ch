@@ -138,10 +138,8 @@ void pdf_print_bp(scaled s)
 
 void pdf_print_mag_bp(scaled s)
 {
-//  prepare_mag();
-//  if (mag != 1000)
-//    s = round_xn_over_d(s, mag, 1000);
-  s = round_xn_over_d(s, 1200, 1000);
+  if (mag != 1000)
+    s = round_xn_over_d(s, mag, 1000);
   pdf_print_bp(s);
   fprintf(stderr, "*********** %.*s ********\n", pdf_ptr-pdf_buf, pdf_buf);
 }
