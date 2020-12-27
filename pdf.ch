@@ -17,7 +17,7 @@ pid_t dvipdfm = fork();
 assert(dvipdfm != -1);
 if (dvipdfm == 0) {
   signal(SIGINT, SIG_IGN);
-  execlp("dvipdfm-wrapper", "dvipdfm-wrapper", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", "-o", name_of_file+1, name_of_file+1, (char *) NULL);
+  execlp("xdvipdfm", "xdvipdfm", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", "-o", name_of_file+1, name_of_file+1, (char *) NULL);
   exit(1);
 }
 int wstatus; waitpid(dvipdfm, &wstatus, 0); assert(wstatus == 0);
