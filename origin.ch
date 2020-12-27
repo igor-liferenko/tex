@@ -5,7 +5,6 @@
 int ten_pow[10]; /* $10^0..10^9$ */
 char pdf_buf[100];
 char *pdf_ptr;
-int scaled_out; /* amount of |scaled| that was taken out in |divide_scaled| */
 scaled one_hundred_bp; /* scaled value corresponds to 100bp */
 int fixed_decimal_digits;
 @z
@@ -105,7 +104,6 @@ scaled divide_scaled(scaled s, scaled m, int dd) /* divide |s| by |m|; |dd| is n
     incr(q);
     r = r - m;
   }
-  scaled_out = sign*(s - (r / ten_pow[dd]));
   return sign*q;
 }
 
