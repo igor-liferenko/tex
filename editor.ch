@@ -17,6 +17,6 @@
   char fname[500] = { };
   assert(readlink(tmp, fname, sizeof fname) != -1 && fname[sizeof fname - 1] == '\0');
   char cmd[500];
-  assert(snprintf(cmd, sizeof cmd, "echo TODO: use fork+exec - em %s %d", fname, line) < sizeof cmd);
+  assert(snprintf(cmd, sizeof cmd, "em %s %d", fname, line) < sizeof cmd);
   system(cmd);
 @z
