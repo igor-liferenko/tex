@@ -15,7 +15,6 @@ scaled one_hundred_bp; /* scaled value corresponds to 100bp */
 ten_pow[0] = 1;
 for (int i = 1; i <= 9; i++)
   ten_pow[i] = 10*ten_pow[i-1];
-pdf_ptr = pdf_buf;
 one_hundred_bp = 6578176;
 @z
 
@@ -120,6 +119,7 @@ scaled round_xn_over_d(scaled x, int n, int d)
 
 void pdf_print_bp(scaled s)
 {
+  pdf_ptr = pdf_buf;
   pdf_print_real(divide_scaled(s, one_hundred_bp, 4 /*fixed_decimal_digits*/ + 2), 4 /*fixed_decimal_digits*/);
 }
 
@@ -128,7 +128,6 @@ void pdf_print_mag_bp(scaled s)
   if (mag != 1000)
     s = round_xn_over_d(s, mag, 1000);
   pdf_print_bp(s);
-  fprintf(stderr, "*********** %.*s ********\n", pdf_ptr-pdf_buf, pdf_buf);
 }
 
 bool b_open_out(byte_file *f)
@@ -179,10 +178,13 @@ primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
 @z
 
 @x
-b_close(&dvi_file);
+  execlp("dvipdfm-wrapper", "dvipdfm-wrapper", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", "-o", name_of_file+1, name_of_file+1, (char *) NULL);
 @y
-b_close(&dvi_file);
   pdf_print_mag_bp(pdf_page_width);
+  pdf_print_mag_bp(pdf_page_height);
+  pdf_print_mag_bp(pdf_h_origin);
+  pdf_print_mag_bp(pdf_v_origin);
+  execlp("dvipdfm-wrapper", "dvipdfm-wrapper", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", "-o", name_of_file+1, name_of_file+1, (char *) NULL);
 @z
 
 @x
