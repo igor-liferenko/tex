@@ -1,3 +1,5 @@
+TODO: no need to use pipe mode - do like in gftopk.ch and unlink dvi file afterwards - then mag will be already set for sure
+
 @x
 @h
 @y
