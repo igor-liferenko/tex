@@ -6,7 +6,6 @@ int ten_pow[10]; /* $10^0..10^9$ */
 char pdf_buf[100];
 char *pdf_ptr;
 scaled one_hundred_bp; /* scaled value corresponds to 100bp */
-int fixed_decimal_digits;
 @z
 
 @x
@@ -131,7 +130,7 @@ scaled round_xn_over_d(scaled x, int n, int d)
 
 void pdf_print_bp(scaled s)
 {
-  pdf_print_real(divide_scaled(s, one_hundred_bp, fixed_decimal_digits + 2), fixed_decimal_digits);
+  pdf_print_real(divide_scaled(s, one_hundred_bp, 4 /*fixed_decimal_digits*/ + 2), 4 /*fixed_decimal_digits*/);
 }
 
 void pdf_print_mag_bp(scaled s)
@@ -193,7 +192,6 @@ primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
 b_close(&dvi_file);
 @y
 b_close(&dvi_file);
-  fixed_decimal_digits = fix_int(3 /*pdf_decimal_digits*/, 0, 4);
   pdf_print_mag_bp(pdf_page_width);
 @z
 
