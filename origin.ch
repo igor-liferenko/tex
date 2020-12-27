@@ -2,7 +2,6 @@
 @<Global variables@>@;
 @y
 @<Global variables@>@;
-int mymag = 0;
 int ten_pow[10]; /* $10^0..10^9$ */
 char pdf_buf[100];
 char *pdf_ptr;
@@ -24,7 +23,6 @@ one_hundred_bp = 6578176;
 
 @x
 bool b_open_out(byte_file *f)
-{
 @y
 int fix_int(int val, int min, int max)
 {
@@ -149,15 +147,6 @@ void pdf_print_mag_bp(scaled s)
 }
 
 bool b_open_out(byte_file *f)
-{ mymag = mag;
-@z
-
-@x
-  assert(pipe(fd) != -1);
-@y
-  fixed_decimal_digits = fix_int(3 /*pdf_decimal_digits*/, 0, 4);
-  pdf_print_mag_bp(pdf_page_width);
-  assert(pipe(fd) != -1);
 @z
 
 @x
@@ -205,13 +194,11 @@ primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
 @z
 
 @x
-@p void prepare_mag(void)
-{@+if ((mag_set > 0)&&(mag!=mag_set))
+b_close(&dvi_file);
 @y
-@p void prepare_mag(void)
-{ assert(mymag == mag);
-  assert(mymag != 0);
-  if ((mag_set > 0)&&(mag!=mag_set))
+b_close(&dvi_file);
+  fixed_decimal_digits = fix_int(3 /*pdf_decimal_digits*/, 0, 4);
+  pdf_print_mag_bp(pdf_page_width);
 @z
 
 @x
