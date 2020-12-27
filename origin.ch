@@ -22,16 +22,6 @@ one_hundred_bp = 6578176;
 @x
 bool b_open_out(byte_file *f)
 @y
-int fix_int(int val, int min, int max)
-{
-    if (val < min)
-        return min;
-    else if (val > max)
-        return max;
-    else
-        return val;
-}
-
 void pdf_print_int(int @!n) /*prints an integer in decimal form*/ 
 {@+uint8_t k; /*index to current digit; we assume that $|n|<10^{23}$*/ 
 int @!m; /*used to negate |n| in possibly dangerous cases*/ 
