@@ -93,7 +93,7 @@ scaled divide_scaled(scaled s, scaled m, int dd) /* divide |s| by |m|; |dd| is n
     sign = -sign;
     m = -m;
   }
-  if (m = 0)
+  if (m == 0)
     assert(0); // pdf_error("arithmetic", "divided by zero");
   else if (m >= (2147483647 / 10)) // printf INT_MAX 2^31 - 1
     assert(0); // pdf_error("arithmetic", "number too big");
