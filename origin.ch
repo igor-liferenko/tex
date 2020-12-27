@@ -42,7 +42,6 @@ if (n < 0)
   }
 } 
 
-
 void pdf_print_real(int m, int d) /* print $m/10^d$ as real */
 {
   if (m < 0) {
@@ -121,6 +120,7 @@ void pdf_print_bp(scaled s)
 {
   pdf_ptr = pdf_buf;
   pdf_print_real(divide_scaled(s, one_hundred_bp, 4 /*fixed_decimal_digits*/ + 2), 4 /*fixed_decimal_digits*/);
+  *pdf_ptr = '\0';
 }
 
 void pdf_print_mag_bp(scaled s)
@@ -180,11 +180,21 @@ primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
 @x
   execlp("dvipdfm-wrapper", "dvipdfm-wrapper", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", "-o", name_of_file+1, name_of_file+1, (char *) NULL);
 @y
+  char pdfpagewidth[20];
+  char pdfpageheight[20];
+  char pdfhorigin[20];
+  char pdfvorigin[20];
+  char pdfpaper[40];
   pdf_print_mag_bp(pdf_page_width);
+  strcpy(pdfpagewidth, pdf_buf);
   pdf_print_mag_bp(pdf_page_height);
+  strcpy(pdfpageheight, pdf_buf);
+  sprintf(pdfpaper, "%sbp,%sbp", pdfpagewidth, pdfpageheight);
   pdf_print_mag_bp(pdf_h_origin);
+  sprintf(pdfhorigin, "%sbp", pdf_buf);
   pdf_print_mag_bp(pdf_v_origin);
-  execlp("dvipdfm-wrapper", "dvipdfm-wrapper", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", "-o", name_of_file+1, name_of_file+1, (char *) NULL);
+  sprintf(pdfvorigin, "%sbp", pdf_buf);
+  execlp("dvipdfm-wrapper", "dvipdfm-wrapper", "-p", pdfpaper, "-x", pdfhorigin, "-y", pdfvorigin, "-o", name_of_file+1, name_of_file+1, (char *) NULL);
 @z
 
 @x
