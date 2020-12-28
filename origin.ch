@@ -1,5 +1,5 @@
 Create new dimension registers \pdfpagewidth, \pdfpageheight, \pdfhorigin
-and \pdfvorigin and pass their values to dvipdfm.
+and \pdfvorigin and pass their values to dvipdfm (taking |mag| into account).
 
 @x
 @<Global variables@>@;
