@@ -1,3 +1,6 @@
+Create new dimension registers \pdfpagewidth, \pdfpageheight, \pdfhorigin
+and \pdfvorigin and pass their values to dvipdfm.
+
 @x
 @<Global variables@>@;
 @y
@@ -77,10 +80,10 @@ scaled divide_scaled(scaled s, scaled m, int dd) /* divide |s| by |m|; |dd| is n
     sign = -sign;
     m = -m;
   }
-  if (m == 0)
-    assert(0); // pdf_error("arithmetic", "divided by zero");
-  else if (m >= (2147483647 / 10)) // printf INT_MAX 2^31 - 1
-    assert(0); // pdf_error("arithmetic", "number too big");
+  assert(m != 0); /* division by zero */
+  assert(m < 2147483647 / 10); /* number too big */
+         //  ( 2^31-1 ) / 10
+         //   INT_MAX?
   q = s / m;
   r = s % m;
   for (int i = 1; i<= dd; i++) {
@@ -123,7 +126,7 @@ void pdf_print_bp(scaled s)
   *pdf_ptr = '\0';
 }
 
-void pdf_print_mag_bp(scaled s)
+void pdf_print_mag_bp(scaled s) /* take |mag| into account */
 {
   if (mag != 1000)
     s = round_xn_over_d(s, mag, 1000);

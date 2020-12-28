@@ -1,3 +1,5 @@
+Automatically run dvipdfm.
+
 @x
 @h
 @y
