@@ -21,9 +21,11 @@ for (int i = 1; i <= 9; i++)
 one_hundred_bp = 6578176;
 @z
 
+This is exactly like print_int
 @x
-bool b_open_out(byte_file *f)
+@<Basic print...@>=
 @y
+@<Basic print...@>=
 void pdf_print_int(int @!n) /*prints an integer in decimal form*/ 
 {@+uint8_t k; /*index to current digit; we assume that $|n|<10^{23}$*/ 
 int @!m; /*used to negate |n| in possibly dangerous cases*/ 
@@ -44,7 +46,12 @@ if (n < 0)
     *pdf_ptr++ = '0'+dig[k];
   }
 } 
+@z
 
+@x
+@<Basic printing...@>=
+@y
+@<Basic printing...@>=
 void pdf_print_real(int m, int d) /* print $m/10^d$ as real */
 {
   if (m < 0) {
@@ -132,8 +139,6 @@ void pdf_print_mag_bp(scaled s) /* take |mag| into account */
     s = round_xn_over_d(s, mag, 1000);
   pdf_print_bp(s);
 }
-
-bool b_open_out(byte_file *f)
 @z
 
 @x
