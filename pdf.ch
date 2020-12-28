@@ -18,7 +18,6 @@ assert(dvipdfm != -1);
 if (dvipdfm == 0) {
   signal(SIGINT, SIG_IGN);
   execlp("xdvipdfm", "xdvipdfm", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", fname, (char *) NULL);
-    /* xdvipdfm is a script which renames .pdf to .dvi, calls dvipdfm and removes .dvi */
   exit(1);
 }
 int wstatus; waitpid(dvipdfm, &wstatus, 0); assert(wstatus == 0);
