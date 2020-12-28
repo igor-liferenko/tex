@@ -178,7 +178,7 @@ primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
 @z
 
 @x
-  execlp("xdvipdfm", "xdvipdfm", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", name_of_file+1, (char *) NULL);
+  execlp("xdvipdfm", "xdvipdfm", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", fname, (char *) NULL);
 @y
   char pdfpagewidth[20];
   char pdfpageheight[20];
@@ -194,7 +194,7 @@ primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
   sprintf(pdfhorigin, "%sbp", pdf_buf);
   pdf_print_mag_bp(pdf_v_origin);
   sprintf(pdfvorigin, "%sbp", pdf_buf);
-  execlp("xdvipdfm", "xdvipdfm", "-p", pdfpaper, "-x", pdfhorigin, "-y", pdfvorigin, name_of_file+1, (char *) NULL);
+  execlp("xdvipdfm", "xdvipdfm", "-p", pdfpaper, "-x", pdfhorigin, "-y", pdfvorigin, fname, (char *) NULL);
 @z
 
 @x
