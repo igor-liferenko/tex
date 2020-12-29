@@ -6,78 +6,6 @@ dvipdfm via argument list.
 @<Global variables@>@;
 @y
 @<Global variables@>@;
-char pdf_buf[100];
-char *pdf_ptr;
-scaled one_hundred_bp = 6578176; /* scaled value corresponds to 100bp */
-@z
-
-@x
-@<Basic print...@>=
-@y
-@<Basic print...@>=
-void pdf_print_int(int n)
-{
-  assert(n >= 0);
-  pdf_ptr += sprintf(pdf_ptr, "%d", n);
-} 
-@z
-
-@x
-@<Basic printing...@>=
-@y
-@<Basic printing...@>=
-void pdf_print_real(int m, int d) /* print $m/10^d$ as real */
-{
-  if (m < 0) {
-    *pdf_ptr++ = '-';
-    m = -m;
-  }
-  pdf_print_int(m / pow(10,d));
-  m = m % (int) pow(10,d);
-  if (m > 0) {
-    *pdf_ptr++ = '.';
-    decr(d);
-    while (m < pow(10,d)) {
-      *pdf_ptr++ = '0';
-      decr(d);
-    }
-    while ((m % 10) == 0)
-      m = m / 10;
-    pdf_print_int(m);
-  }
-}
-
-scaled divide_scaled(scaled s, scaled m, int dd) /* divide |s| by |m|; |dd| is number of decimal digits */
-{
-  scaled q, r;
-  int sign, i;
-
-  sign = 1;
-  if (s < 0) {
-    sign = -sign;
-    s = -s;
-  }
-  if (m < 0) {
-    sign = -sign;
-    m = -m;
-  }
-  assert(m != 0); /* division by zero */
-  assert(m < 2147483647 / 10); /* number too big */
-         //  ( 2^31-1 ) / 10
-         //   INT_MAX?
-  q = s / m;
-  r = s % m;
-  for (int i = 1; i<= dd; i++) {
-    q = 10*q + (10*r) / m;
-    r = (10*r) % m;
-  }
-  if (2*r >= m) {
-    incr(q);
-    r = r - m;
-  }
-  return sign*q;
-}
-
 scaled round_xn_over_d(scaled x, int n, int d)
 {
   bool positive; /* was |x>=0|? */
@@ -89,8 +17,8 @@ scaled round_xn_over_d(scaled x, int n, int d)
   t=(x % 0100000)*n;
   u=(x / 0100000)*n+(t / 0100000);
   v=(u % d)*0100000 + (t % 0100000);
-  if ((u/d) >= 0100000) arith_error=true;
-  else u=0100000*(u/d) + (v/d);
+  assert((u/d) < 0100000);
+  u=0100000*(u/d) + (v/d);
   v = v % d;
   if (2*v >= d)
     incr(u);
@@ -100,18 +28,11 @@ scaled round_xn_over_d(scaled x, int n, int d)
     return -u;
 }
 
-void pdf_print_bp(scaled s)
-{
-  pdf_ptr = pdf_buf;
-  pdf_print_real(divide_scaled(s, one_hundred_bp, 4 /*fixed_decimal_digits*/ + 2), 4 /*fixed_decimal_digits*/);
-  *pdf_ptr = '\0';
-}
-
-void pdf_print_mag_bp(scaled s) /* take |mag| into account */
+scaled magnified(scaled s)
 {
   if (mag != 1000)
-    s = round_xn_over_d(s, mag, 1000);
-  pdf_print_bp(s);
+    return round_xn_over_d(s, mag, 1000); /* take |mag| into account */
+  return s;
 }
 @z
 
@@ -162,21 +83,13 @@ primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
 @x
   execlp("xdvipdfm", "xdvipdfm", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", fname, (char *) NULL);
 @y
-  char pdfpagewidth[20];
-  char pdfpageheight[20];
-  char pdfhorigin[20];
-  char pdfvorigin[20];
-  char pdfpaper[40];
-  pdf_print_mag_bp(pdf_page_width);
-  strcpy(pdfpagewidth, pdf_buf);
-  pdf_print_mag_bp(pdf_page_height);
-  strcpy(pdfpageheight, pdf_buf);
-  sprintf(pdfpaper, "%sbp,%sbp", pdfpagewidth, pdfpageheight);
-  pdf_print_mag_bp(pdf_h_origin);
-  sprintf(pdfhorigin, "%sbp", pdf_buf);
-  pdf_print_mag_bp(pdf_v_origin);
-  sprintf(pdfvorigin, "%sbp", pdf_buf);
-  execlp("echo", "echo", "-p", pdfpaper, "-x", pdfhorigin, "-y", pdfvorigin, fname, (char *) NULL);
+  char pdfhorigin[50];
+  char pdfvorigin[50];
+  char pdfpaper[50];
+  sprintf(pdfpaper, "%dsp,%dsp", magnified(pdf_page_width), magnified(pdf_page_height));
+  sprintf(pdfhorigin, "%dsp", magnified(pdf_h_origin));
+  sprintf(pdfvorigin, "%dsp", magnified(pdf_v_origin));
+  execlp("xdvipdfm", "xdvipdfm", "-p", pdfpaper, "-x", pdfhorigin, "-y", pdfvorigin, fname, (char *) NULL);
 @z
 
 @x
