@@ -22,7 +22,7 @@ for (int i = 1; i <= 9; i++)
 one_hundred_bp = 6578176;
 @z
 
-This is exactly like print_int
+This is essentially identical to print_int
 @x
 @<Basic print...@>=
 @y
