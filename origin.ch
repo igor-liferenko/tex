@@ -6,20 +6,9 @@ dvipdfm via argument list.
 @<Global variables@>@;
 @y
 @<Global variables@>@;
-int ten_pow[10]; /* $10^0..10^9$ */
 char pdf_buf[100];
 char *pdf_ptr;
-scaled one_hundred_bp; /* scaled value corresponds to 100bp */
-@z
-
-@x
-@<Set initial values of key variables@>@;
-@y
-@<Set initial values of key variables@>@;
-ten_pow[0] = 1;
-for (int i = 1; i <= 9; i++)
-  ten_pow[i] = 10*ten_pow[i-1];
-one_hundred_bp = 6578176;
+scaled one_hundred_bp = 6578176; /* scaled value corresponds to 100bp */
 @z
 
 @x
@@ -43,12 +32,12 @@ void pdf_print_real(int m, int d) /* print $m/10^d$ as real */
     *pdf_ptr++ = '-';
     m = -m;
   }
-  pdf_print_int(m / ten_pow[d]);
-  m = m % ten_pow[d];
+  pdf_print_int(m / pow(10,d));
+  m = m % (int) pow(10,d);
   if (m > 0) {
     *pdf_ptr++ = '.';
     decr(d);
-    while (m < ten_pow[d]) {
+    while (m < pow(10,d)) {
       *pdf_ptr++ = '0';
       decr(d);
     }
