@@ -22,30 +22,14 @@ for (int i = 1; i <= 9; i++)
 one_hundred_bp = 6578176;
 @z
 
-This is essentially identical to print_int
 @x
 @<Basic print...@>=
 @y
 @<Basic print...@>=
-void pdf_print_int(int @!n) /*prints an integer in decimal form*/ 
-{@+uint8_t k; /*index to current digit; we assume that $|n|<10^{23}$*/ 
-int @!m; /*used to negate |n| in possibly dangerous cases*/ 
-k=0;
-if (n < 0) 
-  {  *pdf_ptr++ = '-';
-  if (n > -100000000) negate(n);
-  else{@+m=-1-n;n=m/10;m=(m%10)+1;k=1;
-    if (m < 10) dig[0]=m;
-    else{@+dig[0]=0;incr(n);
-      } 
-    } 
-  } 
-@/do@+{dig[k]=n%10;n=n/10;incr(k);
-}@+ while (!(n==0));
-  while (k>0) {
-    decr(k);
-    *pdf_ptr++ = '0'+dig[k];
-  }
+void pdf_print_int(int n)
+{
+  assert(n >= 0);
+  pdf_ptr += sprintf(pdf_ptr, "%d", n);
 } 
 @z
 
@@ -203,7 +187,7 @@ primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
   sprintf(pdfhorigin, "%sbp", pdf_buf);
   pdf_print_mag_bp(pdf_v_origin);
   sprintf(pdfvorigin, "%sbp", pdf_buf);
-  execlp("xdvipdfm", "xdvipdfm", "-p", pdfpaper, "-x", pdfhorigin, "-y", pdfvorigin, fname, (char *) NULL);
+  execlp("echo", "echo", "-p", pdfpaper, "-x", pdfhorigin, "-y", pdfvorigin, fname, (char *) NULL);
 @z
 
 @x
