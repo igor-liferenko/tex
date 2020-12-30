@@ -1,40 +1,4 @@
-Create new dimension registers \pdfpagewidth, \pdfpageheight, \pdfhorigin
-and \pdfvorigin and pass their values (taking |mag| into account) to
-dvipdfm via argument list.
-
-@x
-@<Global variables@>@;
-@y
-@<Global variables@>@;
-scaled round_xn_over_d(scaled x, int n, int d)
-{
-  bool positive; /* was |x>=0|? */
-  unsigned int t,u,v; /* intermediate quantities */
-  if (x>=0) positive=true;
-  else {
-    negate(x); positive=false;
-  }
-  t=(x % 0100000)*n;
-  u=(x / 0100000)*n+(t / 0100000);
-  v=(u % d)*0100000 + (t % 0100000);
-  assert((u/d) < 0100000);
-  u=0100000*(u/d) + (v/d);
-  v = v % d;
-  if (2*v >= d)
-    incr(u);
-  if (positive)
-    return u;
-  else
-    return -u;
-}
-
-scaled magnified(scaled s)
-{
-  if (mag != 1000)
-    return round_xn_over_d(s, mag, 1000); /* take |mag| into account */
-  return s;
-}
-@z
+Create new dimension registers \pdfpagewidth, \pdfpageheight, \pdfhorigin and \pdfvorigin.
 
 @x
 @d dimen_pars	21 /*total number of dimension parameters*/ 
@@ -83,13 +47,45 @@ primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
 @x
   execlp("xdvipdfm", "xdvipdfm", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", fname, (char *) NULL);
 @y
-  char pdfhorigin[50];
-  char pdfvorigin[50];
   char pdfpaper[50];
   sprintf(pdfpaper, "%dsp,%dsp", magnified(pdf_page_width), magnified(pdf_page_height));
+  char pdfhorigin[50];
   sprintf(pdfhorigin, "%dsp", magnified(pdf_h_origin));
+  char pdfvorigin[50];
   sprintf(pdfvorigin, "%dsp", magnified(pdf_v_origin));
   execlp("xdvipdfm", "xdvipdfm", "-p", pdfpaper, "-x", pdfhorigin, "-y", pdfvorigin, fname, (char *) NULL);
+@z
+@x
+@<Glob...@>=
+@y
+@<Glob...@>=
+scaled magnified(scaled x)
+{
+  if (mag == 1000) return x;
+
+  /* round_xn_over_d - take |mag| into account: */
+
+  int n = mag;
+  int d = 1000;
+  bool positive; /* was |x>=0|? */
+  unsigned int t,u,v; /* intermediate quantities */
+  if (x>=0) positive=true;
+  else {
+    negate(x); positive=false;
+  }
+  t=(x % 0100000)*n;
+  u=(x / 0100000)*n+(t / 0100000);
+  v=(u % d)*0100000 + (t % 0100000);
+  assert((u/d) < 0100000);
+  u=0100000*(u/d) + (v/d);
+  v = v % d;
+  if (2*v >= d)
+    incr(u);
+  if (positive)
+    return u;
+  else
+    return -u;
+}
 @z
 
 @x
