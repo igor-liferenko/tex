@@ -55,6 +55,7 @@ primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
     sprintf(pdfvorigin, "%dsp", magnified(pdf_v_origin));
     execlp("xdvipdfm", "xdvipdfm", "-p", pdfpaper, "-x", pdfhorigin, "-y", pdfvorigin, fname, (char *) NULL);
 @z
+TODO: understand what it does and think if it may be simplified (machine-independence is not required)
 @x
 @<Glob...@>=
 @y
