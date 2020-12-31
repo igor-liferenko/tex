@@ -17,14 +17,8 @@
   assert(dvipdfm != -1);
   if (dvipdfm == 0) {
     signal(SIGINT, SIG_IGN);
-    execlp("xdvipdfm", "xdvipdfm", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", fname, (char *) NULL);
+    execlp("dvipdfm", "dvipdfm", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", fname, (char *) NULL);
     exit(1);
   }
   int wstatus; waitpid(dvipdfm, &wstatus, 0); assert(wstatus == 0);
-@z
-
-@x
-@d str_510 ".dvi"
-@y
-@d str_510 ".pdf"
 @z
