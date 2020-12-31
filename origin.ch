@@ -45,7 +45,7 @@ primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
 @z
 
 @x
-    execlp("xdvipdfm", "dvipdfm", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", fname, (char *) NULL);
+    execlp("dvipdfm", "dvipdfm", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", fname, (char *) NULL);
 @y
     char pdfpaper[50];
     sprintf(pdfpaper, "%dsp,%dsp", magnified(pdf_page_width), magnified(pdf_page_height));
@@ -53,7 +53,7 @@ primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
     sprintf(pdfhorigin, "%dsp", magnified(pdf_h_origin));
     char pdfvorigin[50];
     sprintf(pdfvorigin, "%dsp", magnified(pdf_v_origin));
-    execlp("xdvipdfm", "dvipdfm", "-p", pdfpaper, "-x", pdfhorigin, "-y", pdfvorigin, fname, (char *) NULL);
+    execlp("dvipdfm", "dvipdfm", "-p", pdfpaper, "-x", pdfhorigin, "-y", pdfvorigin, fname, (char *) NULL);
 @z
 TODO: understand what it does and think if it may be simplified (machine-independence is not required)
 @x
