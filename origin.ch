@@ -55,7 +55,7 @@ primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
     sprintf(pdfvorigin, "%dsp", magnified(pdf_v_origin));
     execlp("dvipdfm", "dvipdfm", "-p", pdfpaper, "-x", pdfhorigin, "-y", pdfvorigin, fname, (char *) NULL);
 @z
-TODO: understand what it does and think if it may be simplified (machine-independence is not required)
+https://tex.stackexchange.com/questions/576999/
 @x
 @<Glob...@>=
 @y
@@ -68,24 +68,17 @@ scaled magnified(scaled x)
 
   int n = mag;
   int d = 1000;
-  bool positive; /* was |x>=0|? */
-  unsigned int t,u,v; /* intermediate quantities */
-  if (x>=0) positive=true;
-  else {
-    negate(x); positive=false;
-  }
-  t=(x % 0100000)*n;
-  u=(x / 0100000)*n+(t / 0100000);
-  v=(u % d)*0100000 + (t % 0100000);
+  unsigned int t, u, v;
+  assert(x >= 0);
+  t = (x % 0100000) * n;
+  u = (x / 0100000) * n + (t / 0100000);
+  v = (u % d) * 0100000 + (t % 0100000);
   assert((u/d) < 0100000);
-  u=0100000*(u/d) + (v/d);
+  u = 0100000 * (u/d) + (v/d);
   v = v % d;
   if (2*v >= d)
     incr(u);
-  if (positive)
-    return u;
-  else
-    return -u;
+  return u;
 }
 @z
 
