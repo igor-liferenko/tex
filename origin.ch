@@ -48,38 +48,13 @@ primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
     execlp("dvipdfm", "dvipdfm", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", fname, (char *) NULL);
 @y
     char pdfpaper[50];
-    sprintf(pdfpaper, "%dsp,%dsp", magnified(pdf_page_width), magnified(pdf_page_height));
+    double mag_over_1000 = mag/(double)1000;
+    sprintf(pdfpaper, "%.0fsp,%.0fsp", pdf_page_width*mag_over_1000, pdf_page_height*mag_over_1000);
     char pdfhorigin[50];
-    sprintf(pdfhorigin, "%dsp", magnified(pdf_h_origin));
+    sprintf(pdfhorigin, "%.0fsp", pdf_h_origin*mag_over_1000);
     char pdfvorigin[50];
-    sprintf(pdfvorigin, "%dsp", magnified(pdf_v_origin));
-    execlp("dvipdfm", "dvipdfm", "-p", pdfpaper, "-x", pdfhorigin, "-y", pdfvorigin, fname, (char *) NULL);
-@z
-https://tex.stackexchange.com/questions/576999/
-@x
-@<Glob...@>=
-@y
-@<Glob...@>=
-scaled magnified(scaled x)
-{
-  if (mag == 1000) return x;
-
-  /* round_xn_over_d - take |mag| into account: */
-
-  int n = mag;
-  int d = 1000;
-  unsigned int t, u, v;
-  assert(x >= 0);
-  t = (x % 0100000) * n;
-  u = (x / 0100000) * n + (t / 0100000);
-  v = (u % d) * 0100000 + (t % 0100000);
-  assert((u/d) < 0100000);
-  u = 0100000 * (u/d) + (v/d);
-  v = v % d;
-  if (2*v >= d)
-    incr(u);
-  return u;
-}
+    sprintf(pdfvorigin, "%.0fsp", pdf_v_origin*mag_over_1000);
+    execlp("echo", "echo", "-p", pdfpaper, "-x", pdfhorigin, "-y", pdfvorigin, fname, (char *) NULL);
 @z
 
 @x
