@@ -48,13 +48,13 @@ primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
     execlp("dvipdfm", "dvipdfm", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", fname, (char *) NULL);
 @y
     char pdfpaper[50];
-    double mag_over_1000 = mag/(double)1000;
+    double mag_over_1000 = mag/1000.0;
     sprintf(pdfpaper, "%.0fsp,%.0fsp", pdf_page_width*mag_over_1000, pdf_page_height*mag_over_1000);
     char pdfhorigin[50];
     sprintf(pdfhorigin, "%.0fsp", pdf_h_origin*mag_over_1000);
     char pdfvorigin[50];
     sprintf(pdfvorigin, "%.0fsp", pdf_v_origin*mag_over_1000);
-    execlp("echo", "echo", "-p", pdfpaper, "-x", pdfhorigin, "-y", pdfvorigin, fname, (char *) NULL);
+    execlp("dvipdfm", "dvipdfm", "-p", pdfpaper, "-x", pdfhorigin, "-y", pdfvorigin, fname, (char *) NULL);
 @z
 
 @x
