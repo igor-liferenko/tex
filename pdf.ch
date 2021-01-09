@@ -13,12 +13,12 @@
   char fname[500] = { };
   assert(readlink(tmp, fname, sizeof fname) != -1 && fname[sizeof fname - 1] == '\0');
   b_close(&dvi_file);
-  pid_t dvipdfm = fork();
-  assert(dvipdfm != -1);
-  if (dvipdfm == 0) {
+  pid_t dvipdfm_pid = fork();
+  assert(dvipdfm_pid != -1);
+  if (dvipdfm_pid == 0) {
     signal(SIGINT, SIG_IGN);
     execlp("dvipdfm", "dvipdfm", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", fname, (char *) NULL);
     exit(1);
   }
-  int wstatus; waitpid(dvipdfm, &wstatus, 0); assert(wstatus == 0);
+  int dvipdfm; waitpid(dvipdfm_pid, &dvipdfm, 0); assert(dvipdfm == 0);
 @z
