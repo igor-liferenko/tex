@@ -1,6 +1,13 @@
 Create new dimension registers \pdfpagewidth, \pdfpageheight, \pdfhorigin and \pdfvorigin.
 
 @x
+@h
+@y
+#include <inttypes.h>
+@h
+@z
+
+@x
 @d dimen_pars	21 /*total number of dimension parameters*/ 
 @y
 @d pdf_page_width_code 21
@@ -48,12 +55,11 @@ primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
     execlp("dvipdfm", "dvipdfm", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", fname, (char *) NULL);
 @y
     char pdfpaper[50];
-    double mag_over_1000 = mag/1000.0;
-    sprintf(pdfpaper, "%.0fsp,%.0fsp", pdf_page_width*mag_over_1000, pdf_page_height*mag_over_1000);
+    sprintf(pdfpaper, "%"PRId64"sp,%"PRId64"sp", (int64_t)pdf_page_width*mag/1000, (int64_t)pdf_page_height*mag/1000);
     char pdfhorigin[50];
-    sprintf(pdfhorigin, "%.0fsp", pdf_h_origin*mag_over_1000);
+    sprintf(pdfhorigin, "%"PRId64"sp", (int64_t)pdf_h_origin*mag/1000);
     char pdfvorigin[50];
-    sprintf(pdfvorigin, "%.0fsp", pdf_v_origin*mag_over_1000);
+    sprintf(pdfvorigin, "%"PRId64"sp", (int64_t)pdf_v_origin*mag/1000);
     execlp("dvipdfm", "dvipdfm", "-p", pdfpaper, "-x", pdfhorigin, "-y", pdfvorigin, fname, (char *) NULL);
 @z
 
