@@ -2,8 +2,7 @@ See utf8.pdf - it contains improvements to the article in TUGBoat 41-3.
 
 Section numbering differs from tex.web between §521 and §531.
 
-To use debugger, change "-O3" to "-g -Og" flags and run "gdb plain"
-
+To use debugger, change "-O3" to "-g -Og" and run "gdb plain"
 Use this change-file to make stepping over this line with `n' command faster:
 @x
 for (i=first_text_char; i<=last_text_char; i++) xord[chr(i)]=invalid_code;
