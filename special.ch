@@ -1,3 +1,5 @@
+Output \special in UTF-8 instead of internal encoding (for names of image files).
+
 @x
 if (cur_length < 256)
 @y
