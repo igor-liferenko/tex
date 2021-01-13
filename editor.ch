@@ -1,7 +1,7 @@
 Editor must be full-screen (like vi, not like ed) - otherwise
 output from editor will interfere with TeX's output.
-Also, it is supposed that editor sets TTY to raw mode (in order that
-^C does not send SIGINT).
+Also, it is supposed that editor sets the terminal to raw mode
+(in order that ^C does not send SIGINT while editor is running).
 
 @x
 @h
