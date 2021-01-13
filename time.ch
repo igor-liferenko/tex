@@ -6,7 +6,7 @@
 @z
 
 @x
-{@+internal_time=12*60; /*minutes since midnight*/ 
+{@+time_of_day=12*60; /*minutes since midnight*/ 
 day=4; /*fourth day of the month*/ 
 month=7; /*seventh month of the year*/ 
 year=1776; /*Anno Domini*/ 
@@ -14,7 +14,7 @@ year=1776; /*Anno Domini*/
 { time_t $ = time(NULL);
   struct tm *t = localtime(&$);
 
-  internal_time = t->tm_hour * 60 + t->tm_min;
+  time_of_day = t->tm_hour * 60 + t->tm_min;
   day = t->tm_mday;
   month = t->tm_mon + 1;
   year = t->tm_year + 1900;
