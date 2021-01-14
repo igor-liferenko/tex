@@ -1,3 +1,11 @@
+NOTE: it is recommended to create a wrapper script "dvipdfm"
+which calls /bin/dvipdfm and saves its output to a temporary
+file; if /bin/dvipdfm exits with non-zero status or if the
+output contains warnings, output the file and exit with
+non-zero status - then successful runs of dvipdfm will not
+interfere with TeX's output and unsuccessfull ones will prevent
+further TeX's output
+
 @x
 @h
 @y
