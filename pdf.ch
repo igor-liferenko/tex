@@ -1,11 +1,3 @@
-NOTE: it is recommended to create a wrapper script "dvipdfm"
-which calls /bin/dvipdfm and saves its output to a temporary
-file (and removes the dvi-file); if /bin/dvipdfm exits with
-non-zero status or if the output contains warnings, output
-the file and exit with non-zero status - then successful runs
-of dvipdfm will be silent and unsuccessfull ones will prevent
-further TeX output
-
 @x
 @h
 @y
@@ -25,7 +17,7 @@ further TeX output
   assert(dvipdfm_pid != -1);
   if (dvipdfm_pid == 0) {
     signal(SIGINT, SIG_IGN);
-    execlp("dvipdfm", "dvipdfm", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", fname, (char *) NULL);
+    execlp("dvipdfm", "dvipdfm", "-q", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", fname, (char *) NULL);
     exit(1);
   }
   int dvipdfm; waitpid(dvipdfm_pid, &dvipdfm, 0); assert(dvipdfm == 0);
