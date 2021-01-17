@@ -139,7 +139,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 +{@+rewrite((*f), name_of_file,"wb");return rewrite_OK((*f));
  } 
  
- @ Files can be closed with the \ph\ routine `|pascal_close(f)|', which
+ @ Files can be closed with the \ph\ routine `|close(f)|', which
 @@ -938,8 +970,8 @@
  @:PASCAL H}{\ph@>
  @^system dependencies@>
@@ -206,8 +206,8 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  @ @<Read one string...@>=
  {@+if (eof(pool_file)) bad_pool("! TEX.POOL has no check sum.");
  @.TEX.POOL has no check sum@>
--pascal_read(pool_file, m, n); /*read two digits of string length*/ 
-+pascal_read(pool_file, m);@+pascal_read(pool_file, n); /*read two digits of string length*/ 
+-read(pool_file, m, n); /*read two digits of string length*/ 
++read(pool_file, m);@+read(pool_file, n); /*read two digits of string length*/ 
  if (m== '*' ) @<Check the pool check sum@>@;
  else{@+if ((xord[m] < '0')||(xord[m] > '9')||@|
        (xord[n] < '0')||(xord[n] > '9')) 
@@ -215,10 +215,10 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  by changing |wterm|, |wterm_ln|, and |wterm_cr| in this section.
  @^system dependencies@>
  
--@d wterm(X)	pascal_write(term_out, X)
+-@d wterm(X)	write(term_out, X)
 -@d wterm_ln(...)	write_ln(term_out,__VA_ARGS__)
 -@d wterm_cr	write_ln(term_out)
--@d wlog(...)	pascal_write(log_file,__VA_ARGS__)
+-@d wlog(...)	write(log_file,__VA_ARGS__)
 -@d wlog_ln(...)	write_ln(log_file,__VA_ARGS__)
 -@d wlog_cr	write_ln(log_file)
 +@<Compiler directives@>=
@@ -228,23 +228,23 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 +#define reset(file,name,mode)   @[((file).f=fopen((char *)(name)+1,mode),\
 +                                 (file).f!=NULL?get(file):0)@]
 +#define rewrite(file,name,mode) @[((file).f=fopen((char *)(name)+1,mode))@]
-+#define pascal_close(file)    @[fclose((file).f)@]
++#define close(file)    @[fclose((file).f)@]
 +#define eof(file)    @[feof((file).f)@]
 +#define eoln(file)    @[((file).d=='\n'||eof(file))@]
 +#define erstat(file)   @[((file).f==NULL?-1:ferror((file).f))@]
 +
-+#define pascal_read(file,x) @[((x)=(file).d,get(file))@]
++#define read(file,x) @[((x)=(file).d,get(file))@]
 +#define read_ln(file)  @[do get(file); while (!eoln(file))@]
 +
-+#define pascal_write(file, format,...)    @[fprintf(file.f,format,## __VA_ARGS__)@]
-+#define write_ln(file,...)	   @[pascal_write(file,__VA_ARGS__"\n")@]
++#define write(file, format,...)    @[fprintf(file.f,format,## __VA_ARGS__)@]
++#define write_ln(file,...)	   @[write(file,__VA_ARGS__"\n")@]
 +
-+#define wterm(format,...)	@[pascal_write(term_out,format, ## __VA_ARGS__)@]
++#define wterm(format,...)	@[write(term_out,format, ## __VA_ARGS__)@]
 +#define wterm_ln(format,...)	@[wterm(format "\n", ## __VA_ARGS__)@]
-+#define wterm_cr	        @[pascal_write(term_out,"\n")@]
-+#define wlog(format, ...)	@[pascal_write(log_file,format, ## __VA_ARGS__)@]
++#define wterm_cr	        @[write(term_out,"\n")@]
++#define wlog(format, ...)	@[write(log_file,format, ## __VA_ARGS__)@]
 +#define wlog_ln(format, ...)   @[wlog(format "\n", ## __VA_ARGS__)@]
-+#define wlog_cr	        @[pascal_write(log_file,"\n")@]
++#define wlog_cr	        @[write(log_file,"\n")@]
  
  @ To end a line of text output, we call |print_ln|.
  
@@ -273,8 +273,8 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  case pseudo: if (tally < trick_count) trick_buf[tally%error_line]=s;@+break;
  case new_string: {@+if (pool_ptr < pool_size) append_char(s);
    } @+break; /*we drop characters if the string space is full*/ 
--default:pascal_write(write_file[selector], xchr[s]);
-+default:pascal_write(write_file[selector],"%c", xchr[s]);
+-default:write(write_file[selector], xchr[s]);
++default:write(write_file[selector],"%c", xchr[s]);
  } @/
  incr(tally);
  } 
@@ -640,8 +640,8 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  
  @p void write_dvi(dvi_index @!a, dvi_index @!b)
  {@+int k;
--for (k=a; k<=b; k++) pascal_write(dvi_file, dvi_buf[k]);
-+for (k=a; k<=b; k++) pascal_write(dvi_file, "%c", dvi_buf[k]);
+-for (k=a; k<=b; k++) write(dvi_file, dvi_buf[k]);
++for (k=a; k<=b; k++) write(dvi_file, "%c", dvi_buf[k]);
  } 
  
  @ To put a byte in the buffer without paying the cost of invoking a procedure
@@ -809,7 +809,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  loop{@+wake_up_terminal;
    print_nl("debug # (-1 to exit):");update_terminal;
  @.debug \#@>
--  pascal_read(term_in, m);
+-  read(term_in, m);
 -  if (m < 0) return;
 +  if (fscanf(term_in.f," %d",&m)<1 ||
 +      m < 0) return;
@@ -817,7 +817,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
      {@+goto breakpoint; /*go to every label at least once*/ 
      breakpoint: m=0;/*'BREAKPOINT'*/
      } 
--  else{@+pascal_read(term_in, n);
+-  else{@+read(term_in, n);
 +  else{@+fscanf(term_in.f," %d",&n);
      switch (m) {
      @t\4@>@<Numbered cases for |debug_help|@>@;
@@ -826,7 +826,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  case 10: slow_print(n);@+break;
  case 11: check_mem(n > 0);@+break; /*check wellformedness; print new busy locations if |n > 0|*/ 
  case 12: search_mem(n);@+break; /*look for pointers to |n|*/ 
--case 13: {@+pascal_read(term_in, l);print_cmd_chr(n, l);
+-case 13: {@+read(term_in, l);print_cmd_chr(n, l);
 +case 13: {@+fscanf(term_in.f," %d",&l);print_cmd_chr(n, l);
    } @+break;
  case 14: for (k=0; k<=n; k++) print(buffer[k]);@+break;

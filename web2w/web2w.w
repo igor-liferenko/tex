@@ -2433,9 +2433,6 @@ SYM_PTR("time")->name="time_of_day";
 @#
 SYM_PTR("exit")->name="end";
 SYM_PTR("free")->name="is_free";
-SYM_PTR("write")->name="pascal_write";
-SYM_PTR("read")->name="pascal_read";
-SYM_PTR("close")->name="pascal_close";
 @#
 SYM_PTR("xclause")->name="else";
 SYM_PTR("remainder")->name="rem";

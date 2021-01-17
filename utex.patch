@@ -95,8 +95,8 @@
  case pseudo: if (tally < trick_count) trick_buf[tally%error_line]=s;@+break;
  case new_string: {@+if (pool_ptr < pool_size) append_char(s);
    } @+break; /*we drop characters if the string space is full*/ 
--default:pascal_write(write_file[selector],"%c", xchr[s]);
-+default:pascal_write(write_file[selector],"%lc", xchr[s]);
+-default:write(write_file[selector],"%c", xchr[s]);
++default:write(write_file[selector],"%lc", xchr[s]);
  } @/
  incr(tally);
  } 
