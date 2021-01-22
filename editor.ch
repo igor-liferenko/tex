@@ -1,7 +1,3 @@
-NOTE: editor must use alternate screen (like vi, not like ed) and must
-not output anything unless it exits with non-zero status - otherwise
-output from editor will interfere with TeX's output
-
 @x
 @h
 @y
