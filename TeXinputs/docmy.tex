@@ -1,0 +1,306 @@
+%TODO: use code from here directy in documents - delete this file
+
+\def\today{\number\year-\twodigits=\month \printtwodigits-\twodigits=\day \printtwodigits}
+\newcount\twodigits
+\def\hours{\twodigits=\time \divide\twodigits by 60 \printtwodigits
+  \multiply\twodigits by-60 \advance\twodigits by\time :\printtwodigits}
+\def\gobbleone1{}
+\def\printtwodigits{\advance\twodigits100
+  \expandafter\gobbleone\number\twodigits
+  \advance\twodigits-100 }
+
+\newcount\ttlineno
+\def\Blue{} % TODO: purge this everywhere - it is stub for dvi mode
+\def\Red{} % TODO: purge this everywhere - it is stub for dvi mode
+\def\Brown{} % TODO: purge this everywhere - it is stub for dvi mode
+\def\Green{} % TODO: purge this everywhere - it is stub for dvi mode
+\def\Yellow{} % TODO: purge this everywhere - it is stub for dvi mode
+\def\Black{} % TODO: purge this everywhere - it is stub for dvi mode
+\let\oriBlack=\Black % TODO: purge this everywhere - it is stub for dvi
+
+
+          \def\titmodule{Modul}
+          \def\tittoc{Obsah}
+          \def\titindex{Rejstrik}
+          \def\opartname{>> CAST}
+
+\def\titversion{}
+\def\projectversion{\today\ \hours}
+
+
+%%%%%%%%%%%%%%%%%% Vložené skupiny příkazů (hooks)
+
+\def\begtthook{}
+\def\quotehook{}
+\def\indexhook{}
+\def\tochook{}
+\def\bookmarkshook{}
+\def\outputhook{}
+
+%%%%%%%%%%%%%%%%%% Parametry a pomocná makra pro nastavení vzhledu
+
+\parindent=30pt
+
+\newdimen\nwidth \nwidth=\hsize \advance\nwidth by-2\parindent
+
+\raggedbottom
+\exhyphenpenalty=10000
+
+\font\bbf=lhb10 at12pt
+\font\bbbf=lhb10 at14.4pt
+\font\btt=lhtt12
+\font\ttsmall=lhtt8
+\font\rmsmall=lhr8
+\font\itsmall=lhti8
+\font\partfont=lhb10 at80pt
+
+\def\setsmallprinting{\ttsmall \let\it=\itsmall \let\rm=\rmsmall 
+   \def\ttstrut{\vrule height8pt depth3pt width0pt}%
+   \offinterlineskip \parskip=-1pt\relax
+}
+\def\setnormalprinting{\tt \baselineskip=0pt \hfuzz=4em 
+   \def\ttstrut{\vrule height10pt depth3pt width0pt}%
+   \offinterlineskip \parskip=-1pt\relax
+}
+
+   \def\rectangle#1#2#3#4{\vbox to0pt{\vss\hrule\kern-.3pt
+      \hbox to#3{\vrule height#1 depth#2\hss#4\hss\vrule}%
+      \kern-.3pt\hrule\kern-#2\kern-.1pt}}
+
+\def\docbytex {\leavevmode\hbox{DocBy}.\TeX}
+
+%%%%%%%%%%%%%%%%%% Vzhled kapitol a podkapitol
+
+\def\printsec #1{\par
+    \removelastskip\bigskip\medskip
+    \noindent
+    \rectangle{16pt}{9pt}{25pt}{\Brown\bbbf\ifsavetoc\the\secnum\else\emptynumber\fi}%
+    \kern5pt{\bbbf #1}\par
+}
+\def\printsecbelow {\nobreak\medskip}
+
+\def\printsubsec #1{\par
+    \removelastskip\bigskip
+    \noindent
+    \vbox to0pt{\vss
+       \rectangle{16pt}{9pt}{25pt}{\Brown\bf
+          \ifsavetoc\the\secnum.\the\subsecnum\else\emptynumber\fi}\kern-5pt}%
+    \kern5pt{\bbf \let\tt=\btt #1}\par
+}
+\def\printsubsecbelow {\nobreak\smallskip}
+
+\def\printpart #1{\par
+    \removelastskip\bigskip\medskip
+    \noindent {\linkskip=60pt }%
+    \rectangle{16pt}{9pt}{25pt}{}%
+    \kern-20pt{\Brown\partfont\thepart\Black}\kern10pt{\bbbf #1}\par
+}
+\def\printpartbelow {\nobreak\bigskip}
+
+\def\emptynumber{}
+
+%%%%%%%%%%%%%%%%%%%% Titul, autor
+
+\def\title{\def\tmpA{title}\futurelet\nextchar\secparam}
+   \def\iititle {\par
+      \ifx\projectversion\empty \else 
+        \line{\hss\rmsmall\titversion\projectversion}\nobreak\medskip\fi
+      \centerline{\bbbf \the\sectitle}\nobreak\medskip}
+
+\ifx\projectversion\undefined \def\projectversion{}\fi
+
+%%%%%%%%%%%%%%%%%%%% Footline
+
+\footline={\hss\rectangle{8pt}{2pt}{25pt}{\tenrm\Black\folio}\hss}
+
+%%%%%%%%%%%%%%%%%%%% Tisk z prostředí \begtt, \endtt
+
+   \def\printvabove{\smallskip\hrule\nobreak\smallskip\setnormalprinting}
+   \def\printvbelow{\nobreak\smallskip\hrule\smallskip}
+   \def\printvline#1#2{\noindent
+     \ifx\islinenumprinted+
+       \hbox to13pt{\hss#1:\kern4pt}%
+     \else
+       \kern17pt
+     \fi
+     {\ttstrut#2\par}\penalty12 }
+
+%%%%%%%%%%%%%%%%%%%%%%% Pomocna makra
+
+\def\defsec#1{\expandafter\def\csname#1\endcsname}
+\def\edefsec#1{\expandafter\edef\csname#1\endcsname}
+\def\undef#1\iftrue{\expandafter\ifx\csname#1\endcsname\relax}
+
+{\catcode`\^^I=\active \gdef^^I{\space\space\space\space\space\space\space\space}
+ \catcode`\|=0 \catcode`\\=12 |gdef|nb{\}}
+\bgroup
+   \catcode`\[=1 \catcode`]=2 \catcode`\{=12 \catcode`\}=12 \catcode`\%=12
+   \gdef\obrace[{] \gdef\cbrace[}] \gdef\percent[%]
+\egroup
+\def\inchquote{"}
+
+\def\setverb{\def\do##1{\catcode`##1=12}\dospecials}
+
+%%%%%%%%%%%%%%%%%% Příkazy \begtt, \endtt
+
+\def\begtt {\bgroup\printvabove
+   \setverb \catcode`\"=12 \catcode`\^^M=12 \obeyspaces
+   \begtthook\relax \setsmallprinting \startverb}
+\def\begintt {\bgroup\printvabove
+  \ttlineno=0
+  \let\islinenumprinted+
+  \setverb \catcode`\"=12 \catcode`\^^M=12 \obeyspaces
+  \begtthook\relax \setsmallprinting \startverb}
+{\catcode`\|=0 \catcode`\^^M=12 \catcode`\\=12 %
+  |gdef|startverb^^M#1\endtt{|runttloop#1|end^^M}%
+  |gdef|runttloop#1^^M{|ifx|end#1 |expandafter|endttloop%
+     |else|global|advance|ttlineno by1 %
+       |printvline{|the|ttlineno}{#1}|relax|expandafter|runttloop|fi}} %
+\def\endttloop#1{\printvbelow\egroup\futurelet\nextchar\scannexttoken}
+\long\def\scannexttoken{\ifx\nextchar\par\else\noindent\fi}
+
+\output={\outputhook \plainoutput }
+
+%%%%%%%%%%%%%%%%%% Kapitoly, podkapitoly
+
+\newcount\secnum
+\newcount\subsecnum
+\newtoks\sectitle
+\newif\ifsavetoc \savetoctrue
+
+\def\sec{\def\tmpA{sec}\futurelet\nextchar\secparam}  
+\def\subsec{\def\tmpA{subsec}\futurelet\nextchar\secparam}
+
+\def\secparam{\ifx\nextchar[%
+     \def\tmp[##1]{\def\seclabel{##1}\futurelet\nextchar\secparamA}%
+     \expandafter\tmp
+   \else \def\seclabel{}\expandafter\secparamB\fi
+}
+\def\secparamA{\expandafter\ifx\space\nextchar 
+      \def\tmp{\afterassignment\secparamB\let\next= }\expandafter\tmp
+   \else \expandafter\secparamB \fi
+}
+\def\secparamB #1\par{\nolastspace #1^^X ^^X\end}
+\def\nolastspace #1 ^^X#2\end{\ifx^^X#2^^X\secparamC #1\else \secparamC #1^^X\fi}
+\def\secparamC #1^^X{\sectitle={#1}\csname ii\tmpA\endcsname}
+
+\def\iisec{%
+    \ifsavetoc \global\advance\secnum by1 \global\subsecnum=0 \fi
+    \expandafter \printsec \expandafter{\the\sectitle}% vlozi horni mezeru, text, nakonec \par
+    \savetoctrue \printsecbelow
+}
+\def\iisubsec {%
+    \ifsavetoc \global\advance\subsecnum by1 \fi
+    \expandafter \printsubsec \expandafter{\the\sectitle}% vlozi horni mezeru, text, nakonec \par
+    \savetoctrue \printsubsecbelow
+}
+
+%%%%%%%%%%%%%%%%%%%%%%% Part (doplneno leden 2009)
+
+\newcount\partnum
+\def\thepart{\ifcase\partnum --\or A\or B\or C\or D\or E\or F\or G\or
+  H\or I\or J\or K\or L\or M\or N\or O\or P\or Q\or R\or S\or T\or
+  U\or V\or W\or X\or Y\or Z\else +\the\partnum\fi}
+
+\def\part{\def\tmpA{part}\futurelet\nextchar\secparam}
+\def\iipart{% 
+    \ifsavetoc \global\advance\partnum by1 \fi
+    \expandafter \printpart \expandafter{\the\sectitle}% vlozi horni mezeru, text, nakonec \par
+    \savetoctrue \printpartbelow
+}
+
+%%%%%%%%%%%%%%%%%%%%%%% Odkazy, reference
+
+\ifx\pdfoutput\undefined
+   \def\savelink[#1]{}
+   \def\ilink [#1]#2{#2}
+   \def\savepglink{}
+   \def\pglink{\afterassignment\dopglink\tempnum=}
+   \def\dopglink{\the\tempnum}
+   \def\ulink[#1]#2{#2}
+\else
+   \def\savelink[#1]{\ifvmode\nointerlineskip\fi
+      \vbox to0pt{\def\nb{/_}\vss\pdfdest name{#1} xyz\vskip\linkskip}}
+   \def\ilink [#1]#2{{\def\nb{/_}\pdfstartlink height 9pt depth 3pt
+      attr{/Border[0 0 0]} goto name{#1}}\Blue#2\Black\pdfendlink}
+   \def\savepglink{\ifnum\pageno=1 \pdfdest name{sec::start} xyz\relax\fi % viz \bookmarks
+       \pdfdest num\pageno fitv\relax}
+   \def\pglink{\afterassignment\dopglink\tempnum=}
+   \def\dopglink{\pdfstartlink height 9pt depth 3pt
+       attr{/Border[0 0 0]} goto num\tempnum\relax\Blue\the\tempnum\Black\pdfendlink}
+   \def\ulink[#1]#2{\pdfstartlink height 9pt depth 3pt 
+   user{/Border[0 0 0]/Subtype/Link/A << /Type/Action/S/URI/URI(#1)>>}\relax
+   \Green{\tt #2}\Black\pdfendlink}
+\fi
+\newdimen\linkskip \linkskip=12pt
+
+\def\reflabel #1#2#3{%
+   \undef{^^Y#1}\iftrue
+      \ifx^^X#2^^X\else\defsec{^^X#1}{#2}\fi
+      \defsec{^^Y#1}{#3}%
+   \else
+      \dbtwarning{The label [#1] is declared twice}%
+   \fi
+}
+\def\numref [#1]{\undef{^^X#1}\iftrue \else \csname^^X#1\endcsname\fi}
+\def\pgref [#1]{\undef{^^Y#1}\iftrue-1000\else \csname^^Y#1\endcsname\fi}
+
+\def\labeltext[#1]#2{\savelink[#1]\writelabel[#1]{#2}}
+\def\writelabel[#1]#2{\edef\tmp{\noexpand\writelabelinternal{#2}}\tmp{#1}}
+\def\writelabelinternal#1#2{\write\reffile{\string\reflabel{#2}{#1}{\the\pageno}}}
+
+\def\label[#1]{\labeltext[#1]{}}
+
+\def\cite[#1]{\ifnum \pgref[#1]=-1000
+      \dbtwarning{label [#1] is undeclared}\Red??\Black
+   \else \edef\tmp{\numref[#1]}%
+      \ifx\tmp\empty \edef\tmp{\pgref[#1]}\fi
+      \ilink[#1]{\tmp}%
+   \fi
+}
+
+\def\api #1{\label[+#1]\write\reffile{\string\refapiword{#1}}}
+\def\apitext{$\succ$}
+
+%% final settings
+
+\catcode`\"=\active
+\let\activeqq="
+\def"{\leavevmode\hbox\bgroup\let\leftcomment=\empty
+      \let\returntoBlack=\empty \let\linecomment=\empty \let"=\egroup 
+      \def\par{\errmessage{\string\par\space inside \string"...\string"}}%
+      \setverb\tt\quotehook
+}
+
+\def\langleactive{\uccode`\~=`\<\catcode`\<=13
+      \uppercase{\def~}##1>{{$\langle$\it##1\/$\rangle$}}}
+
+\font\eightrm=lhr8
+\font\eighttt=lhtt8
+\font\eightbf=lhbx8
+\font\eightsl=lhsl8
+\font\eightit=lhti8
+
+%FIXME: why it stops working if we put \baselineskip and \eightrm inside
+%\begingroup-\endgroup to avoid using \normalbaselines\rm?
+%(for example see \eighttt in tex/listing.tex - why it works?)
+\def\begincomment{\baselineskip9pt\eightrm\begingroup
+  \def\rm{\eightrm}%
+  \def\tt{\eighttt}%
+  \def\sl{\eightsl}%
+  \def\bf{\eightbf}%
+  \def\it{\eightit}%
+  \parindent=0pt}
+\def\endcomment{\endgroup\vskip1mm\normalbaselines\rm}
+
+\def\setupverbatim{\setsmallprinting
+  \def\par{\leavevmode\endgraf}
+  \catcode`\`=\active
+  \catcode`\"=12 % unactivate
+  \obeylines
+  \setverb
+  \obeyspaces
+  \everypar{\ttstrut}}
+{\obeyspaces\global\let =\ } % let active space = control space
+{\catcode`\`=\active \gdef`{\relax\lq}}
+\def\listing#1{\begingroup\setupverbatim\input#1 \endgroup}
