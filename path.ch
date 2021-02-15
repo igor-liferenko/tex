@@ -5,7 +5,7 @@ enum {@+@!file_name_size=40@+}; /*file names shouldn't be longer than this*/
 enum {@+@!file_name_size=255@+}; /*file names shouldn't be longer than this*/
 @z
 
-Now ./ may be used in font file name (but see mf/tfm.ch).
+To use ./ in font file name.
 @x
   if ((c=='>')||(c==':'))
 @y
