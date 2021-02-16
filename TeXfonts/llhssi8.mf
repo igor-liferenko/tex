@@ -1,1 +1,0 @@
-/usr/share/texlive/texmf-dist/fonts/source/lh/lh-lcy/llhssi8.mf
