@@ -1,1 +1,1 @@
-input fikparm;
+/usr/share/texlive/texmf-dist/fonts/source/lh/lh-lcy/lhssbxo10.mf
