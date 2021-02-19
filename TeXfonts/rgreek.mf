@@ -42,7 +42,7 @@ def gen_letter=
 enddef;
  
 cmchar "Lowercase mu";
-beginchar("m",dims);
+beginchar("u",dims);
 this_letter; penlabels(1,2,3,4,5,6,7,8,9,10,11); endchar;
  
 picture savedpicture;
