@@ -15,7 +15,7 @@
 { char tmp[30];
   assert(snprintf(tmp, sizeof tmp, "/proc/self/fd/%d", fileno(input_file[input_stack[base_ptr].index_field].f)) < sizeof tmp);
   char fname[500] = {0};
-  assert(readlink(tmp, fname, sizeof fname) != -1 && fname[sizeof fname - 1] == 0);
+  assert(readlink(tmp, fname, sizeof fname) != -1 && !fname[sizeof fname - 1]);
   char editor[500];
   assert(snprintf(editor, sizeof editor, "em %s %d", fname, line) < sizeof editor);
   assert(system(editor) == 0);
