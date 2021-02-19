@@ -1,3 +1,4 @@
+mode:=localfont;
 % Reduced Greek Regular 10 point
 if unknown cmbase: input cmbase fi
 if unknown grbase: input rgrbase fi
