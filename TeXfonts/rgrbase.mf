@@ -1,0 +1,229 @@
+numeric grbase; grbase:=1;      %don't read this file twice
+ 
+%make reference to file in subdirectories less painful
+def readfrom(expr filename) = scantokens ("input " & filename); enddef;
+ 
+%we start by defining a few more font parameters:
+boolean one_accent;              %are we working in |one_accent|-system?
+boolean monowidth;              %are
+boolean straight;               %are certain strokes straight?
+boolean italics;                %are we going to make italics?
+numeric univ_acc_breadth;       %from 0 to 1:the breadth of the univ. accent
+ 
+let old_font_setup = font_setup;
+def font_setup =
+define_whole_vertical_pixels(acc_ht,circ_ht,Circ_ht,iota_dp);   %accent heights
+old_font_setup;
+enddef;
+ 
+%Since many of our characters are composite (for instance, s+letter),
+%we avoid recomputing many pictures by saving them.
+%But if we're using various definitions for the same letter (as when
+%running 6test.mf) we can't use this trick, so we set |working_hard:=true|.
+ 
+boolean working_hard;               
+working_hard:=false;
+ 
+def this_letter =
+italcorr ital; adjust_fit(fit_params);
+if known savedpicture: currentpicture:=savedpicture; else: gen_letter; fi
+if not working_hard : picture savedpicture; savedpicture=currentpicture; fi
+enddef;
+ 
+%The following routines are for use with double characters.
+boolean is_double; is_double:=false;
+let oldendchar=endchar;
+ 
+def begindoublechar(expr c,w_sharp,h_sharp,d_sharp) =
+is_double:=true; beginchar(c,w_sharp,h_sharp,d_sharp);
+enddef;
+ 
+def doublecharkern(expr k_sharp) =
+if not monospace: k:=hround(k_sharp*hppp); r:=r+k; charwd:=charwd+k_sharp; fi
+enddef;
+ 
+def middoublechar(expr w_sharp,h_sharp,d_sharp) =
+scantokens extra_endchar;
+forsuffixes e=r,l,w,charwd: numeric first.e; first.e:=e; endfor
+ 
+w:=hround(w_sharp*hppp); h:=vround(h_sharp*hppp); d:=vround(d_sharp*hppp);
+charwd:=w_sharp; charht:=max(charht,h_sharp); chardp:=max(chardp,d_sharp);
+picture first.glyph; first.glyph=currentpicture;
+clearxy; clearpen; clearit; clearpen;
+enddef;
+ 
+def endchar =
+if is_double :
+charwd:=first.charwd+charwd;
+picture second_glyph; second_glyph=currentpicture shifted (first.r-l,0);
+currentpicture:= first.glyph; addto currentpicture also second_glyph;
+scantokens extra_endchar;
+w:=first.w+w; r:=first.r-l+r; l:=first.l;
+chardx:=first.w+w; interim xoffset:= -l;
+if proofing>0: makebox(proofrule); fi
+shipit;
+if displaying>0: makebox(screenrule); showit; fi
+endgroup;
+is_double:=false
+else : oldendchar
+fi
+enddef;
+ 
+%By convention, we reserve the name z1' for the direction at z1, and so on.
+%The direction at |z1r| is |z1'r|, or |zdir1r|.
+vardef zdir[]@#= z@'@# enddef;
+vardef assign_z@#(expr zz)= x@#:=xpart(zz); y@#:=ypart(zz) enddef;
+vardef sgn(expr x)= if (x>0): 1 elseif (x<0): -1 else: 0 fi enddef;
+ 
+vardef double_circ_stroke text t =
+forsuffixes e = l,r: path_.e:=t; endfor
+if cycle path_.l: errmessage "Beware: `stroke' isn't intended for cycles"; fi
+path_.l .. reverse path_.r .. cycle enddef;
+ 
+vardef drawloop(suffix $,$$,@@,@)=
+numeric temp[], sup;
+sup=superness;
+forsuffixes e=r,l:
+path curv[]e; numeric S[]e;
+curv1e=pulled_super_arc.e($,$$)(.5superpull);
+curv2e=pulled_super_arc.e(@,@@)(.5superpull); endfor
+(S1r,S2r)=curv1r intersectiontimes curv2r;
+(temp1,S2l)=curv1r intersectiontimes curv2l;
+(S1l,temp2)=curv1l intersectiontimes curv2r;
+for i=1 upto 4:
+exitif (temp1>=S1r) and (temp2>=S2r);
+begingroup
+numeric S[]r, S[]l, temp[]; pair p;
+interim superness:=(i/10)[sup,1];
+message"change in superness required; increased to "; show superness;
+curv1r:=pulled_super_arc.r($,$$)(0);
+curv2r:=pulled_super_arc.r(@,@@)(0);
+(S1r,S2r)=curv1r intersectiontimes curv2r;
+(temp1,S2l)=curv1r intersectiontimes curv2l;
+(S1l,temp2)=curv1l intersectiontimes curv2r;
+endgroup;
+endfor;
+if S1l=-1 : S1l:=2; fi
+if S2l=-1 : S2l:=2; fi
+filldraw stroke subpath(0,S1e+eps) of curv1e; 
+filldraw stroke subpath(0,S2e+eps) of curv2e;
+filldraw subpath (S1r+eps,2) of curv1r...subpath(2,S2r+eps) of curv2r..cycle;
+enddef ;
+ 
+vardef gr_arc.r(suffix $,$$,$$$)(expr min,max,tilt)=
+pair center, corner;
+if (y$$$r-y$r)*(x$$$r-x$r) < 0 :        %first or third quadrant
+center=(x$$$r,y$r); corner=(x$r,y$$$r);
+else :
+center=(x$r,y$$$r); corner=(x$$$r,y$r);
+fi
+z$r{corner-z$r}...superness[center,corner]{z$$$r-z$r}...
+{z$$$r-corner}z$$$r
+enddef;
+ 
+vardef gr_arc.l(suffix $,$$,$$$)(expr min,max,tilt)=
+save p,q,wdth;
+pair center, corner, temp;
+numeric wdth, t, s;
+path p,q;
+if (y$$$r-y$r)*(x$$$r-x$r) < 0 :        %first or third quadrant
+center=(x$$$r,y$r); corner=(x$r,y$$$r);
+if tilt>=0 : wdth:=min; other_wdth:=max; t:=2(1-tilt);
+else : wdth:=max; other_wdth:=min; t:=-2tilt; fi
+else :
+center=(x$r,y$$$r); corner=(x$$$r,y$r);
+if tilt>=0 : wdth:=max; other_wdth:=min; t:=2(1-tilt);
+else : wdth:=min; other_wdth:=max; t:=-2tilt; fi
+fi
+p:=z$r{corner-z$r}...superness[center,corner]{z$$$r-z$r}...
+{z$$$r-corner}z$$$r;
+pos$$(wdth,angle direction t of p - 90);
+z$$r=point t of p;
+assign_z$$'l(direction t of p);
+assign_z$$'r(z$$'l);
+if other_wdth<=currentbreadth: errmessage "bad pos"; fi
+temp:=point (2-t) of p-
+(other_wdth-currentbreadth,0) rotated (angle direction (2-t) of p - 90);
+boolean k[]; k1:=false; k2:=false;
+if unknown x$l:
+k1:=true;
+assign_z$l(temp);
+assign_z$'l(direction(2-t) of p);
+if (y$$$r-y$r)*(x$$$r-x$r) < 0 :        %first or third quadrant
+y$l:=2ypart center-y$l;
+x$'l:=-x$'l;
+else:
+x$l:=2xpart center-x$l;
+y$'l:=-y$'l;
+fi
+fi
+if unknown x$$$l:
+k2:=true;
+assign_z$$$l(temp);
+assign_z$$$'l(direction(2-t) of p);
+if (y$$$r-y$r)*(x$$$r-x$r) < 0 :        %first or third quadrant
+x$$$l:=2xpart center-x$$$l;
+y$$$'l:=-y$$$'l;
+else:
+y$$$l:=2ypart center-y$$$l;
+x$$$'l:=-x$$$'l;
+fi
+fi
+q:=z$l{z$'l}...z$$l{z$$'l}...z$$$l{z$$$'l};
+if k1 :
+t := xpart(q intersectiontimes (center---z$r));
+if t=-1 : t:=0; fi
+assign_z$l(point t of q);
+assign_z$'l(direction t of q);
+assign_z$'r(corner-z$r);
+z$l+z$r=2z$;
+else: t:=0;
+fi
+if k2 :
+s := xpart(q intersectiontimes (center---z$$$r));
+if s=-1 : s:=2; fi
+assign_z$$$l(point s of q);
+assign_z$$$'l(direction s of q);
+assign_z$$$'r(z$$$r-corner);
+z$$$l+z$$$r=2z$$$;
+else: s:=2;
+fi
+subpath (t,s) of q
+enddef;
+ 
+vardef doodah(suffix $,$$,$$$)=
+if known x$$:
+vardef ward(expr gr)=
+sgn(xpart direction 1 of (z${zdir$}..(x$$,gr)..{zdir$$$}z$$$)) <> sgn(x$-x$$)
+enddef;
+y$$=solve ward(y$,y$$$);
+else:
+vardef ward(expr gr)=
+sgn(ypart direction 1 of (z${zdir$}..(gr,y$$)..{zdir$$$}z$$$)) <> sgn(y$-y$$)
+enddef;
+x$$=solve ward(x$,x$$$);
+fi
+(z${zdir$}..z$$..{zdir$$$}z$$$)
+enddef;
+ 
+forsuffixes e=r,l:
+vardef club.e(suffix $,$$,$$$)= doodah($e,$$e,$$$e) enddef; endfor
+ 
+vardef alpha_tail(suffix $,$$) =
+pos$$(hair,180); top y$$=vround 4/3[bot y$l,top y$r];           %tip of hook
+rt x$$l=hround(x$+(y$$-y$)+.5hair);                     %central arc is round
+enddef;
+ 
+vardef pi_bar =
+pos3(vstem,-90); rt x3=hround(w-.75u); top y3l=x_height;        %top right
+pos2(vstem,-90); y2=y3; x2=.25w;                                %top left
+x1-.5hair=hround.75u; y1-.5hair=4/3[top y2l,bot y2r];           %tip of bar
+numeric slope; slope=angle((z2-z1)yscaled 2); pos1(hair,slope-90);
+forsuffixes e=l,r: z1'e=(z2e-z1e)yscaled 2; endfor
+filldraw circ_stroke z1e{z1'e}...z2e---z3e;             %bar
+enddef;
+ 
+def traba(expr poso) = transform t; t = identity shifted (poso,0);
+currentpicture := currentpicture transformed t;
+enddef;
+ 
