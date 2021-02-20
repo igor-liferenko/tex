@@ -9,5 +9,5 @@ This condition is taken from \.{tex.web}:
 wchar_t xchr[256] = {0};
 @i mapping.w
 @ @<Character |k| cannot be printed@>=
-  ((k < ' ')||(k > '~'))&&!xchr[k]
+(k < ' ' || k > '~') && xchr[k] == 0
 @z
