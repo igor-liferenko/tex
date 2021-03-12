@@ -1,2 +1,5 @@
 increase error line width - see https://tex.stackexchange.com/questions/525953/
 (but output in TeXbook may differ then)
+
+understand why editor bug in TeX tuneup 2021 does not affect my implementation
+(what is the meaning of the fix?)
