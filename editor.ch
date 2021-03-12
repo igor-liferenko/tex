@@ -1,3 +1,5 @@
+NOTE: string pool is not used to obtain the file name because it is changed in print.ch
+
 @x
 @h
 @y
