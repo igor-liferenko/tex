@@ -1,3 +1,5 @@
+% TODO: move greek.mf and greekbase.mf to this file
+
 mode:=localfont;
 % Reduced Greek Regular 10 point
 if unknown cmbase: input cmbase fi
