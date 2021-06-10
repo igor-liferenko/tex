@@ -2,4 +2,8 @@ increase error line width - see https://tex.stackexchange.com/questions/525953/
 (but output in TeXbook may differ then)
 
 understand why editor bug in TeX tuneup 2021 does not affect my implementation
-(what is the meaning of the fix?)
+HINT: restore opening via file name from `git diff dfd5b8172..64cf8753e8', deactivate print.ch
+      and check again (also remove the following code from tex.web)
+if name=str_ptr-1 then {we can conserve string pool space now}
+  begin flush_string; name:=cur_name;
+  end;
