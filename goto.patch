@@ -1,13 +1,8 @@
-TeX was written on a system with line-separators
-and I use it on Linux (with line-terminators).
-The problem is the final newline.
-I work around it by doing "wterm_cr" right before exiting.
-For this, "goto final_end" is convenient because I need to add wterm_cr only once.
-Similarly, returning exit status is done only once.
-This patch restores the "final_end" gotos which web2w removes.
-In two places where they are non-local they are not restored.
-In "Buffer size exceeded!" case wterm_cr is not issued because of a bug in TeX,
-which uses "write_ln" instead of "write".
+This patch restores the "final_end" goto (which web2w removes)
+in order that we could exit with proper status.
+Where exit status is always 1, it is set so.
+
+FIXME: remove "assert(history > warning_issued);"
 
 @@ -1020,14 +1020,10 @@
  The first line is special also because it may be read before \TeX\ has
@@ -38,7 +33,7 @@ which uses "write_ln" instead of "write".
  @<Error hand...@>=
  void jump_out(void)
 -{@+ close_files_and_terminate(); exit(0);
-+{@+ close_files_and_terminate(); wterm_cr; exit(1);
++{@+ close_files_and_terminate(); exit(1);
  } 
  
  @ Here now is the general |error| routine.
@@ -47,7 +42,7 @@ which uses "write_ln" instead of "write".
  force_eof=false;
  align_state=1000000;@/
 -if (!init_terminal()) exit(0);
-+if (!init_terminal()) goto final_end;
++if (!init_terminal()) { assert(history > warning_issued); exit(1); }
  limit=last;first=last+1; /*|init_terminal| has set |loc| and |last|*/ 
  } 
  
@@ -67,7 +62,6 @@ which uses "write_ln" instead of "write".
 -ready_already=0;
 -return 0; }
 +final_end:
-+wterm_cr;
 +if (history <= warning_issued) return 0;
 +else return 1; }
  
@@ -78,10 +72,10 @@ which uses "write_ln" instead of "write".
  if ((format_ident==0)||(buffer[loc]=='&')) 
    {@+if (format_ident!=0) initialize(); /*erase preloaded format*/ 
 -  if (!open_fmt_file()) exit(0);
-+  if (!open_fmt_file()) goto final_end;
++  if (!open_fmt_file()) { assert(history > warning_issued); exit(1); }
    if (!load_fmt_file()) 
 -    {@+w_close(&fmt_file);exit(0);
-+    {@+w_close(&fmt_file);goto final_end;
++    {@+w_close(&fmt_file);assert(history > warning_issued);exit(1);
      } 
    w_close(&fmt_file);
    while ((loc < limit)&&(buffer[loc]==' ')) incr(loc);
