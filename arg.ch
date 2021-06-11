@@ -22,9 +22,9 @@ if (argc == 2) {
 @z
 
 @x
-if (!init_terminal()) goto final_end;
+if (!init_terminal()) { assert(history > warning_issued); exit(1); }
 @y
-if (!init_terminal(argc,argv)) goto final_end;
+if (!init_terminal(argc,argv)) { assert(history > warning_issued); exit(1); }
 @z
 
 @x

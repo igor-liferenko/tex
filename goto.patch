@@ -1,8 +1,8 @@
-This patch restores the "final_end" goto (which web2w removes)
-in order that we could exit with proper status.
-Where exit status is always 1, it is set so.
+Exit with proper status.
 
-FIXME: remove "assert(history > warning_issued);"
+TODO: move from here to exit.ch
+FIXME: why I decided to delete "ready_already=0;" ?
+TODO: verify in code that exit status is 1 and remove "assert(history > warning_issued);"
 
 @@ -1020,14 +1020,10 @@
  The first line is special also because it may be read before \TeX\ has
@@ -51,23 +51,22 @@ FIXME: remove "assert(history > warning_issued);"
      "---case %d", bad);
  @.Ouch...clobbered@>
 -  exit(0);
-+  goto final_end;
++  assert(history > warning_issued); exit(1);
    } 
  initialize(); /*set global variables to their starting values*/ 
  #ifdef @!INIT
-@@ -24332,8 +24322,10 @@
+@@ -24332,8 +24322,8 @@
  main_control(); /*come to life*/ 
  final_cleanup(); /*prepare for death*/ 
  close_files_and_terminate();
 -ready_already=0;
 -return 0; }
-+final_end:
 +if (history <= warning_issued) return 0;
 +else return 1; }
  
  @ Here we do whatever is needed to complete \TeX's job gracefully on the
  local operating system. The code here might come into play after a fatal
-@@ -24474,9 +24466,9 @@
+@@ -24474,9 +24464,9 @@
  {@+@<Initialize the input routines@>;
  if ((format_ident==0)||(buffer[loc]=='&')) 
    {@+if (format_ident!=0) initialize(); /*erase preloaded format*/ 
