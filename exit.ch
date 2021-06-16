@@ -2,7 +2,7 @@
 @h
 @y
 @h
-#define exit do { wterm_cr; if (history <= warning_issued) exit(0); else exit(1); } while
+#define exit do { if (history <= warning_issued) exit(0); else exit(1); } while
 @z
 
 @x
