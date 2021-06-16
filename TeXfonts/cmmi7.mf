@@ -1,1 +1,0 @@
-/usr/share/texlive/texmf-dist/fonts/source/public/cm/cmmi7.mf
