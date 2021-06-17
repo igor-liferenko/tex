@@ -14,6 +14,7 @@ all:
 	@sed -i -f triplog.sed trip.log
 	@diff tex/trip.log trip.log
 	@sed -i -f tripfot.sed trip.fot
+	@echo >>trip.fot
 	@diff tex/trip.fot trip.fot
 	@echo
 	@echo Passed.
