@@ -7,3 +7,22 @@ HINT: restore opening via file name from `git diff dfd5b8172..64cf8753e8', deact
 if name=str_ptr-1 then {we can conserve string pool space now}
   begin flush_string; name:=cur_name;
   end;
+
+Update to 2021 tuneup.
+
+NOTE: the following changes are not relevant to me:
+
++Beware: For historic reasons, this code foolishly conserves a tiny bit
++of string pool space; but that can confuse the interactive `\.E' option.
++@^system dependencies@>
+
+-if name=str_ptr-1 then {we can conserve string pool space now}
++if name=str_ptr-1 then {conserve string pool space (but see note above)}
+
+This is because I do not use string pool to obtain file name for editor.
+String pool cannot be used for the following reasons:
+1) before being used for editor, file name from string pool is printed on terminal and in log
+2) we need to modify file name before it is being printed (see print.ch)
+3) after it is modified, file name cannot be used for editor
+So no need to keep it - let it be removed by default.
+Luckily, there is an alternative method to obtain file name - using file descriptor.
