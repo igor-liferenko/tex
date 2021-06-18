@@ -26,3 +26,15 @@ String pool cannot be used for the following reasons:
 3) after it is modified, file name cannot be used for editor
 So no need to keep it - let it be removed by default.
 Luckily, there is an alternative method to obtain file name - using file descriptor.
+
+This is suspicious:
+
+-This program doesn't bother to close the input files that may still be open.
++If |final_cleanup| is bypassed, this program doesn't bother to close
++the input files that may still be open.
+
+(it seems input files are not closed in final_cleanup either - check this - see commit
+5efca0dac55b1da2912cba599f4c
+(manifested itself in old libc on debian 10 buster - in debian 11 it works ok), also see
+https://tug.org/pipermail/tex-k/2018-February/002851.html + how he tried to fix this in his
+https://github.com/nadder/rstex/ (by assigning NULL))
