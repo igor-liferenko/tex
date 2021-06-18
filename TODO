@@ -8,8 +8,8 @@ if name=str_ptr-1 then {we can conserve string pool space now}
   begin flush_string; name:=cur_name;
   end;
 
-Update to 2021 tuneup.
-
+====================== Update to 2021 tuneup =================================================
+<<<<<<<<<<<<<<<<<
 NOTE: the following changes are not relevant to me:
 
 +Beware: For historic reasons, this code foolishly conserves a tiny bit
@@ -22,19 +22,29 @@ NOTE: the following changes are not relevant to me:
 This is because I do not use string pool to obtain file name for editor.
 String pool cannot be used for the following reasons:
 1) before being used for editor, file name from string pool is printed on terminal and in log
-2) we need to modify file name before it is being printed (see print.ch)
+2) we need to modify file name before it is being printed (see print.ch); after it is printed, its string pool space is conserved (only files being \input are subject to this - string pool space of
+master file is never conserved (this is because x.tex is followed by x.log in string pool and the
+"if" check is therefore false))
 3) after it is modified, file name cannot be used for editor
-So no need to keep it - let it be removed by default.
+So no need to keep it - let string pool space be conserved.
 Luckily, there is an alternative method to obtain file name - using file descriptor.
+>>>>>>>>>>>>>>>>>>
 
-This is suspicious:
+<<<<<<<<<<<<<<<<<
+This change is suspicious:
 
 -This program doesn't bother to close the input files that may still be open.
 +If |final_cleanup| is bypassed, this program doesn't bother to close
 +the input files that may still be open.
 
-(it seems input files are not closed in final_cleanup either - check this - see commit
+(it seems input files are not closed in final_cleanup either - check this by analogy with commit
 5efca0dac55b1da2912cba599f4c
-(manifested itself in old libc on debian 10 buster - in debian 11 it works ok), also see
-https://tug.org/pipermail/tex-k/2018-February/002851.html + how he tried to fix this in his
-https://github.com/nadder/rstex/ (by assigning NULL))
+(segfault manifested itself when program exited before wide-oriented file was explicitly closed in old libc on debian 10 buster - in debian 11 it works ok). Try to understand
+if the method used in 5efca0 commit is similar to how this
+    https://tug.org/pipermail/tex-k/2018-February/002851.html
+was resolved in
+    https://github.com/nadder/rstex/ (by assigning NULL)
+But this exact problem from pipermail link is not relevant to web2w implementation because it does
+not use string pool file.
+>>>>>>>>>>>>>>>>>>
+=========================================================================================
