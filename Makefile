@@ -15,4 +15,4 @@ triptex:
 	/bin/ctangle tex tex
 	gcc -O3 -DINIT -DSTAT tex.c -o trip/triptex
 
-CHF=path.ch interrupt.ch arg.ch print.ch editor.ch format.ch time.ch verify.ch exit.ch
+CHF=path.ch interrupt.ch arg.ch print.ch editor.ch format.ch time.ch verify.ch exit.ch print_nl.ch
