@@ -1,14 +1,13 @@
-@x
-@<Global variables@>@;
-@y
-@<Global variables@>@;
-int suppress_error = 0;
-@z
-
+We use existing variable to avoid creating new global variable.
+If the following is not the only error message that can appear if load_fmt_file() fails,
+add new one(s) here, and if such code is called also not from load_fmt_file(),
+ensure that it happens after ready_already=314159 - otherwise you will need
+separate global variable suppress_error and set it to 1 before calling
+load_fmt_file() here and to 0 afterwards.
 @x
   wterm_ln("(Fatal format file error; I'm stymied)");
 @y
-  if (!suppress_error) wterm_ln("(Fatal format file error; I'm stymied)");
+  if (ready_already==314159) wterm_ln("(Fatal format file error; I'm stymied)");
 @z
 
 @x
@@ -29,7 +28,7 @@ wcstombs(name_of_file+1, TEX_format_default+1, file_name_size+1);
 strcpy(strrchr(name_of_file+1, '/'), strrchr(argv[0], '/'));
 strcat(name_of_file+1, ".fmt");
 assert(w_open_in(&fmt_file));
-suppress_error = 1; assert(load_fmt_file()); suppress_error = 0;
+assert(load_fmt_file());
 w_close(&fmt_file);
 #endif
 @z
