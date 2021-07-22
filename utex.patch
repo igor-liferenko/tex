@@ -192,7 +192,7 @@
 -for (k=3*month-2; k<=3*month; k++) wlog("%c",months[k]);
 +for (k=3*month-2; k<=3*month; k++) wlog("%lc",months[k]);
  print_char(' ');print_int(year);print_char(' ');
- print_two(time/60);print_char(':');print_two(time%60);
+ print_two(time_of_day/60);print_char(':');print_two(time_of_day%60);
  } 
 @@ -24289,6 +24309,7 @@
  @^system dependencies@>
