@@ -1,15 +1,3 @@
-We use existing variable to avoid creating new global variable.
-If the following is not the only error message that can appear if load_fmt_file() fails,
-add new one(s) here, and if such code is called also not from load_fmt_file(),
-ensure that it happens after ready_already=314159 - otherwise you will need
-separate global variable suppress_error and set it to 1 before calling
-load_fmt_file() here and to 0 afterwards.
-@x
-  wterm_ln("(Fatal format file error; I'm stymied)");
-@y
-  if (ready_already==314159) wterm_ln("(Fatal format file error; I'm stymied)");
-@z
-
 @x
 @p int main(int argc, char **argv) {
 @y
