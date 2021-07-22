@@ -16,7 +16,7 @@ wcstombs(name_of_file+1, TEX_format_default+1, file_name_size+1);
 strcpy(strrchr(name_of_file+1, '/'), strrchr(argv[0], '/'));
 strcat(name_of_file+1, ".fmt");
 assert(w_open_in(&fmt_file));
-assert(load_fmt_file());
+term_out.f=fopen("/dev/null", "w"); assert(load_fmt_file()); fclose(term_out.f); term_out.f=stdout;
 w_close(&fmt_file);
 #endif
 @z
