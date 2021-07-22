@@ -1,11 +1,12 @@
 all:
 ifeq ($(MAKELEVEL),2) # for TRIP
-	/bin/ctangle web2w
+	/bin/ctangle web2w time
 else
-	/bin/ctangle web2w printable
+	tie -c web2w.ch web2w.w time.ch printable.ch >/dev/null
+	/bin/ctangle web2w web2w
 endif
 	flex -o web.lex.c web.l
 	bison --warnings=none -d -v pascal.y
 	gcc -o web2w web2w.c web.lex.c pascal.tab.c
 	./web2w -o ctex.w tex.web
-	patch ctex.w ctex.patch
+	sed 's/(time/(time_of_day/g' ctex.patch | patch ctex.w

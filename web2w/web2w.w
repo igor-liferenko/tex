@@ -2429,7 +2429,6 @@ SYM_PTR("switch")->name="get_cur_chr";
 SYM_PTR("continue")->name="resume";
 SYM_PTR("int")->name="i";
 SYM_PTR("register")->name="internal_register";
-SYM_PTR("time")->name="time_of_day";
 @#
 SYM_PTR("exit")->name="end";
 SYM_PTR("free")->name="is_free";
