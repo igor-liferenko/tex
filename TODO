@@ -8,6 +8,9 @@ if name=str_ptr-1 then {we can conserve string pool space now}
   begin flush_string; name:=cur_name;
   end;
 
+How pack_file_name differs from pack_buffered_name? Try to make TEX_area greater than
+file_name_size and open file in current directory. Try to open file grepter than file_name_size
+
 ====================== Update to 2021 tuneup =================================================
 <<<<<<<<<<<<<<<<<
 NOTE: the following changes are not relevant to me:
