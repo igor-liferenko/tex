@@ -5,7 +5,6 @@ enum {@+@!file_name_size=40@+}; /*file names shouldn't be longer than this*/
 enum {@+@!file_name_size=255@+}; /*file names shouldn't be longer than this*/
 @z
 
-Allow to specify font path in font file name.
 @x
   if ((c=='>')||(c==':'))
 @y
