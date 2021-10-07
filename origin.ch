@@ -94,13 +94,13 @@ str_start_668, str_start_669, str_start_670, str_start_671, str_start_672
 @z
 
 @x
-str_start_end } str_starts;
+str_start_668=str_start_667+sizeof(str_667)-1,@/
 @y
+str_start_668=str_start_667+sizeof(str_667)-1,@/
 str_start_669=str_start_668+sizeof(str_668)-1,@/
 str_start_670=str_start_669+sizeof(str_669)-1,@/
 str_start_671=str_start_670+sizeof(str_670)-1,@/
 str_start_672=str_start_671+sizeof(str_671)-1,@/
-str_start_end } str_starts;
 @z
 
 @x
