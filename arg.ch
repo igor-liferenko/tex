@@ -1,5 +1,3 @@
-Only one argument is handled (filename).
-
 @x
 @p bool init_terminal(void) /*gets the terminal input started*/
 @y
