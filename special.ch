@@ -1,4 +1,4 @@
-Output \special in UTF-8 instead of in internal encoding (for names of image files).
+Write \special in UTF-8.
 
 @x
 if (cur_length < 256)
