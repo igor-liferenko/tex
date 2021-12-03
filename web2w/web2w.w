@@ -2425,16 +2425,14 @@ change the names of these identifiers.%
 
 
 @<finalize token list@>=
+SYM_PTR("xclause")->name="else";
 SYM_PTR("switch")->name="get_cur_chr";
 SYM_PTR("continue")->name="resume";
-SYM_PTR("int")->name="i";
-SYM_PTR("register")->name="internal_register";
-@#
 SYM_PTR("exit")->name="end";
 SYM_PTR("free")->name="is_free";
-@#
-SYM_PTR("xclause")->name="else";
+SYM_PTR("int")->name="i";
 SYM_PTR("remainder")->name="rem";
+SYM_PTR("register")->name="internal_register";
 @
 
 A special case is the the field identifier |int|. It can not be used
