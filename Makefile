@@ -3,10 +3,10 @@ all:
 	patch -o tex.w web2w/ctex.w utex.patch
 	tie -c tex.ch tex.w constants.ch special.ch pdf.ch origin.ch $(CHF) >/dev/null
 	/bin/ctangle tex tex
-	gcc -O3 -DINIT tex.c -o initex
+	gcc -DINIT tex.c -o initex -lm
 	@echo 'plain \input origin \dump' | ./initex >/dev/null; mv plain.fmt TeXformats/
 	@echo 'тех \input origin \dump' | ./initex >/dev/null; mv тех.fmt TeXformats/
-	gcc -O3 -DSTAT tex.c -o virtex
+	gcc -DSTAT tex.c -o virtex -lm
 
 triptex:
 	make -C web2w
