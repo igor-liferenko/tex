@@ -13,6 +13,6 @@ triptex:
 	patch -o tex.w web2w/ctex.w utex.patch
 	tie -c tex.ch tex.w trip/constants.ch $(CHF) >/dev/null
 	/bin/ctangle tex tex
-	gcc -O3 -DINIT -DSTAT tex.c -o trip/triptex
+	gcc -DINIT -DSTAT tex.c -o trip/triptex -lm
 
 CHF=path.ch interrupt.ch arg.ch print.ch editor.ch preload.ch time.ch verify.ch exit.ch
