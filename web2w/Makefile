@@ -9,4 +9,4 @@ endif
 	bison --warnings=none -d -v pascal.y
 	gcc -o web2w web2w.c web.lex.c pascal.tab.c
 	./web2w -o ctex.w tex.web
-	sed 's/(time/(time_of_day/g;s/ (HINT)//' ctex.patch | patch ctex.w
+	sed 's/ (HINT)//' ctex.patch | patch -s --no-backup-if-mismatch ctex.w

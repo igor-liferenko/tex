@@ -20,4 +20,3 @@ to avoid this CTANGLE error:
   else if (k<' ') fprintf(w,"\\x%x",k);
   else wput(k);
 @z
-and add "ctex.w.orig" to web2w/.gitignore
