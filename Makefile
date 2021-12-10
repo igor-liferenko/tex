@@ -4,8 +4,8 @@ all:
 	tie -c tex.ch tex.w constants.ch special.ch pdf.ch origin.ch $(CHF) >/dev/null
 	/bin/ctangle tex tex
 	gcc -DINIT tex.c -o initex -lm
-	@echo 'plain \input origin \dump' | ./initex >/dev/null; mv plain.fmt TeXformats/
-	@echo 'тех \input origin \dump' | ./initex >/dev/null; mv тех.fmt TeXformats/
+	@./initex 'plain \input origin \dump' >/dev/null; mv plain.fmt TeXformats/
+	@./initex 'тех \input origin \dump' >/dev/null; mv тех.fmt TeXformats/
 	gcc -DSTAT tex.c -o virtex -lm
 
 triptex:
