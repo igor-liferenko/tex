@@ -6,16 +6,14 @@
 @z
 
 @x
-{@+time_of_day=12*60; /*minutes since midnight*/ 
-day=4; /*fourth day of the month*/ 
-month=7; /*seventh month of the year*/ 
-year=1776; /*Anno Domini*/ 
+{@+sys_time=12*60;
+sys_day=4;sys_month=7;sys_year=1776; /*self-evident truths*/ 
 @y
 { time_t $ = time(NULL);
   struct tm *t = localtime(&$);
 
-  time_of_day = t->tm_hour * 60 + t->tm_min;
-  day = t->tm_mday;
-  month = t->tm_mon + 1;
-  year = t->tm_year + 1900;
+  sys_time = t->tm_hour * 60 + t->tm_min;
+  sys_day = t->tm_mday;
+  sys_month = t->tm_mon + 1;
+  sys_year = t->tm_year + 1900;
 @z
