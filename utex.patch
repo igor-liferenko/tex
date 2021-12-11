@@ -188,11 +188,11 @@
 @@ -10397,7 +10417,7 @@
  {@+wlog("%s",banner);
  slow_print(format_ident);print_str("  ");
- print_int(sys_day);print_char(' ');
--for (k=3*sys_month-2; k<=3*sys_month; k++) wlog("%c",months[k]);
-+for (k=3*sys_month-2; k<=3*sys_month; k++) wlog("%lc",months[k]);
- print_char(' ');print_int(sys_year);print_char(' ');
- print_two(sys_time/60);print_char(':');print_two(sys_time%60);
+ print_int(day);print_char(' ');
+-for (k=3*month-2; k<=3*month; k++) wlog("%c",months[k]);
++for (k=3*month-2; k<=3*month; k++) wlog("%lc",months[k]);
+ print_char(' ');print_int(year);print_char(' ');
+ print_two(time/60);print_char(':');print_two(time%60);
  } 
 @@ -24289,6 +24309,7 @@
  @^system dependencies@>
