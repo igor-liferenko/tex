@@ -8,7 +8,9 @@ if name=str_ptr-1 then {we can conserve string pool space now}
   begin flush_string; name:=cur_name;
   end;
 
-====================== Update to 2021 tuneup =================================================
+Check if `={0}' is necessary for name_of_file0 (introduced in ctex.patch)
+
+=== 2021 tuneup (git diff 1dddef..ad17c3) ===
 <<<<<<<<<<<<<<<<<
 NOTE: the following changes are not relevant to me:
 
