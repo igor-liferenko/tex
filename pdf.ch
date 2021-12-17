@@ -10,7 +10,7 @@
 @y
   char tmp[30];
   assert(snprintf(tmp, sizeof tmp, "/proc/self/fd/%d", fileno(dvi_file.f)) < sizeof tmp);
-  char fname[500] = {0};
+  char fname[500] = {};
   assert(readlink(tmp, fname, sizeof fname) != -1 && fname[sizeof fname - 1] == 0);
   b_close(&dvi_file);
   pid_t dvipdfm_pid = fork();
