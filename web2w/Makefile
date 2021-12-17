@@ -9,4 +9,4 @@ endif
 	bison --warnings=none -d -v pascal.y
 	gcc -o web2w web2w.c web.lex.c pascal.tab.c
 	./web2w -o ctex.w tex.web
-	sed '55,63d;s/\(time\|day\|month\|year\)[^s ,(.*]/sys_&/g;s| /\*go to every|@/& declared|;827s|$$|@/|' ctex.patch | patch -s --no-backup-if-mismatch ctex.w
+	sed '55,63d;631,636s/\(time\|day\|month\|year\)\b/sys_&/g;817{s/13/7/g;h};826{H;G}' ctex.patch | patch -s --no-backup-if-mismatch ctex.w
