@@ -82,18 +82,18 @@ Text characters are now in Unicode.
 > wchar_t TEX_format_default[]=L" TeXfor...
 
 < pascal_char months[]=" JANFEBMARAPRMAY...
-> wchar_t months[]=L" JANFEBMARAPRMAYJUN... 
+> wchar_t months[]=L" JANFEBMARAPRMAYJUN...
 \endverbatim
 File names must be in \UTF-8.
 \verbatim
 < pascal_char name_of_file0
-<             [file_name_size+1] = {0},
+<             [file_name_size+1],
 <   *const name_of_file = name_of_file0-1;
 <   /* on some systems this may be a
-<      \&{record} variable */ 
+<      \&{record} variable */
 
 > char name_of_file0
->      [file_name_size+1] = {0},
+>      [file_name_size+1],
 >   *const name_of_file = name_of_file0-1;
 \endverbatim
 \medskip
@@ -180,7 +180,7 @@ being increased by negating its value:
 \verbatim
 < @d append_to_name(X) { c=X;incr(k);
 <   if (k <= file_name_size)
-<     name_of_file[k]=xchr[c]; } 
+<     name_of_file[k]=xchr[c]; }
 
 > @d append_to_name(X) { c=X;
 >   if (k >= 0) { /* try to append? */
