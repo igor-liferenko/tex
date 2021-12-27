@@ -8,7 +8,7 @@ if name=str_ptr-1 then {we can conserve string pool space now}
   begin flush_string; name:=cur_name;
   end;
 
-=== 2021 tuneup (commits 1dddef..ad17c3 + 1c1eb7) ===
+=== 2021 tuneup (can be undone by removing everything starting from first `;' in sed-command in web2w/Makefile, removing sed-commands and time.ch from Makefile, and reverting tex.web and trip/) ===
 <<<<<<<<<<<<<<<<<
 NOTE: the following changes are not relevant to me:
 
