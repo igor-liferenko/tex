@@ -1,4 +1,4 @@
-NOTE: web2w replaces "goto final_end" with "exit", but I would like to stick to the original
+NOTE: web2w replaces "goto final_end" with "exit", but I prefer to stick to the original
 
 @x
   {@+write_ln(term_out,"Buffer size exceeded!");exit(0);
