@@ -1,7 +1,4 @@
-Martin Ruckert, the author of web2w, had his reasons for replacing
-"goto final_end" with "exit(0)". But I would like to make the present
-implementation closer to the original, so in this change-file I restore
-the gotos (except where they are non-local).
+NOTE: web2w replaces "goto final_end" with "exit", but I would like to stick to the original
 
 @x
   {@+write_ln(term_out,"Buffer size exceeded!");exit(0);
