@@ -1,4 +1,5 @@
 Format name is taken from 0th argument (symlink to virtex).
+
 Gdb automatically sets full path to symlink.
 To simplify the logic below, symlink is run via full path too.
 @x
