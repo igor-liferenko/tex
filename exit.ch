@@ -1,3 +1,8 @@
+Martin Ruckert, the author of web2w, had his reasons for replacing
+"goto final_end" with "exit(0)". But I would like to make the present
+implementation closer to the original, so in this change-file I restore
+the gotos (except where they are non-local).
+
 @x
   {@+write_ln(term_out,"Buffer size exceeded!");exit(0);
 @y
@@ -13,29 +18,29 @@
 @x
 if (!init_terminal(argc,argv)) exit(0);
 @y
-if (!init_terminal(argc,argv)) exit(1);
+if (!init_terminal(argc,argv)) goto final_end;
 @z
 
 @x
   exit(0);
 @y
-  exit(1);
+  goto final_end;
 @z
 
 @x
 return 0; }
 @y
-if (history <= warning_issued) return 0; else return 1; }
+final_end: if (history <= warning_issued) return 0; else return 1; }
 @z
 
 @x
   if (!open_fmt_file()) exit(0);
 @y
-  if (!open_fmt_file()) exit(1);
+  if (!open_fmt_file()) goto final_end;
 @z
 
 @x
     {@+w_close(&fmt_file);exit(0);
 @y
-    {@+w_close(&fmt_file);exit(1);
+    {@+w_close(&fmt_file);goto final_end;
 @z
