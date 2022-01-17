@@ -1,15 +1,6 @@
 Format name is taken from 0th argument (symlink to virtex).
 
-Gdb automatically sets full path to symlink.
-To simplify the logic below, symlink is run via full path too.
-@x
-@p int main(int argc, char **argv) {
-@y
-@p int main(int argc, char **argv) {
-#ifndef INIT
-assert(*argv[0] == '/');
-#endif
-@z
+NOTE: it is assumed that argv[0] contains an absolute path
 
 @x
 initialize(); /*set global variables to their starting values*/ 

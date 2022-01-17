@@ -1,5 +1,13 @@
 See utf8.pdf - it contains improvements to https://www.tug.org/TUGboat/tb41-3/tb129liferenko-utf8.pdf
 
+Add this `tex' script to PATH:
+
+    #!/bin/sh
+    /home/user/tex/plain "$@"
+    ret=$?
+    [ $ret != 134 ] && echo
+    exit $ret
+
 Section numbering differs from tex.web between §521 and §531.
 
 To use debugger, add "-g -Og" and run "gdb plain"

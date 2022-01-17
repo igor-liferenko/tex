@@ -28,5 +28,5 @@ if (!init_terminal(argc,argv)) exit(0);
 @x
 @p int main(void) {@! /*|start_here|*/
 @y
-@p int main(int argc, char **argv) {
+@p int main(int argc, char **argv) { assert(argc <= 2);
 @z
