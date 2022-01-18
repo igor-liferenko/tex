@@ -94,11 +94,20 @@ Therefore, we change |pascal_char| to |wchar_t|.
 < pascal_char months[]=" JANFEBMARAPRMAY...
 > wchar_t months[]=L" JANFEBMARAPRMAYJUN...
 \endverbatim
-One exception to this rule is the {\it name\_of\_file\/}
-buffer. In the present implementation the type |char|
-is used for it (see comment to
-{\it name\_of\_file\/} in \S26 in [3]). The reason is
-that file names are in \UTF-8 (on most systems).
+One exception to this rule is stated in \S26
+(in comment to {\it name\_of\_file\/}).
+This exception is useful in the present implementation,
+as file names are in \UTF-8 (on most systems).
+Thus, we use |char| instead of |wchar_t|.
+\verbatim
+< pascal_char name_of_file0
+<             [file_name_size+1],
+<   *const name_of_file = name_of_file0-1;
+
+> char name_of_file0
+>      [file_name_size+1],
+>   *const name_of_file = name_of_file0-1;
+\endverbatim
 \medskip
 It remains to set the |LC_CTYPE| locale category, on which
 depends the behavior of the C~library functions used below
@@ -255,12 +264,9 @@ the start of the next (multibyte) character to be discarded.
 while (k+wcstombs(NULL,TEX_format_default+
        format_default_length-
        format_ext_length+1,0) >
-       file_name_size) {
-  k--;
+       file_name_size) { k--;
   while (mblen(name_of_file+k+1,MB_CUR_MAX)
-         ==-1)
-    k--;
-}
+         ==-1) k--; }
 \endverbatim
 
 \head * References *
