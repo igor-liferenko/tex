@@ -264,9 +264,12 @@ the start of the next (multibyte) character to be discarded.
 while (k+wcstombs(NULL,TEX_format_default+
        format_default_length-
        format_ext_length+1,0) >
-       file_name_size) { k--;
+       file_name_size) {
+  k--;
   while (mblen(name_of_file+k+1,MB_CUR_MAX)
-         ==-1) k--; }
+         ==-1)
+    k--;
+}
 \endverbatim
 
 \head * References *
