@@ -78,19 +78,28 @@ In |tex.web| the type |char| is able to contain the same
 characters as in text files (see \S19 in [3]).
 Text characters are now in Unicode.
 \verbatim
-< pascal_char TEX_format_default[]=" TeX...
-> wchar_t TEX_format_default[]=L" TeXfor...
+< pascal_char TEX_format_default0
+<   [format_default_length+1], *const
+< TEX_format_default = TEX_format_default0-1;
+
+> wchar_t TEX_format_default0
+>   [format_default_length+1], *const
+> TEX_format_default = TEX_format_default0-1;
+
+< strcpy(TEX_format_default+1, "TeXforma...
+> wcscpy(TEX_format_default+1, L"TeXform...
 
 < pascal_char months[]=" JANFEBMARAPRMAY...
 > wchar_t months[]=L" JANFEBMARAPRMAYJUN...
 \endverbatim
-File names must be in \UTF-8.
+File names are in \UTF-8 (on most systems). Thus,
+|pascal_char| is changed to |char|,
+not to |wchar_t|. This is does not contradict to |tex.web|
+(see comment to |name_of_file| in \S26 in [3]).
 \verbatim
 < pascal_char name_of_file0
 <             [file_name_size+1],
 <   *const name_of_file = name_of_file0-1;
-<   /* on some systems this may be a
-<      \&{record} variable */
 
 > char name_of_file0
 >      [file_name_size+1],
