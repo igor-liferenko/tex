@@ -1,6 +1,6 @@
 Format name is taken from 0th argument (symlink to virtex).
 
-NOTE: it is assumed that argv[0] contains an absolute path
+NOTE: it is assumed that argv[0] contains absolute path
 
 @x
 initialize(); /*set global variables to their starting values*/ 
