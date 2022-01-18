@@ -128,12 +128,15 @@
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
  name_of_file[name_length+1]=0;
  } 
-@@ -10138,13 +10149,13 @@
+@@ -10138,13 +10149,16 @@
  @d format_extension_str ".fmt" /*the extension, as a \.{WEB} constant*/ 
  
  @<Glob...@>=
 -ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
-+wchar_t @!TEX_format_default[]=L" TeXformats/plain.fmt";
++wchar_t @!TEX_format_default0[format_default_length+1], *const @!TEX_format_default = @!TEX_format_default0-1;
++
++@ @<Set init...@>=
++wcscpy(TEX_format_default+1, L"TeXformats/plain.fmt");
  @.TeXformats@>
  @.plain@>
  @^system dependencies@>
@@ -144,7 +147,7 @@
  
  @ Here is the messy routine that was just mentioned. It sets |name_of_file|
  from the first |n| characters of |TEX_format_default|, followed by
-@@ -10161,11 +10172,16 @@
+@@ -10161,11 +10175,16 @@
  {@+int k; /*number of positions filled in |name_of_file|*/ 
  ASCII_code @!c; /*character being packed*/ 
  int @!j; /*index into |buffer| or |TEX_format_default|*/ 
@@ -163,7 +166,7 @@
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
    append_to_name(xord[TEX_format_default[j]]);
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
-@@ -10224,7 +10240,11 @@
+@@ -10224,7 +10243,11 @@
  if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
   (cur_length > 0)) 
    return'?';
@@ -176,7 +179,7 @@
    return make_string();
    } 
  } 
-@@ -10355,7 +10375,7 @@
+@@ -10355,7 +10378,7 @@
  {@+uint8_t old_setting; /*previous |selector| setting*/ 
  int @!k; /*index into |months| and |buffer|*/ 
  uint16_t @!l; /*end of first input line*/ 
@@ -185,7 +188,7 @@
  old_setting=selector;
  if (job_name==0) job_name=@[@<|"texput"|@>@];
  @.texput@>
-@@ -10397,7 +10417,7 @@
+@@ -10397,7 +10420,7 @@
  {@+wlog("%s",banner);
  slow_print(format_ident);print_str("  ");
  print_int(day);print_char(' ');
@@ -194,7 +197,7 @@
  print_char(' ');print_int(year);print_char(' ');
  print_two(time/60);print_char(':');print_two(time%60);
  } 
-@@ -24289,6 +24309,7 @@
+@@ -24289,6 +24312,7 @@
  @^system dependencies@>
  
  @p int main(void) {@! /*|start_here|*/ 

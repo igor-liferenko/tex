@@ -8,8 +8,6 @@ Add this `tex' script to PATH:
     [ $ret != 134 ] && echo
     exit $ret
 
-Section numbering differs from tex.web between §521 and §531.
-
 To use debugger, add "-g -Og" and run "gdb plain"
 Use this change-file to make stepping over this line with `n' command faster:
 @x
