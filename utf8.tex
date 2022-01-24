@@ -82,17 +82,23 @@ Therefore, we change |pascal_char| to |wchar_t|.
 \verbatim
 < pascal_char TEX_format_default0
 <   [format_default_length+1], *const
-< TEX_format_default = TEX_format_default0-1;
+< TEX_format_default=TEX_format_default0-1;
 
 > wchar_t TEX_format_default0
 >   [format_default_length+1], *const
-> TEX_format_default = TEX_format_default0-1;
+> TEX_format_default=TEX_format_default0-1;
 
 < strcpy(TEX_format_default+1, "TeXforma...
-> wcscpy(TEX_format_default+1, L"TeXform...
+> wcscpy(TEX_format_default+1,L"TeXforma...
 
-< pascal_char months[]=" JANFEBMARAPRMAY...
-> wchar_t months[]=L" JANFEBMARAPRMAYJUN...
+< pascal_char months0[36+1], *const
+<   months=months0-1;
+
+> wchar_t months0[36+1], *const 
+>   months=months0-1;
+
+< strcpy(months+1, "JANFEBMARAPRMAYJUNJU...
+> wcscpy(months+1,L"JANFEBMARAPRMAYJUNJU...
 \endverbatim
 In one case |pascal_char| may be another type
 (see \S26 in [3], in comment to {\it name\_of\_file\/}).
