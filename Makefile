@@ -1,6 +1,6 @@
 all:
 	make -C web2w
-	sed '194,198s/\(year\|month\|day\|time\)\b/sys_&/g' utex.patch|patch -so tex.w web2w/ctex.w
+	sed '194,199s/\(year\|month\|day\|time\)\b/sys_&/g' utex.patch|patch -so tex.w web2w/ctex.w
 	tie -c tex.ch tex.w constants.ch special.ch pdf.ch origin.ch $(CHF) >/dev/null
 	/bin/ctangle tex tex
 	gcc -DINIT tex.c -o initex -lm
@@ -10,7 +10,7 @@ all:
 
 triptex:
 	make -C web2w
-	sed '194,198s/\(year\|month\|day\|time\)\b/sys_&/g' utex.patch|patch -so tex.w web2w/ctex.w
+	sed '194,199s/\(year\|month\|day\|time\)\b/sys_&/g' utex.patch|patch -so tex.w web2w/ctex.w
 	tie -c tex.ch tex.w trip/constants.ch $(CHF) >/dev/null
 	/bin/ctangle tex tex
 	gcc -DINIT -DSTAT tex.c -o trip/triptex -lm
