@@ -184,20 +184,21 @@
  int @!k; /*index into |months| and |buffer|*/ 
  uint16_t @!l; /*end of first input line*/ 
 -@!ASCII_code @!months[]=" JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC"; /*abbreviations of month names*/ 
-+wchar_t @!months[]=L" JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC"; /*abbreviations of month names*/ 
++wchar_t @!months0[36+1], *const @!months = @!months0-1; /*abbreviations of month names*/
  old_setting=selector;
  if (job_name==0) job_name=@[@<|"texput"|@>@];
  @.texput@>
-@@ -10397,7 +10420,7 @@
+@@ -10397,7 +10420,8 @@
  {@+wlog("%s",banner);
  slow_print(format_ident);print_str("  ");
  print_int(day);print_char(' ');
 -for (k=3*month-2; k<=3*month; k++) wlog("%c",months[k]);
++wcscpy(months+1, L"JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC");
 +for (k=3*month-2; k<=3*month; k++) wlog("%lc",months[k]);
  print_char(' ');print_int(year);print_char(' ');
  print_two(time/60);print_char(':');print_two(time%60);
  } 
-@@ -24289,6 +24312,7 @@
+@@ -24289,6 +24313,7 @@
  @^system dependencies@>
  
  @p int main(void) {@! /*|start_here|*/ 
