@@ -80,22 +80,17 @@ is able to contain the same
 characters as in text files (see \S19 in [3]).
 Therefore, we change |pascal_char| to |wchar_t|.
 \verbatim
-< pascal_char TEX_format_default0
-<   [format_default_length+1], *const
-< TEX_format_default=TEX_format_default0-1;
+< pascal_char TEX_format_default0[form...],
+<            *TEX_format_default = ...
 
-> wchar_t TEX_format_default0
->   [format_default_length+1], *const
-> TEX_format_default=TEX_format_default0-1;
+> wchar_t     TEX_format_default0[form...],
+>            *TEX_format_default = ...
 
 < strcpy(TEX_format_default+1, "TeXforma...
 > wcscpy(TEX_format_default+1,L"TeXforma...
 
-< pascal_char months0[36+1], *const
-<   months=months0-1;
-
-> wchar_t months0[36+1], *const 
->   months=months0-1;
+< pascal_char months0[36+1], *months = ...
+> wchar_t     months0[36+1], *months = ...
 
 < strcpy(months+1, "JANFEBMARAPRMAYJUNJU...
 > wcscpy(months+1,L"JANFEBMARAPRMAYJUNJU...
@@ -106,13 +101,11 @@ This exception is applicable in the present implementation,
 since file names are in \UTF-8 (on most systems).
 That is why we use |char| instead of |wchar_t|.
 \verbatim
-< pascal_char name_of_file0
-<             [file_name_size+1],
-<   *const name_of_file = name_of_file0-1;
+< pascal_char name_of_file0[file_name_...],
+<            *name_of_file = ...
 
-> char name_of_file0
->      [file_name_size+1],
->   *const name_of_file = name_of_file0-1;
+> char        name_of_file0[file_name_...],
+>            *name_of_file = ...
 \endverbatim
 \medskip
 It remains to set the |LC_CTYPE| locale category, on which
