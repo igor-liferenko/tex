@@ -26,7 +26,7 @@ the |trip| test.
 \head * 1. Initialization *
 
 Note: we use the {\sl web2w\/} [1] implementation
-of \TeX, but the ideas described here can be applied
+of \TeX, but the ideas, described in the present article, can be applied
 to any implementation.
 
 First, we change the data type of characters in text files to
@@ -75,7 +75,7 @@ installation of \TeX, for example:
 ||https://github.com/igor-liferenko/cweb||
 \medskip
 In |tex.web| the type |char| (called |pascal_char|
-here \Dash to distinguish it from the type |char| in C)
+in this article \Dash to distinguish it from the type |char| in C)
 is able to contain the same
 characters as in text files (see \S19 in [3]).
 Therefore, we change |pascal_char| to |wchar_t|.
@@ -95,11 +95,11 @@ Therefore, we change |pascal_char| to |wchar_t|.
 < strcpy(months+1, "JANFEBMARAPRMAYJUNJU...
 > wcscpy(months+1,L"JANFEBMARAPRMAYJUNJU...
 \endverbatim
-In one case |pascal_char| may be another type
-(see \S26 in [3], in comment to {\it name\_of\_file\/}).
-This exception is applicable in the present implementation,
-since file names are in \UTF-8 (on most systems).
-That is why we use |char| instead of |wchar_t|.
+The {\it name\_of\_file\/} buffer must have the type |char|
+(instead of |wchar_t|), since file names are in \UTF-8
+(on most systems). The possibility of using a different
+type in this case is explicitly stated in comment to {\it name\_of\_file\/}
+(see \S26 in [3]).
 \verbatim
 < pascal_char name_of_file0[file_name_...],
 <            *name_of_file = ...
