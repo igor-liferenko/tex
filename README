@@ -26,3 +26,14 @@ to avoid this CTANGLE error:
   else if (k<' ') fprintf(w,"\\x%x",k);
   else wput(k);
 @z
+
+Change-files are for Linux; `em' editor is needed:
+
+    https://github.com/igor-liferenko/em
+
+-----------------------------------
+
+Other WEB programs converted to CWEB:
+
+    https://github.com/igor-liferenko/mf
+    https://github.com/igor-liferenko/dvitype
