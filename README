@@ -3,7 +3,7 @@ See utf8.pdf - it contains improvements to https://www.tug.org/TUGboat/tb41-3/tb
 Add this `tex' script to PATH:
 
     #!/bin/sh
-    /home/user/tex/plain "$@"
+    /path/to/tex/plain "$@"
     ret=$?
     [ $ret != 134 ] && echo
     exit $ret
