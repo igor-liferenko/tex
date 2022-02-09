@@ -27,6 +27,10 @@ to avoid this CTANGLE error:
   else wput(k);
 @z
 
+Change CWEBINPUTS in Makefile and web2w/Makefile to point to:
+
+    https://github.com/igor-liferenko/cweb
+
 Change-files are for Linux; `em' editor is needed:
 
     https://github.com/igor-liferenko/em

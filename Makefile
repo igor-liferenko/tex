@@ -2,7 +2,7 @@ all:
 	make -C web2w
 	sed '194,199s/\(year\|month\|day\|time\)\b/sys_&/g' utex.patch|patch -so tex.w web2w/ctex.w
 	tie -c tex.ch tex.w constants.ch special.ch pdf.ch origin.ch $(CHF) >/dev/null
-	/bin/ctangle tex tex
+	CWEBINPUTS=:/home/user/cweb /bin/ctangle tex tex
 	gcc -DINIT tex.c -o initex -lm
 	@./initex 'plain \input origin \dump' >/dev/null; mv plain.fmt TeXformats/
 	@./initex 'тех \input origin \dump' >/dev/null; mv тех.fmt TeXformats/
