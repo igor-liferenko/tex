@@ -32,20 +32,13 @@ directory where mapping.w is stored:
 
     https://github.com/igor-liferenko/cweb
 
-Compile ctangle and wmerge from:
+Compile ctangle (using common.patch and ctangle.patch) and wmerge from:
 
-    http://ftp.cs.stanford.edu/pub/cweb/cweb-3.64ah.tgz
-
-using common.patch and ctangle.patch from:
-
-    https://w3-o.cs.hm.edu/users/ruckert/public_html/web2w/web2w.tgz
+    http://ftp.cs.stanford.edu/pub/cweb/cweb.tar.gz
 
 Change-files are for Linux; `em' editor is needed:
 
     https://github.com/igor-liferenko/em
-
-If you do not have flex and bison, just remove `make -C web2w' from Makefile
-(in such case you will not be able to run the TRIP test)
 
 -----------------------------------
 

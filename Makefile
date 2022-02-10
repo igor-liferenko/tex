@@ -1,8 +1,7 @@
 all:
-	make -C web2w
 	sed '194,199s/\(year\|month\|day\|time\)\b/sys_&/g' utex.patch|patch -so tex.w web2w/ctex.w
 	for i in constants.ch special.ch pdf.ch origin.ch $(CHF); do \
-	  CWEBINPUTS=/home/user/cweb wmerge -h tex.w $$i >out.w || exit; mv out.w tex.w; done
+	  CWEBINPUTS=/home/user/cweb wmerge tex.w $$i >out.w || exit; mv out.w tex.w; done
 	ctangle tex
 	gcc -DINIT tex.c -o initex -lm
 	@./initex 'plain \input origin \dump' >/dev/null; mv plain.fmt TeXformats/
@@ -10,10 +9,9 @@ all:
 	gcc -DSTAT tex.c -o virtex -lm
 
 triptex:
-	make -C web2w
-	sed '194,199s/\(year\|month\|day\|time\)\b/sys_&/g' utex.patch|patch -so tex.w web2w/ctex.w
+	sed '194,199s/\(year\|month\|day\|time\)\b/sys_&/g' utex.patch|patch -so tex.w web2w/ttex.w
 	for i in trip/constants.ch $(CHF); do \
-	  CWEBINPUTS=/home/user/cweb wmerge -h tex.w $$i >out.w || exit; mv out.w tex.w; done
+	  CWEBINPUTS=/home/user/cweb wmerge tex.w $$i >out.w || exit; mv out.w tex.w; done
 	ctangle tex
 	gcc -DINIT -DSTAT tex.c -o trip/triptex -lm
 
