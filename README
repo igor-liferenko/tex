@@ -44,7 +44,7 @@ Change-files are for Linux; `em' editor is needed:
 
     https://github.com/igor-liferenko/em
 
-If you do not have flex and bison, just comment `make -C web2w' in Makefile
+If you do not have flex and bison, just remove `make -C web2w' from Makefile
 (in such case you will not be able to run the TRIP test)
 
 -----------------------------------
