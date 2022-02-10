@@ -27,13 +27,13 @@ to avoid this CTANGLE error:
   else wput(k);
 @z
 
-Change CWEBINPUTS in Makefile and web2w/Makefile to point to
-directory where mapping.w is stored or copy mapping.w to
-directory containing this README and its web2w subdirectory.
-
 Compile ctangle (using common.patch and ctangle.patch) and wmerge from:
 
     http://ftp.cs.stanford.edu/pub/cweb/cweb.tar.gz
+
+Copy mapping.w from https://github.com/igor-liferenko/cweb to
+directory where you compiled ctangle/wmerge and set path to it
+in CWEBINPUTS in Makefile and web2w/Makefile
 
 Change-files are for Linux; `em' editor is needed:
 
