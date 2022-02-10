@@ -28,9 +28,8 @@ to avoid this CTANGLE error:
 @z
 
 Change CWEBINPUTS in Makefile and web2w/Makefile to point to
-directory where mapping.w is stored:
-
-    https://github.com/igor-liferenko/cweb
+directory where mapping.w is stored or copy mapping.w to
+directory containing this README and its web2w subdirectory.
 
 Compile ctangle (using common.patch and ctangle.patch) and wmerge from:
 
