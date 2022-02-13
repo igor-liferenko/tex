@@ -22,7 +22,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  |*(limit+2)| without overstepping the bounds of the array.
  
 -@d buf_size 100 /* for \.{CWEAVE} and \.{CTANGLE} */
--@d longest_name 10000
+-@d longest_name 1000
 +@d buf_size 5000 /* for \.{CWEAVE} and \.{CTANGLE} */
 +@d longest_name 10000
  @d long_buf_size (buf_size+longest_name) /* for \.{CWEAVE} */
