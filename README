@@ -37,7 +37,7 @@ containing mapping.w from:
     https://github.com/igor-liferenko/cweb
 
 Adjust format_default_length, format_area_length and paths in path.ch
-Adjust symlink to mf in TeXfonts/
+Adjust symlinks to mf/*.tfm in TeXfonts/
 
 Change-files are for Linux; `em' editor is needed:
 
