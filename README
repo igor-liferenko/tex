@@ -27,12 +27,8 @@ to avoid this CTANGLE error:
   else wput(k);
 @z
 
-Compile ctangle (using common.patch and ctangle.patch) and wmerge from:
-
-    http://ftp.cs.stanford.edu/pub/cweb/cweb-3.64ag.tgz
-
 Point CWEBINPUTS in Makefile and web2w/Makefile to directory,
-containing mapping.w from:
+where you download mapping.w from:
 
     https://github.com/igor-liferenko/cweb
 

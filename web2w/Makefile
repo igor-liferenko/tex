@@ -2,8 +2,8 @@ all:
 ifeq ($(MAKELEVEL),2) # for TRIP
 	ctangle web2w time
 else
-	CWEBINPUTS=/home/user/cweb wmerge web2w.w printable.ch >web2w-merged.w
-	ctangle web2w-merged time web2w
+	tie -c web2w.ch web2w.w printable.ch time.ch >/dev/null
+	CWEBINPUTS=/home/user/cweb ctangle ./web2w ./web2w
 endif
 	flex -o web.lex.c web.l
 	bison --warnings=none -d -v pascal.y
