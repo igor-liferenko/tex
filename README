@@ -35,9 +35,7 @@ where you download mapping.w from:
 Adjust format_default_length, format_area_length and paths in path.ch
 Adjust symlinks to mf/*.tfm in TeXfonts/
 
-Change-files are for Linux; `em' editor is needed:
-
-    https://github.com/igor-liferenko/em
+Change-files are for Linux
 
 -----------------------------------
 
