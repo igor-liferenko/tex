@@ -1,4 +1,4 @@
-NOTE: it is assumed that terminal supports alternate screen and that editor uses it
+NOTE: it is assumed that terminal supports alternate screen
 
 @x
 @h
