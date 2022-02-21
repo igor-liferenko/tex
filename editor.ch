@@ -1,3 +1,5 @@
+NOTE: it is assumed that terminal supports alternate screen and that editor uses it
+
 @x
 @h
 @y

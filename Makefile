@@ -9,8 +9,9 @@ all:
 	gcc -DSTAT tex.c -o virtex -lm
 
 triptex:
+	@[ $(MAKELEVEL) != 0 ]
 	make -C web2w
-	sed '194,199s/\(year\|month\|day\|time\)\b/sys_&/g' utex.patch|patch -so tex.w web2w/ttex.w
+	sed '194,199s/\(year\|month\|day\|time\)\b/sys_&/g' utex.patch|patch -so tex.w web2w/Ctex.w
 	tie -c tex.ch tex.w trip/constants.ch $(CHF) >/dev/null
 	CWEBINPUTS=/home/user/cweb ctangle ./tex ./tex
 	gcc -DINIT -DSTAT tex.c -o trip/triptex -lm
