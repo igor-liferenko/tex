@@ -1,5 +1,5 @@
 all:
-	tie -c web2w.ch web2w.w time.ch `[ $(MAKELEVEL) = 2 ] || echo printable.ch` >/dev/null
+	cat time.ch `[ $(MAKELEVEL) = 2 ] || echo printable.ch` >web2w.ch
 	CWEBINPUTS=/home/user/cweb ctangle ./web2w ./web2w
 	flex -o web.lex.c web.l
 	bison --warnings=none -d -v pascal.y
