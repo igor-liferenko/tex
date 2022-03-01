@@ -20,6 +20,6 @@ NOTE: it is assumed that terminal supports alternate screen
   char fname[500] = {};
   assert(readlink(sname, fname, sizeof fname) != -1 && fname[sizeof fname - 1] == 0);
   char editor[500];
-  assert(snprintf(editor, sizeof editor, "vi %s +%d", fname, line) < sizeof editor);
+  assert(snprintf(editor, sizeof editor, "nano +%d %s", fname, line) < sizeof editor);
   assert(system(editor) == 0);
 @z
