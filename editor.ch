@@ -14,12 +14,8 @@ NOTE: it is assumed that terminal supports alternate screen
   slow_print(input_stack[base_ptr].name_field);
   print_str(" at line ");print_int(line);
 @y
-{ char sname[30];
-  assert(snprintf(sname, sizeof sname, "/proc/self/fd/%d",
-    fileno(input_file[input_stack[base_ptr].index_field].f)) < sizeof sname);
-  char fname[500] = {};
-  assert(readlink(sname, fname, sizeof fname) != -1 && fname[sizeof fname - 1] == 0);
-  char editor[500];
-  assert(snprintf(editor, sizeof editor, "nano +%d %s", line, fname) < sizeof editor);
+{ char editor[30];
+  assert(snprintf(editor, sizeof editor, "vi +%d /proc/%ld/fd/%d", line, (long) getpid(),
+    fileno(input_file[input_stack[base_ptr].index_field].f)) < sizeof editor);
   assert(system(editor) == 0);
 @z
