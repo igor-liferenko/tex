@@ -14,8 +14,8 @@ NOTE: it is assumed that terminal supports alternate screen
   slow_print(input_stack[base_ptr].name_field);
   print_str(" at line ");print_int(line);
 @y
-{ char editor[30];
-  assert(snprintf(editor, sizeof editor, "vi +%d /proc/%ld/fd/%d", line, (long) getpid(),
-    fileno(input_file[input_stack[base_ptr].index_field].f)) < sizeof editor);
+{ char editor[50];
+  sprintf(editor, "vi +%d /proc/%ld/fd/%d", line, (long) getpid(),
+    fileno(input_file[input_stack[base_ptr].index_field].f));
   assert(system(editor) == 0);
 @z
