@@ -15,7 +15,7 @@ NOTE: it is assumed that terminal supports alternate screen
   print_str(" at line ");print_int(line);
 @y
 { char editor[50];
-  sprintf(editor, "vi +%d /proc/%ld/fd/%d", line, (long) getpid(),
+  sprintf(editor, "em +%d /proc/%ld/fd/%d", line, (long) getpid(),
     fileno(input_file[input_stack[base_ptr].index_field].f));
   assert(system(editor) == 0);
 @z
