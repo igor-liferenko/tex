@@ -57,7 +57,7 @@
     /*inputs the next line or returns |false|*/ 
  {@+uint16_t last_nonblank; /*|last| with trailing blanks removed*/ 
 -if (bypass_eoln) if (!eof((*f))) get((*f));
-+if (bypass_eoln) if (!eof((*f))) f->d=fgetwc(f->f);
++if (bypass_eoln) if (!eof(*f)) f->d=fgetwc(f->f);
     /*input the first character of the line into |f.d|*/ 
  last=first; /*cf.\ Matthew 19\thinspace:\thinspace30*/ 
  if (eof((*f))) return false;
