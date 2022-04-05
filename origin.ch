@@ -52,15 +52,18 @@ primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
 @z
 
 @x
-    execlp("dvipdfmx", "dvipdfmx", "-q", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", fname, (char *) NULL);
+  print_two(time_of_day%60);
 @y
-    char papersize[50];
-    sprintf(papersize, "%"PRId64"sp,%"PRId64"sp", (int64_t)pdf_page_width*mag/1000, (int64_t)pdf_page_height*mag/1000);
-    char horigin[50];
-    sprintf(horigin, "%"PRId64"sp", (int64_t) pdf_h_origin * mag / 1000);
-    char vorigin[50];
-    sprintf(vorigin, "%"PRId64"sp", (int64_t) pdf_v_origin * mag / 1000);
-    execlp("dvipdfmx", "dvipdfmx", "-q", "-p", papersize, "-x", horigin, "-y", vorigin, fname, (char *) NULL);
+  print_two(time_of_day%60); print_char(' ');
+  char origin[50];
+  sprintf(origin, "%"PRId64, (int64_t) pdf_page_width * mag / 1000);
+  print_str(origin); print_char('x');
+  sprintf(origin, "%"PRId64, (int64_t) pdf_page_height * mag / 1000);
+  print_str(origin);
+  sprintf(origin, "%+"PRId64, (int64_t) pdf_h_origin * mag / 1000);
+  print_str(origin);
+  sprintf(origin, "%+"PRId64, (int64_t) pdf_v_origin * mag / 1000);
+  print_str(origin);
 @z
 
 @x

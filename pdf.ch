@@ -17,7 +17,7 @@
   assert(dvipdfm_pid != -1);
   if (dvipdfm_pid == 0) {
     signal(SIGINT, SIG_IGN);
-    execlp("dvipdfmx", "dvipdfmx", "-q", "-p", "a4", "-x", "22.45mm", "-y", "34.2mm", fname, (char *) NULL);
+    execlp("dvipdfmx", "dvipdfmx", "-q", fname, (char *) NULL);
     _exit(1);
   }
   int dvipdfm; waitpid(dvipdfm_pid, &dvipdfm, 0); assert(dvipdfm == 0);
