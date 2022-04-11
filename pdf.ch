@@ -8,9 +8,9 @@
 @x
   b_close(&dvi_file);
 @y
-  char tmp[50];
-  sprintf(tmp, "/proc/self/fd/%d", fileno(dvi_file.f));
-  char *fname = realpath(tmp, NULL);
+  char *fname, symlink[50];
+  sprintf(symlink, "/proc/self/fd/%d", fileno(dvi_file.f));
+  assert((fname = realpath(symlink, NULL)) != NULL);
   b_close(&dvi_file);
   pid_t dvipdfm_pid = fork();
   assert(dvipdfm_pid != -1);
