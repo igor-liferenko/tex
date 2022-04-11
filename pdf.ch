@@ -10,8 +10,7 @@
 @y
   char tmp[50];
   sprintf(tmp, "/proc/self/fd/%d", fileno(dvi_file.f));
-  char fname[500] = {};
-  assert(readlink(tmp, fname, sizeof fname) != -1 && fname[sizeof fname - 1] == 0);
+  char *fname = realpath(tmp, NULL);
   b_close(&dvi_file);
   pid_t dvipdfm_pid = fork();
   assert(dvipdfm_pid != -1);
