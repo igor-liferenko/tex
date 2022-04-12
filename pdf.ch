@@ -9,7 +9,7 @@
   b_close(&dvi_file);
 @y
   char tmp[50]; sprintf(tmp, "/proc/self/fd/%d", fileno(dvi_file.f));
-  char fname[500] = {};
+  char fname[500]; fname[sizeof fname - 1] = 0;
   assert(readlink(tmp, fname, sizeof fname) != -1 && fname[sizeof fname - 1] == 0);
   b_close(&dvi_file);
   pid_t dvipdfm_pid = fork();
