@@ -1,6 +1,7 @@
 @x
 @h
 @y
+#include <limits.h>
 #include <sys/wait.h>
 @h
 @z
@@ -8,9 +9,9 @@
 @x
   b_close(&dvi_file);
 @y
-  char tmp[50]; sprintf(tmp, "/proc/self/fd/%d", fileno(dvi_file.f));
-  char fname[500]; fname[sizeof fname - 1] = 0;
-  assert(readlink(tmp, fname, sizeof fname) != -1 && fname[sizeof fname - 1] == 0);
+  char fname[PATH_MAX];
+  sprintf(fname, "/proc/self/fd/%d", fileno(dvi_file.f));
+  assert(realpath(fname, fname));
   b_close(&dvi_file);
   pid_t dvipdfm_pid = fork();
   assert(dvipdfm_pid != -1);
