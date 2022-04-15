@@ -11,7 +11,7 @@
 @y
   char fname[PATH_MAX];
   sprintf(fname, "/proc/self/fd/%d", fileno(dvi_file.f));
-  assert(realpath(fname, fname));
+  assert(realpath(strdup(fname), fname));
   b_close(&dvi_file);
   pid_t dvipdfm_pid = fork();
   assert(dvipdfm_pid != -1);
