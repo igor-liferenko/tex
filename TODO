@@ -1,5 +1,4 @@
-increase error line width - see https://tex.stackexchange.com/questions/525953/
-(but output in TeXbook may differ then)
+read analysis at https://tex.stackexchange.com/questions/581118/ and links which are referred to from there
 
 understand why editor bug in TeX tuneup 2021 does not affect my implementation
 HINT: restore opening via file name from `git diff dfd5b8172..64cf8753e8', deactivate print.ch
@@ -9,7 +8,7 @@ if name=str_ptr-1 then {we can conserve string pool space now}
   end;
 
 === 2021 tuneup (can be undone by removing everything starting from first `;' in sed-command and changing tex-2021.web to tex.web in web2w/Makefile, removing time.ch and changing "sed '...'" to "cat" in Makefile) ===
-<<<<<<<<<<<<<<<<<
+
 NOTE: the following changes are not relevant to me:
 
 +Beware: For historic reasons, this code foolishly conserves a tiny bit
@@ -28,23 +27,5 @@ master file is never conserved (this is because x.tex is followed by x.log in st
 3) after it is modified, file name cannot be used for editor
 So no need to keep it - let string pool space be conserved.
 Luckily, there is an alternative method to obtain file name - using file descriptor.
->>>>>>>>>>>>>>>>>>
 
-<<<<<<<<<<<<<<<<<
-This change is suspicious:
-
--This program doesn't bother to close the input files that may still be open.
-+If |final_cleanup| is bypassed, this program doesn't bother to close
-+the input files that may still be open.
-
-(it seems input files are not closed in final_cleanup either - check this by analogy with commit
-5efca0dac55b1da2912cba599f4c
-(segfault manifested itself when program exited before wide-oriented file was explicitly closed in old libc on debian 10 buster - in debian 11 it works ok). Try to understand
-if the method used in 5efca0 commit is similar to how this
-    https://tug.org/pipermail/tex-k/2018-February/002851.html
-was resolved in
-    https://github.com/nadder/rstex/ (by assigning NULL)
-But this exact problem from pipermail link is not relevant to web2w implementation because it does
-not use string pool file.
->>>>>>>>>>>>>>>>>>
 =========================================================================================
