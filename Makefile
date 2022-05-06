@@ -4,8 +4,8 @@ all:
 	tie -c tex.ch tex.w constants.ch special.ch pdf.ch origin.ch $(CHF) >/dev/null
 	CWEBINPUTS=/home/user/cweb ctangle ./tex ./tex
 	gcc -DINIT tex.c -o initex -lm
-	@./initex 'plain \input origin \dump' >/dev/null; mv plain.fmt TeXformats/
-	@./initex 'тех \input origin \dump' >/dev/null; mv тех.fmt TeXformats/
+	./initex 'plain \input origin \dump' >/dev/null && mv plain.fmt TeXformats/
+	./initex 'тех \input origin \dump' >/dev/null && mv тех.fmt TeXformats/
 	gcc -DSTAT tex.c -o virtex -lm
 
 triptex:
