@@ -1,5 +1,4 @@
-Create new dimension registers \pdfpagewidth, \pdfpageheight, \pdfhorigin and \pdfvorigin;
-store their values in DVI file.
+Add \pdfpagewidth, \pdfpageheight, \pdfhorigin and \pdfvorigin (the same as in pdftex).
 
 @x
 @h
