@@ -36,8 +36,7 @@ Adjust format_default_length, format_area_length and paths in path.ch
 
 Adjust symlinks to ~/mf/*.tfm:
 
-    cd TeXfonts/
-    find . -type l ! -name trip.tfm | sed 's/./ln -sf ~\/mf/' | sh
+    for i in `find TeXfonts -type l`; do ln -sf /path/to/mf/`basename $i` `dirname $i`; done
 
 Change-files are for Linux
 
