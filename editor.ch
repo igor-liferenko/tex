@@ -7,15 +7,6 @@
 @z
 
 @x
-  {@+print_nl("You want to edit file ");
-@.You want to edit file x@>
-  slow_print(input_stack[base_ptr].name_field);
-  print_str(" at line ");print_int(line);
-@y
-  {
-@z
-
-@x
 {@+ close_files_and_terminate(); exit(1);
 @y
 {@+ close_files_and_terminate();
@@ -32,4 +23,13 @@
   }
   waitpid(editor_pid, NULL, 0);
   exit(1);
+@z
+
+@x
+  {@+print_nl("You want to edit file ");
+@.You want to edit file x@>
+  slow_print(input_stack[base_ptr].name_field);
+  print_str(" at line ");print_int(line);
+@y
+  {
 @z
