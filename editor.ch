@@ -12,7 +12,14 @@
   slow_print(input_stack[base_ptr].name_field);
   print_str(" at line ");print_int(line);
 @y
-{ char editor_line[10];
+  {
+@z
+
+@x
+{@+ close_files_and_terminate(); exit(1);
+@y
+{@+ close_files_and_terminate();
+  char editor_line[10];
   sprintf(editor_line, "+%d", line);
   char editor_file[50];
   sprintf(editor_file, "/proc/%ld/fd/%d", (long) getpid(),
@@ -24,4 +31,5 @@
     _exit(1);
   }
   waitpid(editor_pid, NULL, 0);
+  exit(1);
 @z
