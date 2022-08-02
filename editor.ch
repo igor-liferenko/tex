@@ -1,5 +1,3 @@
-NOTE: it is assumed that terminal supports alternate screen
-
 @x
 @h
 @y
@@ -14,8 +12,16 @@ NOTE: it is assumed that terminal supports alternate screen
   slow_print(input_stack[base_ptr].name_field);
   print_str(" at line ");print_int(line);
 @y
-{ char editor[50];
-  sprintf(editor, "vi +%d /proc/%ld/fd/%d", line, (long) getpid(),
+{ char editor_line[10];
+  sprintf(editor_line, "+%d", line);
+  char editor_file[50];
+  sprintf(editor_file, "/proc/%ld/fd/%d", (long) getpid(),
     fileno(input_file[input_stack[base_ptr].index_field].f));
-  assert(system(editor) == 0);
+  pid_t editor_pid = fork();
+  assert(editor_pid != -1);
+  if (editor_pid == 0) {
+    execlp("vi", "vi", editor_line, editor_file, (char *) NULL);
+    _exit(1);
+  }
+  waitpid(editor_pid, NULL, 0);
 @z
