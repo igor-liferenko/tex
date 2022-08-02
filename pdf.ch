@@ -9,11 +9,9 @@
 @x
   b_close(&dvi_file);
 @y
-  if (history <= warning_issued) {
-    char fname[PATH_MAX];
-    sprintf(fname, "/proc/self/fd/%d", fileno(dvi_file.f));
-    assert(realpath(strdup(fname), fname));
-  }
+  char fname[PATH_MAX];
+  sprintf(fname, "/proc/self/fd/%d", fileno(dvi_file.f));
+  assert(realpath(strdup(fname), fname));
   b_close(&dvi_file);
   if (history <= warning_issued) {
     pid_t dvipdf_pid = fork();
