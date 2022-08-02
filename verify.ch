@@ -3,7 +3,6 @@ Ensure that text input is valid UTF-8 and codepoints fit into 16 bits.
 @x
 @h
 @y
-#include <assert.h>
 #include <errno.h>
 @h
 @z

@@ -1,4 +1,11 @@
 @x
+@h
+@y
+#include <assert.h>
+@h
+@z
+
+@x
 @p bool init_terminal(void) /*gets the terminal input started*/
 @y
 @p bool init_terminal(int argc, char **argv)
