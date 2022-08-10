@@ -1,6 +1,6 @@
 all:
 	cat time.ch `[ $(MAKELEVEL) = 2 ] || echo printable.ch` >web2w.ch
-	CWEBINPUTS=/home/user/cweb ctangle ./web2w ./web2w
+	CWEBINPUTS=~/cweb ctangle ./web2w ./web2w
 	flex -o web.lex.c web.l
 	bison --warnings=none -d -v pascal.y
 	gcc -o web2w web2w.c web.lex.c pascal.tab.c
