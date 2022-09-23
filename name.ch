@@ -1,3 +1,5 @@
+This change-files allows to overcome the following difficulties:
+
 @x
 @h
 @y
