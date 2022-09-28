@@ -1,4 +1,4 @@
-This change-files allows to overcome the following difficulties:
+Get DVI file name.
 
 @x
 @h
