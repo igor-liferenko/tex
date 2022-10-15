@@ -3,53 +3,37 @@
 \catcode`\#=6
 \def\transformfont#1#2#3#4#5 {%
   \if#1c%
-    \if#2m%
-      \if#3m%
-        \if#4i%
-          cmmi#5
+    \if#3m%
+      cmm#4#5 % cmmi[5-10], cmmib10
+    \else
+      \if#3b%
+        \if#4s%
+          cmbs#5 % cmbsy10
         \else
-          lhm#4#5
+          omb#4#5
         \fi
       \else
-        \if#3b%
-          \if#4s%
-            cmbs#5
+        \if#3s%
+          \if#4y%
+            cmsy#5 % cmsy[5-10]
           \else
-            lhb#4#5
+            oms#4#5
           \fi
         \else
-          \if#3s%
-            \if#4y%
-              cmsy#5
-            \else
-              lhs#4#5
-            \fi
+          \if#3e%
+            cme#4#5 % cmex10
           \else
-            \if#3e%
-              \if#4x%
-                cmex#5
-              \else
-                lhe#4#5
-              \fi
+            \if#3c% TODO: mycsc.mf
+              cmc#4#5 % cmcsc10
             \else
-              \if#3t%
-                \if#4e%
-                  cmte#5
-                \else
-                  lht#4#5
-                \fi
-              \else
-                lh#3#4#5
-              \fi
+              om#3#4#5
             \fi
           \fi
         \fi
       \fi
-    \else
-      c#2#3#4#5
     \fi
   \else
-    #1#2#3#4#5
+    #1#2#3#4#5 % manfnt
   \fi}
 \let\originalfont\font
 \def\font#1=#2 {\originalfont#1=\transformfont#2 }
