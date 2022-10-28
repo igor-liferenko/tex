@@ -9,7 +9,7 @@ all:
 	gcc -DSTAT tex.c -o virtex -lm
 
 triptex:
-	@[ $(MAKELEVEL) != 0 ]
+	@[ $(MAKELEVEL) = 1 ]
 	make -C web2w
 	sed '194,199s/\(year\|month\|day\|time\)\b/sys_&/g' utex.patch|patch -so tex.w web2w/Ctex.w
 	tie -c tex.ch tex.w trip/constants.ch $(CHF) >/dev/null
