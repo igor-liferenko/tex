@@ -5,7 +5,7 @@ Add this `tex' script to PATH:
     #!/bin/sh
     /path/to/tex/plain "$@"
     ret=$?
-    [ $ret != 134 ] && echo
+    [ $ret = 134 ] || echo
     exit $ret
 
 To use debugger, add "-g -Og" and run "gdb plain"
