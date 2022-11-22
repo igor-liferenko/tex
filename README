@@ -3,9 +3,12 @@ See utf8.pdf - it contains improvements to https://www.tug.org/TUGboat/tb41-3/tb
 Add this `tex' script to PATH:
 
     #!/bin/sh
+    export edit=/tmp/edit.$$
     /path/to/tex/plain "$@"
     ret=$?
-    [ $ret = 134 ] || echo
+    [ $ret != 134 ] && echo
+    [ -e $edit ] && sed 's/\(.*\) \(.*\)/You want to edit file \1 at line \2\n/' $edit
+    rm -f $edit
     exit $ret
 
 To use debugger, add "-g -Og" and run "gdb plain"
@@ -33,8 +36,6 @@ where you download mapping.w from:
     https://github.com/igor-liferenko/cweb
 
 Adjust format_default_length, format_area_length and paths in path.ch
-
-Change-files are for Linux
 
 -----------------------------------
 

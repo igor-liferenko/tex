@@ -16,4 +16,4 @@ triptex:
 	CWEBINPUTS=~/cweb ctangle ./tex ./tex
 	gcc -DINIT -DSTAT tex.c -o trip/triptex -lm
 
-CHF=charset.ch path.ch interrupt.ch arg.ch print.ch preload.ch time.ch verify.ch name.ch exit.ch editor.ch lm.ch
+CHF=charset.ch path.ch interrupt.ch arg.ch print.ch preload.ch time.ch verify.ch edit.ch name.ch exit.ch lm.ch

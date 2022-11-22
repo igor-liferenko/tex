@@ -46,13 +46,13 @@
 \raggedbottom
 \exhyphenpenalty=10000
 
-\font\bbf=lhb10 at12pt
-\font\bbbf=lhb10 at14.4pt
-\font\btt=lhtt12
-\font\ttsmall=lhtt8
-\font\rmsmall=lhr8
-\font\itsmall=lhti8
-\font\partfont=lhb10 at80pt
+\font\bbf=omb10 at12pt
+\font\bbbf=omb10 at14.4pt
+\font\btt=omtt12
+\font\ttsmall=omtt8
+\font\rmsmall=omr8
+\font\itsmall=omti8
+\font\partfont=omb10 at80pt
 
 \def\setsmallprinting{\ttsmall \let\it=\itsmall \let\rm=\rmsmall 
    \def\ttstrut{\vrule height8pt depth3pt width0pt}%
@@ -275,11 +275,11 @@
 \def\langleactive{\uccode`\~=`\<\catcode`\<=13
       \uppercase{\def~}##1>{{$\langle$\it##1\/$\rangle$}}}
 
-\font\eightrm=lhr8
-\font\eighttt=lhtt8
-\font\eightbf=lhbx8
-\font\eightsl=lhsl8
-\font\eightit=lhti8
+\font\eightrm=omr8
+\font\eighttt=omtt8
+\font\eightbf=ombx8
+\font\eightsl=omsl8
+\font\eightit=omti8
 
 %FIXME: why it stops working if we put \baselineskip and \eightrm inside
 %\begingroup-\endgroup to avoid using \normalbaselines\rm?
