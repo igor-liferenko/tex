@@ -4,7 +4,6 @@ It can happen with some C library versions for wide character
 streams when input files are not closed before program terminates.
 
 \openin files must be closed manually with \closein.
-
 To see which files are still open, uncomment the change below.
 
 @x
