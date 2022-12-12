@@ -37,8 +37,6 @@ where you download mapping.w from:
 
 Adjust format_default_length, format_area_length and paths in path.ch
 
-If you get 'Segmentation fault', add segfault.ch to end of Makefile
-
 -----------------------------------
 
 Other WEB programs converted to CWEB:
