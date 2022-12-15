@@ -11,7 +11,8 @@ Add this `tex' script to PATH:
     rm -f $edit
     exit $ret
 
-To use debugger, add "-g -Og" and run "gdb plain"
+To use debugger, add "-g -Og -fno-builtin" and run "gdb plain" ('-fno-builtin' is
+to make '-lm' always necessary - for consistency).
 Use this change-file to make stepping over this line with `n' command faster:
 @x
 for (i=first_text_char; i<=last_text_char; i++) xord[chr(i)]=invalid_code;
