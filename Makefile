@@ -11,7 +11,7 @@ all:
 triptex:
 	@[ $(MAKELEVEL) = 1 ]
 	make -C web2w
-	sed '194,199s/\(year\|month\|day\|time\)\b/sys_&/g' utex.patch|patch -so tex.w web2w/Ctex.w
+	sed '194,199s/\(year\|month\|day\|time\)\b/sys_&/g' utex.patch|patch -so tex.w web2w/ctex.w
 	tie -c tex.ch tex.w trip/constants.ch $(CHF) >/dev/null
 	CWEBINPUTS=~/cweb ctangle ./tex ./tex
 	gcc -DINIT -DSTAT tex.c -o trip/triptex -lm
