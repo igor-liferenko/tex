@@ -29,8 +29,7 @@ to avoid this CTANGLE error:
   else wput(k);
 @z
 
-To use debugger, add "-g -Og -fno-builtin" and run "gdb plain" ('-fno-builtin' is
-to make '-lm' always necessary - for consistency).
+To use debugger, add "-g -Og" and run "gdb plain"
 Use this change-file to make stepping over this line with `n' command faster:
 @x
 for (i=first_text_char; i<=last_text_char; i++) xord[chr(i)]=invalid_code;
