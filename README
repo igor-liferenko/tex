@@ -11,14 +11,12 @@ Add this `tex' script to PATH:
     rm -f $edit
     exit $ret
 
-To use debugger, add "-g -Og -fno-builtin" and run "gdb plain" ('-fno-builtin' is
-to make '-lm' always necessary - for consistency).
-Use this change-file to make stepping over this line with `n' command faster:
-@x
-for (i=first_text_char; i<=last_text_char; i++) xord[chr(i)]=invalid_code;
-@y
-memset(xord, invalid_code, sizeof xord);
-@z
+Point CWEBINPUTS in Makefile and web2w/Makefile to directory,
+where you download mapping.w from:
+
+    https://github.com/igor-liferenko/cweb
+
+Adjust format_default_length, format_area_length and paths in path.ch
 
 Add this change to beginning of web2w/printable.ch if you need to
 use (part of) extended character set from Appendix C of TeXbook
@@ -31,12 +29,14 @@ to avoid this CTANGLE error:
   else wput(k);
 @z
 
-Point CWEBINPUTS in Makefile and web2w/Makefile to directory,
-where you download mapping.w from:
-
-    https://github.com/igor-liferenko/cweb
-
-Adjust format_default_length, format_area_length and paths in path.ch
+To use debugger, add "-g -Og -fno-builtin" and run "gdb plain" ('-fno-builtin' is
+to make '-lm' always necessary - for consistency).
+Use this change-file to make stepping over this line with `n' command faster:
+@x
+for (i=first_text_char; i<=last_text_char; i++) xord[chr(i)]=invalid_code;
+@y
+memset(xord, invalid_code, sizeof xord);
+@z
 
 -----------------------------------
 
