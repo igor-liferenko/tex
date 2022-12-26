@@ -1,8 +1,13 @@
-!!! if need more, change type of |name_length| from uint8_t to uint16_t in tex.w !!!
 @x
 enum {@+@!file_name_size=40@+}; /*file names shouldn't be longer than this*/
 @y
-enum {@+@!file_name_size=255@+}; /*file names shouldn't be longer than this*/
+enum {@+@!file_name_size=256@+}; /*file names shouldn't be longer than this*/
+@z
+
+@x
+uint8_t @!name_length;@/ /*this many characters are actually
+@y
+uint16_t @!name_length;@/ /*this many characters are actually
 @z
 
 @x
@@ -15,8 +20,8 @@ enum {@+@!file_name_size=255@+}; /*file names shouldn't be longer than this*/
 @d format_default_length	20 /*length of the |TEX_format_default| string*/
 @d format_area_length	11 /*length of its area part*/
 @y
-@d format_default_length 35
-@d format_area_length    26
+@d format_default_length 35 /*length of the |TEX_format_default| string*/
+@d format_area_length 26 /*length of its area part*/
 @z
 
 @x
