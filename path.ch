@@ -41,4 +41,4 @@ If you need non-ASCII here, grep required characters one by one in mapping.w and
 @y
 @d str_507 "/home/user/tex/TeXfonts/"
 @z
-Change this also in mf/Makefile, rstex/dvips, rstex/MakeTeXPK, rstex/NOTES
+Change this also in mf/Makefile
