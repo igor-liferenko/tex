@@ -25,7 +25,7 @@ enum {@+@!trie_size=8000@+}; /*space for hyphenation patterns; should be larger 
   \.{INITEX} than it is in production versions of \TeX*/
 @y
 #ifdef INIT
-enum {@+@!trie_size=14000@+};
+enum {@+@!trie_size=14051@+};
 #else
 enum {@+@!trie_size=12000@+};
 #endif
