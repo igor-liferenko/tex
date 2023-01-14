@@ -16,8 +16,8 @@ volatile int @!interrupt;
 void catchint(int signum)
 {
   interrupt = !interrupt;
-  if (interrupt == 1) fprintf(stderr, "\x1B]12;red\x07");
-  else fprintf(stderr, "\x1B]112\x07");
+  if (interrupt == 1) fprintf(stderr, "\x1B]12;red\x1B\\");
+  else fprintf(stderr, "\x1B]112\x1B\\");
 }
 @z
 
@@ -25,7 +25,7 @@ void catchint(int signum)
   {@+interaction=error_stop_mode;
 @y
   {@+interaction=error_stop_mode;
-  fprintf(stderr, "\x1B]112\x07");
+  fprintf(stderr, "\x1B]112\x1B\\");
 @z
 
 @x
