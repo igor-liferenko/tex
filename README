@@ -3,10 +3,12 @@ See utf8.pdf - it contains improvements to https://www.tug.org/TUGboat/tb41-3/tb
 Add this `tex' script to PATH:
 
     #!/bin/sh
+    trap '' INT
     export edit=/tmp/edit.$$
     /path/to/tex/plain "$@"
     ret=$?
     [ $ret != 134 ] && echo
+    printf '\e]112\e\\'
     [ -e $edit ] && sed 's/\(.*\) \(.*\)/You want to edit file \1 at line \2\n/' $edit
     rm -f $edit
     exit $ret

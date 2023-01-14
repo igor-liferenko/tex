@@ -1,3 +1,7 @@
+TODO: do that ^C will not be printed - put tty in raw mode (and restore it on exit) and
+pass all input to pty which is connected to TeX, and back; on receipt of ^C send signal
+to virtex (then remove 'trap' from wrappers) or to process group
+
 @x
 @h
 @y
@@ -11,8 +15,17 @@ int @!interrupt; /*should \TeX\ pause for instructions?*/
 volatile int @!interrupt;
 void catchint(int signum)
 {
-  interrupt = 1;
+  interrupt = !interrupt;
+  if (interrupt == 1) fprintf(stderr, "\x1B]12;red\x07");
+  else fprintf(stderr, "\x1B]112\x07");
 }
+@z
+
+@x
+  {@+interaction=error_stop_mode;
+@y
+  {@+interaction=error_stop_mode;
+  fprintf(stderr, "\x1B]112\x07");
 @z
 
 @x

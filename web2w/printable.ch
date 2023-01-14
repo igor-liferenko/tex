@@ -1,4 +1,4 @@
-See section 5.8 in web2w.pdf
+See §5.8 in web2w.pdf
 
 @x
 This condition is taken from \.{tex.web}:
