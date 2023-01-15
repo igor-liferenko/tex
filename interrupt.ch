@@ -17,8 +17,8 @@ of wrapper in C)
 #define write(file, format,...)    @[fprintf(file.f,format,## __VA_ARGS__)@]
 @y
 #define write(file, format,...)    @[fprintf(file.f,format,## __VA_ARGS__)@]
-#define set_cursor_color (1, "\e]12;red\e\\", 10)
-#define reset_cursor_color (1, "\e]112\e\\", 7)
+#define set_cursor_color (STDOUT_FILENO, "\e]12;red\e\\", 10)
+#define reset_cursor_color (STDOUT_FILENO, "\e]112\e\\", 7)
 @z
 
 @x
