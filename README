@@ -4,11 +4,13 @@ Add this `tex' script to PATH:
 
     #!/bin/sh
     trap '' INT
+    export enabled_color=
+    export default_color=
     export edit=/tmp/edit.$$
     /path/to/tex/plain "$@"
     ret=$?
     [ $ret != 134 ] && echo
-    printf '\e]112\e\\'
+    [ -t 1 ] && printf $default_color
     [ -e $edit ] && sed 's/\(.*\) \(.*\)/You want to edit file \1 at line \2\n/' $edit
     rm -f $edit
     exit $ret
@@ -31,17 +33,9 @@ to avoid this CTANGLE error:
   else wput(k);
 @z
 
-To use debugger, add "-g -Og" and run "gdb plain"
-Use this change-file to make stepping over this line with `n' command faster:
-@x
-for (i=first_text_char; i<=last_text_char; i++) xord[chr(i)]=invalid_code;
-@y
-memset(xord, invalid_code, sizeof xord);
-@z
-
 -----------------------------------
 
-Other WEB programs converted to CWEB:
+Programs converted using web2w:
 
     https://github.com/igor-liferenko/mf
     https://github.com/igor-liferenko/dvitype

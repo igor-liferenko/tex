@@ -11,44 +11,44 @@ of wrapper in C)
 #include <signal.h>
 #include <unistd.h>
 @h
-@z
-
-@x
-#define write(file, format,...)    @[fprintf(file.f,format,## __VA_ARGS__)@]
-@y
-#define write(file, format,...)    @[fprintf(file.f,format,## __VA_ARGS__)@]
-#define set_cursor_color (STDOUT_FILENO, "\e]12;red\e\\", 10)
-#define reset_cursor_color (STDOUT_FILENO, "\e]112\e\\", 7)
+#define enabled_color (STDOUT_FILENO, enabled_, strlen(enabled_))
+#define default_color (STDOUT_FILENO, default_, strlen(default_))
 @z
 
 @x
 int @!interrupt; /*should \TeX\ pause for instructions?*/ 
 @y
-volatile int @!interrupt;
+volatile int interrupt;
+char *enabled_ = "", *default_ = "";
 void catchint(int signum)
 {
   interrupt = !interrupt;
-  if (interrupt) write set_cursor_color;
-  else write reset_cursor_color;
+  if (interrupt) write enabled_color;
+  else write default_color;
 }
-sigset_t sigint;
+struct sigaction sa;
 @z
 
 @x
   print_err("Interruption");
 @y
-  sigprocmask(SIG_BLOCK, &sigint, NULL);
-  write reset_cursor_color;
-  sigprocmask(SIG_UNBLOCK, &sigint, NULL);
+  signal(SIGINT, SIG_IGN);
+  write default_color;
   print_err("Interruption");
+@z
+
+@x
+  interrupt=0;
+@y
+  interrupt=0;
+  sigaction(SIGINT, &sa, NULL);
 @z
 
 @x
 initialize(); /*set global variables to their starting values*/ 
 @y
-sigemptyset(&sigint);
-sigaddset(&sigint, SIGINT);
-struct sigaction sa;
+if (isatty(STDOUT_FILENO) && !(enabled_ = getenv("enabled_color"))) enabled_ = "";
+if (isatty(STDOUT_FILENO) && !(default_ = getenv("default_color"))) default_ = "";
 sa.sa_handler = catchint;
 sigemptyset(&sa.sa_mask);
 sa.sa_flags = SA_RESTART;
