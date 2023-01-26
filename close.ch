@@ -1,5 +1,6 @@
 Do not allow wide-character streams be closed automatically,
-because on some systems this may result to "Segmentation fault".
+because on some systems this may result to "Segmentation fault"
+(due to the bug in C library).
 
 @x
   return reset_OK(*f);
@@ -16,7 +17,7 @@ because on some systems this may result to "Segmentation fault".
 @x
 initialize(); /*set global variables to their starting values*/ 
 @y
-assert(atexit(list_close) == 0);
+atexit(list_close);
 initialize(); /*set global variables to their starting values*/ 
 @z
 
