@@ -3,14 +3,10 @@ See utf8.pdf - it contains improvements to https://www.tug.org/TUGboat/tb41-3/tb
 Add this `tex' script to PATH:
 
     #!/bin/sh
-    trap '' INT
-    export enabled_color=
-    export default_color=
     export edit=/tmp/edit.$$
     /path/to/tex/plain "$@"
     ret=$?
-    [ $ret != 134 ] && echo
-    [ -t 1 ] && printf $default_color
+    /path/to/tex/newline
     [ -e $edit ] && sed 's/\(.*\) \(.*\)/You want to edit file \1 at line \2\n/' $edit
     rm -f $edit
     exit $ret
@@ -21,17 +17,6 @@ where you download mapping.w from:
     https://github.com/igor-liferenko/cweb
 
 Adjust path.ch
-
-Add this change to beginning of web2w/printable.ch if you need to
-use (part of) extended character set from Appendix C of TeXbook
-to avoid this CTANGLE error:
-    ! This can't happen: macro defs have strange char
-@x
-  else wput(k);
-@y
-  else if (k<' ') fprintf(w,"\\x%x",k);
-  else wput(k);
-@z
 
 -----------------------------------
 

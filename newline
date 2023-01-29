@@ -1,0 +1,39 @@
+#!/usr/bin/perl -w
+
+# tug.org/texmfbug/nobug.html#ttynl
+
+exit unless -t 0 && -t 1;
+
+use POSIX ':termios_h';
+
+$tty = POSIX::Termios->new;
+$tty->getattr(0);
+$c_lflag = $tty->getlflag;
+
+$tty->setlflag($c_lflag & ~(ECHO | ICANON));
+$tty->setattr(1, TCSANOW);
+
+syswrite STDOUT, "\e[6n";
+reset1:
+sysread STDIN, $x, 1;
+reset2:
+goto reset1 if $x ne chr 0x1b;
+sysread STDIN, $x, 1;
+goto reset2 if $x ne '[';
+$row = undef;
+row:
+sysread STDIN, $x, 1;
+if ($x ge '0' && $x le '9') { $row .= $x; goto row }
+goto reset2 if $x ne ';';
+goto reset1 if !defined $row;
+$col = undef;
+col:
+sysread STDIN, $x, 1;
+if ($x ge '0' && $x le '9') { $col .= $x; goto col }
+goto reset2 if $x ne 'R';
+goto reset1 if !defined $col;
+
+$tty->setlflag($c_lflag);
+$tty->setattr(1, TCSANOW);
+
+print "\n" if $col ne '1';
