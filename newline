@@ -6,12 +6,12 @@ exit unless -t 0 && -t 1;
 
 use POSIX ':termios_h';
 
-$tty = POSIX::Termios->new;
-$tty->getattr(0);
-$c_lflag = $tty->getlflag;
+$termios = POSIX::Termios->new;
+$termios->getattr(0);
+$c_lflag = $termios->getlflag;
 
-$tty->setlflag($c_lflag & ~(ECHO | ICANON));
-$tty->setattr(1, TCSANOW);
+$termios->setlflag($c_lflag & ~(ECHO | ICANON));
+$termios->setattr(1, TCSANOW);
 
 syswrite STDOUT, "\e[6n";
 reset1:
@@ -33,7 +33,7 @@ if ($x ge '0' && $x le '9') { $col .= $x; goto col }
 goto reset2 if $x ne 'R';
 goto reset1 if !defined $col;
 
-$tty->setlflag($c_lflag);
-$tty->setattr(1, TCSANOW);
+$termios->setlflag($c_lflag);
+$termios->setattr(1, TCSANOW);
 
 print "\n" if $col ne '1';
