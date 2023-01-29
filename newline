@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# tug.org/texmfbug/nobug.html#ttynl
+# http://tug.org/texmfbug/nobug.html#ttynl
 
 exit unless -t 0 && -t 1;
 
