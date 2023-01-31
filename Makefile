@@ -7,6 +7,7 @@ all:
 	./initex 'plain \input paper+origin \dump' >/dev/null && mv plain.fmt TeXformats/
 	./initex 'тех \input paper+origin \dump' >/dev/null && mv тех.fmt TeXformats/
 	gcc -DSTAT tex.c -o virtex -lm
+	@gcc newline.c
 
 triptex:
 	@[ $(MAKELEVEL) = 1 ]
