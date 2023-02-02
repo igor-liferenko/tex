@@ -11,10 +11,7 @@ Add this `tex' script to PATH:
     rm -f $edit
     exit $ret
 
-Point CWEBINPUTS in Makefile and web2w/Makefile to directory,
-where you download mapping.w from:
-
-    https://github.com/igor-liferenko/cweb
+Make mapping.w correspond to encoding of used fonts.
 
 Adjust path.ch
 
