@@ -63,16 +63,13 @@ $2^{16}$ bytes.
 \medskip
 Elements in the {\it xchr\/} array [3]
 are overridden using
-the file |mapping.w|.
+the file |mapping.w| [2].
 ||@i mapping.w||
 This file specifies the character(s)
 required for a particular
 installation of \TeX, for example:
 \smallskip
 \indent{\font\tt=cmtt9 \tt xchr[0xf1] = L'\"e';}
-\smallskip
-\noindent A complete example of |mapping.w| is here:
-||https://github.com/igor-liferenko/cweb||
 \medskip
 In |tex.web| the type |char| (called |pascal_char|
 in this article \Dash to distinguish it from the type |char| in C)
