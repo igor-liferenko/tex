@@ -11,8 +11,7 @@ int main(void)
   termios.c_lflag &= ~(ECHO | ICANON);
   tcsetattr(STDOUT_FILENO, TCSANOW, &termios);
   write(STDOUT_FILENO, "\e[6n", 4);
-  char b, row[1], col[1];
-  int r, c;
+  char b, col[1], r, c;
 reset1:
   read(STDIN_FILENO, &b, 1);
 reset2:
