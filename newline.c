@@ -11,7 +11,7 @@ int main(void)
   termios.c_lflag &= ~(ECHO | ICANON);
   tcsetattr(STDOUT_FILENO, TCSANOW, &termios);
   write(STDOUT_FILENO, "\e[6n", 4);
-  char b, col[1], r, c;
+  char b, col, r, c;
 reset1:
   read(STDIN_FILENO, &b, 1);
 reset2:
@@ -27,11 +27,11 @@ row:
   c = 0;
 col:
   read(STDIN_FILENO, &b, 1);
-  if (b >= '0' && b <= '9') { if (!c) *col = b; c++; goto col; }
+  if (b >= '0' && b <= '9') { if (!c) col = b; c++; goto col; }
   if (b != 'R') goto reset2;
   if (!c) goto reset1;
   termios.c_lflag |= ECHO | ICANON;
   tcsetattr(STDOUT_FILENO, TCSANOW, &termios);
-  if (c != 1 || *col != '1') write(STDOUT_FILENO, "\n", 1);
+  if (c != 1 || col != '1') write(STDOUT_FILENO, "\n", 1);
   return 0;
 }
