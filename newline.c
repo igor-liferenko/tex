@@ -27,7 +27,7 @@ row:
   c = 0;
 col:
   read(STDIN_FILENO, &b, 1);
-  if (b >= '0' && b <= '9') { if (!c) col = b; c++; goto col; }
+  if (b >= '0' && b <= '9') { if (!c) col = b, c = 1; else c = 2; goto col; }
   if (b != 'R') goto reset2;
   if (!c) goto reset1;
   termios.c_lflag |= ECHO | ICANON;
