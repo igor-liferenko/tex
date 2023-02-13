@@ -1,6 +1,6 @@
 Do not allow wide-character streams be closed automatically,
 because on some systems this may result to "Segmentation fault"
-(due to the bug in C library).
+(due to the bug in glibc).
 
 @x
   return reset_OK(*f);
