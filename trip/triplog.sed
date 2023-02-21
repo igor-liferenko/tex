@@ -1,6 +1,6 @@
 s/(preloaded format=trip .....[0-9]\+.[0-9]\+)  [0-9]\+ ... .... ..:..$/(preloaded format=trip 1776.7.4)  4 JUL 1776 12:00/
 s/47 strings out of 2307/47 strings out of 1674/
-s/253 string characters out of 27755/253 string characters out of 8367/
+s/253 string characters out of [0-9]\+/253 string characters out of 8367/
 s/Memory usage before: 159&278; after: 102&278; still untouched: 1613/Memory usage before: 159\&313; after: 102\&278; still untouched: 1613/
 s/Memory usage before: 747&278; after: 581&278; still untouched: 1492/Memory usage before: 747\&484; after: 581\&481; still untouched: 1492/
 s/Memory usage before: 475&278; after: 290&278; still untouched: 1473/Memory usage before: 475\&470; after: 290\&466; still untouched: 1473/
