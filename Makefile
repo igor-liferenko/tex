@@ -4,8 +4,8 @@ all:
 	tie -c tex.ch tex.w constants.ch special.ch paper+origin.ch newline.ch $(CHF) >/dev/null
 	ctangle tex tex
 	gcc -DINIT tex.c -o initex -lm
-	./initex 'plain \input paper+origin \dump' >/dev/null && mv plain.fmt TeXformats/
-	./initex 'тех \input paper+origin \dump' >/dev/null && mv тех.fmt TeXformats/
+	@./initex 'plain \input paper+origin \def\\{\nobreak\hskip0pt-\nobreak\hskip0pt\relax} \dump' >/dev/null && mv plain.fmt TeXformats/
+	@./initex 'тех \input paper+origin \def\\{\nobreak\hskip0pt-\nobreak\hskip0pt\relax} \dump' >/dev/null && mv тех.fmt TeXformats/
 	gcc -DSTAT tex.c -o virtex -lm
 	@gcc -o newline newline.c
 
