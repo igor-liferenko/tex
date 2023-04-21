@@ -17,6 +17,12 @@ Adjust path.ch
 
 -----------------------------------
 
+If you need parts of word with explicit hyphen(s) to be hyphenated, do one of the following:
+change the hyphen(s) to \\
+insert discretionary hyphen(s) manually
+
+-----------------------------------
+
 Programs converted using web2w:
 
     https://github.com/igor-liferenko/mf

@@ -31,16 +31,16 @@
   \else
     #1#2#3#4#5 % manfnt
   \fi}
-\let\originalfont\font
+\let\originalfont=\font
 \def\font#1=#2 {\originalfont#1=\transformfont#2 }
 
 \input plain
 
-\let\font\originalfont
-\let\originalfont\undefined
-\let\transformfont\undefined
+\let\font=\originalfont
+\let\originalfont=\undefined
+\let\transformfont=\undefined
 
-\def\set #1 #2 {
+\def\\ #1 #2 {
   \lccode`#1=`#2
   \lccode`#2=`#2
   \uccode`#1=`#1
@@ -48,41 +48,39 @@
   \sfcode`#1=999
 }
 
-\set А а
-\set Б б
-\set В в
-\set Г г
-\set Д д
-\set Е е
-\set Ё ё
-\set Ж ж
-\set З з
-\set И и
-\set Й й
-\set К к
-\set Л л
-\set М м
-\set Н н
-\set О о
-\set П п
-\set Р р
-\set С с
-\set Т т
-\set У у
-\set Ф ф
-\set Х х
-\set Ц ц
-\set Ч ч
-\set Ш ш
-\set Щ щ
-\set Ъ ъ
-\set Ы ы
-\set Ь ь
-\set Э э
-\set Ю ю
-\set Я я
-
-\let\set=\undefined
+\\ А а
+\\ Б б
+\\ В в
+\\ Г г
+\\ Д д
+\\ Е е
+\\ Ё ё
+\\ Ж ж
+\\ З з
+\\ И и
+\\ Й й
+\\ К к
+\\ Л л
+\\ М м
+\\ Н н
+\\ О о
+\\ П п
+\\ Р р
+\\ С с
+\\ Т т
+\\ У у
+\\ Ф ф
+\\ Х х
+\\ Ц ц
+\\ Ч ч
+\\ Ш ш
+\\ Щ щ
+\\ Ъ ъ
+\\ Ы ы
+\\ Ь ь
+\\ Э э
+\\ Ю ю
+\\ Я я
 
 \righthyphenmin=2
 \language1
