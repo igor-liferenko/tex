@@ -1,4 +1,8 @@
-Print "TeXinputs/" instead of full path to it in log file and on terminal.
+Here is changed |make_name_string|, which is called by |a_make_name_string|,
+which is called by |start_input|.
+We modify |name| so that it will contain "TeXinputs/"
+instead of "/full/path/to/TeXinputs/".
+|name| is printed in log file and on terminal.
 
 @x
 else{@+for (k=1; k<=name_length; k++) {
