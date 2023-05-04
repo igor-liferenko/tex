@@ -1,7 +1,7 @@
-We can't use |name_field| because it is deleted in |start_input|.
-But changing |start_input| not to delete |name_field| will not work,
-because |name_field| is modified in print.ch
-Therefore we use |index_field| instead.
+We can't use name_field:
+  1) see 'note above' in start_input; this could be changed, but
+  2) see print.ch
+Therefore we use index_field.
 
 @x
   {@+print_nl("You want to edit file ");
