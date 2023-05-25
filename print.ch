@@ -1,18 +1,22 @@
-Modify make_name_string in order that in log file and on terminal "TeXinputs/" will be 
-printed instead of "/path/to/TeXinputs/" (see a_make_name_string in start_input).
+Print "TeXinputs/" instead of "/path/to/TeXinputs/" to log file and terminal.
 
 @x
-else{@+for (k=1; k<=name_length; k++) {
+if (term_offset+length(name) > max_print_line-2) print_ln();
+else if ((term_offset > 0)||(file_offset > 0)) print_char(' ');
+print_char('(');incr(open_parens);slow_print(name);update_terminal;
 @y
-else {
-  wchar_t EXT_area[length(TEX_area)+1]; /* TEX_area in external encoding */
-  for (k=0; k<length(TEX_area); k++)
-    EXT_area[k] = xchr[so(str_pool[str_start[TEX_area]+k])];
-  EXT_area[k] = L'\0';
-  char U8_area[wcstombs(NULL,EXT_area,0)+1]; /* TEX_area in UTF-8 */
-  wcstombs(U8_area, EXT_area, sizeof U8_area);
-  k=1;
-  if (strncmp(name_of_file+1, U8_area, strlen(U8_area)) == 0)
-    k += strlen(U8_area) - strlen("TeXinputs/");
-  for (; k<=name_length; k++) {
+str_number tmp;
+if (length(name) >= length(TEX_area) &&
+    strncmp(str_pool+str_start[name], str_pool+str_start[TEX_area], length(TEX_area)) == 0) {
+  pool_pointer k = str_start[name];
+  k = k + length(TEX_area) - 1;
+  while (so(str_pool[k-1]) != '/') k--;
+  while (k < str_start[name+1]) str_pool[pool_ptr++] = str_pool[k++];
+  tmp = make_string();
+}
+else tmp = name;
+if (term_offset+length(tmp) > max_print_line-2) print_ln();
+else if ((term_offset > 0)||(file_offset > 0)) print_char(' ');
+print_char('(');incr(open_parens);slow_print(tmp);update_terminal;
+if (tmp != name) flush_string;
 @z
