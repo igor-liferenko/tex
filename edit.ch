@@ -15,3 +15,10 @@
   fprintf(f, " %d", line);
   fclose(f);
 @z
+
+@x
+if (name==str_ptr-1)  /*conserve string pool space (but see note above)*/ 
+  {@+flush_string;name=cur_name;
+  } 
+@y
+@z
