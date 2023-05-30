@@ -13,7 +13,7 @@ void print_nl(char *@!s) /*prints string |s| at beginning of line*/
   ((file_offset > 0)&&(selector >= log_only))) print_ln();
 @z
 
-This is the example:
+This is an example:
 
     \setbox0=\hbox{A}
     \showbox0
