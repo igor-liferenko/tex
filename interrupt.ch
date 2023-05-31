@@ -1,8 +1,8 @@
-If your terminal emulator supports binding a key to send signal to a process,
-use this to send, e.g., SIGUSR1 (change SIGWINCH to SIGUSR1 below).
+If your terminal emulator supports binding a key to send a signal to a process,
+use this to send, e.g., SIGUSR1 (then change SIGWINCH to SIGUSR1 below).
 My terminal emulator does not support this, so I use a workaround:
-Show menu bar. This causes the size of terminal emulator window to change,
-which triggers SIGWINCH.
+Show menu bar (normally I have it hidden). This causes the size of terminal
+emulator window to change, which triggers SIGWINCH.
 When Interruption prompt appears, hide menu bar back (while in the prompt,
 setting 'interrupt' flag influences nothing because it is set to zero when we leave
 the prompt).
