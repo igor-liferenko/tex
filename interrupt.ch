@@ -1,4 +1,5 @@
-Do not use TTY to send signal, because this destroys data in the buffer.
+Do not use TTY to send signal, because this destroys data in the TTY buffer and because
+it prints spurious data on terminal (e.g., ^C).
 If your terminal emulator supports binding a key to send signal to a process,
 use this to send, e.g., SIGUSR1 (change SIGWINCH to SIGUSR1 below).
 My terminal emulator does not support this, so I use a workaround:
