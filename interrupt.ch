@@ -1,4 +1,15 @@
-Show tab bar or menu bar and hide it back (or vice versa - depending on your settings).
+Do not use TTY to send signal, because this destroys data in the buffer.
+If your terminal emulator supports binding a key to send signal to a process,
+use this to send, e.g., SIGUSR1 (change SIGWINCH to SIGUSR1 below).
+My terminal emulator does not support this, so I use a workaround:
+Show menu bar. This causes the size of terminal emulator window to change,
+which triggers SIGWINCH.
+When Interruption prompt appears, hide menu bar back (while in the prompt,
+setting 'interrupt' flag influences nothing because it is set to zero when we leave
+the prompt).
+Showing/hiding menu bar works OK for me, because I use terminal emulator always in one size
+(i.e., otherwise the terminal window size does not change, so TeX can't be interrupted
+inadvertently).
 
 @x
 @h
@@ -14,7 +25,7 @@ volatile
 int @!interrupt; /*should \TeX\ pause for instructions?*/
 void catchint(int signum)
 {
-  interrupt = !interrupt;
+  interrupt = 1;
 }
 @z
 
