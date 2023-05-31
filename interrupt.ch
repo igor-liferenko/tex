@@ -1,5 +1,10 @@
 Do not use TTY to send signal, because this destroys data in the TTY buffer and because
-it prints spurious data on terminal (e.g., ^C).
+it prints spurious data on terminal (e.g., ^C); also it is convenient to use ^C just to
+quit TeX immediately (i.e., leave SIGINT on its default action): if stdout is redirected
+to /dev/null and TeX SIGINT is used for interrupt, we cannot quit TeX, because when we
+press ^C, TeX starts waiting for input but we do not see the prompt and thus what we see
+is just that TeX freezes instead of quitting.
+
 If your terminal emulator supports binding a key to send signal to a process,
 use this to send, e.g., SIGUSR1 (change SIGWINCH to SIGUSR1 below).
 My terminal emulator does not support this, so I use a workaround:
