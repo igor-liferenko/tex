@@ -4,8 +4,8 @@ all:
 	tie -c tex.ch tex.w constants.ch special.ch paper+origin.ch log.ch $(CHF) >/dev/null
 	ctangle tex tex
 	gcc -DINIT tex.c -o initex -lm
-	@./initex 'plain \input paper+origin \def\\{\nobreak\hskip0pt-\nobreak\hskip0pt\relax} \setbox0=\box1 \dump' >/dev/null && mv plain.fmt TeXformats/
-	@./initex 'тех \input paper+origin \def\\{\nobreak\hskip0pt-\nobreak\hskip0pt\relax} \setbox0=\box1 \dump' >/dev/null && mv тех.fmt TeXformats/
+	@./initex 'plain \input paper+origin \dump' >/dev/null && mv plain.fmt TeXformats/
+	@./initex 'тех \input paper+origin \dump' >/dev/null && mv тех.fmt TeXformats/
 	gcc -DSTAT tex.c -o virtex -lm
 	@gcc -o newline newline.c
 
@@ -17,4 +17,4 @@ triptex:
 	ctangle tex tex
 	gcc -DINIT -DSTAT tex.c -o trip/triptex -lm
 
-CHF=charset.ch path.ch arg.ch print.ch preload.ch time.ch edit.ch name.ch exit.ch verify.ch close.ch
+CHF=charset.ch path.ch interrupt.ch arg.ch print.ch preload.ch time.ch edit.ch name.ch exit.ch verify.ch close.ch
