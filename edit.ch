@@ -16,6 +16,14 @@
   fclose(f);
 @z
 
+See fix for TeX bug S950 (the steps done in the bug report have nothing to do with the fix itself). 
+@x 
+  print_str("E to edit your file,");
+@y
+  print_str("E to edit your file,");
+else fprintf(stderr, "IT HAPPENED!!! The check added in the fix is indeed useful!!!.\n");
+@z
+
 @x
 if (name==str_ptr-1)  /*conserve string pool space (but see note above)*/ 
   {@+flush_string;name=cur_name;
