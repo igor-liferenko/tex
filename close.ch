@@ -1,6 +1,6 @@
 Do not allow wide-character streams be closed automatically,
 because on some systems this may result to "Segmentation fault"
-(due to the bug in glibc).
+(due to the bug in glibc). Instead, close them in list_close.
 
 @x
   return reset_OK(*f);
@@ -54,9 +54,7 @@ void list_delete(void *f)
 
 void list_close(void)
 {
-  node c = list_head;
-  node p = NULL;
-  while (c != NULL) fclose(c->f), p = c, c = c->n, free(p);
+  for (node c = list_head; c != NULL; c = c->n) fclose(c->f);
 }
 
 @ Appendix: Replacement of the string pool file.
