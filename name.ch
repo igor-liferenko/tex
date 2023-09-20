@@ -10,12 +10,12 @@ Get DVI and log file name.
 @x
   b_close(&dvi_file);
 @y
-  if (getenv("TEXdvi")) {
+  if (getenv("dvi")) {
     char s1[50], s2[PATH_MAX];
     sprintf(s1, "/proc/self/fd/%d", fileno(dvi_file.f));
     assert(realpath(s1, s2));
     FILE *f;
-    assert(f = fopen(getenv("TEXdvi"), "w"));
+    assert(f = fopen(getenv("dvi"), "w"));
     fprintf(f, "%s", s2);
     fclose(f);
   }
@@ -26,12 +26,12 @@ Get DVI and log file name.
   {@+wlog_cr;a_close(&log_file);selector=selector-2;
 @y
   {@+wlog_cr;
-  if (getenv("TEXlog")) {
+  if (getenv("log")) {
     char s1[50], s2[PATH_MAX];
     sprintf(s1, "/proc/self/fd/%d", fileno(log_file.f));
     assert(realpath(s1, s2));
     FILE *f;
-    assert(f = fopen(getenv("TEXlog"), "w"));
+    assert(f = fopen(getenv("log"), "w"));
     fprintf(f, "%s", s2);
     fclose(f);
   }
