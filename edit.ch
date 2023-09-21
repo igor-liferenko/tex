@@ -12,7 +12,7 @@
     int len = wctomb(mb, xchr[so(str_pool[k])]);
     fprintf(f, "%.*s", len, mb);
   }
-  fprintf(f, " %d", line);
+  fprintf(f, " %d\n", line);
   fclose(f);
 @z
 

@@ -1,4 +1,4 @@
-Get DVI and log file name.
+Get DVI file name.
 
 @x
 @h
@@ -20,20 +20,4 @@ Get DVI and log file name.
     fclose(f);
   }
   b_close(&dvi_file);
-@z
-
-@x
-  {@+wlog_cr;a_close(&log_file);selector=selector-2;
-@y
-  {@+wlog_cr;
-  if (getenv("log")) {
-    char s1[50], s2[PATH_MAX];
-    sprintf(s1, "/proc/self/fd/%d", fileno(log_file.f));
-    assert(realpath(s1, s2));
-    FILE *f;
-    assert(f = fopen(getenv("log"), "w"));
-    fprintf(f, "%s", s2);
-    fclose(f);
-  }
-  a_close(&log_file);selector=selector-2;
 @z
