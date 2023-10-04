@@ -1,0 +1,30 @@
+\font\twelverm=omr12
+\font\TWELVERM=OMR12
+\font\twelvebx=ombx12
+\font\TWELVEBX=OMBX12
+\font\twelvett=omtt12
+\font\TWELVETT=OMTT12
+\font\twelveit=omti12
+\font\TWELVEIT=OMTI12
+\font\twelvesl=omsl12
+\font\TWELVESL=OMSL12
+% cmss12
+% cmssi12
+\setbox\strutbox=\hbox{\vrule height10.2pt depth4.2pt width0pt}
+{\catcode`@=11 \gdef\raggedbottom{\topskip 12pt plus60pt \r@ggedbottomtrue}}
+\topskip=12pt
+\normalbaselineskip=14.4pt
+\normalbaselines
+\def\makeheadline{\vbox to 0pt{\vskip-27pt
+  \line{\vbox to10.2pt{}\the\headline}\vss}
+  \nointerlineskip}
+\def\makefootline{\baselineskip=28.8pt
+  \lineskiplimit=0pt
+  \line{\the\footline}}
+\footline={\hss\twelverm\folio\hss}
+\def\rm{\twelverm}
+\def\bf{\twelvebx}
+\def\tt{\twelvett}
+\def\it{\twelveit}
+\def\sl{\twelvesl}
+\rm
