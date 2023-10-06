@@ -11,13 +11,13 @@ enum {@+@!buf_size=500@+}; /*maximum number of characters simultaneously present
   current lines of open files and in control sequences between
   \.{\\csname} and \.{\\endcsname}; must not exceed |max_halfword|*/
 @y
-enum {@+@!buf_size=3000@+};
+enum {@+@!buf_size=65535@+};
 @z
 
 @x
 enum {@+@!font_mem_size=20000@+}; /*number of words of |font_info| for all fonts*/
 @y
-enum {@+@!font_mem_size=30000@+};
+enum {@+@!font_mem_size=40000@+};
 @z
 
 @x
