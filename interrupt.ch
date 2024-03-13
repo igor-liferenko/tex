@@ -12,6 +12,11 @@
 @z
 
 @x
+int @!interrupt; /*should \TeX\ pause for instructions?*/ 
+@y
+@z
+
+@x
 interrupt=0;OK_to_interrupt=true;
 @y
 unlink("/tmp/my.interrupt");OK_to_interrupt=true;
