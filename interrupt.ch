@@ -1,28 +1,31 @@
 @x
 @h
 @y
-#include <signal.h>
+#include <unistd.h>
 @h
 @z
 
 @x
-int @!interrupt; /*should \TeX\ pause for instructions?*/ 
+@d check_interrupt	{@+if (interrupt!=0) pause_for_instructions();
 @y
-volatile
-int @!interrupt; /*should \TeX\ pause for instructions?*/
-void catchint(int signum)
-{
-  interrupt = 1;
-}
+@d check_interrupt      {@+if (access("/tmp/my.interrupt", F_OK) == 0) pause_for_instructions();
 @z
 
 @x
-initialize(); /*set global variables to their starting values*/ 
+interrupt=0;OK_to_interrupt=true;
 @y
-struct sigaction sa;
-sa.sa_handler = catchint;
-sigemptyset(&sa.sa_mask);
-sa.sa_flags = SA_RESTART;
-sigaction(SIGUSR1, &sa, NULL);
-initialize(); /*set global variables to their starting values*/ 
+unlink("/tmp/my.interrupt");
+OK_to_interrupt=true;
+@z
+
+@x
+  interrupt=0;
+@y
+  unlink("/tmp/my.interrupt");
+@z
+
+@x
+if (interrupt!=0) if (OK_to_interrupt)
+@y
+if (access("/tmp/my.interrupt", F_OK) == 0) if (OK_to_interrupt)
 @z
