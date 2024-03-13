@@ -14,8 +14,7 @@
 @x
 interrupt=0;OK_to_interrupt=true;
 @y
-unlink("/tmp/my.interrupt");
-OK_to_interrupt=true;
+unlink("/tmp/my.interrupt");OK_to_interrupt=true;
 @z
 
 @x
