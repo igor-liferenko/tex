@@ -1,38 +1,32 @@
-Run `touch /tmp/tex.interrupt' from another terminal.
+From another terminal run:
+
+    pkill -USR1 -f /tex/ -t tty_name
 
 @x
 @h
 @y
-#include <unistd.h>
+#include <signal.h>
 @h
-@d INTF "/tmp/tex.interrupt"
-@z
-
-@x
-@d check_interrupt	{@+if (interrupt!=0) pause_for_instructions();
-@y
-@d check_interrupt      {@+if (access(INTF, F_OK) == 0) pause_for_instructions();
 @z
 
 @x
 int @!interrupt; /*should \TeX\ pause for instructions?*/ 
 @y
+volatile
+int @!interrupt; /*should \TeX\ pause for instructions?*/
+void catchint(int signum)
+{
+  interrupt = 1;
+}
 @z
 
 @x
-interrupt=0;OK_to_interrupt=true;
+initialize(); /*set global variables to their starting values*/ 
 @y
-unlink(INTF);OK_to_interrupt=true;
-@z
-
-@x
-  interrupt=0;
-@y
-  unlink(INTF);
-@z
-
-@x
-if (interrupt!=0) if (OK_to_interrupt)
-@y
-if (access(INTF, F_OK) == 0) if (OK_to_interrupt)
+struct sigaction sa;
+sa.sa_handler = catchint;
+sigemptyset(&sa.sa_mask);
+sa.sa_flags = SA_RESTART;
+sigaction(SIGUSR1, &sa, NULL);
+initialize(); /*set global variables to their starting values*/ 
 @z
