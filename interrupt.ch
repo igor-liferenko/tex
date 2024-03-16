@@ -1,6 +1,6 @@
 From another terminal run:
 
-    pkill -USR1 -f /tex/ -t tty_name
+    pkill -USR1 -f /tex/ -t TTY
 
 @x
 @h
