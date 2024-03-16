@@ -1,4 +1,4 @@
-From another terminal run:
+From another terminal emulator run:
 
     pkill -USR1 -f /tex/ -t TTY
 
