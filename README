@@ -7,7 +7,7 @@ Add this `tex' script to PATH:
     /path/to/tex/plain "$@"
     ret=$?
     /path/to/tex/newline
-    [ -e $edit ] && sed 's/\(.*\) \(.*\)/You want to edit file \1 at line \2/' $edit
+    [ -e $edit ] && sed 's/.* /You want to edit file &at line /' $edit
     rm -f $edit
     exit $ret
 
