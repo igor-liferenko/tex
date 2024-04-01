@@ -6,7 +6,10 @@ Add this `tex' script to PATH:
     export edit=/tmp/edit.$$
     /path/to/tex/plain "$@"
     ret=$?
-    /path/to/tex/newline
+    stty -icanon -echo
+    tput u7
+    awk -v RS=R '{ print $1; exit }' | sed -n '/.*;1$/!e echo'
+    stty icanon echo
     [ -e $edit ] && sed 's/.* /You want to edit file &at line /' $edit
     rm -f $edit
     exit $ret
