@@ -1,6 +1,8 @@
-Do not allow wide-character streams be closed automatically,
-because on some systems this may result to "Segmentation fault"
-(due to the bug in glibc). Instead, close them in list_close.
+Close any open input files before exiting.
+Otherwise they will be closed automatically,
+which may result to "Segmentation fault" on
+old systems (due to the glibc bug in handling
+wide-character streams).
 
 @x
   return reset_OK(*f);
