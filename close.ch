@@ -5,9 +5,9 @@ old systems (due to the glibc bug in handling
 wide-character streams).
 
 @x
-  return reset_OK(*f);
+  if ((f->f=fopen(name_of_file+1,"r"))!=NULL) f->d=fgetwc(f->f); return reset_OK(*f);
 @y
-  list_add(f->f); return reset_OK(*f);
+  if ((f->f=fopen(name_of_file+1,"r"))!=NULL) f->d=fgetwc(f->f); list_add(f->f); return reset_OK(*f);
 @z
 
 @x
