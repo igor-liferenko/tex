@@ -1,15 +1,14 @@
-Ensure that text input is valid UTF-8 and codepoints fit into 16 bits.
-
-@x
-@h
-@y
-#include <iconv.h>
-@h
-@z
+Ensure that text input files are good.
 
 @x
 { if ((f->f=fopen(name_of_file+1,"r"))!=NULL) f->d=fgetwc(f->f); return reset_OK(*f);
 @y
-{ // TODO: use iconv -f UTF-8 -t UCS-2
-  if ((f->f=fopen(name_of_file+1,"r"))!=NULL) f->d=fgetwc(f->f); return reset_OK(*f);
+{ if ((f->f=fopen(name_of_file+1,"r"))!=NULL) {
+    wint_t c;
+    while ((c = fgetwc(f->f)) != WEOF) { if ((c & 0xffff) != c) break; }
+    assert(feof(f->f));
+    rewind(f->f);
+    f->d=fgetwc(f->f);
+  }
+  return reset_OK(*f);
 @z
