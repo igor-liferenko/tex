@@ -5,9 +5,9 @@ old systems (due to the glibc bug in handling
 wide-character streams).
 
 @x
-  if ((f->f=fopen(name_of_file+1,"r"))!=NULL) f->d=fgetwc(f->f); return reset_OK(*f);
+  return reset_OK(*f);
 @y
-  if ((f->f=fopen(name_of_file+1,"r"))!=NULL) f->d=fgetwc(f->f); list_add(f->f); return reset_OK(*f);
+  list_add(f->f); return reset_OK(*f);
 @z
 
 @x
@@ -22,6 +22,8 @@ initialize(); /*set global variables to their starting values*/
 atexit(list_close);
 initialize(); /*set global variables to their starting values*/ 
 @z
+
+===== Definitions of list_add, list_delete and list_close: =====
 
 @x
 @ Appendix: Replacement of the string pool file.
