@@ -1,5 +1,5 @@
 Ensure that text input files are good.
-(We don't consider input_ln because we assume that input from terminal
+(We don't bother to do checks in input_ln because we assume that input from terminal
 is always good.)
 
 @x
