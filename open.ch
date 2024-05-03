@@ -1,4 +1,6 @@
 Ensure that text input files are good.
+(We don't consider input_ln because we assume that input from terminal
+is always good.)
 
 @x
 { if ((f->f=fopen(name_of_file+1,"r"))!=NULL) f->d=fgetwc(f->f); return reset_OK(*f);
