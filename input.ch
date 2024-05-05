@@ -1,4 +1,4 @@
-Ensure that text input is in UTF-8.
+Ensure that text input files are in UTF-8.
 
 @x
 @h
