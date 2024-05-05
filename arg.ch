@@ -20,7 +20,7 @@ if (argc == 2) {
   for (int k = 0, len; k < strlen(argv[1]); k += len) {
     wchar_t wc;
     len = mbtowc(&wc, argv[1]+k, MB_CUR_MAX);
-    assert((wc & 0xffff) == wc);
+    assert(wc < 65536);
     buffer[last++] = xord[wc];
   }
   return true;
