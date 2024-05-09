@@ -9,7 +9,7 @@ Add this `tex' script to PATH:
     if [ -t 0 ] && [ -t 1 ]; then
       stty -icanon -echo
       tput u7
-      gawk -v RS=R '{ print $1; exit }' | sed -n '/.*;1$/!e echo'
+      gawk -v RS=R '{print;exit}' | sed -n '/.*;1$/!e echo'
       stty icanon echo
     fi
     [ -e $edit ] && sed 's/.* /You want to edit file &at line /' $edit
