@@ -7,7 +7,8 @@ wide-character streams).
 @x
   return reset_OK(*f);
 @y
-  list_add(f->f); return reset_OK(*f);
+  if (f->f != NULL) list_add(f->f);
+  return reset_OK(*f);
 @z
 
 @x
