@@ -1,4 +1,5 @@
-Add \pdfpagewidth, \pdfpageheight, \pdfhorigin and \pdfvorigin (the same as in pdftex).
+Add dimension parameters \pdfpagewidth, \pdfpageheight, \pdfhorigin, \pdfvorigin
+and write their values in comment of output DVI file.
 
 @x
 @h
