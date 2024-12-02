@@ -3,8 +3,9 @@ See utf8.pdf - it contains improvements to https://www.tug.org/TUGboat/tb41-3/tb
 Add this `tex' script to PATH:
 
     #!/bin/sh
+    export format=plain
     export edit=/tmp/edit.$$
-    /path/to/tex/plain "$@"
+    /path/to/tex/virtex "$@"
     ret=$?
     if [ -t 0 ] && [ -t 1 ]; then
       stty -icanon -echo
