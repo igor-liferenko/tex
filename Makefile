@@ -5,7 +5,6 @@ all:
 	ctangle tex tex
 	gcc -DINIT tex.c -o initex -lm
 	@./initex 'plain \input paper+origin \dump' >/dev/null && mv plain.fmt TeXformats/
-	@./initex 'тех \input paper+origin \dump' >/dev/null && mv тех.fmt TeXformats/
 	gcc -DSTAT tex.c -o virtex -lm
 
 triptex:
