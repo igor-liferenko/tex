@@ -1,5 +1,3 @@
-Format name is taken from environment variable.
-
 @x
 initialize(); /*set global variables to their starting values*/ 
 @y

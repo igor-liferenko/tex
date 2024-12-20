@@ -5,3 +5,5 @@ initex
 virtex
 plain.log
 тех.log
+TeXinputs/*
+TeXfonts/*
