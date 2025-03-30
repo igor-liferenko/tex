@@ -1,4 +1,4 @@
-@@ -344,9 +344,11 @@
+@@ -346,9 +346,11 @@
  #include <stdlib.h>
  #include <string.h>
  #include <math.h>
@@ -11,7 +11,7 @@
  #define ord(X)       ((int)(X))
  #define abs(X)       ((X)>-(X)?(X):-(X))
  #define round(X)     ((int)((X)>=0.0?floor((X)+0.5):ceil((X)-0.5)))
-@@ -567,9 +569,9 @@
+@@ -569,9 +571,9 @@
  adjusted if necessary.
  @^system dependencies@>
  
@@ -23,7 +23,7 @@
  
  @<Local variables for init...@>=
  int @!i;
-@@ -579,9 +581,9 @@
+@@ -581,9 +583,9 @@
  that are analogous to \PASCAL's |ord| and |chr| functions.
  
  @<Glob...@>=
@@ -35,7 +35,7 @@
     /*specifies conversion of output characters*/ 
  
  @ Since we are assuming that our \PASCAL\ system is able to read and
-@@ -727,6 +729,7 @@
+@@ -729,6 +731,7 @@
  @<Set init...@>=
  for (i=0; i<=037; i++) xchr[i]= ' ' ;
  for (i=0177; i<=0377; i++) xchr[i]= ' ' ;
@@ -43,7 +43,7 @@
  
  @ The following system-independent code makes the |xord| array contain a
  suitable inverse to the information in |xchr|. Note that if |xchr[i]==xchr[j]|
-@@ -824,7 +827,7 @@
+@@ -826,7 +829,7 @@
  
  @p bool a_open_in(alpha_file *f)
     /*open a text file for input*/ 
@@ -52,7 +52,7 @@
  } 
  @#
  bool a_open_out(alpha_file *f)
-@@ -939,7 +942,7 @@
+@@ -941,7 +944,7 @@
  @p bool input_ln(alpha_file *f, bool @!bypass_eoln)
     /*inputs the next line or returns |false|*/ 
  {@+uint16_t last_nonblank; /*|last| with trailing blanks removed*/ 
@@ -61,7 +61,7 @@
     /*input the first character of the line into |f.d|*/ 
  last=first; /*cf.\ Matthew 19\thinspace:\thinspace30*/ 
  if (eof((*f))) return false;
-@@ -950,7 +953,7 @@
+@@ -952,7 +955,7 @@
        if (max_buf_stack==buf_size) 
          @<Report overflow of the input buffer, and abort@>;
        } 
@@ -70,7 +70,7 @@
      if (buffer[last-1]!=' ') last_nonblank=last;
      } 
    last=last_nonblank;return true;
-@@ -1500,7 +1503,7 @@
+@@ -1502,7 +1505,7 @@
    {@+print_ln();return;
    } 
  switch (selector) {
@@ -79,7 +79,7 @@
    incr(term_offset);incr(file_offset);
    if (term_offset==max_print_line) 
      {@+wterm_cr;term_offset=0;
-@@ -1509,17 +1512,17 @@
+@@ -1511,17 +1514,17 @@
      {@+wlog_cr;file_offset=0;
      } 
    } @+break;
@@ -100,7 +100,7 @@
  } @/
  incr(tally);
  } 
-@@ -10110,9 +10113,16 @@
+@@ -10123,9 +10126,16 @@
  allows both lowercase and uppercase letters in the file name.
  @^system dependencies@>
  
@@ -120,7 +120,7 @@
  
  @p void pack_file_name(str_number @!n, str_number @!a, str_number @!e)
  {@+int k; /*number of positions filled in |name_of_file|*/ 
-@@ -10122,6 +10132,7 @@
+@@ -10135,6 +10145,7 @@
  for (j=str_start[a]; j<=str_start[a+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
@@ -128,7 +128,7 @@
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
  name_of_file[name_length+1]=0;
  } 
-@@ -10138,13 +10149,16 @@
+@@ -10151,13 +10162,16 @@
  @d format_extension_str ".fmt" /*the extension, as a \.{WEB} constant*/ 
  
  @<Glob...@>=
@@ -147,7 +147,7 @@
  
  @ Here is the messy routine that was just mentioned. It sets |name_of_file|
  from the first |n| characters of |TEX_format_default|, followed by
-@@ -10161,11 +10175,16 @@
+@@ -10174,11 +10188,16 @@
  {@+int k; /*number of positions filled in |name_of_file|*/ 
  ASCII_code @!c; /*character being packed*/ 
  int @!j; /*index into |buffer| or |TEX_format_default|*/ 
@@ -166,7 +166,7 @@
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
    append_to_name(xord[TEX_format_default[j]]);
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
-@@ -10224,7 +10243,11 @@
+@@ -10237,7 +10256,11 @@
  if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
   (cur_length > 0)) 
    return'?';
@@ -179,7 +179,7 @@
    return make_string();
    } 
  } 
-@@ -10355,7 +10378,7 @@
+@@ -10368,7 +10391,7 @@
  {@+uint8_t old_setting; /*previous |selector| setting*/ 
  int @!k; /*index into |months| and |buffer|*/ 
  uint16_t @!l; /*end of first input line*/ 
@@ -188,17 +188,17 @@
  old_setting=selector;
  if (job_name==0) job_name=@[@<|"texput"|@>@];
  @.texput@>
-@@ -10397,7 +10420,8 @@
+@@ -10410,7 +10433,8 @@
  {@+wlog("%s",banner);
  slow_print(format_ident);print_str("  ");
- print_int(day);print_char(' ');
--for (k=3*month-2; k<=3*month; k++) wlog("%c",months[k]);
+ print_int(sys_day);print_char(' ');
+-for (k=3*sys_month-2; k<=3*sys_month; k++) wlog("%c",months[k]);
 +wcscpy(months+1, L"JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC");
-+for (k=3*month-2; k<=3*month; k++) wlog("%lc",months[k]);
- print_char(' ');print_int(year);print_char(' ');
- print_two(time/60);print_char(':');print_two(time%60);
++for (k=3*sys_month-2; k<=3*sys_month; k++) wlog("%lc",months[k]);
+ print_char(' ');print_int(sys_year);print_char(' ');
+ print_two(sys_time/60);print_char(':');print_two(sys_time%60);
  } 
-@@ -24289,6 +24313,7 @@
+@@ -24321,6 +24345,7 @@
  @^system dependencies@>
  
  @p int main(void) {@! /*|start_here|*/ 
