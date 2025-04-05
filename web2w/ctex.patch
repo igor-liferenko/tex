@@ -56,8 +56,8 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  known as `\TeX' [cf.~Stanford Computer Science report CS1027,
  November 1984].
  
--@d banner	"This is TeX, Version 3.14159265" /*printed when \TeX\ starts*/ 
-+@d banner	"This is TeX, Version 3.14159265 (HINT)" /*printed when \TeX\ starts*/ 
+-@d banner	"This is TeX, Version 3.141592653" /*printed when \TeX\ starts*/ 
++@d banner	"This is TeX, Version 3.141592653 (HINT)" /*printed when \TeX\ starts*/ 
  
  @ Different \PASCAL s have slightly different conventions, and the present
  @!@:PASCAL H}{\ph@>
