@@ -1,0 +1,16 @@
+diff --git a/web2w/ctex.w b/web2w/ctex.w
+index 579decc..872dfd1 100644
+--- a/web2w/ctex.w
++++ b/web2w/ctex.w
+@@ -10151,7 +10151,10 @@
+ @d format_extension_str ".fmt" /*the extension, as a \.{WEB} constant*/ 
+ 
+ @<Glob...@>=
+-ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
++ASCII_code @!TEX_format_default0[format_default_length+1], *const @!TEX_format_default = @!TEX_format_default0-1;
++
++@ @<Set init...@>=
++strcpy(TEX_format_default+1, "TeXformats/plain.fmt");
+ @.TeXformats@>
+ @.plain@>
+ @^system dependencies@>
