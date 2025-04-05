@@ -75,7 +75,7 @@
    } 
  switch (selector) {
 -case term_and_log: {@+wterm("%c",xchr[s]);wlog("%c",xchr[s]);
-+case term_and_log: {@+wterm("%lc",(wint_t)xchr[s]);wlog("%lc",(wint_t)xchr[s]);
++case term_and_log: {@+wterm("%lc",xchr[s]);wlog("%lc",xchr[s]);
    incr(term_offset);incr(file_offset);
    if (term_offset==max_print_line) 
      {@+wterm_cr;term_offset=0;
@@ -84,11 +84,11 @@
      } 
    } @+break;
 -case log_only: {@+wlog("%c",xchr[s]);incr(file_offset);
-+case log_only: {@+wlog("%lc",(wint_t)xchr[s]);incr(file_offset);
++case log_only: {@+wlog("%lc",xchr[s]);incr(file_offset);
    if (file_offset==max_print_line) print_ln();
    } @+break;
 -case term_only: {@+wterm("%c",xchr[s]);incr(term_offset);
-+case term_only: {@+wterm("%lc",(wint_t)xchr[s]);incr(term_offset);
++case term_only: {@+wterm("%lc",xchr[s]);incr(term_offset);
    if (term_offset==max_print_line) print_ln();
    } @+break;
  case no_print: do_nothing;@+break;
@@ -96,7 +96,7 @@
  case new_string: {@+if (pool_ptr < pool_size) append_char(s);
    } @+break; /*we drop characters if the string space is full*/ 
 -default:write(write_file[selector],"%c", xchr[s]);
-+default:write(write_file[selector],"%lc", (wint_t)xchr[s]);
++default:write(write_file[selector],"%lc", xchr[s]);
  } @/
  incr(tally);
  } 
