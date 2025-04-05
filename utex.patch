@@ -136,8 +136,8 @@
 +wchar_t TEX_format_default0[format_default_length+1], *const TEX_format_default = TEX_format_default0-1;
  
  @ @<Set init...@>=
--strcpy(TEX_format_default+1, "TeXformats/plain.fmt");
-+wcscpy(TEX_format_default+1,L"TeXformats/plain.fmt");
+-strcpy(TEX_format_default+1,  "TeXformats/plain.fmt");
++wcscpy(TEX_format_default+1, L"TeXformats/plain.fmt");
  @.TeXformats@>
  @.plain@>
  @^system dependencies@>
