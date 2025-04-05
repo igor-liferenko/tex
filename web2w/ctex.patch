@@ -52,15 +52,6 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  @* Introduction.
  This is \TeX, a document compiler intended to produce typesetting of high
  quality.
-@@ -188,7 +199,7 @@
- known as `\TeX' [cf.~Stanford Computer Science report CS1027,
- November 1984].
- 
--@d banner	"This is TeX, Version 3.141592653" /*printed when \TeX\ starts*/ 
-+@d banner	"This is TeX, Version 3.141592653 (HINT)" /*printed when \TeX\ starts*/ 
- 
- @ Different \PASCAL s have slightly different conventions, and the present
- @!@:PASCAL H}{\ph@>
 @@ -318,12 +329,35 @@
  @^system dependencies@>
  @^overflow in arithmetic@>
@@ -628,12 +619,12 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 -{@+wlog(banner);
 +{@+wlog("%s",banner);
  slow_print(format_ident);print_str("  ");
- print_int(sys_day);print_char(' ');
+ print_int(day);print_char(' ');
 -months="JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC";
--for (k=3*sys_month-2; k<=3*sys_month; k++) wlog(months[k]);
-+for (k=3*sys_month-2; k<=3*sys_month; k++) wlog("%c",months[k]);
- print_char(' ');print_int(sys_year);print_char(' ');
- print_two(sys_time/60);print_char(':');print_two(sys_time%60);
+-for (k=3*month-2; k<=3*month; k++) wlog(months[k]);
++for (k=3*month-2; k<=3*month; k++) wlog("%c",months[k]);
+ print_char(' ');print_int(year);print_char(' ');
+ print_two(time/60);print_char(':');print_two(time%60);
  } 
 @@ -10453,7 +10495,8 @@
  @ The rest of the \.{TFM} file may be regarded as a sequence of ten data
@@ -823,8 +814,8 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 +  if (fscanf(term_in.f," %d",&m)<1 ||
 +      m < 0) return;
    else if (m==0) 
-     {@+goto breakpoint;@/ /*go to every declared label at least once*/ 
-     breakpoint: m=0;/*'BREAKPOINT'*/@/
+     {@+goto breakpoint; /*go to every label at least once*/ 
+     breakpoint: m=0;/*'BREAKPOINT'*/
      } 
 -  else{@+read(term_in, n);
 +  else{@+fscanf(term_in.f," %d",&n);
