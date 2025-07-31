@@ -4,7 +4,9 @@ all:
 	flex -o web.lex.c web.l
 	bison --warnings=none -d -v pascal.y
 	gcc -o web2w web2w.c web.lex.c pascal.tab.c
-	tie -m tex64.web tex.web 64bit.ch >/dev/null
+	cp tex.web tex64.web
+	@sed -i 's/max_quarterword=255/max_quarterword=65535/' tex64.web
+	@sed -i 's/max_halfword==65535/max_halfword==@"3FFFFFFF/' tex64.web
 	./web2w -o ctex.w tex64.web
 	@patch -s ctex.w tex.patch
 	sed '622,627s/\(time\|day\|month\|year\)\b/sys_&/g' ctex.patch | patch -s --no-backup-if-mismatch ctex.w
