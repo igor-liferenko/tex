@@ -15,4 +15,4 @@ triptex:
 	ctangle tex tex
 	gcc -DINIT -DSTAT tex.c -o trip/triptex -lm
 
-CHF=charset.ch path.ch interrupt.ch arg.ch print.ch preload.ch time.ch log.ch edit.ch name.ch exit.ch input.ch close.ch
+CHF=charset.ch path.ch interrupt.ch arg.ch print.ch preload.ch time.ch log.ch edit.ch name.ch exit.ch input.ch close.ch 64bit.ch
