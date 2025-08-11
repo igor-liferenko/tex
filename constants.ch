@@ -3,7 +3,7 @@ enum {@+@!mem_max=30000@+}; /*greatest index in \TeX's internal |mem| array;
   must be strictly less than |max_halfword|;
   must be equal to |mem_top| in \.{INITEX}, otherwise | >= mem_top|*/ 
 @y
-enum {@+@!mem_max=65534@+};
+enum {@+@!mem_max=5000000@+};
 @z
 
 @x
@@ -36,5 +36,5 @@ enum {@+@!trie_size=12000@+};
   must be substantially larger than |mem_bot|
   and not greater than |mem_max|*/ 
 @y
-@d mem_top      65534
+@d mem_top      5000000
 @z
