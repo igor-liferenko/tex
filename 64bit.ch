@@ -40,12 +40,24 @@ pointer @!q; /*the node physically after node |p|*/
 int @!r; /*the newly allocated node, or a candidate for this honor*/ 
 int @!t; /*temporary register*/ 
 @y
-@p pointer get_node(unsigned int @!s) /*variable-size node allocation*/ 
+@p pointer get_node(int64_t @!s) /*variable-size node allocation*/ 
 {@+
 pointer p; /*the node currently under inspection*/ 
 pointer @!q; /*the node physically after node |p|*/ 
 unsigned int @!r; /*the newly allocated node, or a candidate for this honor*/ 
 unsigned int @!t; /*temporary register*/ 
+@z
+
+@x
+if (s==010000000000) 
+@y
+if (s==0400000000000000000000) 
+@z
+
+@x
+p=get_node(010000000000); /*merge adjacent free areas*/ 
+@y
+p=get_node(0400000000000000000000); /*merge adjacent free areas*/ 
 @z
 
 @x
