@@ -1,4 +1,5 @@
 TODO: undo changes one by one except first and delete which are not necessary
+      and do that 'make -C trip' will work
 
 @x
 enum {@+@!mem_max=65534@+};
