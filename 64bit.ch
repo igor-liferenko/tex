@@ -27,6 +27,12 @@ typedef struct { @;@/
 @z
 
 @x
+int @!var_used, @!dyn_used; /*how much memory is in use*/ 
+@y
+unsigned int @!var_used, @!dyn_used; /*how much memory is in use*/ 
+@z
+
+@x
 @p pointer get_node(int @!s) /*variable-size node allocation*/ 
 {@+
 pointer p; /*the node currently under inspection*/ 
