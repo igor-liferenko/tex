@@ -4,19 +4,29 @@ TODO: undo changes below one by one except first and delete which are not necess
       'tex ~/audio/тренировка' and then running 'make -C trip')
 
 @x
-enum {@+@!mem_max=65534@+};
-@y
-#ifdef INIT
-enum {@+@!mem_max=65534@+};
-#else
-enum {@+@!mem_max=5000000@+};
-#endif
-@z
-
-@x
 typedef float32_t @!glue_ratio; /*one-word representation of a glue expansion factor*/ 
 @y
 typedef double @!glue_ratio; /*one-word representation of a glue expansion factor*/ 
+@z
+
+@x
+@d max_quarterword	255 /*largest allowable value in a |quarterword|*/
+@y
+@d max_quarterword     65535 /*largest allowable value in a |quarterword|*/
+@z
+
+@x
+@d max_halfword	65535 /*largest allowable value in a |halfword|*/
+@y
+@d max_halfword 0x3FFFFFFF /*largest allowable value in a |halfword|*/
+@z
+
+@x
+typedef uint8_t quarterword; /*1/4 of a word*/ 
+typedef uint16_t halfword; /*1/2 of a word*/ 
+@y
+typedef uint16_t quarterword; /*1/4 of a word*/ 
+typedef uint32_t halfword; /*1/2 of a word*/ 
 @z
 
 @x
@@ -136,3 +146,5 @@ int @!x; /*something undumped*/
 @y
 int64_t @!x; /*something undumped*/
 @z
+
+
