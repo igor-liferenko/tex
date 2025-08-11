@@ -1,3 +1,5 @@
+TODO: undo changes one by one except first and delete which are not necessary
+
 @x
 enum {@+@!mem_max=65534@+};
 @y
