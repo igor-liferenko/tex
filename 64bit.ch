@@ -1,6 +1,6 @@
 TODO: undo changes one by one except first and delete which are not necessary
-      (check by running 'make' here, then running 'make' in mytex/ and then running 'tex ~/audio/тренировка')
-      and do that 'make -C trip' will work
+      (check by running 'make' here, then running 'make' in mytex/ and then running
+      'tex ~/audio/тренировка' and then running 'make -C trip')
 
 @x
 enum {@+@!mem_max=65534@+};
