@@ -15,6 +15,7 @@ typedef double @!glue_ratio; /*one-word representation of a glue expansion facto
 @d max_quarterword     65535 /*largest allowable value in a |quarterword|*/
 @z
 
+2*max_halfword must be less than 2^24-1, not produce an overflow - according to second edition of web2w.pdf
 @x
 @d max_halfword	65535 /*largest allowable value in a |halfword|*/
 @y
