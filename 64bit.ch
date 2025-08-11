@@ -108,3 +108,8 @@ void show_token_list(int @!p, int @!q, int @!l)
 void show_token_list(unsigned int @!p, unsigned int @!q, int @!l)
 @z
 
+@x
+int @!n; /*ditto*/ 
+@y
+unsigned int @!n; /*ditto*/ 
+@z
