@@ -1,4 +1,4 @@
-TODO: undo changes below one by one except 1, 2, 3, 4, 5, 6 and delete which are not necessary
+TODO: undo changes below ---------- line one by one and delete which are not necessary
       (check by running 'make' here and then running 'make -C trip'; afterwards run 'make' in mytex/)
 
 @x
@@ -28,14 +28,12 @@ typedef uint32_t halfword; /*1/2 of a word*/
 pointer p; /*the node currently under inspection*/ 
 pointer @!q; /*the node physically after node |p|*/ 
 int @!r; /*the newly allocated node, or a candidate for this honor*/ 
-int @!t; /*temporary register*/ 
 @y
 @p pointer get_node(int64_t @!s) /*variable-size node allocation*/ 
 {@+
 pointer p; /*the node currently under inspection*/ 
 pointer @!q; /*the node physically after node |p|*/ 
 int64_t @!r; /*the newly allocated node, or a candidate for this honor*/ 
-int64_t @!t; /*temporary register*/ 
 @z
 
 2^62 - by analogy with 2^30
@@ -50,6 +48,8 @@ p=get_node(010000000000); /*merge adjacent free areas*/
 @y
 p=get_node(0400000000000000000000); /*merge adjacent free areas*/ 
 @z
+
+------------------------------------------------------------------------------
 
 @x
 int @!k; /*index into |mem|, |eqtb|, etc.*/ 
