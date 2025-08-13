@@ -1,13 +1,6 @@
-TODO: do that 'make -C trip' will work
-TODO: undo changes below one by one except 2nd, 3rd, 4th, 8th, 9th and delete which are not necessary
+TODO: undo changes below one by one except 1, 2, 3, 7, 8 and delete which are not necessary
       (check by running 'make' here, then running 'make' in mytex/ and then running
       'tex ~/audio/тренировка' and then running 'make -C trip')
-
-@x
-typedef float32_t @!glue_ratio; /*one-word representation of a glue expansion factor*/ 
-@y
-typedef double @!glue_ratio; /*one-word representation of a glue expansion factor*/ 
-@z
 
 @x
 @d max_quarterword	255 /*largest allowable value in a |quarterword|*/
