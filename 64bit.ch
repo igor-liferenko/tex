@@ -1,5 +1,5 @@
 TODO: do that 'make -C trip' will work
-TODO: undo changes below one by one except first and delete which are not necessary
+TODO: undo changes below one by one except 2nd, 3rd, 4th, 8th, 9th and delete which are not necessary
       (check by running 'make' here, then running 'make' in mytex/ and then running
       'tex ~/audio/тренировка' and then running 'make -C trip')
 
@@ -45,7 +45,7 @@ typedef struct { @;@/
 @x
 int @!var_used, @!dyn_used; /*how much memory is in use*/ 
 @y
-unsigned int @!var_used, @!dyn_used; /*how much memory is in use*/ 
+int64_t @!var_used, @!dyn_used; /*how much memory is in use*/ 
 @z
 
 @x
@@ -60,14 +60,15 @@ int @!t; /*temporary register*/
 {@+
 pointer p; /*the node currently under inspection*/ 
 pointer @!q; /*the node physically after node |p|*/ 
-unsigned int @!r; /*the newly allocated node, or a candidate for this honor*/ 
-unsigned int @!t; /*temporary register*/ 
+int64_t @!r; /*the newly allocated node, or a candidate for this honor*/ 
+int64_t @!t; /*temporary register*/ 
 @z
 
+2^62 - by analogy with 2^30
 @x
 if (s==010000000000) 
 @y
-if (s==0400000000000000000000) 
+if (s==0400000000000000000000)
 @z
 
 @x
@@ -79,67 +80,67 @@ p=get_node(0400000000000000000000); /*merge adjacent free areas*/
 @x
 int @!k; /*index into |mem|, |eqtb|, etc.*/ 
 @y
-unsigned int @!k; /*index into |mem|, |eqtb|, etc.*/ 
+int64_t @!k; /*index into |mem|, |eqtb|, etc.*/ 
 @z
 
 @x
 @p void short_display(int @!p) /*prints highlights of list |p|*/ 
 @y
-@p void short_display(unsigned int @!p) /*prints highlights of list |p|*/ 
+@p void short_display(int64_t @!p) /*prints highlights of list |p|*/ 
 @z
 
 @x
 @p void print_font_and_char(int @!p) /*prints |char_node| data*/ 
 @y
-@p void print_font_and_char(unsigned int @!p) /*prints |char_node| data*/ 
+@p void print_font_and_char(int64_t @!p) /*prints |char_node| data*/ 
 @z
 
 @x
 void print_mark(int @!p) /*prints token list data in braces*/ 
 @y
-void print_mark(unsigned int @!p) /*prints token list data in braces*/ 
+void print_mark(int64_t @!p) /*prints token list data in braces*/ 
 @z
 
 @x
 @p void print_spec(int @!p, str_number @!s)
 @y
-@p void print_spec(unsigned int @!p, str_number @!s)
+@p void print_spec(int64_t @!p, str_number @!s)
 @z
 
 @x
 @p void show_node_list(int @!p) /*prints a node list symbolically*/ 
 @y
-@p void show_node_list(unsigned int @!p) /*prints a node list symbolically*/ 
+@p void show_node_list(int64_t @!p) /*prints a node list symbolically*/ 
 @z
 
 @x
 {@+int p; /*index into |nest|*/ 
 @y
-{@+unsigned int p; /*index into |nest|*/ 
+{@+int64_t p; /*index into |nest|*/ 
 @z
 
 @x
 int @!t; /*ditto*/ 
 @y
-unsigned int @!t; /*ditto*/ 
+int64_t @!t; /*ditto*/ 
 @z
 
 @x
 void print_cs(int @!p) /*prints a purported control sequence*/ 
 @y
-void print_cs(unsigned int @!p) /*prints a purported control sequence*/ 
+void print_cs(int64_t @!p) /*prints a purported control sequence*/ 
 @z
 
 @x
 void show_token_list(int @!p, int @!q, int @!l)
 @y
-void show_token_list(unsigned int @!p, unsigned int @!q, int @!l)
+void show_token_list(int64_t @!p, int64_t @!q, int @!l)
 @z
 
 @x
 int @!n; /*ditto*/ 
 @y
-unsigned int @!n; /*ditto*/ 
+int64_t @!n; /*ditto*/ 
 @z
 
 @x
@@ -147,5 +148,3 @@ int @!x; /*something undumped*/
 @y
 int64_t @!x; /*something undumped*/
 @z
-
-
