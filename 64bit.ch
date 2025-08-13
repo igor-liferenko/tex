@@ -1,6 +1,5 @@
 TODO: undo changes below one by one except 1, 2, 3, 7, 8 and delete which are not necessary
-      (check by running 'make' here, then running 'make' in mytex/ and then running
-      'tex ~/audio/тренировка' and then running 'make -C trip')
+      (check by running 'make' here and then running 'make -C trip'; afterwards run 'make' in mytex/)
 
 @x
 @d max_quarterword	255 /*largest allowable value in a |quarterword|*/
