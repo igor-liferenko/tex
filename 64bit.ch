@@ -1,4 +1,4 @@
-TODO: undo changes below one by one except 1, 2, 3, 7, 8 and delete which are not necessary
+TODO: undo changes below one by one except 1, 2, 3, 4, 5, 6 and delete which are not necessary
       (check by running 'make' here and then running 'make -C trip'; afterwards run 'make' in mytex/)
 
 @x
@@ -20,24 +20,6 @@ typedef uint16_t halfword; /*1/2 of a word*/
 @y
 typedef uint16_t quarterword; /*1/4 of a word*/ 
 typedef uint32_t halfword; /*1/2 of a word*/ 
-@z
-
-@x
-  } four_quarters;
-typedef struct { @;@/
-  union { 
-  int @!i;
-@y
-  } four_quarters;
-typedef struct { @;@/
-  union { 
-  int64_t @!i;
-@z
-
-@x
-int @!var_used, @!dyn_used; /*how much memory is in use*/ 
-@y
-int64_t @!var_used, @!dyn_used; /*how much memory is in use*/ 
 @z
 
 @x
