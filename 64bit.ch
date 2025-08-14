@@ -7,11 +7,10 @@ TODO: undo changes below ---------- line one by one and delete which are not nec
 @d max_quarterword     65535 /*largest allowable value in a |quarterword|*/
 @z
 
-2*max_halfword must be less than 2^24-1, not produce an overflow - according to second edition of web2w.pdf
 @x
 @d max_halfword	65535 /*largest allowable value in a |halfword|*/
 @y
-@d max_halfword 0x3FFFFFFF /*largest allowable value in a |halfword|*/
+@d max_halfword 0x3FFFFFFF // 2*max_halfword must be less than 2^24-1, not to produce an overflow - according to second edition of web2w.pdf
 @z
 
 @x
