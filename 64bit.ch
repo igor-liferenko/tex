@@ -1,6 +1,9 @@
 TODO: undo changes below ---------- line one by one and delete which are not necessary
       (check by running 'make' here and then running 'make -C trip'; afterwards run 'make' in mytex/)
 
+This allows to make mem_max in constants.ch greater than 65534 (for quire.tex)
+NOTE: mem_top in constants.ch must agree with mem_max
+
 @x
 @d max_quarterword	255 /*largest allowable value in a |quarterword|*/
 @y
@@ -10,50 +13,29 @@ TODO: undo changes below ---------- line one by one and delete which are not nec
 @x
 @d max_halfword	65535 /*largest allowable value in a |halfword|*/
 @y
-@d max_halfword 0x3FFFFFFF // 2*max_halfword must be less than 2^24-1, not to produce an overflow - according to second edition of web2w.pdf
+@d max_halfword 0x3FFFFFFF /*largest allowable value in a |halfword|*/
 @z
 
 @x
-typedef uint8_t quarterword; /*1/4 of a word*/ 
-typedef uint16_t halfword; /*1/2 of a word*/ 
+typedef uint8_t quarterword; /*1/4 of a word*/
+typedef uint16_t halfword; /*1/2 of a word*/
 @y
-typedef uint16_t quarterword; /*1/4 of a word*/ 
-typedef uint32_t halfword; /*1/2 of a word*/ 
-@z
-
-@x
-@p pointer get_node(int @!s) /*variable-size node allocation*/ 
-{@+
-pointer p; /*the node currently under inspection*/ 
-pointer @!q; /*the node physically after node |p|*/ 
-int @!r; /*the newly allocated node, or a candidate for this honor*/ 
-@y
-@p pointer get_node(int64_t @!s) /*variable-size node allocation*/ 
-{@+
-pointer p; /*the node currently under inspection*/ 
-pointer @!q; /*the node physically after node |p|*/ 
-int64_t @!r; /*the newly allocated node, or a candidate for this honor*/ 
-@z
-
-2^62 - by analogy with 2^30
-@x
-if (s==010000000000) 
-@y
-if (s==0400000000000000000000)
-@z
-
-@x
-p=get_node(010000000000); /*merge adjacent free areas*/ 
-@y
-p=get_node(0400000000000000000000); /*merge adjacent free areas*/ 
+typedef uint16_t quarterword; /*1/4 of a word*/
+typedef uint32_t halfword; /*1/2 of a word*/
 @z
 
 ------------------------------------------------------------------------------
 
 @x
-int @!k; /*index into |mem|, |eqtb|, etc.*/ 
+int @!r; /*the newly allocated node, or a candidate for this honor*/
 @y
-int64_t @!k; /*index into |mem|, |eqtb|, etc.*/ 
+int64_t @!r; /*the newly allocated node, or a candidate for this honor*/
+@z
+
+@x
+int @!k; /*index into |mem|, |eqtb|, etc.*/
+@y
+int64_t @!k; /*index into |mem|, |eqtb|, etc.*/
 @z
 
 @x
