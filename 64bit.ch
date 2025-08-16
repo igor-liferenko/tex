@@ -1,6 +1,3 @@
-This allows to make mem_max in constants.ch greater than 65534 (for quire.tex)
-NOTE: mem_top in constants.ch must agree with mem_max
-
 @x
 @d max_quarterword	255 /*largest allowable value in a |quarterword|*/
 @y
