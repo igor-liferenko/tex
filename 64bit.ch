@@ -28,5 +28,6 @@ int64_t @!r; /*the newly allocated node, or a candidate for this honor*/
 r=q-s;
 @y
 r=(int)q-s; /* if we use (int), |r| can be negative at certain points in the program;
-               if do not use (int), |r| is greater than 2^31-1 in the same points */
+               if do not use (int), |r| is greater than 2^31-1 in the same points, which
+               causes segmentation fault */
 @z
