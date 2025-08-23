@@ -28,6 +28,6 @@ int64_t @!r; /* TODO: understand why this change is needed - maybe use (int)
 @x
 r=q-s;
 @y
-r=(int)q-s; /* if do not use (int), |r| can be greater than 2^31-1, which
-               causes segmentation fault; TODO: understand why */
+if (s==010000000000) r=-1;
+else r=q-s;
 @z
