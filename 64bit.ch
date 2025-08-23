@@ -28,6 +28,7 @@ int64_t @!r; /* TODO: understand why this change is needed - maybe use (int)
 @x
 r=q-s;
 @y
-if (s==010000000000) r=-1;
+if (s==010000000000) r=-1; /* compiler casts |q-s| to unsigned because |q| is unsigned,
+                              thus |r| will be very big instead of negative */
 else r=q-s;
 @z
