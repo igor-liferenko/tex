@@ -21,12 +21,13 @@ typedef uint32_t halfword; /*1/2 of a word*/
 @x
 int @!r; /*the newly allocated node, or a candidate for this honor*/
 @y
-int64_t @!r; /*the newly allocated node, or a candidate for this honor*/
+int64_t @!r; /* TODO: understand why this change is needed - maybe use (int)
+                in some point(s) of the program instead (like below) */
 @z
 
 @x
 r=q-s;
 @y
 r=(int)q-s; /* if do not use (int), |r| can be greater than 2^31-1, which
-               causes segmentation fault */
+               causes segmentation fault; TODO: understand why */
 @z
