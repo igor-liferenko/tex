@@ -4,7 +4,7 @@
 @d max_quarterword 65535 /*largest allowable value in a |quarterword|*/
 @z
 
-|max_halfword| must be less than 2^30
+Must be less than 2^30.
 @x
 @d max_halfword	65535 /*largest allowable value in a |halfword|*/
 @y
