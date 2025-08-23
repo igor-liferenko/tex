@@ -1,7 +1,7 @@
 @x
 @d max_quarterword	255 /*largest allowable value in a |quarterword|*/
 @y
-@d max_quarterword     65535 /*largest allowable value in a |quarterword|*/
+@d max_quarterword 65535 /*largest allowable value in a |quarterword|*/
 @z
 
 @x
@@ -19,13 +19,14 @@ typedef uint32_t halfword; /*1/2 of a word*/
 @z
 
 @x
-@p pointer get_node(int @!s) /*variable-size node allocation*/
-@y
-@p pointer get_node(int64_t @!s) /*variable-size node allocation*/
-@z
-
-@x
 int @!r; /*the newly allocated node, or a candidate for this honor*/
 @y
 int64_t @!r; /*the newly allocated node, or a candidate for this honor*/
+@z
+
+@x
+r=q-s;
+@y
+r=q-(int64_t)s; /* |r| can become negative here;
+                   if we do not do the cast, |r| can become greater that 2^31-1 */
 @z
