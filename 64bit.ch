@@ -18,10 +18,11 @@ typedef uint16_t quarterword; /*1/4 of a word*/
 typedef uint32_t halfword; /*1/2 of a word*/
 @z
 
+According to definition of |get_node|, |r| is uint32_t and negative.
 @x
 int @!r; /*the newly allocated node, or a candidate for this honor*/
 @y
-int64_t @!r; /* TODO: if we do not do this, trip.dvi is not created - understand why */
+int64_t @!r; /*the newly allocated node, or a candidate for this honor*/
 @z
 
 @x
