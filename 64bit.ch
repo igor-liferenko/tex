@@ -4,6 +4,7 @@
 @d max_quarterword 65535 /*largest allowable value in a |quarterword|*/
 @z
 
+|max_halfword| must be less than 2^30
 @x
 @d max_halfword	65535 /*largest allowable value in a |halfword|*/
 @y
@@ -19,8 +20,8 @@ typedef uint32_t halfword; /*1/2 of a word*/
 @z
 
 According to definition of |get_node|, |r| must accomodate uint32_t values (|r| is returned
-and return type is 'pointer'). According to the change at the end of this file, |r| must
-also accomodate negative values.
+and return type is 'pointer'). |r| must also accomodate negative values, because |q-s| is
+negative when |s| is 2^30.
 @x
 int @!r; /*the newly allocated node, or a candidate for this honor*/
 @y
