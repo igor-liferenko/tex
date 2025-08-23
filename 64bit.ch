@@ -33,6 +33,5 @@ thus |r| will be very big instead of negative when |s| is 2^30.
 @x
 r=q-s;
 @y
-if (s==010000000000) r=-1;
-else r=q-s;
+r=(int64_t)q-s;
 @z
