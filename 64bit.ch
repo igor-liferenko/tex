@@ -27,5 +27,6 @@ int64_t @!r; /*the newly allocated node, or a candidate for this honor*/
 @x
 r=q-s;
 @y
-r=(int64_t)q-s;
+r=(int)q-s; /* If we do the cast, q-s can be negative at certain points in the program;
+                   if do not do the cast, q-s is greater than 2^31-1 in the same points. */
 @z
