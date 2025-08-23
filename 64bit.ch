@@ -21,14 +21,14 @@ typedef uint32_t halfword; /*1/2 of a word*/
 @x
 int @!r; /*the newly allocated node, or a candidate for this honor*/
 @y
-int64_t @!r; /* TODO: understand why this change is needed - maybe use (int)
-                in some point(s) of the program instead (like below) */
+int64_t @!r; /* TODO: if we do not do this, trip.dvi is not created - understand why */
 @z
 
 @x
 r=q-s;
 @y
 if (s==010000000000) r=-1; /* compiler casts |q-s| to unsigned because |q| is unsigned,
-                              thus |r| will be very big instead of negative */
+                              thus |r| will be very big instead of negative and the following
+                              'if' will be true instead of false */
 else r=q-s;
 @z
