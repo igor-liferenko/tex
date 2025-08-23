@@ -27,7 +27,5 @@ int64_t @!r; /*the newly allocated node, or a candidate for this honor*/
 @x
 r=q-s;
 @y
-r=q-(int64_t)s; /* |r| can become negative here, which leads to segmentation fault if
-  the type of |r| is not changed above; if we do not do the cast,
-  |r| can become greater that 2^31-1 here, which leads to segmentation fault */
+r=(int64_t)q-s;
 @z
