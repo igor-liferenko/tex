@@ -5,7 +5,7 @@ all:
 	ctangle tex tex
 	gcc -DINIT tex.c -o initex -lm
 	@./initex 'plain \input paper+origin \dump' >/dev/null && mv plain.fmt TeXformats/
-	gcc tex.c -o virtex -lm
+	gcc -DSTAT tex.c -o virtex -lm
 
 triptex:
 	@[ $(MAKELEVEL) = 1 ]
