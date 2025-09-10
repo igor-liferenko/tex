@@ -24,5 +24,5 @@ enum {@+@!trie_size=15000@+};
   must be substantially larger than |mem_bot|
   and not greater than |mem_max|*/ 
 @y
-@d mem_top	5000000
+@d mem_top	4999999
 @z
