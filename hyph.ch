@@ -5,6 +5,12 @@ except that spurious space after '-' is not output to terminal and log file in o
 It is OK if you forget to use '\\' instead of '-': you can use when an overfull box warning appears.
 
 @x
+  case unset_node: print_str("[]");@+break;
+@y
+  case unset_node: if (type(p)!=whatsit_node || subtype(p)!=hyph_node) print_str("[]");@+break;
+@z
+
+@x
   if (second_pass&&auto_breaking)
 @y
  try_hyph:
