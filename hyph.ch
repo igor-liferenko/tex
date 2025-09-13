@@ -2,7 +2,7 @@ Hyphenate already\\hyphenated words.
 Use \def\\{\hyphen@te-\hyphen@te} in format (this feature is not supposed to be
 used with 'plain' format); it is eqquivalent to \def\\{\kern0pt-\nobreak\hskip0pt\relax},
 except that spurious space after '-' is not output to terminal and log file in overfull warnings.
-It is OK if you forget to use '\\' instead of '-': you can use when an overfull box warning appears.
+It is OK if you forget to use '\\' instead of '-': you can use it when an overfull box warning appears.
 
 @x
   case unset_node: print_str("[]");@+break;
