@@ -58,13 +58,14 @@ if (subtype(cur_p)==hyph_node) goto try_hyph;
 else adv_past(cur_p)
 @z
 
-FIXME: trip test is passed with and without this change - understand if it should be used
-@x
+FIXME: uncomment this change if 'whatsit?' or 'unknown extension' will be printed by
+\showlists to understand if this change has any effect and use this change if yes and delete if no
+ @x
 @ @<Prepare to move whatsit |p| to the current page, then |goto contribute|@>=
-@y
+ @y
 @ @<Prepare to move whatsit |p| to the current page, then |goto contribute|@>=
 if (subtype(cur_p)!=hyph_node)
-@z
+ @z
 
 @x
 case language_node: do_nothing;@+break;
