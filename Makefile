@@ -1,7 +1,7 @@
 all:
 	make -C web2w
 	patch -so tex.w web2w/ctex.w utex.patch
-	tie -c tex.ch tex.w constants.ch special.ch paper+origin.ch $(CHF) >/dev/null
+	tie -c tex.ch tex.w constants.ch special.ch paper+origin.ch hyph.ch $(CHF) >/dev/null
 	ctangle tex tex
 	gcc -DINIT tex.c -o initex -lm
 	@./initex 'plain \input paper+origin \dump' >/dev/null && mv plain.fmt TeXformats/
