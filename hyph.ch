@@ -7,7 +7,7 @@ It is OK if you forget to use '\\' instead of '-': you can use it when an overfu
 @x
   case unset_node: print_str("[]");@+break;
 @y
-  case unset_node: if (type(p)!=whatsit_node || subtype(p)!=hyph_node) print_str("[]");@+break;
+  case unset_node: if (!(type(p)==whatsit_node && subtype(p)==hyph_node)) print_str("[]");@+break;
 @z
 
 @x
