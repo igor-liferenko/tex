@@ -4,7 +4,7 @@ enum {@+@!mem_max=30000@+}; /*greatest index in \TeX's internal |mem| array;
   must be equal to |mem_top| in \.{INITEX}, otherwise | >= mem_top|*/ 
 @y
 #ifdef INIT
-enum {@+@!mem_max=65534@+};
+enum {@+@!mem_max=30000@+};
 #else
 enum {@+@!mem_max=5000000@+};
 #endif
@@ -28,17 +28,5 @@ enum {@+@!font_mem_size=40000@+};
 enum {@+@!trie_size=8000@+}; /*space for hyphenation patterns; should be larger for
   \.{INITEX} than it is in production versions of \TeX*/
 @y
-#ifdef INIT
 enum {@+@!trie_size=14100@+};
-#else
-enum {@+@!trie_size=12000@+};
-#endif
-@z
-
-@x
-@d mem_top	30000 /*largest index in the |mem| array dumped by \.{INITEX};
-  must be substantially larger than |mem_bot|
-  and not greater than |mem_max|*/ 
-@y
-@d mem_top      65534
 @z
