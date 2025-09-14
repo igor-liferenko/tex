@@ -11,6 +11,14 @@ It is OK if you forget to use '\\' instead of '-': you can use it when an overfu
 @z
 
 @x
+case whatsit_node: @<Advance \(p)past a whatsit node in the \(l)|line_break| loop@>@;@+break;
+@y
+case whatsit_node: @<Advance \(p)past a whatsit node in the \(l)|line_break| loop@>@;
+if (subtype(cur_p)==hyph_node) goto try_hyph;
+break;
+@z
+
+@x
   if (second_pass&&auto_breaking)
 @y
  try_hyph:
@@ -55,13 +63,6 @@ case close_node: case language_node: case hyph_node: {@+r=get_node(small_node_si
 case close_node: case language_node: free_node(p, small_node_size);@+break;
 @y
 case close_node: case language_node: case hyph_node: free_node(p, small_node_size);@+break;
-@z
-
-@x
-adv_past(cur_p)
-@y
-if (subtype(cur_p)==hyph_node) goto try_hyph;
-else adv_past(cur_p)
 @z
 
 @x
