@@ -1,6 +1,6 @@
 Hyphenate already\\hyphenated words.
 
-Use \def\\{\hyphen@te-\hyphen@te} in format file (it is equivalent
+Use \def\\{\hyphen@te-\hyphen@te} in a format file (it is equivalent
 to \def\\{\kern0pt-\nobreak\hskip0pt\relax}, except that spurious space
 after '-' is not output to terminal and log file in overfull warnings).
 It is OK if you forget to use '\\' instead of '-' in a compoud word: you
