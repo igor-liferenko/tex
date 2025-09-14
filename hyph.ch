@@ -1,6 +1,6 @@
 Hyphenate already\\hyphenated words.
 Use \def\\{\hyphen@te-\hyphen@te} in format (this feature is not supposed to be
-used with 'plain' format); it is eqquivalent to \def\\{\kern0pt-\nobreak\hskip0pt\relax},
+used with 'plain' format); it is equivalent to \def\\{\kern0pt-\nobreak\hskip0pt\relax},
 except that spurious space after '-' is not output to terminal and log file in overfull warnings.
 It is OK if you forget to use '\\' instead of '-': you can use it when an overfull box warning appears.
 
@@ -35,7 +35,7 @@ It is OK if you forget to use '\\' instead of '-': you can use it when an overfu
 @!@:set_language_}{\.{\\setlanguage} primitive@>
 @y
 @!@:set_language_}{\.{\\setlanguage} primitive@>
-primitive(@[@<|"hyphen@@te"|@>@], extension, hyphenate_code);@/
+primitive(@<|"hyphen@@te"|@>, extension, hyphenate_code);
 @z
 
 @x
@@ -64,14 +64,12 @@ if (subtype(cur_p)==hyph_node) goto try_hyph;
 else adv_past(cur_p)
 @z
 
-FIXME: uncomment this change if 'whatsit?' or 'unknown extension' will be printed by
-\showlists to understand if this change has any effect and use this change if yes and delete if no
- @x
+@x
 @ @<Prepare to move whatsit |p| to the current page, then |goto contribute|@>=
- @y
+@y
 @ @<Prepare to move whatsit |p| to the current page, then |goto contribute|@>=
-if (subtype(cur_p)!=hyph_node)
- @z
+if (subtype(p)==hyph_node) fprintf(stderr, "DEBUG: this must not happen\n");
+@z
 
 @x
 case language_node: do_nothing;@+break;

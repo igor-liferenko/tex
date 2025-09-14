@@ -42,10 +42,10 @@ case pdf_v_origin_code:   print_esc(@[@<|"pdfvorigin"|@>@]);@+break;
 @!@:emergency_stretch_}{\.{\\emergencystretch} primitive@>
 @y
 @!@:emergency_stretch_}{\.{\\emergencystretch} primitive@>
-primitive(@[@<|"pdfpagewidth"|@>@], assign_dimen, dimen_base+pdf_page_width_code);@/
-primitive(@[@<|"pdfpageheight"|@>@], assign_dimen, dimen_base+pdf_page_height_code);@/
-primitive(@[@<|"pdfhorigin"|@>@], assign_dimen, dimen_base+pdf_h_origin_code);@/
-primitive(@[@<|"pdfvorigin"|@>@], assign_dimen, dimen_base+pdf_v_origin_code);@/
+primitive(@<|"pdfpagewidth"|@>, assign_dimen, dimen_base+pdf_page_width_code);
+primitive(@<|"pdfpageheight"|@>, assign_dimen, dimen_base+pdf_page_height_code);
+primitive(@<|"pdfhorigin"|@>, assign_dimen, dimen_base+pdf_h_origin_code);
+primitive(@<|"pdfvorigin"|@>, assign_dimen, dimen_base+pdf_v_origin_code);
 @z
 
 @x
