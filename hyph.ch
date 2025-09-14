@@ -66,13 +66,6 @@ case close_node: case language_node: case hyph_node: free_node(p, small_node_siz
 @z
 
 @x
-@ @<Prepare to move whatsit |p| to the current page, then |goto contribute|@>=
-@y
-@ @<Prepare to move whatsit |p| to the current page, then |goto contribute|@>=
-if (subtype(p)==hyph_node) fprintf(stderr, "DEBUG: this must not happen\n");
-@z
-
-@x
 case language_node: do_nothing;@+break;
 @y
 case language_node: case hyph_node: do_nothing;@+break;
