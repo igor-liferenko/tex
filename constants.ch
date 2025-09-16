@@ -11,14 +11,6 @@ enum {@+@!mem_max=5000000@+};
 @z
 
 @x
-enum {@+@!buf_size=500@+}; /*maximum number of characters simultaneously present in
-  current lines of open files and in control sequences between
-  \.{\\csname} and \.{\\endcsname}; must not exceed |max_halfword|*/
-@y
-enum {@+@!buf_size=65535@+};
-@z
-
-@x
 enum {@+@!font_mem_size=20000@+}; /*number of words of |font_info| for all fonts*/
 @y
 enum {@+@!font_mem_size=40000@+};
