@@ -22,14 +22,14 @@ break;
 @z
 
 @x
-@d language_node        4 /*|subtype| in whatsits that change the current language*/
+@d language_node	4 /*|subtype| in whatsits that change the current language*/
 @y
 @d language_node        4 /*|subtype| in whatsits that change the current language*/
 @d hyph_node 5
 @z
 
 @x
-@d set_language_code    5 /*command modifier for \.{\\setlanguage}*/
+@d set_language_code	5 /*command modifier for \.{\\setlanguage}*/
 @y
 @d set_language_code    5 /*command modifier for \.{\\setlanguage}*/
 @d hyphenate_code 6
