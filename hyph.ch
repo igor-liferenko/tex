@@ -70,8 +70,7 @@ case language_node: case hyph_node: do_nothing;@+break;
 @<|"ext4"|@>=@+667
 @y
 @<|"ext4"|@>=@+667
-@ 
-@d str_668 "hyphen@@te"
+@ @d str_668 "hyphen@@te"
 @<|"hyphen@@te"|@>=@+668
 @z
 
@@ -100,7 +99,7 @@ str_start_669=str_start_668+sizeof(str_668)-1,@/
 @ @<|pool_ptr| initialization@>= str_start_669
 @z
 
-@x 
+@x
 @ @<|str_ptr| initialization@>= 668
 @y
 @ @<|str_ptr| initialization@>= 669
