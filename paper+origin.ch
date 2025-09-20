@@ -9,13 +9,13 @@ and write their values in comment of output DVI file.
 @z
 
 @x
-@d dimen_pars	21 /*total number of dimension parameters*/ 
+@d dimen_pars	21 /*total number of dimension parameters*/
 @y
 @d pdf_page_width_code 21
 @d pdf_page_height_code 22
 @d pdf_h_origin_code 23
 @d pdf_v_origin_code 24
-@d dimen_pars	25 /*total number of dimension parameters*/ 
+@d dimen_pars	25 /*total number of dimension parameters*/
 @z
 
 @x
@@ -27,7 +27,7 @@ and write their values in comment of output DVI file.
 @d pdf_h_origin       dimen_par(pdf_h_origin_code)
 @d pdf_v_origin       dimen_par(pdf_v_origin_code)
 @z
-  
+
 @x
 case emergency_stretch_code: print_esc(@[@<|"emergencystretch"|@>@]);@+break;
 @y
@@ -67,17 +67,13 @@ primitive(@<|"pdfvorigin"|@>, assign_dimen, dimen_base+pdf_v_origin_code);
 @<|"hyphen@@te"|@>=@+668
 @y
 @<|"hyphen@@te"|@>=@+668
-@ 
-@d str_669 "pdfpagewidth"
+@ @d str_669 "pdfpagewidth"
 @<|"pdfpagewidth"|@>=@+669
-@
-@d str_670 "pdfpageheight"
+@ @d str_670 "pdfpageheight"
 @<|"pdfpageheight"|@>=@+670
-@
-@d str_671 "pdfhorigin"
+@ @d str_671 "pdfhorigin"
 @<|"pdfhorigin"|@>=@+671
-@
-@d str_672 "pdfvorigin"
+@ @d str_672 "pdfvorigin"
 @<|"pdfvorigin"|@>=@+672
 @z
 
@@ -109,7 +105,7 @@ str_start_673=str_start_672+sizeof(str_672)-1,@/
 @ @<|pool_ptr| initialization@>= str_start_673
 @z
 
-@x 
+@x
 @ @<|str_ptr| initialization@>= 669
 @y
 @ @<|str_ptr| initialization@>= 673
