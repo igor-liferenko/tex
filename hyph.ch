@@ -9,9 +9,8 @@ Hyphenate already\hyphen@te-\hyphen@te hyphenated words.
 @x
 case whatsit_node: @<Advance \(p)past a whatsit node in the \(l)|line_break| loop@>@;@+break;
 @y
-case whatsit_node: @<Advance \(p)past a whatsit node in the \(l)|line_break| loop@>@;
-if (subtype(cur_p)==hyph_node) goto try_hyph;
-break;
+case whatsit_node: if (subtype(cur_p)==hyph_node) goto try_hyph;
+@<Advance \(p)past a whatsit node in the \(l)|line_break| loop@>@;@+break;
 @z
 
 @x
@@ -24,14 +23,14 @@ break;
 @x
 @d language_node	4 /*|subtype| in whatsits that change the current language*/
 @y
-@d language_node        4 /*|subtype| in whatsits that change the current language*/
+@d language_node	4 /*|subtype| in whatsits that change the current language*/
 @d hyph_node 5
 @z
 
 @x
 @d set_language_code	5 /*command modifier for \.{\\setlanguage}*/
 @y
-@d set_language_code    5 /*command modifier for \.{\\setlanguage}*/
+@d set_language_code	5 /*command modifier for \.{\\setlanguage}*/
 @d hyphenate_code 6
 @z
 
