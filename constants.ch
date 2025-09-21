@@ -4,9 +4,9 @@ enum {@+@!mem_max=30000@+}; /*greatest index in \TeX's internal |mem| array;
   must be equal to |mem_top| in \.{INITEX}, otherwise | >= mem_top|*/ 
 @y
 #ifdef INIT
-enum {@+@!mem_max=60000@+};
+enum {@+@!mem_max=30000@+}; /* must be equal to |mem_top| below */
 #else
-enum {@+@!mem_max=5000000@+};
+enum {@+@!mem_max=30000@+};
 #endif
 @z
 
@@ -16,7 +16,7 @@ enum {@+@!mem_min=0@+}; /*smallest index in \TeX's internal |mem| array;
   must be equal to |mem_bot| in \.{INITEX}, otherwise | <= mem_bot|*/ 
 @y
 #ifdef INIT
-enum {@+@!mem_min=30000@+};
+enum {@+@!mem_min=0@+}; /* must be equal to |mem_bot| below */
 #else
 enum {@+@!mem_min=0@+};
 #endif
@@ -25,21 +25,21 @@ enum {@+@!mem_min=0@+};
 @x
 enum {@+@!font_mem_size=20000@+}; /*number of words of |font_info| for all fonts*/
 @y
-enum {@+@!font_mem_size=40000@+};
+enum {@+@!font_mem_size=20000@+};
 @z
 
 @x
 enum {@+@!trie_size=8000@+}; /*space for hyphenation patterns; should be larger for
   \.{INITEX} than it is in production versions of \TeX*/
 @y
-enum {@+@!trie_size=15000@+};
+enum {@+@!trie_size=8000@+};
 @z
 
 @x
 @d mem_bot	0 /*smallest index in the |mem| array dumped by \.{INITEX};
   must not be less than |mem_min|*/ 
 @y
-@d mem_bot	30000
+@d mem_bot	0 /* must be equal to |mem_min| above */
 @z
 
 @x
@@ -47,5 +47,5 @@ enum {@+@!trie_size=15000@+};
   must be substantially larger than |mem_bot|
   and not greater than |mem_max|*/ 
 @y
-@d mem_top	60000
+@d mem_top	30000 /* must be equal to |mem_max| above */
 @z
