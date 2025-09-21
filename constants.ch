@@ -18,7 +18,7 @@ enum {@+@!mem_min=0@+}; /*smallest index in \TeX's internal |mem| array;
 #ifdef INIT
 enum {@+@!mem_min=mem_bot@+};
 #else
-enum { mem_min = 0 };
+enum {@+@!mem_min=0@+};
 #endif
 @z
 
