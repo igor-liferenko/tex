@@ -1,9 +1,15 @@
 Hyphenate already\hyphen@te-\hyphen@te hyphenated words.
 
 @x
-  case unset_node: print_str("[]");@+break;
+while (p > mem_min)
 @y
-  case unset_node: if (!(type(p)==whatsit_node && subtype(p)==hyph_node)) print_str("[]");@+break;
+while (p > mem_min) if (type(p)==whatsit_node && subtype(p)==hyph_node) p=link(p); else
+@z
+
+@x
+while (p > mem_min)
+@y
+while (p > mem_min) if (type(p)==whatsit_node && subtype(p)==hyph_node) p=link(p); else
 @z
 
 @x
