@@ -9,14 +9,14 @@ enum {@+@!mem_max=mem_top@+};
 @x
 enum {@+@!font_mem_size=20000@+}; /*number of words of |font_info| for all fonts*/
 @y
-enum { font_mem_size = 20000 };
+enum {@+@!font_mem_size=40000@+};
 @z
 
 @x
 enum {@+@!trie_size=8000@+}; /*space for hyphenation patterns; should be larger for
   \.{INITEX} than it is in production versions of \TeX*/
 @y
-enum { trie_size = 8000 };
+enum {@+@!trie_size=15000@+};
 @z
 
 @x
@@ -24,5 +24,5 @@ enum { trie_size = 8000 };
   must be substantially larger than |mem_bot|
   and not greater than |mem_max|*/ 
 @y
-@d mem_top 30000
+@d mem_top	5000000
 @z
