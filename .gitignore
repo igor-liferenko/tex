@@ -7,3 +7,6 @@ plain.log
 тех.log
 TeXinputs/*
 TeXfonts/*
+*.dvi
+*.log
+*.ps
