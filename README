@@ -1,7 +1,3 @@
-Based on https://w3-o.cs.hm.edu/users/ruckert/public_html/web2w/
-
-See utf8.pdf - it contains improvements to https://www.tug.org/TUGboat/tb41-3/tb129liferenko-utf8.pdf
-
 Add this `tex' script to PATH:
 
     #!/bin/sh
@@ -23,11 +19,6 @@ Make mapping.w correspond to encoding of used fonts.
 
 Adjust path.ch
 
------------------------------------
+------------------------------------
 
-Programs converted using web2w:
-
-    https://github.com/igor-liferenko/mf
-    https://github.com/igor-liferenko/dvitype
-    https://github.com/igor-liferenko/gftodvi
-    https://github.com/igor-liferenko/gftopk
+See utf8.pdf - it contains improvements to https://www.tug.org/TUGboat/tb41-3/tb129liferenko-utf8.pdf
