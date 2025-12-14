@@ -1,4 +1,4 @@
-@@ -346,9 +346,11 @@
+@@ -346,6 +346,8 @@
  #include <stdlib.h>
  #include <string.h>
  #include <math.h>
@@ -6,11 +6,7 @@
 +#include <locale.h>
  
  #define odd(X)       ((X)&1)
--#define chr(X)       ((unsigned char)(X))
-+#define chr(X)       (X) /* fix ctex.patch */
- #define ord(X)       ((int)(X))
- #define abs(X)       ((X)>-(X)?(X):-(X))
- #define round(X)     ((int)((X)>=0.0?floor((X)+0.5):ceil((X)-0.5)))
+ #define chr(X)       (X)
 @@ -569,9 +571,9 @@
  adjusted if necessary.
  @^system dependencies@>
