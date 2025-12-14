@@ -3,7 +3,8 @@ so I use this patch to correct two places in ctex.patch by applying it after cte
 
 =======================================================================================
 
-ctex.patch does typecast which is incompatible with utf8.tex; moreover, this typecast is not necessary
+ctex.patch does typecast which conflicts with UTF-8 support (utex.patch);
+moreover, this typecast is not necessary
 @@ -351 +351 @@
 -#define chr(X)       ((unsigned char)(X))
 +#define chr(X)       (X)
