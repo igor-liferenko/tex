@@ -24,14 +24,17 @@ tex,mf,dvitype,gftodvi,gftopk repos
 
 ============================
 
-NOTE: --no-backup-if-mismatch is used i Makefile in order that it will be easier to
-      see how ctex.patch differs from original
+NOTE: --no-backup-if-mismatch is used in Makefile in order to make less changes to ctex.patch
+      (so that it is easier to see how ctex.patch differs from original)
+
 
 TODO:
 1) check if section from printable.ch is the same as in web2w.pdf in this directory
 and on ctan and if yes, delete web2w.pdf from this directory
 2) use web.l and pascal.y and web2w.w from ctan (adding internal_register change
 mentioned above) in tex,mf,dvitype,gftodvi,gftopk repos
+And use for_TODO_in_tex_web2w_README.tar to compare with ctan
+Use alsa ctex.w.web-archive
 
 TODO:
 change utf8.tex in accordance with 2021 tuneup if necessary

@@ -1,3 +1,7 @@
+NOTE: month changes from utf8.tex are not done here (using the fact that months are in ASCII)
+      in order to make less changes to ctex.patch (so that it is easier to see how ctex.patch
+      differs from original)
+
 @@ -346,6 +346,8 @@
  #include <stdlib.h>
  #include <string.h>
