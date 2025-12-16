@@ -1,5 +1,0 @@
-@@ -24491,2 +24491,2 @@
--    {@+goto breakpoint;@/ /*go to every declared label at least once*/ 
--    breakpoint: m=0;/*'BREAKPOINT'*/@/
-+    {@+goto breakpoint; /*go to every label at least once*/ 
-+    breakpoint: m=0;/*'BREAKPOINT'*/
