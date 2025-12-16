@@ -5,13 +5,19 @@ Based on web2w 4.0 from ctan, except:
     +#define abs(X)       ((X)>-(X)?(X):-(X))
     +#define round(X)     ((int)((X)>=0.0?floor((X)+0.5):ceil((X)-0.5)))
 
+NOTE: in section 3 of tex.pdf it is said that Pascal's 'round' function
+disagrees with the IEEE
+floating-point standard and that many implementors have therefore chosen
+to substitute their own home-grown
+rounding procedure.
+
 NOTE: '#define round' is used in order not to use -lm gcc option (math.h),
 but for this gcc optimization option must be used, which makes gcc
 use built-in versions of floor() and ceil().
 And -O option is used by web2w author and -lm option is not used - see
 web2w.pdf on ctan and in this directory.
 
-NOTE: abs is in stdlib.h
+TODO: cmp with definition of abs in stdlib.h
 
 2) This is added to web2w.w ('register' is a reserved word in C):
 
@@ -24,3 +30,7 @@ and on ctan and if yes, delete web2w.pdf from this directory
 tex,mf,dvitype,gftodvi,gftopk repos
 3) use web.l and pascal.y and web2w.w from ctan (except internal_register change
 mentioned above) in tex,mf,dvitype,gftodvi,gftopk repos
+
+TODO:
+put all changes directly to ctex.patch from c.patch, tex.patch and sed (see web2w/Makefile)
+and change utf8.tex in accordance with 2021 tuneup if necessary
