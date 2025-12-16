@@ -34,4 +34,4 @@ and on ctan and if yes, delete web2w.pdf from this directory
 mentioned above) in tex,mf,dvitype,gftodvi,gftopk repos
 
 TODO:
-put all changes directly to ctex.patch from c.patch and change utf8.tex in accordance with 2021 tuneup if necessary
+change utf8.tex in accordance with 2021 tuneup if necessary

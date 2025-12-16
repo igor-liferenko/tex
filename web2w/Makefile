@@ -6,4 +6,4 @@ all:
 	gcc -o web2w web2w.c web.lex.c pascal.tab.c
 	./web2w -o ctex.w tex.web
 	@echo patch -s ctex.w ctex.patch; patch -s --no-backup-if-mismatch ctex.w ctex.patch
-	patch -s ctex.w c.patch
+	@patch -s ctex.w c.patch
