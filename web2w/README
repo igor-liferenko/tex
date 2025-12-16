@@ -5,19 +5,18 @@ Based on web2w 4.0 from ctan, except:
     +#define abs(X)       ((X)>-(X)?(X):-(X))
     +#define round(X)     ((int)((X)>=0.0?floor((X)+0.5):ceil((X)-0.5)))
 
+NOTE: default abs (stdlib.h) is for inegers only and it truncates floating values
+
 NOTE: in section 3 of tex.pdf it is said that Pascal's 'round' function
 disagrees with the IEEE
 floating-point standard and that many implementors have therefore chosen
 to substitute their own home-grown
 rounding procedure.
-
-NOTE: '#define round' is used in order not to use -lm gcc option (math.h),
-but for this gcc optimization option must be used, which makes gcc
-use built-in versions of floor() and ceil().
-And -O option is used by web2w author and -lm option is not used - see
-web2w.pdf on ctan and in this directory.
-
-TODO: cmp with definition of abs in stdlib.h
+But maybe the reason is simply that 'floor' and 'ceil' were built-in in author's compiler and he decided
+to define his own 'round' because gcc invocation from web2w.pdf
+does not have -lm option
+TODO: cmp definition of round in math.h and if it is the same, delete '#define round' from
+tex,mf,dvitype,gftodvi,gftopk repos
 
 2) This is added to web2w.w ('register' is a reserved word in C):
 
@@ -26,9 +25,7 @@ TODO: cmp with definition of abs in stdlib.h
 TODO:
 1) check if section from printable.ch is the same as in web2w.pdf in this directory
 and on ctan and if yes, delete web2w.pdf from this directory
-2) find out if '#define abs' and '#define round' mentioned above can be deleted from
-tex,mf,dvitype,gftodvi,gftopk repos
-3) use web.l and pascal.y and web2w.w from ctan (except internal_register change
+2) use web.l and pascal.y and web2w.w from ctan (adding internal_register change
 mentioned above) in tex,mf,dvitype,gftodvi,gftopk repos
 
 TODO:
