@@ -22,6 +22,11 @@ tex,mf,dvitype,gftodvi,gftopk repos
 
     SYM_PTR("register")->name="internal_register";
 
+============================
+
+NOTE: --no-backup-if-mismatch is used i Makefile in order that it will be easier to
+      see how ctex.patch differs from original
+
 TODO:
 1) check if section from printable.ch is the same as in web2w.pdf in this directory
 and on ctan and if yes, delete web2w.pdf from this directory
@@ -29,5 +34,4 @@ and on ctan and if yes, delete web2w.pdf from this directory
 mentioned above) in tex,mf,dvitype,gftodvi,gftopk repos
 
 TODO:
-put all changes directly to ctex.patch from c.patch and tune ctex.patch that ctex.w.orig will not appear
-by deleting -s option from 'patch' temporarily and change utf8.tex in accordance with 2021 tuneup if necessary
+put all changes directly to ctex.patch from c.patch and change utf8.tex in accordance with 2021 tuneup if necessary
