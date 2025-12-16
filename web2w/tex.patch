@@ -1,7 +1,3 @@
-ctex.patch was created for an older version of TeX; I want to keep original ctex.patch,
-so I use this patch to temporarily revert changes for newer version of TeX in order that
-ctex.patch will apply
-
 @@ -24491,2 +24491,2 @@
 -    {@+goto breakpoint;@/ /*go to every declared label at least once*/ 
 -    breakpoint: m=0;/*'BREAKPOINT'*/@/

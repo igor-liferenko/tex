@@ -1,15 +1,5 @@
-ctex.patch was created for an older version of TeX; I want to keep original ctex.patch,
-so I use this patch to correct two places in ctex.patch by applying it after ctex.patch
-
-=======================================================================================
-
-ctex.patch does typecast which conflicts with UTF-8 support (utex.patch);
-moreover, this typecast is not necessary
-@@ -351 +351 @@
--#define chr(X)       ((unsigned char)(X))
-+#define chr(X)       (X)
-
 ctex.patch changes the form of C-code, but I prefer to stick to the converted form
+
 @@ -10154,1 +10154,4 @@
 -ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
 +uint8_t @!TEX_format_default0[format_default_length+1], *const @!TEX_format_default = @!TEX_format_default0-1;
