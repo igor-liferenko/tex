@@ -5,6 +5,12 @@ Based on web2w 4.0 from ctan, except:
     +#define abs(X)       ((X)>-(X)?(X):-(X))
     +#define round(X)     ((int)((X)>=0.0?floor((X)+0.5):ceil((X)-0.5)))
 
+NOTE: '#define round' is used in order not to use -lm gcc option (math.h),
+but for this gcc optimization option must be used, which makes gcc
+use built-in versions of floor() and ceil().
+And -O option is used by web2w author and -lm option is not used - see
+web2w.pdf on ctan and in this directory.
+
 2) This is added to web2w.w ('register' is a reserved word in C):
 
     SYM_PTR("register")->name="internal_register";
@@ -14,5 +20,7 @@ TODO:
 and on ctan and if yes, delete web2w.pdf from this directory
 2) find out if '#define abs' and '#define round' mentioned above can be deleted from
 tex,mf,dvitype,gftodvi,gftopk repos
+round = math.h
+abs = stdlib.h
 3) use web.l and pascal.y and web2w.w from ctan (except internal_register change
 mentioned above) in tex,mf,dvitype,gftodvi,gftopk repos
