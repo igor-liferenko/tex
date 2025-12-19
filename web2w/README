@@ -33,7 +33,7 @@ TODO:
 and on ctan and if yes, delete web2w.pdf from this directory
 2) use web.l and pascal.y and web2w.w from ctan (adding internal_register change
 mentioned above) in tex,mf,dvitype,gftodvi,gftopk repos
-And use for_TODO_in_tex_web2w_README.tar to compare with ctan
+And use cmp/ to compare with ctan
 Use alsa ctex.w.web-archive
 
 TODO:
