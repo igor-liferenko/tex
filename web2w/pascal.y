@@ -1,3 +1,4 @@
+%{
 /*
 This file is part of web2w.
 Copyright 2017 Martin Ruckert
@@ -17,14 +18,14 @@ along with web2w.  If not, see <http://www.gnu.org/licenses/>.
  
 Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 */
-%{
+
 #include <stdio.h>
 #include "web2w.h"
 
 /* the tag=token number of the left hand side symbol of a rule */
 #define LHSS (yyr1[yyn]+FIRST_PASCAL_TOKEN-3)
 
-static int function=0;
+  static int function=0;
 
 %}
 

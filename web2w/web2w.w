@@ -44,8 +44,8 @@
 
 \titletrue
 
-\def\lastrevision{${}$Revision: 1192 ${}$}
-\def\lastdate{${}$Date: 2018-04-03 15:43:51 +0200 (Tue, 03 Apr 2018) ${}$}
+\def\lastrevision{${}$Revision: 943 ${}$}
+\def\lastdate{${}$Date: 2017-07-28 14:37:50 +0200 (Fri, 28 Jul 2017) ${}$}
 
 \input titlepage.tex
 
@@ -547,7 +547,7 @@ extern FILE *wwin; /* the scanners input file */
 extern FILE *wwout; /* the scanners needs an output file */@/@,
 @
 
-\noindent
+@
 Using this function, I can read the \WEB/ and produce a token list.
 @<read the \WEB/@>=
   @<initialize token list@>@;
@@ -2432,7 +2432,6 @@ SYM_PTR("exit")->name="end";
 SYM_PTR("free")->name="is_free";
 SYM_PTR("int")->name="i";
 SYM_PTR("remainder")->name="rem";
-SYM_PTR("register")->name="internal_register";
 @
 
 A special case is the the field identifier |int|. It can not be used
@@ -4599,7 +4598,7 @@ and finally, how to pass Donald Knuth's trip test\index{trip test}.
 
 I assume that you have a Unix/Linux system with a terminal window but other
 operating systems might work as well as long as you have access to the internet (I need
-files from \.{www.ctan.org}\index{CTAN}), an \.{unzip} program (because packages on \.{www.ctan.org}
+files from \.{www.ctan.org}\index{CTAN}), an \.{unzip} program ( because packages on \.{www.ctan.org}
 come in \.{.zip} files), and a \CEE/ compiler.
 
 The recommended, short, and easy way is to start with the file \.{ctex.w} 

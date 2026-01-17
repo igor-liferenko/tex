@@ -1,3 +1,4 @@
+%{
 /*
 This file is part of web2w.
 Copyright 2017 Martin Ruckert
@@ -17,7 +18,6 @@ along with web2w.  If not, see <http://www.gnu.org/licenses/>.
  
 Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
 */
-%{
 #include "web2w.h"
 #include "pascal.tab.h"
 %}
