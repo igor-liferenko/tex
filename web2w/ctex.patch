@@ -1,5 +1,3 @@
---- tex.w
-+++ tex.w
 @@ -75,11 +75,6 @@
  \def\(#1){} % this is used to make section names sort themselves better
  \def\9#1{} % this is used for sort keys in the index via @@:sort key}{entry@@>
