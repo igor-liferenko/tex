@@ -22,18 +22,15 @@ NOTE: this file is reduced by not implementing month changes (see utf8.tex),
  
  @<Local variables for init...@>=
  int @!i;
-@@ -581,9 +583,9 @@
+@@ -581,7 +583,7 @@
  that are analogous to \PASCAL's |ord| and |chr| functions.
  
  @<Glob...@>=
 -ASCII_code @!xord[256];
 +ASCII_code @!xord[65536];
     /*specifies conversion of input characters*/ 
--uint8_t @!xchr[256];
-+text_char @!xchr[256]; /* fix web2w */
+ text_char @!xchr[256];
     /*specifies conversion of output characters*/ 
- 
- @ Since we are assuming that our \PASCAL\ system is able to read and
 @@ -729,6 +731,7 @@
  @<Set init...@>=
  for (i=0; i<=037; i++) xchr[i]= ' ' ;
