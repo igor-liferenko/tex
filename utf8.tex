@@ -12,7 +12,7 @@
 \head * Abstract *
 
 \indent In its design \TeX\ has the concepts of ``internal
-encoding'' and ``external encoding''. This fact
+encoding'' and ``external encoding.'' This fact
 allows \TeX\ to work with any encoding.
 
 We use Unicode as \TeX's external encoding.
@@ -131,7 +131,7 @@ In
 {\it a\_open\_in\/} we replace the macro
 {\it reset\/}
 with its expansion and then in both functions
-we change `|get(*f)|' to `|f->d=fgetwc(f->f)|'.
+we change |get(*f)| to |f->d=fgetwc(f->f)|.
 
 \head * 3. Output *
 
@@ -204,7 +204,7 @@ being increased by negating its value:
 In {\it pack\_file\_name\/} and {\it pack\_buffered\_name\/}
 (the functions that call {\it append\_to\_name\/}),
 we have to ``unfreeze'' its value
-if it was ``frozen''.
+if it was ``frozen.''
 ||if (k < 0) k = -k;||
 \medskip
 In {\it make\_name\_string},
@@ -280,8 +280,8 @@ while (k+wcstombs(NULL,TEX_format_default+
 \everypar{\hangindent=1.5em\relax}
 \raggedright
 
-[1] Ruckert, Martin. WEB to cweb.\\
-{\tt\catcode`_=11 https://w3-o.cs.hm.edu/users/ruckert/\\public_html/web2w/}
+[1] Ruckert, Martin. WEB to cweb (version 0.4).\\
+{\tt https://ctan.org/pkg/web2w}
 
 [2] Source of the present implementation.\\
 {\tt https://github.com/igor-liferenko/tex}
