@@ -1,9 +1,0 @@
-ctex.patch changes the form of C-code, but I prefer to stick to the converted form
-(this code is addressed in utex.patch)
-
-@@ -10154,1 +10154,4 @@
--ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
-+uint8_t @!TEX_format_default0[format_default_length+1], *const @!TEX_format_default = @!TEX_format_default0-1;
-+
-+@ @<Set init...@>=
-+strcpy(TEX_format_default+1, "TeXformats/plain.fmt");

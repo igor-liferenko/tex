@@ -1,7 +1,4 @@
-NOTE: this file is reduced by not implementing month changes (see utf8.tex),
-      using the fact that month names are in ASCII
-
-@@ -346,6 +346,8 @@
+@@ -327,6 +327,8 @@
  #include <stdlib.h>
  #include <string.h>
  #include <math.h>
@@ -10,7 +7,7 @@ NOTE: this file is reduced by not implementing month changes (see utf8.tex),
  
  #define odd(X)       ((X)&1)
  #define chr(X)       (X)
-@@ -569,9 +571,9 @@
+@@ -549,9 +551,9 @@
  adjusted if necessary.
  @^system dependencies@>
  
@@ -22,7 +19,7 @@ NOTE: this file is reduced by not implementing month changes (see utf8.tex),
  
  @<Local variables for init...@>=
  int @!i;
-@@ -581,7 +583,7 @@
+@@ -561,7 +563,7 @@
  that are analogous to \PASCAL's |ord| and |chr| functions.
  
  @<Glob...@>=
@@ -31,7 +28,7 @@ NOTE: this file is reduced by not implementing month changes (see utf8.tex),
     /*specifies conversion of input characters*/ 
  text_char @!xchr[256];
     /*specifies conversion of output characters*/ 
-@@ -729,6 +731,7 @@
+@@ -709,6 +711,7 @@
  @<Set init...@>=
  for (i=0; i<=037; i++) xchr[i]= ' ' ;
  for (i=0177; i<=0377; i++) xchr[i]= ' ' ;
@@ -39,7 +36,16 @@ NOTE: this file is reduced by not implementing month changes (see utf8.tex),
  
  @ The following system-independent code makes the |xord| array contain a
  suitable inverse to the information in |xchr|. Note that if |xchr[i]==xchr[j]|
-@@ -826,7 +829,7 @@
+@@ -773,7 +776,7 @@
+ @^system dependencies@>
+ 
+ @<Glob...@>=
+-uint8_t @!name_of_file0[file_name_size+1], *const @!name_of_file = @!name_of_file0-1;@;@/
++char @!name_of_file0[file_name_size+1], *const @!name_of_file = @!name_of_file0-1;@;@/
+    /*on some systems this may be a \&{record} variable*/ 
+ uint8_t @!name_length;@/ /*this many characters are actually
+   relevant in |name_of_file| (the rest are blank)*/ 
+@@ -806,7 +809,7 @@
  
  @p bool a_open_in(alpha_file *f)
     /*open a text file for input*/ 
@@ -48,7 +54,7 @@ NOTE: this file is reduced by not implementing month changes (see utf8.tex),
  } 
  @#
  bool a_open_out(alpha_file *f)
-@@ -941,7 +944,7 @@
+@@ -921,7 +924,7 @@
  @p bool input_ln(alpha_file *f, bool @!bypass_eoln)
     /*inputs the next line or returns |false|*/ 
  {@+uint16_t last_nonblank; /*|last| with trailing blanks removed*/ 
@@ -57,7 +63,7 @@ NOTE: this file is reduced by not implementing month changes (see utf8.tex),
     /*input the first character of the line into |f.d|*/ 
  last=first; /*cf.\ Matthew 19\thinspace:\thinspace30*/ 
  if (eof((*f))) return false;
-@@ -952,7 +955,7 @@
+@@ -932,7 +935,7 @@
        if (max_buf_stack==buf_size) 
          @<Report overflow of the input buffer, and abort@>;
        } 
@@ -66,7 +72,7 @@ NOTE: this file is reduced by not implementing month changes (see utf8.tex),
      if (buffer[last-1]!=' ') last_nonblank=last;
      } 
    last=last_nonblank;return true;
-@@ -1502,7 +1505,7 @@
+@@ -1482,7 +1485,7 @@
    {@+print_ln();return;
    } 
  switch (selector) {
@@ -75,7 +81,7 @@ NOTE: this file is reduced by not implementing month changes (see utf8.tex),
    incr(term_offset);incr(file_offset);
    if (term_offset==max_print_line) 
      {@+wterm_cr;term_offset=0;
-@@ -1511,17 +1514,17 @@
+@@ -1491,17 +1494,17 @@
      {@+wlog_cr;file_offset=0;
      } 
    } @+break;
@@ -96,7 +102,7 @@ NOTE: this file is reduced by not implementing month changes (see utf8.tex),
  } @/
  incr(tally);
  } 
-@@ -10123,9 +10126,16 @@
+@@ -10104,9 +10107,16 @@
  allows both lowercase and uppercase letters in the file name.
  @^system dependencies@>
  
@@ -116,7 +122,7 @@ NOTE: this file is reduced by not implementing month changes (see utf8.tex),
  
  @p void pack_file_name(str_number @!n, str_number @!a, str_number @!e)
  {@+int k; /*number of positions filled in |name_of_file|*/ 
-@@ -10135,6 +10145,7 @@
+@@ -10116,6 +10126,7 @@
  for (j=str_start[a]; j<=str_start[a+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
@@ -124,7 +130,7 @@ NOTE: this file is reduced by not implementing month changes (see utf8.tex),
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
  name_of_file[name_length+1]=0;
  } 
-@@ -10151,16 +10162,16 @@
+@@ -10132,16 +10143,16 @@
  @d format_extension_str ".fmt" /*the extension, as a \.{WEB} constant*/ 
  
  @<Glob...@>=
@@ -144,7 +150,7 @@ NOTE: this file is reduced by not implementing month changes (see utf8.tex),
  
  @ Here is the messy routine that was just mentioned. It sets |name_of_file|
  from the first |n| characters of |TEX_format_default|, followed by
-@@ -10177,11 +10188,16 @@
+@@ -10158,11 +10169,16 @@
  {@+int k; /*number of positions filled in |name_of_file|*/ 
  ASCII_code @!c; /*character being packed*/ 
  int @!j; /*index into |buffer| or |TEX_format_default|*/ 
@@ -163,7 +169,7 @@ NOTE: this file is reduced by not implementing month changes (see utf8.tex),
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
    append_to_name(xord[TEX_format_default[j]]);
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
-@@ -10240,7 +10256,11 @@
+@@ -10221,7 +10237,11 @@
  if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
   (cur_length > 0)) 
    return'?';
@@ -176,7 +182,27 @@ NOTE: this file is reduced by not implementing month changes (see utf8.tex),
    return make_string();
    } 
  } 
-@@ -24324,6 +24344,7 @@
+@@ -10352,7 +10372,7 @@
+ {@+uint8_t old_setting; /*previous |selector| setting*/ 
+ int @!k; /*index into |months| and |buffer|*/ 
+ uint16_t @!l; /*end of first input line*/ 
+-uint8_t @!months0[36+1], *const @!months = @!months0-1; /*abbreviations of month names*/
++wchar_t @!months0[36+1], *const @!months = @!months0-1; /*abbreviations of month names*/
+ old_setting=selector;
+ if (job_name==0) job_name=@[@<|"texput"|@>@];
+ @.texput@>
+@@ -10394,8 +10414,8 @@
+ {@+wlog("%s", banner);
+ slow_print(format_ident);print_str("  ");
+ print_int(sys_day);print_char(' ');
+-strcpy(months+1, "JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC");
+-for (k=3*sys_month-2; k<=3*sys_month; k++) wlog("%c", months[k]);
++wcscpy(months+1, L"JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC");
++for (k=3*sys_month-2; k<=3*sys_month; k++) wlog("%lc", months[k]);
+ print_char(' ');print_int(sys_year);print_char(' ');
+ print_two(sys_time/60);print_char(':');print_two(sys_time%60);
+ } 
+@@ -24305,6 +24325,7 @@
  @^system dependencies@>
  
  @p int main(void) {@! /*|start_here|*/ 

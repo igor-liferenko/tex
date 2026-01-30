@@ -62,5 +62,5 @@ void list_close(void)
   for (node c = list_head; c != NULL; c = c->n) fclose(c->f);
 }
 
-@ Appendix: Replacement of the string pool file.
+@* Index.
 @z

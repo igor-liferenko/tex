@@ -1,34 +1,5 @@
 Why this is added to ctex.patch:
 
     +#define abs(X)       ((X)>-(X)?(X):-(X))
-    +#define round(X)     ((int)((X)>=0.0?floor((X)+0.5):ceil((X)-0.5)))
 
 NOTE: default abs (stdlib.h) is for inegers only and it truncates floating values
-
-NOTE: in section 3 of tex.pdf it is said that Pascal's 'round' function
-disagrees with the IEEE
-floating-point standard and that many implementors have therefore chosen
-to substitute their own home-grown
-rounding procedure.
-But maybe the reason is simply that 'floor' and 'ceil' were built-in in author's compiler and he decided
-to define his own 'round' because gcc invocation from web2w.pdf
-does not have -lm option
-TODO: cmp definition of round in math.h and if it is the same, delete '#define round' from
-tex,mf,dvitype,gftodvi,gftopk repos
-
-============================
-
-NOTE: --no-backup-if-mismatch is used in Makefile in order to make less changes to ctex.patch
-      (so that it is easier to see how ctex.patch differs from original)
-
-TODO:
-change utf8.tex in accordance with 2021 tuneup if necessary
-
-TODO:
-do like this for month in ctex.patch
--ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
-+uint8_t @!TEX_format_default0[format_default_length+1], *const @!TEX_format_default = @!TEX_format
-_default0-1;
-+
-+@ @<Set init...@>=
-+strcpy(TEX_format_default+1, "TeXformats/plain.fmt");

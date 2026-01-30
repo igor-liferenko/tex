@@ -1,50 +1,6 @@
-@@ -75,11 +75,6 @@
- \def\(#1){} % this is used to make section names sort themselves better
- \def\9#1{} % this is used for sort keys in the index via @@:sort key}{entry@@>
- 
--\outer\def\N#1. \[#2]#3.{\MN#1.\vfil\eject % begin starred section
--  \def\rhead{PART #2:\uppercase{#3}} % define running headline
--  \message{*\modno} % progress report
--  \edef\next{\write\cont{\Z{\?#2]#3}{\modno}{\the\pageno}}}\next
--  \ifon\startsection{\bf\ignorespaces#3.\quad}\ignorespaces}
- \let\?=\relax % we want to be able to \write a \?
- 
- \def\title{\TeX82}
-@@ -92,6 +87,22 @@
- \def\glob{13} % this should be the section number of "<Global...>"
- \def\gglob{20, 26} % this should be the next two sections of "<Global...>"
- 
-+\def\.#1{\leavevmode\hbox{\tentex % typewriter type for strings
-+  \let\\=\BS % backslash in a string
-+  \let\'=\RQ % right quote in a string
-+  \let\`=\LQ % left quote in a string
-+  \let\{=\LB % left brace in a string
-+  \let\}=\RB % right brace in a string
-+  \let\~=\TL % tilde in a string
-+  \let\ =\SP % space in a string
-+  \let\_=\UL % underline in a string
-+  \let\&=\AM % ampersand in a string
-+  #1\kern.05em}}
-+\def\^{\ifmmode\mathchar"222 \else\char`^ \fi} % pointer or hat
-+\def\LQ{{\tt\char'22}} % left quote in a string
-+\def\RQ{{\tt\char'23}} % right quote in a string
-+\def\dotdot{\mathrel{.\,.}} % double dot, used only in math mode
-+@s dotdot TeX
- @* Introduction.
- This is \TeX, a document compiler intended to produce typesetting of high
- quality.
-@@ -320,12 +331,35 @@
- @^system dependencies@>
+@@ -321,11 +321,25 @@
  @^overflow in arithmetic@>
  
-+@s int8_t int
-+@s uint8_t int
-+@s uint16_t int
-+@s halfword int
-+@s in TeX
-+@s line normal
-+@s to   do
-+
  @<Compiler directives@>=
 -/*@&$C-,A+,D-*/ /*no range check, catch arithmetic overflow, no debug overhead*/ 
 -#ifdef @!DEBUG
@@ -60,7 +16,6 @@
 +#define chr(X)       (X)
 +#define ord(X)       ((int)(X))
 +#define abs(X)       ((X)>-(X)?(X):-(X))
-+#define round(X)     ((int)((X)>=0.0?floor((X)+0.5):ceil((X)-0.5)))
 +
 +#if __SIZEOF_FLOAT__==4
 +typedef float float32_t;
@@ -73,7 +28,7 @@
  
  @ This \TeX\ implementation conforms to the rules of the {\sl Pascal User
  @:PASCAL}{\PASCAL@>
-@@ -549,7 +583,7 @@
+@@ -549,7 +563,7 @@
  @<Glob...@>=
  ASCII_code @!xord[256];
     /*specifies conversion of input characters*/ 
@@ -82,16 +37,16 @@
     /*specifies conversion of output characters*/ 
  
  @ Since we are assuming that our \PASCAL\ system is able to read and
-@@ -759,7 +793,7 @@
+@@ -759,7 +773,7 @@
  @^system dependencies@>
  
  @<Glob...@>=
 -uint8_t @!name_of_file0[file_name_size], *const @!name_of_file = @!name_of_file0-1;@;@/
-+uint8_t @!name_of_file0[file_name_size+1]={0}, *const @!name_of_file = @!name_of_file0-1;@;@/
++uint8_t @!name_of_file0[file_name_size+1], *const @!name_of_file = @!name_of_file0-1;@;@/
     /*on some systems this may be a \&{record} variable*/ 
  uint8_t @!name_length;@/ /*this many characters are actually
    relevant in |name_of_file| (the rest are blank)*/ 
-@@ -792,32 +826,32 @@
+@@ -792,32 +806,32 @@
  
  @p bool a_open_in(alpha_file *f)
     /*open a text file for input*/ 
@@ -130,7 +85,7 @@
  } 
  
  @ Files can be closed with the \ph\ routine `|close(f)|', which
-@@ -940,8 +974,8 @@
+@@ -940,8 +954,8 @@
  @:PASCAL H}{\ph@>
  @^system dependencies@>
  
@@ -141,7 +96,7 @@
  
  @ Sometimes it is necessary to synchronize the input/output mixture that
  happens on the user's terminal, and three system-dependent
-@@ -958,8 +992,8 @@
+@@ -958,8 +972,8 @@
  @:PASCAL H}{\ph@>
  @^system dependencies@>
  
@@ -152,7 +107,7 @@
  @d wake_up_terminal	do_nothing /*cancel the user's cancellation of output*/ 
  
  @ We need a special routine to read the first line of \TeX\ input from
-@@ -1105,10 +1139,11 @@
+@@ -1105,10 +1119,11 @@
  typedef uint8_t packed_ASCII_code; /*elements of |str_pool| array*/ 
  
  @ @<Glob...@>=
@@ -168,7 +123,7 @@
  pool_pointer @!init_pool_ptr; /*the starting value of |pool_ptr|*/ 
  str_number @!init_str_ptr; /*the starting value of |str_ptr|*/ 
  
-@@ -1233,11 +1268,11 @@
+@@ -1233,11 +1248,11 @@
  
  @<Make the first 256...@>=
  for (k=0; k<=255; k++) 
@@ -183,7 +138,7 @@
        } 
      } 
    else append_char(k);
-@@ -1291,7 +1326,7 @@
+@@ -1291,7 +1306,7 @@
    a_close(&pool_file);return false;
    } 
  @<Read the other strings...@>=
@@ -192,7 +147,7 @@
  if (a_open_in(&pool_file)) 
    {@+c=false;
    @/do@+{@<Read one string, but return |false| if the string memory space is getting
-@@ -1305,7 +1340,7 @@
+@@ -1305,7 +1320,7 @@
  @ @<Read one string...@>=
  {@+if (eof(pool_file)) bad_pool("! TEX.POOL has no check sum.");
  @.TEX.POOL has no check sum@>
@@ -201,7 +156,7 @@
  if (m== '*' ) @<Check the pool check sum@>@;
  else{@+if ((xord[m] < '0')||(xord[m] > '9')||@|
        (xord[n] < '0')||(xord[n] > '9')) 
-@@ -1413,12 +1448,30 @@
+@@ -1413,12 +1428,30 @@
  by changing |wterm|, |wterm_ln|, and |wterm_cr| in this section.
  @^system dependencies@>
  
@@ -238,7 +193,7 @@
  
  @ To end a line of text output, we call |print_ln|.
  
-@@ -1449,7 +1502,7 @@
+@@ -1449,7 +1482,7 @@
    {@+print_ln();return;
    } 
  switch (selector) {
@@ -247,7 +202,7 @@
    incr(term_offset);incr(file_offset);
    if (term_offset==max_print_line) 
      {@+wterm_cr;term_offset=0;
-@@ -1458,17 +1511,17 @@
+@@ -1458,17 +1491,17 @@
      {@+wlog_cr;file_offset=0;
      } 
    } @+break;
@@ -268,7 +223,7 @@
  } @/
  incr(tally);
  } 
-@@ -1511,6 +1564,10 @@
+@@ -1511,6 +1544,10 @@
    } 
  } 
  
@@ -279,7 +234,7 @@
  @ Control sequence names, file names, and strings constructed with
  \.{\\string} might contain |ASCII_code| values that can't
  be printed using |print_char|. Therefore we use |slow_print| for them:
-@@ -1533,7 +1590,7 @@
+@@ -1533,7 +1570,7 @@
  @^system dependencies@>
  
  @<Initialize the output...@>=
@@ -288,7 +243,7 @@
  if (format_ident==0) wterm_ln(" (no format preloaded)");
  else{@+slow_print(format_ident);print_ln();
    } 
-@@ -1543,10 +1600,10 @@
+@@ -1543,10 +1580,10 @@
  string appears at the beginning of a new line.
  
  @<Basic print...@>=
@@ -301,26 +256,9 @@
  } 
  
  @ The procedure |print_esc| prints a string that is preceded by
-@@ -1683,10 +1740,10 @@
- @* Reporting errors.
- When something anomalous is detected, \TeX\ typically does something like this:
- $$\vbox{\halign{#\hfil\cr
--|print_err(@[@<|"Something anomalous has been detected"|@>@]);|\cr
--|help3(@[@<|"This is the first line of my offer to help."|@>@])|\cr
--|(@[@<|"This is the second line. I'm trying to"|@>@])|\cr
--|(@[@<|"explain the best way for you to proceed."|@>@]);|\cr
-+|print_err("Something anomalous has been detected");|\cr
-+|help3("This is the first line of my offer to help.")|\cr
-+|("This is the second line. I'm trying to")|\cr
-+|("explain the best way for you to proceed.");|\cr
- |error;|\cr}}$$
- A two-line help message would be given using |help2|, etc.; these informal
- helps should use simple vocabulary that complements the words used in the
-@@ -1790,10 +1847,10 @@
- void close_files_and_terminate(void);@/
- void clear_for_error_prompt(void);@/
+@@ -1792,8 +1829,9 @@
  void give_err_help(void);@/
--@t\4\hskip-\fontdimen2\font@>@;
+ @t\4\hskip-\fontdimen2\font@>@;
  #ifdef @!DEBUG
 -@+void debug_help(void)
 -  ;@;
@@ -330,7 +268,7 @@
  #endif
  
  @ Individual lines of help are recorded in the array |help_line|, which
-@@ -1815,7 +1872,7 @@
+@@ -1815,7 +1853,7 @@
  @d help6	@+{@+help_ptr=6;hlp6 /*use this with six help lines*/ 
  
  @<Glob...@>=
@@ -339,7 +277,7 @@
  uint8_t @!help_ptr; /*the number of help lines present*/ 
  bool @!use_err_help; /*should the |err_help| list be shown?*/ 
  
-@@ -1834,7 +1891,7 @@
+@@ -1834,7 +1872,7 @@
  
  @<Error hand...@>=
  void jump_out(void)
@@ -348,7 +286,7 @@
  } 
  
  @ Here now is the general |error| routine.
-@@ -1977,7 +2034,7 @@
+@@ -1977,7 +2015,7 @@
  else{@+if (help_ptr==0) 
      help2("Sorry, I don't know how to help in this situation.")@/
      @t\kern1em@>("Maybe you should try asking a human?");
@@ -357,7 +295,7 @@
    }@+ while (!(help_ptr==0));
    } 
  help4("Sorry, I already gave what help I could...")@/
-@@ -2022,16 +2079,12 @@
+@@ -2022,16 +2060,12 @@
  @d succumb	{@+if (interaction==error_stop_mode) 
      interaction=scroll_mode; /*no more interaction*/ 
    if (log_opened) error();
@@ -376,7 +314,7 @@
  {@+normalize_selector();@/
  print_err("Emergency stop");help1(s);succumb;
  @.Emergency stop@>
-@@ -2040,11 +2093,11 @@
+@@ -2040,11 +2074,11 @@
  @ Here is the most dreaded error message.
  
  @<Error hand...@>=
@@ -390,16 +328,7 @@
  help2("If you really absolutely need more capacity,")@/
    ("you can ask a wizard to enlarge me.");
  succumb;
-@@ -2207,7 +2260,7 @@
- The present implementation of \TeX\ does not check for overflow when
- @^overflow in arithmetic@>
- dimensions are added or subtracted. This could be done by inserting a
--few dozen tests of the form `\ignorespaces|if (x >= 010000000000) 
-+few dozen tests of the form `\ignorespaces|if (x >= 010000000000)@/
- @t\\{report\_overflow}@>|', but the chance of overflow is so remote that
- such tests do not seem worthwhile.
- 
-@@ -2337,12 +2390,12 @@
+@@ -2337,12 +2371,12 @@
  
  @d set_glue_ratio_zero(X)	X=0.0 /*store the representation of zero ratio*/ 
  @d set_glue_ratio_one(X)	X=1.0 /*store the representation of unit ratio*/ 
@@ -416,7 +345,7 @@
  
  @* Packed data.
  In order to make efficient use of storage space, \TeX\ bases its major data
-@@ -2505,6 +2558,7 @@
+@@ -2505,6 +2539,7 @@
  value represents a null pointer. \TeX\ does not assume that |mem[null]| exists.
  
  @d pointer	halfword /*a flag or a location in |mem| or |eqtb|*/ 
@@ -424,7 +353,7 @@
  @d null	min_halfword /*the null pointer*/ 
  
  @<Glob...@>=
-@@ -2554,7 +2608,14 @@
+@@ -2554,7 +2589,14 @@
  
  @<Glob...@>=
  int @!var_used, @!dyn_used; /*how much memory is in use*/ 
@@ -440,7 +369,7 @@
  @ Let's consider the one-word memory region first, since it's the
  simplest. The pointer variable |mem_end| holds the highest-numbered location
  of |mem| that has ever been used. The free locations of |mem| that
-@@ -2604,10 +2665,7 @@
+@@ -2604,10 +2646,7 @@
      } 
    } 
  link(p)=null; /*provide an oft-desired initialization of the new node*/ 
@@ -452,7 +381,7 @@
  return p;
  } 
  
-@@ -2617,10 +2675,7 @@
+@@ -2617,10 +2656,7 @@
  
  @d free_avail(X)	 /*single-word node liberation*/ 
    {@+link(X)=avail;avail=X;
@@ -464,7 +393,7 @@
    } 
  
  @ There's also a |fast_get_avail| routine, which saves the procedure-call
-@@ -2632,10 +2687,7 @@
+@@ -2632,10 +2668,7 @@
    {@+X=avail; /*avoid |get_avail| if possible, to save time*/ 
    if (X==null) X=get_avail();
    else{@+avail=link(X);link(X)=null;
@@ -476,7 +405,7 @@
      } 
    } 
  
-@@ -2649,9 +2701,7 @@
+@@ -2649,9 +2682,7 @@
  if (p!=null) 
    {@+r=p;
    @/do@+{q=r;r=link(r);
@@ -487,7 +416,7 @@
    }@+ while (!(r==null)); /*now |q| is the last node on the list*/ 
    link(q)=avail;avail=p;
    } 
-@@ -8180,7 +8230,7 @@
+@@ -8180,7 +8211,7 @@
  else pstack[n]=link(temp_head);
  incr(n);
  if (tracing_macros > 0) 
@@ -496,7 +425,7 @@
    print_str("<-");show_token_list(pstack[n-1], null, 1000);
    end_diagnostic(false);
    } 
-@@ -10010,10 +10060,7 @@
+@@ -10010,10 +10041,7 @@
  |TEX_font_area|.  These system area names will, of course, vary from place
  to place.
  @^system dependencies@>
@@ -507,7 +436,7 @@
  @.TeXfonts@>
  
  @ Here now is the first of the system-dependent routines for file name scanning.
-@@ -10089,7 +10136,7 @@
+@@ -10089,7 +10117,7 @@
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
@@ -516,7 +445,7 @@
  } 
  
  @ A messier routine is also needed, since format file names must be scanned
-@@ -10101,13 +10148,10 @@
+@@ -10101,13 +10129,13 @@
  @d format_default_length	20 /*length of the |TEX_format_default| string*/ 
  @d format_area_length	11 /*length of its area part*/ 
  @d format_ext_length	4 /*length of its `\.{.fmt}' part*/ 
@@ -525,14 +454,15 @@
  
  @<Glob...@>=
 -uint8_t @!TEX_format_default0[format_default_length], *const @!TEX_format_default = @!TEX_format_default0-1;
--
--@ @<Set init...@>=
++uint8_t @!TEX_format_default0[format_default_length+1], *const @!TEX_format_default = @!TEX_format_default0-1;
+ 
+ @ @<Set init...@>=
 -TEX_format_default="TeXformats:plain.fmt";
-+ASCII_code @!TEX_format_default[1+format_default_length+1]=" TeXformats/plain.fmt";
++strcpy(TEX_format_default+1, "TeXformats/plain.fmt");
  @.TeXformats@>
  @.plain@>
  @^system dependencies@>
-@@ -10138,7 +10182,7 @@
+@@ -10138,7 +10166,7 @@
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
    append_to_name(xord[TEX_format_default[j]]);
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
@@ -541,7 +471,7 @@
  } 
  
  @ Here is the only place we use |pack_buffered_name|. This part of the program
-@@ -10162,7 +10206,7 @@
+@@ -10162,7 +10190,7 @@
       /*now try the system format file area*/ 
    if (w_open_in(&fmt_file)) goto found;
    wake_up_terminal;
@@ -550,7 +480,7 @@
  @.Sorry, I can't find...@>
    update_terminal;
    } 
-@@ -10268,17 +10312,17 @@
+@@ -10268,17 +10296,17 @@
  variables |cur_name|, |cur_area|, |cur_ext|, and |name_of_file| are
  ready for another attempt at file opening.
  
@@ -571,7 +501,7 @@
  @.Please type...@>
  if (interaction < scroll_mode) 
    fatal_error("*** (job aborted, file error in nonstop mode)");
-@@ -10299,9 +10343,10 @@
+@@ -10299,9 +10327,10 @@
  } 
  
  @ Here's an example of how these conventions are used. Whenever it is time to
@@ -584,7 +514,7 @@
    {@+if (job_name==0) open_log_file();
    pack_job_name(@[@<|".dvi"|@>@]);
    while (!b_open_out(&dvi_file)) 
-@@ -10309,7 +10354,7 @@
+@@ -10309,7 +10338,7 @@
    output_file_name=b_make_name_string(&dvi_file);
    } 
  
@@ -593,40 +523,31 @@
  byte_file @!dvi_file; /*the device-independent output goes here*/ 
  str_number @!output_file_name; /*full name of the output file*/ 
  str_number @!log_name; /*full name of the log file*/ 
-@@ -10323,7 +10368,7 @@
+@@ -10323,7 +10352,7 @@
  {@+uint8_t old_setting; /*previous |selector| setting*/ 
  int @!k; /*index into |months| and |buffer|*/ 
  uint16_t @!l; /*end of first input line*/ 
 -uint8_t @!months0[36], *const @!months = @!months0-1; /*abbreviations of month names*/ 
-+@!ASCII_code @!months[]=" JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC"; /*abbreviations of month names*/ 
++uint8_t @!months0[36+1], *const @!months = @!months0-1; /*abbreviations of month names*/
  old_setting=selector;
  if (job_name==0) job_name=@[@<|"texput"|@>@];
  @.texput@>
-@@ -10362,11 +10407,10 @@
+@@ -10362,11 +10391,11 @@
  } 
  
  @ @<Print the banner...@>=
 -{@+wlog(banner);
-+{@+wlog("%s",banner);
++{@+wlog("%s", banner);
  slow_print(format_ident);print_str("  ");
  print_int(sys_day);print_char(' ');
 -months="JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC";
 -for (k=3*sys_month-2; k<=3*sys_month; k++) wlog(months[k]);
-+for (k=3*sys_month-2; k<=3*sys_month; k++) wlog("%c",months[k]);
++strcpy(months+1, "JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC");
++for (k=3*sys_month-2; k<=3*sys_month; k++) wlog("%c", months[k]);
  print_char(' ');print_int(sys_year);print_char(' ');
  print_two(sys_time/60);print_char(':');print_two(sys_time%60);
  } 
-@@ -10469,7 +10513,8 @@
- @ The rest of the \.{TFM} file may be regarded as a sequence of ten data
- arrays having the informal specification
- $$\def\arr$[#1]#2${\&{array} $[#1]$ \&{of} #2}
--\vbox{\halign{\hfil\\{#}&$\,:\,$\arr#\hfil\cr
-+\def\PB#1{\arr#1}
-+\vbox{\halign{\hfil\\{#}&$\,:\,$#\hfil\cr
- header&|[0 dotdot lh-1]@t\\{stuff}@>|\cr
- char\_info&|[bc dotdot ec]char_info_word|\cr
- width&|[0 dotdot nw-1]fix_word|\cr
-@@ -11929,7 +11974,7 @@
+@@ -11929,7 +11958,7 @@
  
  @p void write_dvi(dvi_index @!a, dvi_index @!b)
  {@+int k;
@@ -635,7 +556,7 @@
  } 
  
  @ To put a byte in the buffer without paying the cost of invoking a procedure
-@@ -12295,7 +12340,7 @@
+@@ -12295,7 +12324,7 @@
  
  @ @<Initialize variables as |ship_out| begins@>=
  dvi_h=0;dvi_v=0;cur_h=h_offset;dvi_f=null_font;
@@ -644,7 +565,7 @@
  if (total_pages==0) 
    {@+dvi_out(pre);dvi_out(id_byte); /*output the preamble*/ 
  @^preamble of \.{DVI} file@>
-@@ -13151,10 +13196,11 @@
+@@ -13151,10 +13180,11 @@
  computed by the normal rules; if it exceeds this limit, the reference
  point is simply moved down until the limiting depth is attained.
  
@@ -659,7 +580,7 @@
  {@+
  pointer r; /*the box node that will be returned*/ 
  scaled @!w, @!d, @!x; /*width, depth, and natural height*/ 
-@@ -15038,9 +15084,9 @@
+@@ -15038,9 +15068,9 @@
  the program would not have been so strange.
  @:PASCAL}{\PASCAL@>
  
@@ -671,7 +592,7 @@
  @t$ \hskip-35pt$@>
  
  @<Glob...@>=
-@@ -16364,7 +16410,7 @@
+@@ -16364,7 +16394,7 @@
  should no longer be active; then |goto continue| if a line from |r| to |cur_p| is
  infeasible, otherwise record a new feasible break@>;
    } 
@@ -680,7 +601,7 @@
  #ifdef @!STAT
  @<Update the value of |printed_node| for symbolic displays@>;
  #endif
-@@ -16385,7 +16431,9 @@
+@@ -16385,7 +16415,9 @@
  halfword @!b; /*badness of test line*/ 
  int @!d; /*demerits of test line*/ 
  bool @!artificial_demerits; /*has |d| been forced to zero?*/ 
@@ -690,16 +611,7 @@
  scaled @!shortfall; /*used in badness calculations*/ 
  
  @ @<Make sure that |pi| is in the proper range@>=
-@@ -17818,7 +17866,7 @@
- ligature and a |lig_ptr| field that points to a |char_node| or is |null|.
- We have
- $$|cur_r|=\cases{|character(lig_stack)|,&if |lig_stack > null|;\cr
--  |qi(hu[j+1])|,&if |lig_stack==null| and |j < n|;\cr
-+  \hbox{|qi(hu[j+1])|},&if |lig_stack==null| and |j < n|;\cr
-   bchar,&if |lig_stack==null| and |j==n|.\cr}$$
- 
- @<Glob...@>=
-@@ -23763,7 +23811,7 @@
+@@ -23763,7 +23795,7 @@
  incompatible with the present \TeX\ table sizes, etc.
  
  @d too_small(X)	{@+wake_up_terminal;
@@ -708,7 +620,7 @@
  @.Must increase the x@>
    goto bad_fmt;
    } 
-@@ -24278,14 +24326,13 @@
+@@ -24278,14 +24310,13 @@
  if (ready_already==314159) goto start_of_TEX;
  @<Check the ``constant'' values...@>@;
  if (bad > 0) 
@@ -725,7 +637,7 @@
  init_prim(); /*call |primitive| for each primitive*/ 
  init_str_ptr=str_ptr;init_pool_ptr=pool_ptr;fix_date_and_time();
  #endif
-@@ -24295,7 +24342,7 @@
+@@ -24295,7 +24326,7 @@
  history=spotless; /*ready to go!*/ 
  main_control(); /*come to life*/ 
  final_cleanup(); /*prepare for death*/ 
@@ -734,7 +646,7 @@
  ready_already=0;
  return 0; }
  
-@@ -24337,34 +24384,33 @@
+@@ -24337,34 +24368,33 @@
  
  @<Output statistics...@>=
  if (log_opened) 
@@ -795,7 +707,7 @@
    } 
  
  @ We get to the |final_cleanup| routine when \.{\\end} or \.{\\dump} has
-@@ -24485,13 +24531,13 @@
+@@ -24485,13 +24515,13 @@
    loop{@+wake_up_terminal;
    print_nl("debug # (-1 to exit):");update_terminal;
  @.debug \#@>
@@ -812,7 +724,7 @@
      switch (m) {
      @t\4@>@<Numbered cases for |debug_help|@>@;
      default:print_str("?");
-@@ -24517,7 +24563,7 @@
+@@ -24517,7 +24547,7 @@
  case 10: slow_print(n);@+break;
  case 11: check_mem(n > 0);@+break; /*check wellformedness; print new busy locations if |n > 0|*/ 
  case 12: search_mem(n);@+break; /*look for pointers to |n|*/ 
@@ -821,7 +733,7 @@
    } @+break;
  case 14: for (k=0; k<=n; k++) print(buffer[k]);@+break;
  case 15: {@+font_in_short_display=null_font;short_display(n);
-@@ -24652,8 +24698,8 @@
+@@ -24652,8 +24682,8 @@
  @ @<Declare act...@>=
  @t\4@>@<Declare procedures needed in |do_extension|@>@;
  void do_extension(void)
@@ -832,29 +744,6 @@
  switch (cur_chr) {
  case open_node: @<Implement \.{\\openout}@>@;@+break;
  case write_node: @<Implement \.{\\write}@>@;@+break;
-@@ -24990,22 +25036,6 @@
- itself will get a new section number.
- @^system dependencies@>
- 
--@* Index.
--Here is where you can find all uses of each identifier in the program,
--with underlined entries pointing to where the identifier was defined.
--If the identifier is only one letter long, however, you get to see only
--the underlined entries. {\sl All references are to section numbers instead of
--page numbers.}
--
--This index also lists error messages and other aspects of the program
--that you might want to look up some day. For example, the entry
--for ``system dependencies'' lists all sections that should receive
--special attention from people who are installing \TeX\ in a new
--operating environment. A list of various things that can't happen appears
--under ``this can't happen''. Approximately 40 sections are listed under
--``inner loop''; these account for about 60\pct! of \TeX's running time,
--exclusive of input and output.
--
- @ Appendix: Replacement of the string pool file.
- @d str_0_255 	"^^@@^^A^^B^^C^^D^^E^^F^^G^^H^^I^^J^^K^^L^^M^^N^^O"@/
- 	"^^P^^Q^^R^^S^^T^^U^^V^^W^^X^^Y^^Z^^[^^\\^^]^^^^^_"@/
 @@ -25790,10 +25820,10 @@
  @d str_505 "else"
  @<|"else"|@>=@+505
@@ -868,23 +757,3 @@
  @d TEX_font_area 507
  @ 
  @d str_508 ".fmt"
-@@ -26860,3 +26890,19 @@
- @ @<|pool_ptr| initialization@>= str_start_668
- 
- @ @<|str_ptr| initialization@>= 668
-+
-+@* Index.
-+Here is where you can find all uses of each identifier in the program,
-+with underlined entries pointing to where the identifier was defined.
-+If the identifier is only one letter long, however, you get to see only
-+the underlined entries. {\sl All references are to section numbers instead of
-+page numbers.}
-+
-+This index also lists error messages and other aspects of the program
-+that you might want to look up some day. For example, the entry
-+for ``system dependencies'' lists all sections that should receive
-+special attention from people who are installing \TeX\ in a new
-+operating environment. A list of various things that can't happen appears
-+under ``this can't happen''. Approximately 40 sections are listed under
-+``inner loop''; these account for about 60\pct! of \TeX's running time,
-+exclusive of input and output.
