@@ -42,8 +42,11 @@ new code with |>|. Both are sometimes reformatted for presentation
 in this article, and for readability we sometimes leave a blank line
 between the pieces. The actual implementation uses the file
 |utex.patch| [2].)
+\medskip
+In |tex.web| the type |text_char| is able to accomodate characters from
+text files (see \S19 in [3]).
 \verbatim
-< @d text_char pascal_char
+< @d text_char unsigned char
 > @d text_char wchar_t
 \endverbatim
 \medskip
@@ -71,38 +74,24 @@ installation of \TeX, for example:
 \smallskip
 \indent{\font\tt=cmtt9 \tt xchr[0xf1] = L'\"e';}
 \medskip
-In |tex.web| the type |char| (called |pascal_char|
-in this article \Dash to distinguish it from the type |char| in C)
-is able to contain the same
-characters as in text files (see \S19 in [3]).
-Therefore, we change |pascal_char| to |wchar_t|.
+We must also change the type of the following variables from
+|unsigned char| to |wchar_t| (making corresponding
+changes to their initialization).
 \verbatim
-< pascal_char TEX_format_default0[form...],
-<            *TEX_format_default = ...
+< unsigned char TEX_format_default0[for...],
+<              *TEX_format_default = ...
 
-> wchar_t     TEX_format_default0[form...],
->            *TEX_format_default = ...
+> wchar_t       TEX_format_default0[for...],
+>              *TEX_format_default = ...
 
-< strcpy(TEX_format_default+1, "TeXforma...
-> wcscpy(TEX_format_default+1,L"TeXforma...
+< strcpy(TEX_format_default+1, "TeXformat...
+> wcscpy(TEX_format_default+1,L"TeXformat...
 
-< pascal_char months0[36+1], *months = ...
-> wchar_t     months0[36+1], *months = ...
+< unsigned char months0[36+1], *months = ...
+> wchar_t       months0[36+1], *months = ...
 
-< strcpy(months+1, "JANFEBMARAPRMAYJUNJU...
-> wcscpy(months+1,L"JANFEBMARAPRMAYJUNJU...
-\endverbatim
-The {\it name\_of\_file\/} buffer must have the type |char|
-(instead of |wchar_t|), since file names are in \UTF-8
-(on most systems). The possibility of using a different
-type in this case is explicitly stated in comment to {\it name\_of\_file\/}
-(see \S26 in [3]).
-\verbatim
-< pascal_char name_of_file0[file_name_...],
-<            *name_of_file = ...
-
-> char        name_of_file0[file_name_...],
->            *name_of_file = ...
+< strcpy(months+1, "JANFEBMARAPRMAYJUNJUL...
+> wcscpy(months+1,L"JANFEBMARAPRMAYJUNJUL...
 \endverbatim
 \medskip
 It remains to set the |LC_CTYPE| locale category, on which
@@ -162,7 +151,7 @@ except that |%c| is changed to |%lc|.
 
 The name of the file to be opened, which is
 stored in the {\it name\_of\_file\/} buffer,
-must be encoded in \hbox{\UTF-8}.
+is encoded in \hbox{\UTF-8} (on most systems).
 Therefore, each character passed to {\it append\_to\_name\/},
 before being added to {\it name\_of\_file\/},
 must
