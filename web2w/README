@@ -1,5 +1,0 @@
-Why this is added to ctex.patch:
-
-    +#define abs(X)       ((X)>-(X)?(X):-(X))
-
-NOTE: default abs (stdlib.h) is for inegers only and it truncates floating values
