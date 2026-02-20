@@ -7,9 +7,9 @@ NOTE: web2w replaces "goto final_end" with "exit", but I prefer to stick to the 
 @z
 
 @x
-{@+ close_files_and_terminate(); exit(0);
+{ close_files_and_terminate(); exit(0);
 @y
-{@+ close_files_and_terminate(); exit(1);
+{ close_files_and_terminate(); exit(1);
 @z
 
 @x
