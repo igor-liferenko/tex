@@ -1,3 +1,4 @@
+Add \hyphen@te primitive.
 Make \hyphen@te primitive insert hyph_node whatsit.
 Take care not to show the whatsit (as '[]') in output to terminal and log file.
 
@@ -20,6 +21,20 @@ while (p > mem_min) if (type(p)==whatsit_node && subtype(p)==hyph_node) p=link(p
 @y
 @d language_node	4 /*|subtype| in whatsits that change the current language*/
 @d hyph_node 5
+@z
+
+@x
+@d set_language_code	5 /*command modifier for \.{\\setlanguage}*/
+@y
+@d set_language_code	5 /*command modifier for \.{\\setlanguage}*/
+@d hyphenate_code 6
+@z
+
+@x
+@!@:set_language_}{\.{\\setlanguage} primitive@>
+@y
+@!@:set_language_}{\.{\\setlanguage} primitive@>
+primitive(@<|"hyphen@@te"|@>, extension, hyphenate_code);
 @z
 
 @x
