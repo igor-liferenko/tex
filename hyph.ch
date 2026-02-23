@@ -1,8 +1,13 @@
 Hyphenate already\hyphen@te-\hyphen@te hyphenated words.
+This ch-file makes it so that spurious space after '-' is not output to terminal
+and log file in overfull warnings (which is the case for \kern0pt-\nobreak\hskip0pt\relax)
 
-NOTE: delete this ch-file from Makefile and change \def\\ in format into
-... and compare dvitype output before and after to ensure that these changes
-are compatible with original TeX
+NOTE: if you use '-' in a compound word and you get an overfull box warning,
+      simply change '-' to '\\'
+
+NOTE: to ensure that this ch-file is compatible with original TeX,
+      change \def\\{\hyphen@te-\hyphen@te} in format into \def\\{\kern0pt-\nobreak\hskip0pt\relax}
+      and compare dvitype output before and after
 
 Do not show the node in ...
 @x
