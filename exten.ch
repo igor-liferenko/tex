@@ -1,5 +1,5 @@
-Add \hyphen@te control seqquence and make it insert hyph_node whatsit.
-Take care not to show the whatsit (as '[]') in output to terminal and log file.
+Add \hyphen@te control sequence, which inserts hyph_node whatsit, which does not
+manifest itself (as '[]') in output to terminal and log file.
 
 Skip over the whatsit in warning messages.
 @x
