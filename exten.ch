@@ -1,5 +1,5 @@
 Add \hyphen@te control sequence, which inserts hyph_node whatsit, which does not
-manifest itself (as '[]') in output to terminal and log file.
+manifest itself in output to terminal and log file.
 
 Skip over the whatsit in warning messages.
 @x
