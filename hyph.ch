@@ -9,14 +9,14 @@ NOTE: to ensure that this ch-file is compatible with original TeX,
       change \def\\{\hyphen@te-\hyphen@te} in format into \def\\{\kern0pt-\nobreak\hskip0pt\relax}
       and compare dvitype output before and after
 
-Do not show the node in ...
+Do not show the node on terminal and in log file?
 @x
 while (p > mem_min)
 @y
 while (p > mem_min) if (type(p)==whatsit_node && subtype(p)==hyph_node) p=link(p); else
 @z
 
-Do not show the node in ...
+Do not show the node in \showlists?
 @x
 while (p > mem_min)
 @y
