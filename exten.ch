@@ -1,5 +1,4 @@
-Add \hyphen@te primitive.
-Make \hyphen@te primitive insert hyph_node whatsit.
+Add \hyphen@te control seqquence and make it insert hyph_node whatsit.
 Take care not to show the whatsit (as '[]') in output to terminal and log file.
 
 Skip over the whatsit in warning messages.
