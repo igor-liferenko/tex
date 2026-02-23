@@ -1,17 +1,19 @@
+Add names for new primitives to string pool.
+
 @x
 @<|"ext4"|@>=@+667
 @y
 @<|"ext4"|@>=@+667
 @ @d str_668 "pdfpagewidth"
-@<|"pdfpagewidth"|@>=@+668
+@<|"pdfpagewidth"|@>= 668
 @ @d str_669 "pdfpageheight"
-@<|"pdfpageheight"|@>=@+669
+@<|"pdfpageheight"|@>= 669
 @ @d str_670 "pdfhorigin"
-@<|"pdfhorigin"|@>=@+670
+@<|"pdfhorigin"|@>= 670
 @ @d str_671 "pdfvorigin"
-@<|"pdfvorigin"|@>=@+671
+@<|"pdfvorigin"|@>= 671
 @ @d str_672 "hyphen@@te"
-@<|"hyphen@@te"|@>=@+672
+@<|"hyphen@@te"|@>= 672
 @z
 
 @x
@@ -30,11 +32,11 @@ str_start_668, str_start_669, str_start_670, str_start_671, str_start_672, str_s
 str_start_668=str_start_667+sizeof(str_667)-1,@/
 @y
 str_start_668=str_start_667+sizeof(str_667)-1,@/
-str_start_669=str_start_668+sizeof(str_668)-1,@/
-str_start_670=str_start_669+sizeof(str_669)-1,@/
-str_start_671=str_start_670+sizeof(str_670)-1,@/
-str_start_672=str_start_671+sizeof(str_671)-1,@/
-str_start_673=str_start_672+sizeof(str_672)-1,@/
+str_start_669=str_start_668+sizeof(str_668)-1,
+str_start_670=str_start_669+sizeof(str_669)-1,
+str_start_671=str_start_670+sizeof(str_670)-1,
+str_start_672=str_start_671+sizeof(str_671)-1,
+str_start_673=str_start_672+sizeof(str_672)-1,
 @z
 
 @x

@@ -1,7 +1,7 @@
 Hyphenate already-hyphenated words.
 
 NOTE: to ensure that this ch-file is compatible with original TeX,
-      change \def\\{\hyphen@te-\hyphen@te} in format into \def\\{\kern0pt-\nobreak\hskip0pt\relax}
+      add \def\\{\kern0pt-\nobreak\hskip0pt\relax} to the beginning of document
       and compare dvitype output before and after - it must be the same
 
 NOTE: if you use '-' in a compound word and you get an overfull box warning,
