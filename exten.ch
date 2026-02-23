@@ -1,4 +1,4 @@
-Add \hyphen@te extension.
+Add \hyphen@te control sequence which inserts hyph_node whatsit.
 
 @x
 @d language_node	4 /*|subtype| in whatsits that change the current language*/
