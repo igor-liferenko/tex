@@ -20,6 +20,12 @@ enum {@+@!trie_size=15000@+};
 @z
 
 @x
+enum {@+@!file_name_size=40@+}; /*file names shouldn't be longer than this*/
+@y
+enum {@+@!file_name_size=256@+}; /*file names shouldn't be longer than this*/
+@z
+
+@x
 @d mem_top	30000 /*largest index in the |mem| array dumped by \.{INITEX};
   must be substantially larger than |mem_bot|
   and not greater than |mem_max|*/ 
