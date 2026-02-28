@@ -5,9 +5,9 @@
 +#include <wchar.h>
 +#include <locale.h>
  
- #define odd(X)       ((X)&1)
- #define chr(X)       (X)
-@@ -565,9 +567,9 @@
+ #define odd(X) ((X)&1)
+ #define chr(X) (X)
+@@ -558,9 +560,9 @@
  adjusted if necessary.
  @^system dependencies@>
  
@@ -19,16 +19,16 @@
  
  @<Local variables for init...@>=
  int @!i;
-@@ -577,7 +579,7 @@
+@@ -570,7 +572,7 @@
  that are analogous to \PASCAL's |ord| and |chr| functions.
  
  @<Glob...@>=
 -ASCII_code @!xord[256];
 +ASCII_code @!xord[65536];
     /*specifies conversion of input characters*/ 
- text_char @!xchr[256];
+ text_char xchr[256];
     /*specifies conversion of output characters*/ 
-@@ -725,6 +727,7 @@
+@@ -718,6 +720,7 @@
  @<Set init...@>=
  for (i=0; i<=037; i++) xchr[i]= ' ' ;
  for (i=0177; i<=0377; i++) xchr[i]= ' ' ;
@@ -36,7 +36,7 @@
  
  @ The following system-independent code makes the |xord| array contain a
  suitable inverse to the information in |xchr|. Note that if |xchr[i]==xchr[j]|
-@@ -822,7 +825,7 @@
+@@ -815,7 +818,7 @@
  
  @p bool a_open_in(alpha_file *f)
     /*open a text file for input*/ 
@@ -45,7 +45,7 @@
  } 
  @#
  bool a_open_out(alpha_file *f)
-@@ -937,7 +940,7 @@
+@@ -930,7 +933,7 @@
  @p bool input_ln(alpha_file *f, bool @!bypass_eoln)
     /*inputs the next line or returns |false|*/ 
  {@+uint16_t last_nonblank; /*|last| with trailing blanks removed*/ 
@@ -54,7 +54,7 @@
     /*input the first character of the line into |f.d|*/ 
  last=first; /*cf.\ Matthew 19\thinspace:\thinspace30*/ 
  if (eof((*f))) return false;
-@@ -948,7 +951,7 @@
+@@ -941,7 +944,7 @@
        if (max_buf_stack==buf_size) 
          @<Report overflow of the input buffer, and abort@>;
        } 
@@ -63,7 +63,7 @@
      if (buffer[last-1]!=' ') last_nonblank=last;
      } 
    last=last_nonblank;return true;
-@@ -1480,7 +1483,7 @@
+@@ -1478,7 +1481,7 @@
    {@+print_ln();return;
    } 
  switch (selector) {
@@ -72,7 +72,7 @@
    incr(term_offset);incr(file_offset);
    if (term_offset==max_print_line) 
      {@+wterm_cr;term_offset=0;
-@@ -1489,17 +1492,17 @@
+@@ -1487,17 +1490,17 @@
      {@+wlog_cr;file_offset=0;
      } 
    } @+break;
@@ -93,7 +93,7 @@
  } @/
  incr(tally);
  } 
-@@ -10108,9 +10111,16 @@
+@@ -10109,9 +10112,16 @@
  allows both lowercase and uppercase letters in the file name.
  @^system dependencies@>
  
@@ -113,7 +113,7 @@
  
  @p void pack_file_name(str_number @!n, str_number @!a, str_number @!e)
  {@+int k; /*number of positions filled in |name_of_file|*/ 
-@@ -10120,6 +10130,7 @@
+@@ -10121,6 +10131,7 @@
  for (j=str_start[a]; j<=str_start[a+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
@@ -121,7 +121,7 @@
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
  name_of_file[name_length+1]=0;
  } 
-@@ -10135,16 +10146,16 @@
+@@ -10136,16 +10147,16 @@
  @d format_ext_length	4 /*length of its `\.{.fmt}' part*/ 
  
  @<Glob...@>=
@@ -141,7 +141,7 @@
  
  @ Here is the messy routine that was just mentioned. It sets |name_of_file|
  from the first |n| characters of |TEX_format_default|, followed by
-@@ -10161,11 +10172,16 @@
+@@ -10162,11 +10173,16 @@
  {@+int k; /*number of positions filled in |name_of_file|*/ 
  ASCII_code @!c; /*character being packed*/ 
  int @!j; /*index into |buffer| or |TEX_format_default|*/ 
@@ -160,7 +160,7 @@
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
    append_to_name(xord[TEX_format_default[j]]);
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
-@@ -10224,7 +10240,11 @@
+@@ -10225,7 +10241,11 @@
  if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
   (cur_length > 0)) 
    return'?';
