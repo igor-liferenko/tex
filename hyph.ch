@@ -7,7 +7,7 @@ NOTE: to ensure that this ch-file is compatible with original TeX,
 NOTE: if you use '-' in a compound word and you get an overfull box warning,
       simply change '-' to '\\'
 
-For the analysis of how this works, see tex.stackexchange.com/q/7550481/
+For the analysis of how this works, see tex.stackexchange.com/q/750481/
 
 @x
 case whatsit_node: @<Advance \(p)past a whatsit node in the \(l)|line_break| loop@>@;@+break;
