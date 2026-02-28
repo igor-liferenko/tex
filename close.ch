@@ -27,7 +27,7 @@ initialize(); /*set global variables to their starting values*/
 ===== Definitions of list_add, list_delete and list_close: =====
 
 @x
-@ Appendix: Replacement of the string pool file.
+@* Index.
 @y
 @<Compiler directives@>=
 struct node {
