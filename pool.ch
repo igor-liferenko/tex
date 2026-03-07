@@ -1,19 +1,19 @@
 Add names for new primitives to string pool.
 
 @x
-@<|"ext4"|@>=@+667
+@<"ext4"@>=667
 @y
-@<|"ext4"|@>=@+667
+@<"ext4"@>=667
 @ @d str_668 "pdfpagewidth"
-@<|"pdfpagewidth"|@>= 668
+@<"pdfpagewidth"@>=668
 @ @d str_669 "pdfpageheight"
-@<|"pdfpageheight"|@>= 669
+@<"pdfpageheight"@>=669
 @ @d str_670 "pdfhorigin"
-@<|"pdfhorigin"|@>= 670
+@<"pdfhorigin"@>=670
 @ @d str_671 "pdfvorigin"
-@<|"pdfvorigin"|@>= 671
+@<"pdfvorigin"@>=671
 @ @d str_672 "hyphen@@te"
-@<|"hyphen@@te"|@>= 672
+@<"hyphen@@te"@>=672
 @z
 
 @x
