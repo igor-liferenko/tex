@@ -5,13 +5,13 @@ Add names for new primitives to string pool.
 @y
 @<"ext4"@>=667
 @ @d str_668 "pdfpagewidth"
-@<"pdfpagewidth"@>=668
+@d pdfpagewidth 668
 @ @d str_669 "pdfpageheight"
-@<"pdfpageheight"@>=669
+@d pdfpageheight 669
 @ @d str_670 "pdfhorigin"
-@<"pdfhorigin"@>=670
+@d pdfhorigin 670
 @ @d str_671 "pdfvorigin"
-@<"pdfvorigin"@>=671
+@d pdfvorigin 671
 @ @d str_672 "hyphen@@te"
 @<"hyphen@@te"@>=672
 @z
