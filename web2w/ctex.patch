@@ -45,7 +45,7 @@
 +unsigned char name_of_file0[file_name_size+1], *const name_of_file = name_of_file0-1;
     /*on some systems this may be a \&{record} variable*/ 
 -uint8_t @!name_length;@/ /*this many characters are actually
-+uint16_t name_length; /*this many characters are actually
++uint8_t @!name_length;@/ /*this many characters are actually
    relevant in |name_of_file| (the rest are blank)*/ 
  
  @ The \ph\ compiler with which the present version of \TeX\ was prepared has
@@ -349,15 +349,6 @@
  @.TeXfonts@>
  
  @ Here now is the first of the system-dependent routines for file name scanning.
-@@ -10032,7 +10058,7 @@
- @p bool more_name(ASCII_code @!c)
- {@+if (c==' ') return false;
- else{@+str_room(1);append_char(c); /*contribute |c| to the current string*/ 
--  if ((c=='>')||(c==':')) 
-+  if (c=='/')
-     {@+area_delimiter=cur_length;ext_delimiter=0;
-     } 
-   else if ((c=='.')&&(ext_delimiter==0)) ext_delimiter=cur_length;
 @@ -10089,7 +10115,7 @@
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
@@ -573,16 +564,3 @@
    } 
  
  @ We get to the |final_cleanup| routine when \.{\\end} or \.{\\dump} has
-@@ -25790,10 +25811,10 @@
- @d str_505 "else"
- @<|"else"|@>=@+505
- @ 
--@d str_506 "TeXinputs:"
-+@d str_506 "TeXinputs/"
- @d TEX_area 506
- @ 
--@d str_507 "TeXfonts:"
-+@d str_507 "TeXfonts/"
- @d TEX_font_area 507
- @ 
- @d str_508 ".fmt"
