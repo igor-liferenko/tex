@@ -404,18 +404,39 @@
  @.Sorry, I can't find...@>
    update_terminal;
    } 
+@@ -10268,17 +10300,17 @@
+ variables |cur_name|, |cur_area|, |cur_ext|, and |name_of_file| are
+ ready for another attempt at file opening.
+ 
+-@p void prompt_file_name(str_number @!s, str_number @!e)
++@p void prompt_file_name(char *s, str_number e)
+ {@+
+ uint16_t k; /*index into |buffer|*/ 
+ if (interaction==scroll_mode) wake_up_terminal;
+-if (s==@[@<|"input file name"|@>@]) print_err("I can't find file `")@;
++if (strcmp(s,"input file name")==0) print_err("I can't find file `")
+ @.I can't find file x@>
+ else print_err("I can't write on file `");
+ @.I can't write on file x@>
+ print_file_name(cur_name, cur_area, cur_ext);print_str("'.");
+ if (e==@[@<|".tex"|@>@]) show_context();
+-print_nl("Please type another ");print(s);
++print_nl("Please type another ");print_str(s);
+ @.Please type...@>
+ if (interaction < scroll_mode) 
+   fatal_error("*** (job aborted, file error in nonstop mode)");
 @@ -10301,11 +10333,11 @@
  @ Here's an example of how these conventions are used. Whenever it is time to
  ship out a box of stuff, we shall use the macro |ensure_dvi_open|.
  
 -@d ensure_dvi_open	if (output_file_name==0) 
-+@d ensure_dvi_open(X,Y) if (output_file_name==0)
++@d ensure_dvi_open(X) if (output_file_name==0)
    {@+if (job_name==0) open_log_file();
 -  pack_job_name(@[@<|".dvi"|@>@]);
 +  pack_job_name(X);
    while (!b_open_out(&dvi_file)) 
--    prompt_file_name(@[@<|"file name for output"|@>@],@[@<|".dvi"|@>@]);
-+    prompt_file_name(Y,X);
+-    prompt_file_name("file name for output",@[@<|".dvi"|@>@]);
++    prompt_file_name("file name for output",X);
    output_file_name=b_make_name_string(&dvi_file);
    } 
  
@@ -457,7 +478,7 @@
  @ @<Initialize variables as |ship_out| begins@>=
  dvi_h=0;dvi_v=0;cur_h=h_offset;dvi_f=null_font;
 -ensure_dvi_open;
-+ensure_dvi_open(@<|".dvi"|@>,@<|"file name for output"|@>);
++ensure_dvi_open(@<|".dvi"|@>);
  if (total_pages==0) 
    {@+dvi_out(pre);dvi_out(id_byte); /*output the preamble*/ 
  @^preamble of \.{DVI} file@>
