@@ -413,13 +413,13 @@
  {@+
  uint16_t k; /*index into |buffer|*/ 
  if (interaction==scroll_mode) wake_up_terminal;
--if (s==@[@<|"input file name"|@>@]) print_err("I can't find file `")@;
+-if (s==@<"input file name"@>) print_err("I can't find file `")@;
 +if (strcmp(s,"input file name")==0) print_err("I can't find file `")
  @.I can't find file x@>
  else print_err("I can't write on file `");
  @.I can't write on file x@>
  print_file_name(cur_name, cur_area, cur_ext);print_str("'.");
- if (e==@[@<|".tex"|@>@]) show_context();
+ if (e==@<".tex"@>) show_context();
 -print_nl("Please type another ");print(s);
 +print_nl("Please type another ");print_str(s);
  @.Please type...@>
@@ -432,10 +432,10 @@
 -@d ensure_dvi_open	if (output_file_name==0) 
 +@d ensure_dvi_open(X) if (output_file_name==0)
    {@+if (job_name==0) open_log_file();
--  pack_job_name(@[@<|".dvi"|@>@]);
+-  pack_job_name(@<".dvi"@>);
 +  pack_job_name(X);
    while (!b_open_out(&dvi_file)) 
--    prompt_file_name("file name for output",@[@<|".dvi"|@>@]);
+-    prompt_file_name("file name for output",@<".dvi"@>);
 +    prompt_file_name("file name for output",X);
    output_file_name=b_make_name_string(&dvi_file);
    } 
@@ -447,7 +447,7 @@
 -uint8_t @!months0[36], *const @!months = @!months0-1; /*abbreviations of month names*/ 
 +unsigned char @!months0[36+1], *const @!months = @!months0-1; /*abbreviations of month names*/
  old_setting=selector;
- if (job_name==0) job_name=@[@<|"texput"|@>@];
+ if (job_name==0) job_name=@<"texput"@>;
  @.texput@>
 @@ -10362,11 +10394,11 @@
  } 
@@ -478,7 +478,7 @@
  @ @<Initialize variables as |ship_out| begins@>=
  dvi_h=0;dvi_v=0;cur_h=h_offset;dvi_f=null_font;
 -ensure_dvi_open;
-+ensure_dvi_open(@<|".dvi"|@>);
++ensure_dvi_open(@<".dvi"@>);
  if (total_pages==0) 
    {@+dvi_out(pre);dvi_out(id_byte); /*output the preamble*/ 
  @^preamble of \.{DVI} file@>
@@ -590,7 +590,7 @@
  @ We get to the |final_cleanup| routine when \.{\\end} or \.{\\dump} has
 @@ -25790,10 +25818,10 @@
  @d str_505 "else"
- @<|"else"|@>=@+505
+ @<"else"@>=505
  @ 
 -@d str_506 "TeXinputs:"
 +@d str_506 "TeXinputs/"
