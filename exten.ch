@@ -33,7 +33,7 @@ while (p > mem_min) if (type(p)==whatsit_node && subtype(p)==hyph_node) p=link(p
 @!@:set_language_}{\.{\\setlanguage} primitive@>
 @y
 @!@:set_language_}{\.{\\setlanguage} primitive@>
-primitive(@<"hyphen@@te"@>, extension, hyphenate_code);
+primitive(hyphenate_str, extension, hyphenate_code);
 @z
 
 @x
