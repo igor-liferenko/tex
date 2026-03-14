@@ -7,7 +7,7 @@ Add names for new primitives to string pool.
 @ @d str_668 "pdfpagewidth"
 @d pdfpagewidth_str 668
 @ @d str_669 "pdfpageheight"
-@d pdfpageheight"_str 669
+@d pdfpageheight_str 669
 @ @d str_670 "pdfhorigin"
 @d pdfhorigin_str 670
 @ @d str_671 "pdfvorigin"

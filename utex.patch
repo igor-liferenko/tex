@@ -11,11 +11,11 @@
  adjusted if necessary.
  @^system dependencies@>
  
--@d text_char	unsigned char /*the data type of characters in text files*/ 
-+@d text_char	wchar_t /*the data type of characters in text files*/ 
- @d first_text_char	0 /*ordinal number of the smallest element of |text_char|*/ 
--@d last_text_char	255 /*ordinal number of the largest element of |text_char|*/ 
-+@d last_text_char	65535 /*ordinal number of the largest element of |text_char|*/ 
+-@d text_char	unsigned char /*the data type of characters in text files*/
++@d text_char	wchar_t /*the data type of characters in text files*/
+ @d first_text_char	0 /*ordinal number of the smallest element of |text_char|*/
+-@d last_text_char	255 /*ordinal number of the largest element of |text_char|*/
++@d last_text_char	65535 /*ordinal number of the largest element of |text_char|*/
  
  @<Local variables for init...@>=
  int @!i;
@@ -25,9 +25,9 @@
  @<Glob...@>=
 -ASCII_code @!xord[256];
 +ASCII_code @!xord[65536];
-    /*specifies conversion of input characters*/ 
+    /*specifies conversion of input characters*/
  text_char xchr[256];
-    /*specifies conversion of output characters*/ 
+    /*specifies conversion of output characters*/
 @@ -718,6 +720,7 @@
  @<Set init...@>=
  for (i=0; i<=037; i++) xchr[i]= ' ' ;
@@ -39,42 +39,42 @@
 @@ -815,7 +818,7 @@
  
  @p bool a_open_in(alpha_file *f)
-    /*open a text file for input*/ 
+    /*open a text file for input*/
 -{reset(*f, name_of_file,"r");return reset_OK(*f);
 +{ if ((f->f=fopen(name_of_file+1,"r"))!=NULL) f->d=fgetwc(f->f); return reset_OK(*f);
- } 
+ }
  @#
  bool a_open_out(alpha_file *f)
 @@ -930,7 +933,7 @@
  @p bool input_ln(alpha_file *f, bool @!bypass_eoln)
-    /*inputs the next line or returns |false|*/ 
- {@+uint16_t last_nonblank; /*|last| with trailing blanks removed*/ 
+    /*inputs the next line or returns |false|*/
+ {@+uint16_t last_nonblank; /*|last| with trailing blanks removed*/
 -if (bypass_eoln) if (!eof((*f))) get((*f));
 +if (bypass_eoln) if (!eof(*f)) f->d=fgetwc(f->f);
-    /*input the first character of the line into |f.d|*/ 
- last=first; /*cf.\ Matthew 19\thinspace:\thinspace30*/ 
+    /*input the first character of the line into |f.d|*/
+ last=first; /*cf.\ Matthew 19\thinspace:\thinspace30*/
  if (eof((*f))) return false;
 @@ -941,7 +944,7 @@
-       if (max_buf_stack==buf_size) 
+       if (max_buf_stack==buf_size)
          @<Report overflow of the input buffer, and abort@>;
-       } 
+       }
 -    buffer[last]=xord[(*f).d];get((*f));incr(last);
 +    buffer[last]=xord[(*f).d];f->d=fgetwc(f->f);incr(last);
      if (buffer[last-1]!=' ') last_nonblank=last;
-     } 
+     }
    last=last_nonblank;return true;
-@@ -1478,7 +1481,7 @@
+@@ -1471,7 +1474,7 @@
    {@+print_ln();return;
-   } 
+   }
  switch (selector) {
 -case term_and_log: {@+wterm("%c",xchr[s]);wlog("%c",xchr[s]);
 +case term_and_log: {@+wterm("%lc",xchr[s]);wlog("%lc",xchr[s]);
    incr(term_offset);incr(file_offset);
-   if (term_offset==max_print_line) 
+   if (term_offset==max_print_line)
      {@+wterm_cr;term_offset=0;
-@@ -1487,17 +1490,17 @@
+@@ -1480,17 +1483,17 @@
      {@+wlog_cr;file_offset=0;
-     } 
+     }
    } @+break;
 -case log_only: {@+wlog("%c",xchr[s]);incr(file_offset);
 +case log_only: {@+wlog("%lc",xchr[s]);incr(file_offset);
@@ -87,19 +87,18 @@
  case no_print: do_nothing;@+break;
  case pseudo: if (tally < trick_count) trick_buf[tally%error_line]=s;@+break;
  case new_string: {@+if (pool_ptr < pool_size) append_char(s);
-   } @+break; /*we drop characters if the string space is full*/ 
+   } @+break; /*we drop characters if the string space is full*/
 -default:write(write_file[selector],"%c", xchr[s]);
 +default:write(write_file[selector],"%lc", xchr[s]);
  } @/
  incr(tally);
- } 
-@@ -10109,9 +10112,16 @@
+ }
+@@ -10102,9 +10105,16 @@
  allows both lowercase and uppercase letters in the file name.
  @^system dependencies@>
  
 -@d append_to_name(X)	{@+c=X;incr(k);
 -  if (k <= file_name_size) name_of_file[k]=xchr[c];
--  } 
 +@d append_to_name(X)	{@+c=X;
 +  if (k >= 0) {
 +    char mb[MB_CUR_MAX];
@@ -108,21 +107,21 @@
 +      for (int i = 0; i < len; i++) name_of_file[++k] = mb[i];
 +    else
 +      k = -k;
-+  }
+   }
 +}
  
  @p void pack_file_name(str_number @!n, str_number @!a, str_number @!e)
- {@+int k; /*number of positions filled in |name_of_file|*/ 
-@@ -10121,6 +10131,7 @@
+ {@+int k; /*number of positions filled in |name_of_file|*/
+@@ -10114,6 +10124,7 @@
  for (j=str_start[a]; j<=str_start[a+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
 +if (k < 0) k = -k;
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
  name_of_file[name_length+1]=0;
- } 
-@@ -10136,16 +10147,16 @@
- @d format_ext_length	4 /*length of its `\.{.fmt}' part*/ 
+ }
+@@ -10129,16 +10140,16 @@
+ @d format_ext_length	4 /*length of its `\.{.fmt}' part*/
  
  @<Glob...@>=
 -unsigned char @!TEX_format_default0[format_default_length+1], *const @!TEX_format_default = @!TEX_format_default0-1;
@@ -141,11 +140,11 @@
  
  @ Here is the messy routine that was just mentioned. It sets |name_of_file|
  from the first |n| characters of |TEX_format_default|, followed by
-@@ -10162,11 +10173,16 @@
- {@+int k; /*number of positions filled in |name_of_file|*/ 
- ASCII_code @!c; /*character being packed*/ 
- int @!j; /*index into |buffer| or |TEX_format_default|*/ 
--if (n+b-a+1+format_ext_length > file_name_size) 
+@@ -10155,11 +10166,16 @@
+ {@+int k; /*number of positions filled in |name_of_file|*/
+ ASCII_code @!c; /*character being packed*/
+ int @!j; /*index into |buffer| or |TEX_format_default|*/
+-if (n+b-a+1+format_ext_length > file_name_size)
 -  b=a+file_name_size-n-1-format_ext_length;
  k=0;
  for (j=1; j<=n; j++) append_to_name(xord[TEX_format_default[j]]);
@@ -157,12 +156,12 @@
 +  while(mblen(name_of_file+k+1, MB_CUR_MAX)==-1)
 +    k--;
 +}
- for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
+ for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++)
    append_to_name(xord[TEX_format_default[j]]);
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
-@@ -10225,7 +10241,11 @@
+@@ -10218,7 +10234,11 @@
  if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
-  (cur_length > 0)) 
+  (cur_length > 0))
    return'?';
 -else{@+for (k=1; k<=name_length; k++) append_char(xord[name_of_file[k]]);
 +else{@+for (k=1; k<=name_length; k++) {
@@ -171,18 +170,18 @@
 +      append_char(xord[wc]);
 +    }
    return make_string();
-   } 
- } 
-@@ -10355,7 +10375,7 @@
- {@+uint8_t old_setting; /*previous |selector| setting*/ 
- int @!k; /*index into |months| and |buffer|*/ 
- uint16_t @!l; /*end of first input line*/ 
+   }
+ }
+@@ -10348,7 +10368,7 @@
+ {@+uint8_t old_setting; /*previous |selector| setting*/
+ int @!k; /*index into |months| and |buffer|*/
+ uint16_t @!l; /*end of first input line*/
 -unsigned char @!months0[36+1], *const @!months = @!months0-1; /*abbreviations of month names*/
 +wchar_t @!months0[36+1], *const @!months = @!months0-1; /*abbreviations of month names*/
  old_setting=selector;
  if (job_name==0) job_name=@[@<|"texput"|@>@];
  @.texput@>
-@@ -10397,8 +10417,8 @@
+@@ -10390,8 +10410,8 @@
  {@+wlog("%s", banner);
  slow_print(format_ident);print_str("  ");
  print_int(sys_day);print_char(' ');
@@ -192,12 +191,12 @@
 +for (k=3*sys_month-2; k<=3*sys_month; k++) wlog("%lc", months[k]);
  print_char(' ');print_int(sys_year);print_char(' ');
  print_two(sys_time/60);print_char(':');print_two(sys_time%60);
- } 
-@@ -24303,6 +24323,7 @@
+ }
+@@ -24296,6 +24316,7 @@
  @^system dependencies@>
  
- @p int main(void) {@! /*|start_here|*/ 
+ @p int main(void) {@! /*|start_here|*/
 +setlocale(LC_CTYPE, "C.UTF-8");
- history=fatal_error_stop; /*in case we quit during initialization*/ 
- t_open_out; /*open the terminal for output*/ 
+ history=fatal_error_stop; /*in case we quit during initialization*/
+ t_open_out; /*open the terminal for output*/
  if (ready_already==314159) goto start_of_TEX;
