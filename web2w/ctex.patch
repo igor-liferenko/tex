@@ -9,11 +9,10 @@
 +#include <string.h>
 +#include <math.h>
 +
-+#define odd(X) ((X)&1)
-+#define chr(X) (X)
-+
 +@h
 +
++#define odd(X) ((X)&1)
++#define chr(X) (X)
 +#define put(file) fwrite(&((file).d),sizeof((file).d),1,(file).f)
 +#define get(file) fread(&((file).d),sizeof((file).d),1,(file).f)
 +#define reset(file,name,mode) ((file).f=fopen((char *)(name)+1,mode),(file).f!=NULL?get(file):0)
@@ -25,6 +24,7 @@
 +#define read(file,x) ((x)=(file).d,get(file))
 +#define write(file, format,...) fprintf(file.f,format,## __VA_ARGS__)
 +#define write_ln(file,...) write(file,__VA_ARGS__"\n")
++
  /*@&$C-,A+,D-*/ /*no range check, catch arithmetic overflow, no debug overhead*/ 
  #ifdef @!DEBUG
  /*@&$C+,D+*/

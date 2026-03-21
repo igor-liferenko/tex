@@ -5,8 +5,8 @@
 +#include <wchar.h>
 +#include <locale.h>
  
- #define odd(X) ((X)&1)
- #define chr(X) (X)
+ @h
+ 
 @@ -558,9 +560,9 @@
  adjusted if necessary.
  @^system dependencies@>
