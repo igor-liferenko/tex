@@ -11,6 +11,12 @@ int       name_length;@/ /*this many characters are actually
 @z
 
 @x
+strcpy(TEX_format_default+1, "TeXformats:plain.fmt");
+@y
+strcpy(TEX_format_default+1, "TeXformats/plain.fmt");
+@z
+
+@x
 @d str_506 "TeXinputs:"
 @y
 @d str_506 "TeXinputs/"
