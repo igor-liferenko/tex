@@ -16,4 +16,4 @@ all:
 	@sed -i -f tripfot.sed trip.fot
 	@echo >>trip.fot
 	@diff tex/trip.fot trip.fot
-	@printf '\n%s\n' 'Passed.'
+	@printf '\n%s\n\n' 'Passed.'
