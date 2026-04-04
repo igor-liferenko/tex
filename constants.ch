@@ -26,9 +26,9 @@ enum {@+@!file_name_size=256@+}; /*file names shouldn't be longer than this*/
 @z
 
 @x
-@d mem_top	30000 /*largest index in the |mem| array dumped by \.{INITEX};
+@d mem_top 30000 /*largest index in the |mem| array dumped by \.{INITEX};
   must be substantially larger than |mem_bot|
   and not greater than |mem_max|*/ 
 @y
-@d mem_top	4999999
+@d mem_top 4999999
 @z
