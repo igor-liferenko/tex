@@ -11,11 +11,11 @@
  adjusted if necessary.
  @^system dependencies@>
  
--@d text_char	unsigned char /*the data type of characters in text files*/
-+@d text_char	wchar_t /*the data type of characters in text files*/
- @d first_text_char	0 /*ordinal number of the smallest element of |text_char|*/
--@d last_text_char	255 /*ordinal number of the largest element of |text_char|*/
-+@d last_text_char	65535 /*ordinal number of the largest element of |text_char|*/
+-@d text_char unsigned char /*the data type of characters in text files*/
++@d text_char wchar_t /*the data type of characters in text files*/
+ @d first_text_char 0 /*ordinal number of the smallest element of |text_char|*/
+-@d last_text_char 255 /*ordinal number of the largest element of |text_char|*/
++@d last_text_char 65535 /*ordinal number of the largest element of |text_char|*/
  
  @<Local variables for init...@>=
  int @!i;
@@ -40,7 +40,7 @@
  
  @p bool a_open_in(alpha_file *f)
     /*open a text file for input*/
--{reset(*f, name_of_file,"r");return reset_OK(*f);
+-{  reset(*f,   name_of_file,"r");return reset_OK(*f);
 +{ if ((f->f=fopen(name_of_file+1,"r"))!=NULL) f->d=fgetwc(f->f); return reset_OK(*f);
  }
  @#
@@ -63,7 +63,7 @@
      if (buffer[last-1]!=' ') last_nonblank=last;
      }
    last=last_nonblank;return true;
-@@ -1471,7 +1474,7 @@
+@@ -1478,7 +1481,7 @@
    {@+print_ln();return;
    }
  switch (selector) {
@@ -72,7 +72,7 @@
    incr(term_offset);incr(file_offset);
    if (term_offset==max_print_line)
      {@+wterm_cr;term_offset=0;
-@@ -1480,17 +1483,17 @@
+@@ -1487,17 +1490,17 @@
      {@+wlog_cr;file_offset=0;
      }
    } @+break;
@@ -93,13 +93,13 @@
  } @/
  incr(tally);
  }
-@@ -10102,9 +10105,16 @@
+@@ -10109,9 +10112,16 @@
  allows both lowercase and uppercase letters in the file name.
  @^system dependencies@>
  
--@d append_to_name(X)	{@+c=X;incr(k);
+-@d append_to_name(X) {@+c=X;incr(k);
 -  if (k <= file_name_size) name_of_file[k]=xchr[c];
-+@d append_to_name(X)	{@+c=X;
++@d append_to_name(X) {@+c=X;
 +  if (k >= 0) {
 +    char mb[MB_CUR_MAX];
 +    int len = wctomb(mb, xchr[c]);
@@ -112,7 +112,7 @@
  
  @p void pack_file_name(str_number @!n, str_number @!a, str_number @!e)
  {@+int k; /*number of positions filled in |name_of_file|*/
-@@ -10114,6 +10124,7 @@
+@@ -10121,6 +10131,7 @@
  for (j=str_start[a]; j<=str_start[a+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
@@ -120,8 +120,8 @@
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
  name_of_file[name_length+1]=0;
  }
-@@ -10129,16 +10140,16 @@
- @d format_ext_length	4 /*length of its `\.{.fmt}' part*/
+@@ -10136,16 +10147,16 @@
+ @d format_ext_length 4 /*length of its `\.{.fmt}' part*/
  
  @<Glob...@>=
 -unsigned char @!TEX_format_default0[format_default_length+1], *const @!TEX_format_default = @!TEX_format_default0-1;
@@ -140,7 +140,7 @@
  
  @ Here is the messy routine that was just mentioned. It sets |name_of_file|
  from the first |n| characters of |TEX_format_default|, followed by
-@@ -10155,11 +10166,16 @@
+@@ -10162,11 +10173,16 @@
  {@+int k; /*number of positions filled in |name_of_file|*/
  ASCII_code @!c; /*character being packed*/
  int @!j; /*index into |buffer| or |TEX_format_default|*/
@@ -159,7 +159,7 @@
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++)
    append_to_name(xord[TEX_format_default[j]]);
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
-@@ -10218,7 +10234,11 @@
+@@ -10225,7 +10241,11 @@
  if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
   (cur_length > 0))
    return'?';
@@ -172,7 +172,7 @@
    return make_string();
    }
  }
-@@ -10348,7 +10368,7 @@
+@@ -10355,7 +10375,7 @@
  {@+uint8_t old_setting; /*previous |selector| setting*/
  int @!k; /*index into |months| and |buffer|*/
  uint16_t @!l; /*end of first input line*/
@@ -181,7 +181,7 @@
  old_setting=selector;
  if (job_name==0) job_name=@[@<|"texput"|@>@];
  @.texput@>
-@@ -10390,8 +10410,8 @@
+@@ -10397,8 +10417,8 @@
  {@+wlog("%s", banner);
  slow_print(format_ident);print_str("  ");
  print_int(sys_day);print_char(' ');
@@ -192,7 +192,7 @@
  print_char(' ');print_int(sys_year);print_char(' ');
  print_two(sys_time/60);print_char(':');print_two(sys_time%60);
  }
-@@ -24296,6 +24316,7 @@
+@@ -24303,6 +24323,7 @@
  @^system dependencies@>
  
  @p int main(void) {@! /*|start_here|*/

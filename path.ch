@@ -1,6 +1,6 @@
 @x
-@d format_default_length	20 /*length of the |TEX_format_default| string*/
-@d format_area_length	11 /*length of its area part*/
+@d format_default_length 20 /*length of the |TEX_format_default| string*/
+@d format_area_length 11 /*length of its area part*/
 @y
 @d format_default_length 35 /*length of the |TEX_format_default| string*/
 @d format_area_length 26 /*length of its area part*/

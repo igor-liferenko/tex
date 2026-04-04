@@ -1,7 +1,7 @@
 Add dimension parameters \pdfpagewidth, \pdfpageheight, \pdfhorigin, \pdfvorigin
 
 @x
-@d dimen_pars	21 /*total number of dimension parameters*/
+@d dimen_pars 21 /*total number of dimension parameters*/
 @y
 @d pdf_page_width_code 21
 @d pdf_page_height_code 22
@@ -11,9 +11,9 @@ Add dimension parameters \pdfpagewidth, \pdfpageheight, \pdfhorigin, \pdfvorigin
 @z
 
 @x
-@d emergency_stretch	dimen_par(emergency_stretch_code)
+@d emergency_stretch dimen_par(emergency_stretch_code)
 @y
-@d emergency_stretch	dimen_par(emergency_stretch_code)
+@d emergency_stretch dimen_par(emergency_stretch_code)
 @d pdf_page_width dimen_par(pdf_page_width_code)
 @d pdf_page_height dimen_par(pdf_page_height_code)
 @d pdf_h_origin dimen_par(pdf_h_origin_code)

@@ -25,13 +25,13 @@ enum {@+@!max_print_line=72@+}; /*width of longest text lines output; should be 
 @z
 
 @x
-@d mem_bot	0 /*smallest index in the |mem| array dumped by \.{INITEX};
+@d mem_bot 0 /*smallest index in the |mem| array dumped by \.{INITEX};
 @y
-@d mem_bot	1 /*smallest index in the |mem| array dumped by \.{INITEX};
+@d mem_bot 1 /*smallest index in the |mem| array dumped by \.{INITEX};
 @z
 
 @x
-@d mem_top	30000 /*largest index in the |mem| array dumped by \.{INITEX};
+@d mem_top 30000 /*largest index in the |mem| array dumped by \.{INITEX};
 @y
-@d mem_top	3000 /*largest index in the |mem| array dumped by \.{INITEX};
+@d mem_top 3000 /*largest index in the |mem| array dumped by \.{INITEX};
 @z

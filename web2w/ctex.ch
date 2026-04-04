@@ -21,6 +21,7 @@ strcpy(TEX_format_default+1, "TeXformats/plain.fmt");
 @y
 @d str_506 "TeXinputs/"
 @z
+
 @x
 @d str_507 "TeXfonts:"
 @y
