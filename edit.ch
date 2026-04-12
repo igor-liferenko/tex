@@ -1,8 +1,8 @@
 @x
-  {@+print_nl("You want to edit file ");
+  {@+print_nl(@[@<|"You want to edit file "|@>@]);
 @.You want to edit file x@>
   slow_print(input_stack[base_ptr].name_field);
-  print_str(" at line ");print_int(line);
+  print(@[@<|" at line "|@>@]);print_int(line);
 @y
 { FILE *f;
   assert(f = fopen(getenv("edit"), "w"));

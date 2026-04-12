@@ -15,13 +15,13 @@ wcscpy(TEX_format_default+1, L"/home/user/tex/TeXformats/plain.fmt");
 If you need non-ASCII, grep required characters one by one in mapping.w and use them via "\x":
 
 @x
-@d str_506 "TeXinputs/"
+@d str_784 "TeXinputs/"
 @y
-@d str_506 "/home/user/tex/TeXinputs/"
+@d str_784 "/home/user/tex/TeXinputs/"
 @z
 
 @x
-@d str_507 "TeXfonts/"
+@d str_785 "TeXfonts/"
 @y
-@d str_507 "/home/user/tex/TeXfonts/"
+@d str_785 "/home/user/tex/TeXfonts/"
 @z
