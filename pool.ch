@@ -1,54 +1,55 @@
 @x
-@<|"ext4"|@>=@+667
+@<|"output file name"|@>=@+1300
 @y
-@<|"ext4"|@>=@+667
-@ @d str_668 "TeXinputs/"
-@d TEX_area_short 668
-@ @d str_669 "pdfpagewidth"
-@d pdfpagewidth_str 669
-@ @d str_670 "pdfpageheight"
-@d pdfpageheight_str 670
-@ @d str_671 "pdfhorigin"
-@d pdfhorigin_str 671
-@ @d str_672 "pdfvorigin"
-@d pdfvorigin_str 672
-@ @d str_673 "hyphen@@te"
-@d hyphenate_str 673
+@<|"output file name"|@>=@+1300
+@ @d str_1301 "TeXinputs/"
+@d TEX_area_short 1301
+@ @d str_1302 "pdfpagewidth"
+@d pdfpagewidth_str 1302
+@ @d str_1303 "pdfpageheight"
+@d pdfpageheight_str 1303
+@ @d str_1304 "pdfhorigin"
+@d pdfhorigin_str 1304
+@ @d str_1305 "pdfvorigin"
+@d pdfvorigin_str 1305
+@ @d str_1306 "hyphen@@te"
+@d hyphenate_str 1306
 @z
 
 @x
-str_664 str_665 str_666 str_667
+str_1296 str_1297 str_1298 str_1299 str_1300
 @y
-str_664 str_665 str_666 str_667 str_668 str_669 str_670 str_671 str_672 str_673
+str_1296 str_1297 str_1298 str_1299 str_1300 str_1301
+str_1302 str_1303 str_1304 str_1305 str_1306
 @z
 
 @x
-str_start_668
+str_start_1300, str_start_1301
 @y
-str_start_668, str_start_669, str_start_670, str_start_671, str_start_672, str_start_673,
-str_start_674
+str_start_1300, str_start_1301, str_start_1302, str_start_1303,
+str_start_1304, str_start_1305, str_start_1306, str_start_1307
 @z
 
 @x
-str_start_668=str_start_667+sizeof(str_667)-1,@/
+str_start_1301=str_start_1300+sizeof(str_1300)-1,@/
 @y
-str_start_668=str_start_667+sizeof(str_667)-1,@/
-str_start_669=str_start_668+sizeof(str_668)-1,
-str_start_670=str_start_669+sizeof(str_669)-1,
-str_start_671=str_start_670+sizeof(str_670)-1,
-str_start_672=str_start_671+sizeof(str_671)-1,
-str_start_673=str_start_672+sizeof(str_672)-1,
-str_start_674=str_start_673+sizeof(str_673)-1,
+str_start_1301=str_start_1300+sizeof(str_1300)-1,@/
+str_start_1302=str_start_1301+sizeof(str_1301)-1,
+str_start_1303=str_start_1302+sizeof(str_1302)-1,
+str_start_1304=str_start_1303+sizeof(str_1303)-1,
+str_start_1305=str_start_1304+sizeof(str_1304)-1,
+str_start_1306=str_start_1305+sizeof(str_1305)-1,
+str_start_1307=str_start_1306+sizeof(str_1306)-1,
 @z
 
 @x
-@ @<|pool_ptr| initialization@>= str_start_668
+@ @<|pool_ptr| initialization@>= str_start_1301
 @y
-@ @<|pool_ptr| initialization@>= str_start_674
+@ @<|pool_ptr| initialization@>= str_start_1307
 @z
 
 @x
-@ @<|str_ptr| initialization@>= 668
+@ @<|str_ptr| initialization@>= 1301
 @y
-@ @<|str_ptr| initialization@>= 674
+@ @<|str_ptr| initialization@>= 1307
 @z

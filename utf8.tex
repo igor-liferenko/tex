@@ -212,16 +212,17 @@ This is done using the C~library function
 \endverbatim
 \medskip
 In the code checking {\it format\_default\_length\/}
-for consistency, we
-use the C~library function {\it wcstombs\/} [4] to count
+for consistency,
 the number of bytes in the \UTF-8 representation of
-{\it TEX\_format\_default\/}.
+{\it TEX\_format\_default\/} must be used. This value
+can not be calculated automatically here, because
+{\it TEX\_format\_default\/} is not yet set at this stage,
+so we use maximum possible value.
 \verbatim
 < if (format_default_length >
 <     file_name_size)
 
-> if (wcstombs(NULL,
->     TEX_format_default+1,0) >
+> if (format_default_length*MB_CUR_MAX >
 >     file_name_size)
 \endverbatim
 \medskip
