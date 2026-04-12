@@ -50,38 +50,38 @@
  
  @p bool a_open_in(alpha_file *f)
     /*open a text file for input*/ 
--{@+reset((*f), name_of_file, "/O");return reset_OK((*f));
-+{  reset(*f,   name_of_file, "r"); return reset_OK(*f);
+-{@+reset((*f), name_of_file,"/O");return reset_OK((*f));
++{  reset(*f,   name_of_file,"r"); return reset_OK(*f);
  } 
  @#
  bool a_open_out(alpha_file *f)
     /*open a text file for output*/ 
--{@+rewrite((*f), name_of_file, "/O");return rewrite_OK((*f));
-+{  rewrite(*f,   name_of_file, "w"); return rewrite_OK(*f);
+-{@+rewrite((*f), name_of_file,"/O");return rewrite_OK((*f));
++{  rewrite(*f,   name_of_file,"w"); return rewrite_OK(*f);
  } 
  @#
  bool b_open_in(byte_file *f)
     /*open a binary file for input*/ 
--{@+reset((*f), name_of_file, "/O");return reset_OK((*f));
-+{  reset(*f,   name_of_file, "r"); return reset_OK(*f);
+-{@+reset((*f), name_of_file,"/O");return reset_OK((*f));
++{  reset(*f,   name_of_file,"r"); return reset_OK(*f);
  } 
  @#
  bool b_open_out(byte_file *f)
     /*open a binary file for output*/ 
--{@+rewrite((*f), name_of_file, "/O");return rewrite_OK((*f));
-+{  rewrite(*f,   name_of_file, "w"); return rewrite_OK(*f);
+-{@+rewrite((*f), name_of_file,"/O");return rewrite_OK((*f));
++{  rewrite(*f,   name_of_file,"w"); return rewrite_OK(*f);
  } 
  @#
  bool w_open_in(word_file *f)
     /*open a word file for input*/ 
--{@+reset((*f), name_of_file, "/O");return reset_OK((*f));
-+{  reset(*f,   name_of_file, "r"); return reset_OK(*f);
+-{@+reset((*f), name_of_file,"/O");return reset_OK((*f));
++{  reset(*f,   name_of_file,"r"); return reset_OK(*f);
  } 
  @#
  bool w_open_out(word_file *f)
     /*open a word file for output*/ 
--{@+rewrite((*f), name_of_file, "/O");return rewrite_OK((*f));
-+{  rewrite(*f,   name_of_file, "w"); return rewrite_OK(*f);
+-{@+rewrite((*f), name_of_file,"/O");return rewrite_OK((*f));
++{  rewrite(*f,   name_of_file,"w"); return rewrite_OK(*f);
  } 
  
  @ Files can be closed with the \ph\ routine `|close(f)|', which
@@ -89,8 +89,8 @@
  @:PASCAL H}{\ph@>
  @^system dependencies@>
  
--@d t_open_in reset(term_in, "TTY:", "/O/I") /*open the terminal for text input*/ 
--@d t_open_out rewrite(term_out, "TTY:", "/O") /*open the terminal for text output*/ 
+-@d t_open_in reset(term_in,"TTY:","/O/I") /*open the terminal for text input*/ 
+-@d t_open_out rewrite(term_out,"TTY:","/O") /*open the terminal for text output*/ 
 +@d t_open_in term_in.f=stdin /*open the terminal for text input*/
 +@d t_open_out term_out.f=stdout /*open the terminal for text output*/
  
@@ -316,7 +316,7 @@
       /*now try the system format file area*/ 
    if (w_open_in(&fmt_file)) goto found;
    wake_up_terminal;
--  wterm_ln("Sorry, I can't find that format;", " will try PLAIN.");
+-  wterm_ln("Sorry, I can't find that format;"," will try PLAIN.");
 +  wterm_ln("Sorry, I can't find that format; will try PLAIN.");
  @.Sorry, I can't find...@>
    update_terminal;
@@ -387,7 +387,7 @@
  @<Check the ``constant'' values...@>@;
  if (bad > 0) 
 -  {@+wterm_ln("Ouch---my internal constants have been clobbered!",
--    "---case ", bad);
+-    "---case ", bad: 1);
 +  {  wterm_ln("Ouch---my internal constants have been clobbered!"
 +    "---case %d", bad);
  @.Ouch...clobbered@>
@@ -403,34 +403,34 @@
  @<Output statistics...@>=
  if (log_opened) 
    {@+wlog_ln(" ");
--  wlog_ln("Here is how much of TeX's memory", " you used:");
+-  wlog_ln("Here is how much of TeX's memory"," you used:");
 +  wlog_ln("Here is how much of TeX's memory you used:");
  @.Here is how much...@>
--  wlog(" ", str_ptr-init_str_ptr, " string");
+-  wlog(" ", str_ptr-init_str_ptr: 1," string");
 -  if (str_ptr!=init_str_ptr+1) wlog("s");
--  wlog_ln(" out of ", max_strings-init_str_ptr);@/
--  wlog_ln(" ", pool_ptr-init_pool_ptr, " string characters out of ",
--    pool_size-init_pool_ptr);@/
--  wlog_ln(" ", lo_mem_max-mem_min+mem_end-hi_mem_min+2,@|
--    " words of memory out of ", mem_end+1-mem_min);@/
--  wlog_ln(" ", cs_count, " multiletter control sequences out of ",
--    hash_size);@/
--  wlog(" ", fmem_ptr, " words of font info for ",
--    font_ptr-font_base, " font");
+-  wlog_ln(" out of ", max_strings-init_str_ptr: 1);@/
+-  wlog_ln(" ", pool_ptr-init_pool_ptr: 1," string characters out of ",
+-    pool_size-init_pool_ptr: 1);@/
+-  wlog_ln(" ", lo_mem_max-mem_min+mem_end-hi_mem_min+2: 1,@|
+-    " words of memory out of ", mem_end+1-mem_min: 1);@/
+-  wlog_ln(" ", cs_count: 1," multiletter control sequences out of ",
+-    hash_size: 1);@/
+-  wlog(" ", fmem_ptr: 1," words of font info for ",
+-    font_ptr-font_base: 1," font");
 -  if (font_ptr!=font_base+1) wlog("s");
--  wlog_ln(", out of ", font_mem_size, " for ", font_max-font_base);@/
--  wlog(" ", hyph_count, " hyphenation exception");
+-  wlog_ln(", out of ", font_mem_size: 1," for ", font_max-font_base: 1);@/
+-  wlog(" ", hyph_count: 1," hyphenation exception");
 -  if (hyph_count!=1) wlog("s");
--  wlog_ln(" out of ", hyph_size);@/
--  wlog_ln(" ", max_in_stack, "i,", max_nest_stack, "n,",@|
--    max_param_stack, "p,",@|
--    max_buf_stack+1, "b,",@|
--    max_save_stack+6, "s stack positions out of ",@|
--    stack_size, "i,",
--    nest_size, "n,",
--    param_size, "p,",
--    buf_size, "b,",
--    save_size, "s");
+-  wlog_ln(" out of ", hyph_size: 1);@/
+-  wlog_ln(" ", max_in_stack: 1,"i,", max_nest_stack: 1,"n,",@|
+-    max_param_stack: 1,"p,",@|
+-    max_buf_stack+1: 1,"b,",@|
+-    max_save_stack+6: 1,"s stack positions out of ",@|
+-    stack_size: 1,"i,",
+-    nest_size: 1,"n,",
+-    param_size: 1,"p,",
+-    buf_size: 1,"b,",
+-    save_size: 1,"s");
 +  wlog(" %d string", str_ptr-init_str_ptr);
 +  if (str_ptr!=init_str_ptr+1) wlog("s");
 +  wlog_ln(" out of %d", max_strings-init_str_ptr);
