@@ -22,7 +22,7 @@ enum {@+@!trie_size=15000@+};
 @x
 enum {@+@!file_name_size=40@+}; /*file names shouldn't be longer than this*/
 @y
-enum {@+@!file_name_size=256@+}; /*file names shouldn't be longer than this*/
+enum {@+@!file_name_size=500@+}; /*file names shouldn't be longer than this*/
 @z
 
 @x
