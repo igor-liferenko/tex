@@ -11,7 +11,6 @@ all:
 	@sed -i "s/\([(,]\)'\([ s]\)'/\1'\2_'/" tex-web2w.web
 	./web2w -o ctex.w tex-web2w.web
 	@sed -i "s/'@'/'@@'/" ctex.w
-	@sed -i 's/"\(.\)_"/"\1"/' ctex.w
 	@sed -i 's/: 1\b//g;s/,"\(.[^@]\)/, "\1/g;s/"\(.\)_"/"\1"/g' ctex.w
 	sed -n -f pool.sed ctex.w | sed -i -f - ctex.w
 	sed -i '/@d str_[0-9]\+ /s^\\^\\\\^g' ctex.w
