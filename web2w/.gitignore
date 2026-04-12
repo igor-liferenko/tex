@@ -1,10 +1,12 @@
-pascal.output
-pascal.tab.c
-pascal.tab.h
+pascal-tex.output
+pascal-tex.tab.c
+pascal-tex.tab.h
 web.lex.c
 web2w
 web2w.c
 web2w.h
 web2w.ch
+pascal-tex.y
+web-tex.l
 tex-web2w.web
 ctex.w

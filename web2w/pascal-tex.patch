@@ -1,0 +1,26 @@
+--- pascal.y
++++ pascal.y
+@@ -548,9 +548,9 @@
+ 
+ 
+ proc_stmt: PPROCID POPEN args PCLOSE {CHGTAG($1,PCALLID); $$=$1; 
+-           UP($2,$1); pstring_args($1,$3); }
++           UP($2,$1); }
+          | PCALLID POPEN args PCLOSE  
+-           {$$=$1; UP($2,$1); pstring_args($1,$3); }
++           {$$=$1; UP($2,$1); }
+          | PPROCID  {CHGTAG($1,PCALLID); $$=$1; }
+          | PCALLID  { $$=$1; }
+          ;
+@@ -615,9 +615,9 @@
+ empty_stmt: {$$=join(CEMPTY,NULL,NULL,0); } ;
+ 
+ assign_stmt: variable PASSIGN expression {$$=$2; }
+-           | variable PASSIGN STRING {$$=$2; pstring_assign($1,$3); }
++           | variable PASSIGN STRING {$$=$2; }
+            | variable PASSIGN POPEN STRING PCLOSE
+-             {$$=$2;  pstring_assign($1,$4); }
++             {$$=$2; }
+            ;
+ 
+ return_stmt: PFUNCID PASSIGN expression  { $$=$1; }

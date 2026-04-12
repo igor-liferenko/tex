@@ -15,14 +15,14 @@
 +#define chr(X) (X)
 +#define put(file) fwrite(&((file).d),sizeof((file).d),1,(file).f)
 +#define get(file) fread(&((file).d),sizeof((file).d),1,(file).f)
-+#define reset(file,name,mode) ((file).f=fopen((char *)(name)+1,mode),(file).f!=NULL?get(file):0)
-+#define rewrite(file,name,mode) ((file).f=fopen((char *)(name)+1,mode))
++#define reset(file,name,mode) (file).f=fopen(name+1,mode),(file).f!=NULL?get(file):0
++#define rewrite(file,name,mode) (file).f=fopen(name+1,mode)
 +#define close(file) fclose((file).f)
-+#define eof(file) feof((file).f)
++#define eof(file) ((file).f==NULL||feof((file).f))
 +#define eoln(file) ((file).d=='\n'||eof(file))
 +#define erstat(file) ((file).f==NULL?-1:ferror((file).f))
 +#define read(file,x) ((x)=(file).d,get(file))
-+#define write(file, format,...) fprintf(file.f,format,## __VA_ARGS__)
++#define write(file,X,...) fprintf(file.f,X,##__VA_ARGS__)
 +#define write_ln(file,...) write(file,__VA_ARGS__"\n")
 +
  /*@&$C-,A+,D-*/ /*no range check, catch arithmetic overflow, no debug overhead*/ 
@@ -50,38 +50,38 @@
  
  @p bool a_open_in(alpha_file *f)
     /*open a text file for input*/ 
--{@+reset((*f), name_of_file,"/O");return reset_OK((*f));
-+{  reset(*f,   name_of_file,"r");return reset_OK(*f);
+-{@+reset((*f), name_of_file, "/O");return reset_OK((*f));
++{  reset(*f,   name_of_file, "r"); return reset_OK(*f);
  } 
  @#
  bool a_open_out(alpha_file *f)
     /*open a text file for output*/ 
--{@+rewrite((*f), name_of_file,"/O");return rewrite_OK((*f));
-+{  rewrite(*f,   name_of_file,"w");return rewrite_OK(*f);
+-{@+rewrite((*f), name_of_file, "/O");return rewrite_OK((*f));
++{  rewrite(*f,   name_of_file, "w"); return rewrite_OK(*f);
  } 
  @#
  bool b_open_in(byte_file *f)
     /*open a binary file for input*/ 
--{@+reset((*f), name_of_file,"/O");return reset_OK((*f));
-+{  reset(*f,   name_of_file,"r");return reset_OK(*f);
+-{@+reset((*f), name_of_file, "/O");return reset_OK((*f));
++{  reset(*f,   name_of_file, "r"); return reset_OK(*f);
  } 
  @#
  bool b_open_out(byte_file *f)
     /*open a binary file for output*/ 
--{@+rewrite((*f), name_of_file,"/O");return rewrite_OK((*f));
-+{  rewrite(*f,   name_of_file,"w");return rewrite_OK(*f);
+-{@+rewrite((*f), name_of_file, "/O");return rewrite_OK((*f));
++{  rewrite(*f,   name_of_file, "w"); return rewrite_OK(*f);
  } 
  @#
  bool w_open_in(word_file *f)
     /*open a word file for input*/ 
--{@+reset((*f), name_of_file,"/O");return reset_OK((*f));
-+{  reset(*f,   name_of_file,"r");return reset_OK(*f);
+-{@+reset((*f), name_of_file, "/O");return reset_OK((*f));
++{  reset(*f,   name_of_file, "r"); return reset_OK(*f);
  } 
  @#
  bool w_open_out(word_file *f)
     /*open a word file for output*/ 
--{@+rewrite((*f), name_of_file,"/O");return rewrite_OK((*f));
-+{  rewrite(*f,   name_of_file,"w");return rewrite_OK(*f);
+-{@+rewrite((*f), name_of_file, "/O");return rewrite_OK((*f));
++{  rewrite(*f,   name_of_file, "w"); return rewrite_OK(*f);
  } 
  
  @ Files can be closed with the \ph\ routine `|close(f)|', which
@@ -89,8 +89,8 @@
  @:PASCAL H}{\ph@>
  @^system dependencies@>
  
--@d t_open_in reset(term_in,"TTY:","/O/I") /*open the terminal for text input*/ 
--@d t_open_out rewrite(term_out,"TTY:","/O") /*open the terminal for text output*/ 
+-@d t_open_in reset(term_in, "TTY:", "/O/I") /*open the terminal for text input*/ 
+-@d t_open_out rewrite(term_out, "TTY:", "/O") /*open the terminal for text output*/ 
 +@d t_open_in term_in.f=stdin /*open the terminal for text input*/
 +@d t_open_out term_out.f=stdout /*open the terminal for text output*/
  
@@ -159,7 +159,7 @@
    } 
  switch (selector) {
 -case term_and_log: {@+wterm(xchr[s]);wlog(xchr[s]);
-+case term_and_log: {@+wterm("%c",xchr[s]);wlog("%c",xchr[s]);
++case term_and_log: {  wterm("%c",xchr[s]);wlog("%c",xchr[s]);
    incr(term_offset);incr(file_offset);
    if (term_offset==max_print_line) 
      {@+wterm_cr;term_offset=0;
@@ -168,11 +168,11 @@
      } 
    } @+break;
 -case log_only: {@+wlog(xchr[s]);incr(file_offset);
-+case log_only: {@+wlog("%c",xchr[s]);incr(file_offset);
++case log_only: {  wlog("%c",xchr[s]);incr(file_offset);
    if (file_offset==max_print_line) print_ln();
    } @+break;
 -case term_only: {@+wterm(xchr[s]);incr(term_offset);
-+case term_only: {@+wterm("%c",xchr[s]);incr(term_offset);
++case term_only: {  wterm("%c",xchr[s]);incr(term_offset);
    if (term_offset==max_print_line) print_ln();
    } @+break;
  case no_print: do_nothing;@+break;
@@ -184,17 +184,7 @@
  } @/
  incr(tally);
  } 
-@@ -1511,6 +1540,9 @@
-   } 
- } 
- 
-+void print_str(char *s) /* the simple version */
-+{ while (*s!=0) print_char(*s++); }
-+
- @ Control sequence names, file names, and strings constructed with
- \.{\\string} might contain |ASCII_code| values that can't
- be printed using |print_char|. Therefore we use |slow_print| for them:
-@@ -1533,7 +1565,7 @@
+@@ -1533,7 +1562,7 @@
  @^system dependencies@>
  
  @<Initialize the output...@>=
@@ -203,29 +193,7 @@
  if (format_ident==0) wterm_ln(" (no format preloaded)");
  else{@+slow_print(format_ident);print_ln();
    } 
-@@ -1543,10 +1575,10 @@
- string appears at the beginning of a new line.
- 
- @<Basic print...@>=
--void print_nl(str_number @!s) /*prints string |s| at beginning of line*/ 
-+void print_nl(char *@!s) /*prints string |s| at beginning of line*/
- {@+if (((term_offset > 0)&&(odd(selector)))||@|
-   ((file_offset > 0)&&(selector >= log_only))) print_ln();
--print(s);
-+print_str(s);
- } 
- 
- @ The procedure |print_esc| prints a string that is preceded by
-@@ -1815,7 +1847,7 @@
- @d help6 @+{@+help_ptr=6;hlp6 /*use this with six help lines*/ 
- 
- @<Glob...@>=
--str_number @!help_line[6]; /*helps for the next |error|*/ 
-+char *@!help_line[6]; /*helps for the next |error|*/
- uint8_t @!help_ptr; /*the number of help lines present*/ 
- bool @!use_err_help; /*should the |err_help| list be shown?*/ 
- 
-@@ -1834,7 +1866,7 @@
+@@ -1834,7 +1863,7 @@
  
  @<Error hand...@>=
  void jump_out(void)
@@ -234,16 +202,7 @@
  } 
  
  @ Here now is the general |error| routine.
-@@ -1977,7 +2009,7 @@
- else{@+if (help_ptr==0) 
-     help2("Sorry, I don't know how to help in this situation.")@/
-     @t\kern1em@>("Maybe you should try asking a human?");
--  @/do@+{decr(help_ptr);print(help_line[help_ptr]);print_ln();
-+  @/do@+{decr(help_ptr);print_str(help_line[help_ptr]);print_ln();
-   }@+ while (!(help_ptr==0));
-   } 
- help4("Sorry, I already gave what help I could...")@/
-@@ -2023,15 +2055,12 @@
+@@ -2023,9 +2052,6 @@
      interaction=scroll_mode; /*no more interaction*/ 
    if (log_opened) error();
    
@@ -253,28 +212,7 @@
  @;@/
    history=fatal_error_stop;jump_out(); /*irrecoverable error*/ 
    } 
- 
- @<Error hand...@>=
--void fatal_error(str_number @!s) /*prints |s|, and that's it*/ 
-+void fatal_error(char *@!s) /*prints |s|, and that's it*/
- {@+normalize_selector();@/
- print_err("Emergency stop");help1(s);succumb;
- @.Emergency stop@>
-@@ -2040,11 +2069,11 @@
- @ Here is the most dreaded error message.
- 
- @<Error hand...@>=
--void overflow(str_number @!s, int @!n) /*stop due to finiteness*/ 
-+void overflow(char *@!s, int @!n) /*stop due to finiteness*/
- {@+normalize_selector();
- print_err("TeX capacity exceeded, sorry [");
- @.TeX capacity exceeded ...@>
--print(s);print_char('=');print_int(n);print_char(']');
-+print_str(s);print_char('=');print_int(n);print_char(']');
- help2("If you really absolutely need more capacity,")@/
-   ("you can ask a wizard to enlarge me.");
- succumb;
-@@ -2337,12 +2366,15 @@
+@@ -2337,12 +2363,15 @@
  
  @d set_glue_ratio_zero(X) X=0.0 /*store the representation of zero ratio*/ 
  @d set_glue_ratio_one(X) X=1.0 /*store the representation of unit ratio*/ 
@@ -294,7 +232,7 @@
  
  @* Packed data.
  In order to make efficient use of storage space, \TeX\ bases its major data
-@@ -2554,6 +2586,13 @@
+@@ -2554,6 +2583,13 @@
  
  @<Glob...@>=
  int @!var_used, @!dyn_used; /*how much memory is in use*/ 
@@ -308,7 +246,7 @@
  
  @ Let's consider the one-word memory region first, since it's the
  simplest. The pointer variable |mem_end| holds the highest-numbered location
-@@ -2618,9 +2657,7 @@
+@@ -2618,9 +2654,7 @@
  @d free_avail(X)  /*single-word node liberation*/ 
    {@+link(X)=avail;avail=X;
    
@@ -319,7 +257,7 @@
    } 
  
  @ There's also a |fast_get_avail| routine, which saves the procedure-call
-@@ -2633,9 +2670,7 @@
+@@ -2633,9 +2667,7 @@
    if (X==null) X=get_avail();
    else{@+avail=link(X);link(X)=null;
      
@@ -330,16 +268,7 @@
      } 
    } 
  
-@@ -8180,7 +8215,7 @@
- else pstack[n]=link(temp_head);
- incr(n);
- if (tracing_macros > 0) 
--  {@+begin_diagnostic();print_nl(match_chr);print_int(n);
-+  {@+begin_diagnostic();print_nl("");print(match_chr);print_int(n);
-   print_str("<-");show_token_list(pstack[n-1], null, 1000);
-   end_diagnostic(false);
-   } 
-@@ -10011,9 +10046,7 @@
+@@ -10011,9 +10043,7 @@
  to place.
  @^system dependencies@>
  
@@ -349,7 +278,7 @@
  @.TeXfonts@>
  
  @ Here now is the first of the system-dependent routines for file name scanning.
-@@ -10089,7 +10122,7 @@
+@@ -10089,7 +10119,7 @@
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
@@ -358,7 +287,7 @@
  } 
  
  @ A messier routine is also needed, since format file names must be scanned
-@@ -10101,13 +10134,12 @@
+@@ -10101,13 +10131,12 @@
  @d format_default_length 20 /*length of the |TEX_format_default| string*/ 
  @d format_area_length 11 /*length of its area part*/ 
  @d format_ext_length 4 /*length of its `\.{.fmt}' part*/ 
@@ -366,7 +295,7 @@
  
  @<Glob...@>=
 -uint8_t @!TEX_format_default0[format_default_length], *const @!TEX_format_default = @!TEX_format_default0-1;
-+unsigned char @!TEX_format_default0[format_default_length+1], *const @!TEX_format_default = @!TEX_format_default0-1;
++unsigned char TEX_format_default0[format_default_length+1], *const TEX_format_default = TEX_format_default0-1;
  
  @ @<Set init...@>=
 -TEX_format_default="TeXformats:plain.fmt";
@@ -374,7 +303,7 @@
  @.TeXformats@>
  @.plain@>
  @^system dependencies@>
-@@ -10138,7 +10170,7 @@
+@@ -10138,7 +10167,7 @@
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
    append_to_name(xord[TEX_format_default[j]]);
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
@@ -383,76 +312,40 @@
  } 
  
  @ Here is the only place we use |pack_buffered_name|. This part of the program
-@@ -10162,7 +10194,7 @@
+@@ -10162,7 +10191,7 @@
       /*now try the system format file area*/ 
    if (w_open_in(&fmt_file)) goto found;
    wake_up_terminal;
--  wterm_ln("Sorry, I can't find that format;"," will try PLAIN.");
+-  wterm_ln("Sorry, I can't find that format;", " will try PLAIN.");
 +  wterm_ln("Sorry, I can't find that format; will try PLAIN.");
  @.Sorry, I can't find...@>
    update_terminal;
    } 
-@@ -10268,17 +10300,17 @@
- variables |cur_name|, |cur_area|, |cur_ext|, and |name_of_file| are
- ready for another attempt at file opening.
- 
--@p void prompt_file_name(str_number @!s, str_number @!e)
-+@p void prompt_file_name(char *s, str_number e)
- {@+
- uint16_t k; /*index into |buffer|*/ 
- if (interaction==scroll_mode) wake_up_terminal;
--if (s==@[@<|"input file name"|@>@]) print_err("I can't find file `")@;
-+if (strcmp(s,"input file name")==0) print_err("I can't find file `")
- @.I can't find file x@>
- else print_err("I can't write on file `");
- @.I can't write on file x@>
- print_file_name(cur_name, cur_area, cur_ext);print_str("'.");
- if (e==@[@<|".tex"|@>@]) show_context();
--print_nl("Please type another ");print(s);
-+print_nl("Please type another ");print_str(s);
- @.Please type...@>
- if (interaction < scroll_mode) 
-   fatal_error("*** (job aborted, file error in nonstop mode)");
-@@ -10301,11 +10333,11 @@
- @ Here's an example of how these conventions are used. Whenever it is time to
- ship out a box of stuff, we shall use the macro |ensure_dvi_open|.
- 
--@d ensure_dvi_open if (output_file_name==0) 
-+@d ensure_dvi_open(X) if (output_file_name==0) 
-   {@+if (job_name==0) open_log_file();
--  pack_job_name(@[@<|".dvi"|@>@]);
-+  pack_job_name(X);
-   while (!b_open_out(&dvi_file)) 
--    prompt_file_name("file name for output",@[@<|".dvi"|@>@]);
-+    prompt_file_name("file name for output",X);
-   output_file_name=b_make_name_string(&dvi_file);
-   } 
- 
-@@ -10323,7 +10355,7 @@
+@@ -10323,7 +10352,7 @@
  {@+uint8_t old_setting; /*previous |selector| setting*/ 
  int @!k; /*index into |months| and |buffer|*/ 
  uint16_t @!l; /*end of first input line*/ 
 -uint8_t @!months0[36], *const @!months = @!months0-1; /*abbreviations of month names*/ 
-+unsigned char @!months0[36+1], *const @!months = @!months0-1; /*abbreviations of month names*/
++unsigned char months0[36+1], *const months = months0-1; /*abbreviations of month names*/
  old_setting=selector;
  if (job_name==0) job_name=@[@<|"texput"|@>@];
  @.texput@>
-@@ -10362,11 +10394,11 @@
+@@ -10362,11 +10391,11 @@
  } 
  
  @ @<Print the banner...@>=
 -{@+wlog(banner);
-+{@+wlog("%s", banner);
- slow_print(format_ident);print_str("  ");
++{  wlog("%s",banner);
+ slow_print(format_ident);print(@[@<|"  "|@>@]);
  print_int(sys_day);print_char(' ');
 -months="JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC";
 -for (k=3*sys_month-2; k<=3*sys_month; k++) wlog(months[k]);
-+strcpy(months+1, "JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC");
-+for (k=3*sys_month-2; k<=3*sys_month; k++) wlog("%c", months[k]);
++strcpy(months+1,"JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC");
++for (k=3*sys_month-2; k<=3*sys_month; k++) wlog("%c",months[k]);
  print_char(' ');print_int(sys_year);print_char(' ');
  print_two(sys_time/60);print_char(':');print_two(sys_time%60);
  } 
-@@ -11929,7 +11961,7 @@
+@@ -11929,7 +11958,7 @@
  
  @p void write_dvi(dvi_index @!a, dvi_index @!b)
  {@+int k;
@@ -461,16 +354,7 @@
  } 
  
  @ To put a byte in the buffer without paying the cost of invoking a procedure
-@@ -12295,7 +12327,7 @@
- 
- @ @<Initialize variables as |ship_out| begins@>=
- dvi_h=0;dvi_v=0;cur_h=h_offset;dvi_f=null_font;
--ensure_dvi_open;
-+ensure_dvi_open(@[@<|".dvi"|@>@]);
- if (total_pages==0) 
-   {@+dvi_out(pre);dvi_out(id_byte); /*output the preamble*/ 
- @^preamble of \.{DVI} file@>
-@@ -15038,9 +15070,7 @@
+@@ -15038,9 +15067,7 @@
  the program would not have been so strange.
  @:PASCAL}{\PASCAL@>
  
@@ -480,7 +364,7 @@
  @t$ \hskip-35pt$@>
  
  @<Glob...@>=
-@@ -16364,7 +16394,7 @@
+@@ -16364,7 +16391,7 @@
  should no longer be active; then |goto continue| if a line from |r| to |cur_p| is
  infeasible, otherwise record a new feasible break@>;
    } 
@@ -489,7 +373,7 @@
  #ifdef @!STAT
  @<Update the value of |printed_node| for symbolic displays@>;
  #endif
-@@ -23763,7 +23793,7 @@
+@@ -23763,7 +23790,7 @@
  incompatible with the present \TeX\ table sizes, etc.
  
  @d too_small(X) {@+wake_up_terminal;
@@ -498,13 +382,13 @@
  @.Must increase the x@>
    goto bad_fmt;
    } 
-@@ -24278,14 +24308,13 @@
+@@ -24278,14 +24305,13 @@
  if (ready_already==314159) goto start_of_TEX;
  @<Check the ``constant'' values...@>@;
  if (bad > 0) 
 -  {@+wterm_ln("Ouch---my internal constants have been clobbered!",
--    "---case ", bad: 1);
-+  {@+wterm_ln("Ouch---my internal constants have been clobbered!"
+-    "---case ", bad);
++  {  wterm_ln("Ouch---my internal constants have been clobbered!"
 +    "---case %d", bad);
  @.Ouch...clobbered@>
    exit(0);
@@ -515,38 +399,38 @@
  init_prim(); /*call |primitive| for each primitive*/ 
  init_str_ptr=str_ptr;init_pool_ptr=pool_ptr;fix_date_and_time();
  #endif
-@@ -24338,33 +24367,32 @@
+@@ -24338,33 +24364,32 @@
  @<Output statistics...@>=
  if (log_opened) 
    {@+wlog_ln(" ");
--  wlog_ln("Here is how much of TeX's memory"," you used:");
+-  wlog_ln("Here is how much of TeX's memory", " you used:");
 +  wlog_ln("Here is how much of TeX's memory you used:");
  @.Here is how much...@>
--  wlog(" ", str_ptr-init_str_ptr: 1," string");
--  if (str_ptr!=init_str_ptr+1) wlog( 's' );
--  wlog_ln(" out of ", max_strings-init_str_ptr: 1);@/
--  wlog_ln(" ", pool_ptr-init_pool_ptr: 1," string characters out of ",
--    pool_size-init_pool_ptr: 1);@/
--  wlog_ln(" ", lo_mem_max-mem_min+mem_end-hi_mem_min+2: 1,@|
--    " words of memory out of ", mem_end+1-mem_min: 1);@/
--  wlog_ln(" ", cs_count: 1," multiletter control sequences out of ",
--    hash_size: 1);@/
--  wlog(" ", fmem_ptr: 1," words of font info for ",
--    font_ptr-font_base: 1," font");
--  if (font_ptr!=font_base+1) wlog( 's' );
--  wlog_ln(", out of ", font_mem_size: 1," for ", font_max-font_base: 1);@/
--  wlog(" ", hyph_count: 1," hyphenation exception");
--  if (hyph_count!=1) wlog( 's' );
--  wlog_ln(" out of ", hyph_size: 1);@/
--  wlog_ln(" ", max_in_stack: 1,"i,", max_nest_stack: 1,"n,",@|
--    max_param_stack: 1,"p,",@|
--    max_buf_stack+1: 1,"b,",@|
--    max_save_stack+6: 1,"s stack positions out of ",@|
--    stack_size: 1,"i,",
--    nest_size: 1,"n,",
--    param_size: 1,"p,",
--    buf_size: 1,"b,",
--    save_size: 1, 's' );
+-  wlog(" ", str_ptr-init_str_ptr, " string");
+-  if (str_ptr!=init_str_ptr+1) wlog("s");
+-  wlog_ln(" out of ", max_strings-init_str_ptr);@/
+-  wlog_ln(" ", pool_ptr-init_pool_ptr, " string characters out of ",
+-    pool_size-init_pool_ptr);@/
+-  wlog_ln(" ", lo_mem_max-mem_min+mem_end-hi_mem_min+2,@|
+-    " words of memory out of ", mem_end+1-mem_min);@/
+-  wlog_ln(" ", cs_count, " multiletter control sequences out of ",
+-    hash_size);@/
+-  wlog(" ", fmem_ptr, " words of font info for ",
+-    font_ptr-font_base, " font");
+-  if (font_ptr!=font_base+1) wlog("s");
+-  wlog_ln(", out of ", font_mem_size, " for ", font_max-font_base);@/
+-  wlog(" ", hyph_count, " hyphenation exception");
+-  if (hyph_count!=1) wlog("s");
+-  wlog_ln(" out of ", hyph_size);@/
+-  wlog_ln(" ", max_in_stack, "i,", max_nest_stack, "n,",@|
+-    max_param_stack, "p,",@|
+-    max_buf_stack+1, "b,",@|
+-    max_save_stack+6, "s stack positions out of ",@|
+-    stack_size, "i,",
+-    nest_size, "n,",
+-    param_size, "p,",
+-    buf_size, "b,",
+-    save_size, "s");
 +  wlog(" %d string", str_ptr-init_str_ptr);
 +  if (str_ptr!=init_str_ptr+1) wlog("s");
 +  wlog_ln(" out of %d", max_strings-init_str_ptr);
@@ -574,3 +458,12 @@
    } 
  
  @ We get to the |final_cleanup| routine when \.{\\end} or \.{\\dump} has
+@@ -26378,7 +26403,7 @@
+ @d str_701 "Number too big"
+ @<|"Number too big"|@>=@+701
+ @ 
+-@d str_702 "I can only go up to 2147483647='17777777777=""7FFFFFFF,"
++@d str_702 "I can only go up to 2147483647='17777777777=\"7FFFFFFF,"
+ @<|"I can only go up to 2147483647='17777777777=""7FFFFFFF,"|@>=@+702
+ @ 
+ @d str_703 "so I'm using that number instead of yours."
