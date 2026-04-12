@@ -12,12 +12,14 @@ wcscpy(TEX_format_default+1, L"TeXformats/plain.fmt");
 wcscpy(TEX_format_default+1, L"/home/user/tex/TeXformats/plain.fmt");
 @z
 
-If you need non-ASCII here, grep required characters one by one in mapping.w and put here via "\x".
+If you need non-ASCII, grep required characters one by one in mapping.w and use them via "\x":
+
 @x
 @d str_506 "TeXinputs/"
 @y
 @d str_506 "/home/user/tex/TeXinputs/"
 @z
+
 @x
 @d str_507 "TeXfonts/"
 @y
