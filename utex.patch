@@ -179,11 +179,11 @@
 -unsigned char months0[36+1], *const months = months0-1; /*abbreviations of month names*/
 +wchar_t months0[36+1], *const months = months0-1; /*abbreviations of month names*/
  old_setting=selector;
- if (job_name==0) job_name=@[@<|"texput"|@>@];
+ if (job_name==0) job_name=@<|"texput"|@>;
  @.texput@>
 @@ -10394,8 +10414,8 @@
  {  wlog("%s",banner);
- slow_print(format_ident);print(@[@<|"  "|@>@]);
+ slow_print(format_ident);print(@<|"  "|@>);
  print_int(sys_day);print_char(' ');
 -strcpy(months+1,"JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC");
 -for (k=3*sys_month-2; k<=3*sys_month; k++) wlog("%c",months[k]);
