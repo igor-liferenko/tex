@@ -12,6 +12,6 @@ all:
 	./web2w -o ctex.w tex-web2w.web
 	@sed -i "s/'@'/'@@'/" ctex.w
 	@sed -i 's/"\(.\)_"/"\1"/g' ctex.w
-	sed -n -f pool.sed ctex.w | sed -i -f - ctex.w
+	sed 's!$$!,/^$$/s^@<|\\2|@>^\\1/*\\2*/^#p!' pool.sed | sed -n -f - ctex.w | sed -i -f - ctex.w
 	sed -i '/@d str_[0-9]\+ /s^\\^\\\\^g' ctex.w
 	patch -s ctex.w ctex.patch

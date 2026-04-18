@@ -2,6 +2,12 @@ Do not exclude any "-strings from pool (print_str is not used anymore).
 There are also pstring changes in the patch of pascal.y
 
 @x
+    { wputs("@@[@@<|");@+wputs(SYM(t)->name);@+wputs("|@@>@@]");@+ }
+@y
+    { wputs("@@<|");@+wputs(SYM(t)->name);@+wputs("|@@>");@+ }
+@z
+
+@x
 There are, however, a few more exceptions to the general procedure.
 Many of the \WEB/ strings are used simply for printing with
 the procedure |print|. There is actually no need to enter all these
