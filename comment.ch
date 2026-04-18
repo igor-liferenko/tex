@@ -5,6 +5,7 @@ Append values of \pdfpagewidth, \pdfpageheight, \pdfhorigin and \pdfvorigin to D
 @y
 #include <inttypes.h>
 @h
+#define print_str(X) for (char *p = X; *p!='\0'; p++) print_char(*p)
 @z
 
 @x
@@ -13,11 +14,12 @@ Append values of \pdfpagewidth, \pdfpageheight, \pdfhorigin and \pdfvorigin to D
   print_two(time_of_day%60); print_char(' ');
   char origin[50];
   sprintf(origin, "%"PRId64, (int64_t) pdf_page_width * mag / 1000);
-  for (char *p = origin; *p!=0; p++) print_char(*p); print_char('x');
+  print_str(origin);
+  print_char('x');
   sprintf(origin, "%"PRId64, (int64_t) pdf_page_height * mag / 1000);
-  for (char *p = origin; *p!=0; p++) print_char(*p);
+  print_str(origin);
   sprintf(origin, "%+"PRId64, (int64_t) pdf_h_origin * mag / 1000);
-  for (char *p = origin; *p!=0; p++) print_char(*p);
+  print_str(origin);
   sprintf(origin, "%+"PRId64, (int64_t) pdf_v_origin * mag / 1000);
-  for (char *p = origin; *p!=0; p++) print_char(*p);
+  print_str(origin);
 @z
