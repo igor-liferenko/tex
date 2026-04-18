@@ -1,5 +1,3 @@
---- web.l
-+++ web.l
 @@ -19,7 +19,7 @@ Martin Ruckert, Hochschule Muenchen, Lothstrasse 64, 80336 Muenchen
  */
  %{
