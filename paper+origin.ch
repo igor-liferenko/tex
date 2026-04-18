@@ -21,9 +21,9 @@ Add dimension parameters \pdfpagewidth, \pdfpageheight, \pdfhorigin, \pdfvorigin
 @z
 
 @x
-case emergency_stretch_code: print_esc(@[@<|"emergencystretch"|@>@]);@+break;
+case emergency_stretch_code: print_esc(@<|"emergencystretch"|@>);@+break;
 @y
-case emergency_stretch_code: print_esc(@[@<|"emergencystretch"|@>@]);@+break;
+case emergency_stretch_code: print_esc(@<|"emergencystretch"|@>);@+break;
 case pdf_page_width_code: print_esc(pdfpagewidth_str);break;
 case pdf_page_height_code: print_esc(pdfpageheight_str);break;
 case pdf_h_origin_code: print_esc(pdfhorigin_str);break;
@@ -31,9 +31,9 @@ case pdf_v_origin_code: print_esc(pdfvorigin_str);break;
 @z
 
 @x
-primitive(@[@<|"emergencystretch"|@>@], assign_dimen, dimen_base+emergency_stretch_code);@/
+primitive(@<|"emergencystretch"|@>, assign_dimen, dimen_base+emergency_stretch_code);@/
 @y
-primitive(@[@<|"emergencystretch"|@>@], assign_dimen, dimen_base+emergency_stretch_code);@/
+primitive(@<|"emergencystretch"|@>, assign_dimen, dimen_base+emergency_stretch_code);@/
 primitive(pdfpagewidth_str, assign_dimen, dimen_base+pdf_page_width_code);
 primitive(pdfpageheight_str, assign_dimen, dimen_base+pdf_page_height_code);
 primitive(pdfhorigin_str, assign_dimen, dimen_base+pdf_h_origin_code);
