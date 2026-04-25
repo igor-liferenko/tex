@@ -1,7 +1,7 @@
 @x
-@<|"output file name"|@>=@+1300
+@<|"output file name"|@>= 1300
 @y
-@<|"output file name"|@>=@+1300
+@<|"output file name"|@>= 1300
 @ @d str_1301 "TeXinputs/"
 @d TEX_area_short 1301
 @ @d str_1302 "pdfpagewidth"

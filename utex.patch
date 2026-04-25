@@ -118,7 +118,7 @@
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
 +if (k < 0) k = -k;
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
- name_of_file[name_length+1]=0;
+ name_of_file[name_length+1]='\0';
  }
 @@ -10133,16 +10144,16 @@
  @d format_ext_length 4 /*length of its `\.{.fmt}' part*/

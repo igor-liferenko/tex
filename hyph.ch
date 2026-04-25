@@ -1,4 +1,4 @@
-Hyphenate already-hyphenated words.
+Hyphenate already-hyphenated words (relies on hyph_node whatsit, added in exten.ch)
 
 NOTE: to ensure that this ch-file is compatible with original TeX,
       add \def\\{\kern0pt-\nobreak\hskip0pt\relax} to the beginning of document
