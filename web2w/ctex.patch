@@ -283,7 +283,7 @@
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
 -for (k=name_length+1; k<=file_name_size; k++) name_of_file[k]= ' ' ;
-+name_of_file[name_length+1]=0;
++name_of_file[name_length+1]='\0';
  } 
  
  @ A messier routine is also needed, since format file names must be scanned
@@ -308,7 +308,7 @@
    append_to_name(xord[TEX_format_default[j]]);
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
 -for (k=name_length+1; k<=file_name_size; k++) name_of_file[k]= ' ' ;
-+name_of_file[name_length+1]=0;
++name_of_file[name_length+1]='\0';
  } 
  
  @ Here is the only place we use |pack_buffered_name|. This part of the program
@@ -457,10 +457,10 @@
  @ We get to the |final_cleanup| routine when \.{\\end} or \.{\\dump} has
 @@ -26378,7 +26403,7 @@
  @d str_701 "Number too big"
- @<|"Number too big"|@>=@+701
+ @<|"Number too big"|@>= 701
  @ 
 -@d str_702 "I can only go up to 2147483647='17777777777=""7FFFFFFF,"
 +@d str_702 "I can only go up to 2147483647='17777777777=\"7FFFFFFF,"
- @<|"I can only go up to 2147483647='17777777777=""7FFFFFFF,"|@>=@+702
+ @<|"I can only go up to 2147483647='17777777777=""7FFFFFFF,"|@>= 702
  @ 
  @d str_703 "so I'm using that number instead of yours."
