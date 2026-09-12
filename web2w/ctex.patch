@@ -194,6 +194,15 @@
  if (format_ident==0) wterm_ln(" (no format preloaded)");
  else{@+slow_print(format_ident);print_ln();
    } 
+@@ -1632,7 +1662,7 @@
+ pool_pointer j, @!k; /*mysterious indices into |str_pool|*/ 
+ nonnegative_integer @!u, @!v; /*mysterious numbers*/ 
+ j=str_start[@<|"m2d5c2l5x2v5i"|@>];v=1000;
+-loop@+{@+while (n >= v) 
++loop@+{@+while (n >= (int64_t) v) 
+     {@+print_char(so(str_pool[j]));n=n-v;
+     } 
+   if (n <= 0) return; /*nonpositive input produces no output*/ 
 @@ -1834,7 +1864,7 @@
  
  @<Error hand...@>=
