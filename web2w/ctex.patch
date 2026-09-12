@@ -1,4 +1,4 @@
-@@ -321,6 +321,29 @@
+@@ -321,6 +321,30 @@
  @^overflow in arithmetic@>
  
  @<Compiler directives@>=
@@ -11,6 +11,7 @@
 +
 +@h
 +
++#define abs(X) ((X)>=0?(X):-(X))
 +#define odd(X) ((X)&1)
 +#define chr(X) (X)
 +#define put(file) fwrite(&((file).d),sizeof((file).d),1,(file).f)
@@ -28,7 +29,7 @@
  /*@&$C-,A+,D-*/ /*no range check, catch arithmetic overflow, no debug overhead*/ 
  #ifdef @!DEBUG
  /*@&$C+,D+*/
-@@ -549,7 +572,7 @@
+@@ -549,7 +573,7 @@
  @<Glob...@>=
  ASCII_code @!xord[256];
     /*specifies conversion of input characters*/ 
@@ -37,7 +38,7 @@
     /*specifies conversion of output characters*/ 
  
  @ Since we are assuming that our \PASCAL\ system is able to read and
-@@ -759,7 +782,7 @@
+@@ -759,7 +783,7 @@
  @^system dependencies@>
  
  @<Glob...@>=
@@ -46,7 +47,7 @@
     /*on some systems this may be a \&{record} variable*/ 
  uint8_t @!name_length;@/ /*this many characters are actually
    relevant in |name_of_file| (the rest are blank)*/ 
-@@ -792,32 +815,32 @@
+@@ -792,32 +816,32 @@
  
  @p bool a_open_in(alpha_file *f)
     /*open a text file for input*/ 
@@ -85,7 +86,7 @@
  } 
  
  @ Files can be closed with the \ph\ routine `|close(f)|', which
-@@ -940,8 +963,8 @@
+@@ -940,8 +964,8 @@
  @:PASCAL H}{\ph@>
  @^system dependencies@>
  
@@ -96,7 +97,7 @@
  
  @ Sometimes it is necessary to synchronize the input/output mixture that
  happens on the user's terminal, and three system-dependent
-@@ -958,8 +981,8 @@
+@@ -958,8 +982,8 @@
  @:PASCAL H}{\ph@>
  @^system dependencies@>
  
@@ -107,7 +108,7 @@
  @d wake_up_terminal do_nothing /*cancel the user's cancellation of output*/ 
  
  @ We need a special routine to read the first line of \TeX\ input from
-@@ -1105,10 +1128,18 @@
+@@ -1105,10 +1129,18 @@
  typedef uint8_t packed_ASCII_code; /*elements of |str_pool| array*/ 
  
  @ @<Glob...@>=
@@ -126,7 +127,7 @@
  pool_pointer @!init_pool_ptr; /*the starting value of |pool_ptr|*/ 
  str_number @!init_str_ptr; /*the starting value of |str_ptr|*/ 
  
-@@ -1223,8 +1254,6 @@
+@@ -1223,8 +1255,6 @@
  bool @!c; /*check sum has been checked*/ 
  pool_ptr=0;str_ptr=0;str_start[0]=0;
  @<Make the first 256 strings@>;
@@ -135,7 +136,7 @@
  } 
  #endif
  
-@@ -1413,12 +1442,12 @@
+@@ -1413,12 +1443,12 @@
  by changing |wterm|, |wterm_ln|, and |wterm_cr| in this section.
  @^system dependencies@>
  
@@ -154,7 +155,7 @@
  
  @ To end a line of text output, we call |print_ln|.
  
-@@ -1449,7 +1478,7 @@
+@@ -1449,7 +1479,7 @@
    {@+print_ln();return;
    } 
  switch (selector) {
@@ -163,7 +164,7 @@
    incr(term_offset);incr(file_offset);
    if (term_offset==max_print_line) 
      {@+wterm_cr;term_offset=0;
-@@ -1458,17 +1487,17 @@
+@@ -1458,17 +1488,17 @@
      {@+wlog_cr;file_offset=0;
      } 
    } @+break;
@@ -184,7 +185,7 @@
  } @/
  incr(tally);
  } 
-@@ -1533,7 +1562,7 @@
+@@ -1533,7 +1563,7 @@
  @^system dependencies@>
  
  @<Initialize the output...@>=
@@ -193,7 +194,7 @@
  if (format_ident==0) wterm_ln(" (no format preloaded)");
  else{@+slow_print(format_ident);print_ln();
    } 
-@@ -1834,7 +1863,7 @@
+@@ -1834,7 +1864,7 @@
  
  @<Error hand...@>=
  void jump_out(void)
@@ -202,7 +203,7 @@
  } 
  
  @ Here now is the general |error| routine.
-@@ -2023,9 +2052,6 @@
+@@ -2023,9 +2053,6 @@
      interaction=scroll_mode; /*no more interaction*/ 
    if (log_opened) error();
    
@@ -212,7 +213,7 @@
  @;@/
    history=fatal_error_stop;jump_out(); /*irrecoverable error*/ 
    } 
-@@ -2337,12 +2363,15 @@
+@@ -2337,12 +2364,15 @@
  
  @d set_glue_ratio_zero(X) X=0.0 /*store the representation of zero ratio*/ 
  @d set_glue_ratio_one(X) X=1.0 /*store the representation of unit ratio*/ 
@@ -232,7 +233,7 @@
  
  @* Packed data.
  In order to make efficient use of storage space, \TeX\ bases its major data
-@@ -2554,6 +2583,13 @@
+@@ -2554,6 +2584,13 @@
  
  @<Glob...@>=
  int @!var_used, @!dyn_used; /*how much memory is in use*/ 
@@ -246,7 +247,7 @@
  
  @ Let's consider the one-word memory region first, since it's the
  simplest. The pointer variable |mem_end| holds the highest-numbered location
-@@ -2618,9 +2654,7 @@
+@@ -2618,9 +2655,7 @@
  @d free_avail(X)  /*single-word node liberation*/ 
    {@+link(X)=avail;avail=X;
    
@@ -257,7 +258,7 @@
    } 
  
  @ There's also a |fast_get_avail| routine, which saves the procedure-call
-@@ -2633,9 +2667,7 @@
+@@ -2633,9 +2668,7 @@
    if (X==null) X=get_avail();
    else{@+avail=link(X);link(X)=null;
      
@@ -268,7 +269,7 @@
      } 
    } 
  
-@@ -10011,9 +10043,7 @@
+@@ -10011,9 +10044,7 @@
  to place.
  @^system dependencies@>
  
@@ -278,7 +279,7 @@
  @.TeXfonts@>
  
  @ Here now is the first of the system-dependent routines for file name scanning.
-@@ -10089,7 +10119,7 @@
+@@ -10089,7 +10120,7 @@
  for (j=str_start[n]; j<=str_start[n+1]-1; j++) append_to_name(so(str_pool[j]));
  for (j=str_start[e]; j<=str_start[e+1]-1; j++) append_to_name(so(str_pool[j]));
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
@@ -287,7 +288,7 @@
  } 
  
  @ A messier routine is also needed, since format file names must be scanned
-@@ -10101,13 +10131,12 @@
+@@ -10101,13 +10132,12 @@
  @d format_default_length 20 /*length of the |TEX_format_default| string*/ 
  @d format_area_length 11 /*length of its area part*/ 
  @d format_ext_length 4 /*length of its `\.{.fmt}' part*/ 
@@ -303,7 +304,7 @@
  @.TeXformats@>
  @.plain@>
  @^system dependencies@>
-@@ -10138,7 +10167,7 @@
+@@ -10138,7 +10168,7 @@
  for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++) 
    append_to_name(xord[TEX_format_default[j]]);
  if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
@@ -312,7 +313,7 @@
  } 
  
  @ Here is the only place we use |pack_buffered_name|. This part of the program
-@@ -10162,7 +10191,7 @@
+@@ -10162,7 +10192,7 @@
       /*now try the system format file area*/ 
    if (w_open_in(&fmt_file)) goto found;
    wake_up_terminal;
@@ -321,7 +322,7 @@
  @.Sorry, I can't find...@>
    update_terminal;
    } 
-@@ -10323,7 +10352,7 @@
+@@ -10323,7 +10353,7 @@
  {@+uint8_t old_setting; /*previous |selector| setting*/ 
  int @!k; /*index into |months| and |buffer|*/ 
  uint16_t @!l; /*end of first input line*/ 
@@ -330,7 +331,7 @@
  old_setting=selector;
  if (job_name==0) job_name=@<|"texput"|@>;
  @.texput@>
-@@ -10362,11 +10391,11 @@
+@@ -10362,11 +10392,11 @@
  } 
  
  @ @<Print the banner...@>=
@@ -345,7 +346,7 @@
  print_char(' ');print_int(sys_year);print_char(' ');
  print_two(sys_time/60);print_char(':');print_two(sys_time%60);
  } 
-@@ -11929,7 +11958,7 @@
+@@ -11929,7 +11959,7 @@
  
  @p void write_dvi(dvi_index @!a, dvi_index @!b)
  {@+int k;
@@ -354,7 +355,7 @@
  } 
  
  @ To put a byte in the buffer without paying the cost of invoking a procedure
-@@ -15038,9 +15067,7 @@
+@@ -15038,9 +15068,7 @@
  the program would not have been so strange.
  @:PASCAL}{\PASCAL@>
  
@@ -364,7 +365,7 @@
  @t$ \hskip-35pt$@>
  
  @<Glob...@>=
-@@ -16364,7 +16391,7 @@
+@@ -16364,7 +16392,7 @@
  should no longer be active; then |goto continue| if a line from |r| to |cur_p| is
  infeasible, otherwise record a new feasible break@>;
    } 
@@ -373,7 +374,7 @@
  #ifdef @!STAT
  @<Update the value of |printed_node| for symbolic displays@>;
  #endif
-@@ -23763,7 +23790,7 @@
+@@ -23763,7 +23791,7 @@
  incompatible with the present \TeX\ table sizes, etc.
  
  @d too_small(X) {@+wake_up_terminal;
@@ -382,7 +383,7 @@
  @.Must increase the x@>
    goto bad_fmt;
    } 
-@@ -24278,14 +24305,13 @@
+@@ -24278,14 +24306,13 @@
  if (ready_already==314159) goto start_of_TEX;
  @<Check the ``constant'' values...@>@;
  if (bad > 0) 
@@ -399,7 +400,7 @@
  init_prim(); /*call |primitive| for each primitive*/ 
  init_str_ptr=str_ptr;init_pool_ptr=pool_ptr;fix_date_and_time();
  #endif
-@@ -24338,33 +24364,32 @@
+@@ -24338,33 +24365,32 @@
  @<Output statistics...@>=
  if (log_opened) 
    {@+wlog_ln(" ");
@@ -455,7 +456,7 @@
    } 
  
  @ We get to the |final_cleanup| routine when \.{\\end} or \.{\\dump} has
-@@ -26378,7 +26403,7 @@
+@@ -26378,7 +26404,7 @@
  @d str_701 "Number too big"
  @<|"Number too big"|@>= 701
  @ 
