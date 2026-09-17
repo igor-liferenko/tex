@@ -4,6 +4,7 @@ all:
 	patch -s tex.w utex.patch
 	tie -c tex.ch tex.w $(CHF) path.ch constants.ch special.ch pool.ch print.ch time.ch paper+origin.ch comment.ch exten.ch hyph.ch >/dev/null
 	ctangle tex tex
+	@./check-vacancies.sh
 	gcc -DINIT tex.c -o initex -lm
 	@./initex 'plain \input paper+origin \dump' >/dev/null && mv plain.fmt TeXformats/
 	gcc -DSTAT tex.c -o virtex -lm
@@ -16,6 +17,7 @@ triptex:
 	@sed -i /format_default_length/s/MB_CUR_MAX/1/ tex.w # TeXformats/plain.fmt
 	tie -c tex.ch tex.w $(CHF) trip/constants.ch >/dev/null
 	ctangle tex tex
+	@./check-vacancies.sh
 	gcc -DINIT -DSTAT tex.c -o trip/triptex -lm
 
 CHF=charset.ch interrupt.ch arg.ch preload.ch log.ch edit.ch name.ch exit.ch input.ch close.ch 64bit.ch
