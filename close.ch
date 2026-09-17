@@ -1,3 +1,5 @@
+NOTE: this file is an addition to utex.patch
+
 Close any open input files before exiting.
 Otherwise they will be closed automatically,
 which may result to "Segmentation fault" on
