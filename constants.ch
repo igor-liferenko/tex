@@ -13,6 +13,15 @@ enum {@+@!font_mem_size=40000@+};
 @z
 
 @x
+enum {@+@!pool_size=32000@+}; /*maximum number of characters in strings, including all
+  error messages and help texts, and the names of all fonts and
+  control sequences; must exceed |string_vacancies| by the total
+  length of \TeX's own strings, which is currently about 23000*/
+@y
+enum {@+@!pool_size=40000@+};
+@z
+
+@x
 enum {@+@!trie_size=8000@+}; /*space for hyphenation patterns; should be larger for
   \.{INITEX} than it is in production versions of \TeX*/
 @y
