@@ -1,3 +1,8 @@
+'ready_already' trick does not work on modern systems, so load format file on each run.
+Format name is passed via environment variable 'format'.
+load_fmt_file() is called with silenced output,
+in order to reproduce the behaviour of original TeX which can not fail here.
+
 @x
 initialize(); /*set global variables to their starting values*/ 
 @y
