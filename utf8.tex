@@ -157,44 +157,66 @@ before being added to {\it name\_of\_file\/},
 must
 be converted to \hbox{\UTF-8}. This is done using
 the C~library function {\it wctomb\/} [4].
-
-In the {\it append\_to\_name\/} macro, the variable
-{\it k\/}
-is used as the index into the {\it name\_of\_file\/} buffer
-where the last byte was stored. Originally, {\it k\/} was
-always increased and provisions were made
-that characters will not be written beyond the end of buffer
-(which has the index {\it file\_name\_size\/});
-{\it name\_length\/} was then set to the minimal value
-between {\it k\/} and {\it file\_name\_size\/}.
-
-We cannot do the same in our implementation, because we may reach
-the end of the buffer
-in the midst of
-a multibyte character. Instead, if the next multibyte
-character does not fit into the buffer, we prevent {\it k\/} from
-being increased by negating its value:
+The variable {\it k\/} is then increased for each
+byte of the resulting \hbox{\UTF-8} sequence.
 \verbatim
 < @d append_to_name(X) { c=X;incr(k);
 <   if (k <= file_name_size)
 <     name_of_file[k]=xchr[c]; }
 
 > @d append_to_name(X) { c=X;
->   if (k >= 0) { /* try to append? */
->     char mb[MB_CUR_MAX];
->     int len = wctomb(mb, xchr[c]);
->     if (k+len <= file_name_size)
->       for (int i = 0; i < len; i++)
->         name_of_file[++k] = mb[i];
->     else
->       k = -k; /* freeze k */ } }
+>   char mb[MB_CUR_MAX];
+>   int len = wctomb(mb, xchr[c]);
+>   for (int i = 0; i < len; i++) {
+>     incr(k);
+>     if (k <= file_name_size)
+>       name_of_file[k] = mb[i]; } }
 \endverbatim
 \medskip
-In {\it pack\_file\_name\/} and {\it pack\_buffered\_name\/}
-(the functions that call {\it append\_to\_name\/}),
-we have to ``unfreeze'' its value
-if it was ``frozen''.
-||if (k < 0) k = -k;||
+When end of buffer is reached in the function {\it pack\_file\_name\/},
+we cannot be sure if a
+complete character fitted in the buffer.
+Therefore in such case we go through the buffer character
+by character using the C~library
+function {\it mblen\/} [4].
+\verbatim
+< if (k <= file_name_size) name_length=k;
+< else name_length=file_name_size;
+
+> if (k >= file_name_size) {
+>   k = 0;
+>   while (k < file_name_size) {
+>     int len = mblen(name_of_file+1+k,
+>       file_name_size-k);
+>     if (len == -1) break;
+>     k += len; } }
+> name_length = k;
+\endverbatim
+\medskip
+Let us assume that a format name can consist only of
+{\font\rm=cmcsc10 \rm ASCII} characters.
+Then in the function {\it pack\_buffered\_name\/}
+we can preserve original algorithm for calculating {\it b}.
+We use the C~library function {\it wcstombs\/} [4] for
+calculating the number of bytes which will be occupied in
+the {\it name\_of\_file\/} buffer by the first {\it n\/}
+and by the last {\it format\_ext\_length\/} characters
+of {\it TEX\_format\_default}.
+\verbatim
+< if (n+b-a+1+format_ext_length >
+<     file_name_size)
+<   b=a+file_name_size-n-1-format_ext_length;
+
+> int t =
+>   wcstombs(NULL,TEX_format_default+1,0)-
+>   wcstombs(NULL,TEX_format_default+1+n,0);
+> int e =
+>   wcstombs(NULL,TEX_format_default+1+
+>     format_default_length-
+>     format_ext_length,0);
+> if (t+b-a+1+e > file_name_size)
+>   b=a+file_name_size-t-1-e;
+\endverbatim
 \medskip
 In {\it make\_name\_string},
 each (multibyte) character from {\it name\_of\_file\/}
@@ -214,48 +236,17 @@ This is done using the C~library function
 In the code checking {\it format\_default\_length\/}
 for consistency,
 the number of bytes in the \UTF-8 representation of
-{\it TEX\_format\_default\/} must be used. This value
-can not be calculated automatically here, because
-{\it TEX\_format\_default\/} is not yet set at this stage,
-so we use maximum possible value.
+{\it TEX\_format\_default\/} must be used.
+But {\it TEX\_format\_default\/} is not yet known in this
+point of the program,
+hence the number of bytes can not be calculated.
+So we use maximum possible value.
 \verbatim
 < if (format_default_length >
 <     file_name_size)
 
 > if (format_default_length*MB_CUR_MAX >
 >     file_name_size)
-\endverbatim
-\medskip
-In the function {\it pack\_buffered\_name\/},
-the code that drops excess characters
-assumes that each character is one byte:
-\verbatim
-if (n+b-a+1+format_ext_length >
-    file_name_size)
-  b=a+file_name_size-n-1-format_ext_length;
-\endverbatim
-But the number of bytes used to represent
-a character in \hbox{\UTF-8} may be more than one.
-Therefore, we use an equivalent method to drop excess
-characters, the one which will work with multibyte characters:
-After appending
-the contents of
-{\it buffer\/$[a\mathrel{.\,.}b]$\/}
-to {\it name\_of\_file\/}, we roll back in it
-character by character until the
-format extension fits in it. We use the C~library
-function {\it mblen\/} [4] to determine
-the start of the next (multibyte) character to be discarded.
-\verbatim
-while (k+wcstombs(NULL,TEX_format_default+
-       format_default_length-
-       format_ext_length+1,0) >
-       file_name_size) {
-  k--;
-  while (mblen(name_of_file+k+1,MB_CUR_MAX)
-         ==-1)
-    k--;
-}
 \endverbatim
 
 \head * References *
