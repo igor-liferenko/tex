@@ -1,7 +1,11 @@
-'ready_already' trick does not work on modern systems, so load format file on each run.
+ready_already trick does not work on modern systems, so load format file on each run.
 Format name is passed via environment variable 'format'.
-load_fmt_file() is called with silenced output,
-in order to reproduce the behaviour of original TeX which can not fail here.
+
+load_fmt_file() has its own error message ("(Fatal format file error; I'm stymied)"),
+but we use assert() which prints its own error message,
+so error message would be printed two times. To avoid this, error message during format loading
+at startup is suppressed (besides, the error message could not appear on the system where TeX
+was written, i.e., where ready_already trick was used).
 
 @x
 initialize(); /*set global variables to their starting values*/ 
