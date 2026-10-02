@@ -1,14 +1,6 @@
-Add \hyphen@te control sequence, which inserts hyph_node whatsit (used in hyph.ch),
-which does not manifest itself in output to terminal and log file.
+Add \hyphenate control sequence, which inserts hyph_node whatsit (used in hyph.ch)
 
-Skip over the whatsit in warning messages.
-@x
-while (p > mem_min)
-@y
-while (p > mem_min) if (type(p)==whatsit_node && subtype(p)==hyph_node) p=link(p); else
-@z
-
-Skip over the whatsit in output of \showlists
+Do not print [] (use example in the beginning of hyph.ch to see what this change does).
 @x
 while (p > mem_min)
 @y

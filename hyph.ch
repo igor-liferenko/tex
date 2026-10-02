@@ -1,8 +1,17 @@
-Hyphenate already-hyphenated words (relies on hyph_node whatsit, added in exten.ch)
+Hyphenate already-hyphenated words (uses hyph_node whatsit, added in exten.ch)
 
-\hyphen@te after hyphen is equivalent to \nobreak\hskip0pt\relax
 The whole purpose of hyph_node and of this change-file is that spurious
-space, which represents the \hskip0pt, is not printed in warning messages.
+space is not printed in warning messages. Compare terminal outputs and log-files:
+
+    \hsize=100pt
+    \hskip0pt already\kern0pt-\nobreak\hskip0pt hyphenated
+    \bye
+
+with
+
+    \hsize=100pt
+    \hskip0pt already\kern0pt-\hyphenate hyphenated
+    \bye
 
 @x
 case whatsit_node: @<Advance \(p)past a whatsit node in the \(l)|line_break| loop@>@;@+break;
@@ -41,23 +50,12 @@ the search is also started from hyph_node.
 
 Let's see how the modified hyphenation algorithm will behave
 when it encounters hyph_node. We will use the word
-'already\\hyphenated' as an example (\\ expands into
-"hyph_node hyphen hyph_node"); keep in mind that TeX
-automatically inserts empty discretionary after the hyphen.
-
-NOTE: Only the second hyph_node is using this change-file.
-The first hyph_node is used to terminate the search until
-the discretionary (which would have cancelled hyphenation
-of 'already') is reached; I use hyph_node instead of
-\kern0pt (equivalent), because hyph_node is skipped in output of
-\showbox, \showlists, etc. and because handling of the
-second hyph_node is not affected by presence of first
-hyph_node (as the modified hyphenation algorithm acts on
-first hyph_node also).
+'already-hyphenated' as an example, but with the hyphen
+changed into '\kern0pt-\hyphenate '.
 
 So, new search is started. Here is what unfolds:
 
- (*)The search bypasses characters whose \lccode is zero, or
+    The search bypasses characters whose \lccode is zero, or
     ligatures that begin with such characters; it also bypasses
     whatsits and implicit kern items, i.e., kerns that were
     inserted by TeX itself because of information stored with
@@ -65,7 +63,7 @@ So, new search is started. Here is what unfolds:
 
 Nothing is bypassed.
 
-(**)If the search finds a character with nonzero \lccode, or if
+    If the search finds a character with nonzero \lccode, or if
     it finds a ligature that begins with such a character, that
     character is called the starting letter. But if any other
     type of item occurs before a suitable starting letter is
@@ -80,8 +78,8 @@ Nothing is bypassed.
     (3) an implicit kern.
     The first inadmissible item terminates this part of the process
 
-The search is terminated on the first hyph_node, because it is
-a whatsit, and thus not an "admissible item". Then:
+The search is terminated on \kern0pt, because it is
+an explicit kern, and thus not an "admissible item". Then:
 
     Furthermore, the items immediately following the trial word must
     consist of zero or more characters, ligatures, and implicit kerns,
@@ -89,15 +87,10 @@ a whatsit, and thus not an "admissible item". Then:
     penalty item or a whatsit or an item of vertical mode material
     from \mark, \insert, or \vadjust.
 
-The item immediately following the trial word 'already' is hyph_node
-(a whatsit).
+The item immediately following the trial word 'already' is \kern0pt
+(an explicit kern).
 
-New search is started from the first hyph_node.
+So, hyphenation of 'already' is tried.
 
-Due to (*), hyphen is bypassed.
-
-Due to (**), hyphenation is abandoned on the discretionary.
-
-New search is started from the second hyph_node.
-
+New search is started from \hyphenate.
 From this point on, the algorithm proceeds normally.

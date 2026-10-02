@@ -12,7 +12,7 @@
 @d pdfhorigin_str 1304
 @ @d str_1305 "pdfvorigin"
 @d pdfvorigin_str 1305
-@ @d str_1306 "hyphen@@te"
+@ @d str_1306 "hyphenate"
 @d hyphenate_str 1306
 @z
 
