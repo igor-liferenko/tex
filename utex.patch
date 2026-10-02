@@ -147,21 +147,28 @@
  
  @ Here is the messy routine that was just mentioned. It sets |name_of_file|
  from the first |n| characters of |TEX_format_default|, followed by
-@@ -10160,8 +10176,11 @@
+@@ -10160,11 +10176,17 @@
  {@+int k; /*number of positions filled in |name_of_file|*/
  ASCII_code @!c; /*character being packed*/
  int @!j; /*index into |buffer| or |TEX_format_default|*/
 -if (n+b-a+1+format_ext_length > file_name_size)
 -  b=a+file_name_size-n-1-format_ext_length;
-+int t = wcstombs(NULL,TEX_format_default+1,0)-wcstombs(NULL,TEX_format_default+1+n,0);
-+int e = wcstombs(NULL,TEX_format_default+1+format_default_length-format_ext_length,0);
-+for (j=a; j<=b; j++) assert(xchr[buffer[j]] <= 127);
-+if (t+b-a+1+e > file_name_size)
-+  b=a+file_name_size-t-1-e;
  k=0;
  for (j=1; j<=n; j++) append_to_name(xord[TEX_format_default[j]]);
- for (j=a; j<=b; j++) append_to_name(buffer[j]);
-@@ -10223,7 +10242,11 @@
+-for (j=a; j<=b; j++) append_to_name(buffer[j]);
++for (j=a; j<=b; j++) {
++  n = k;
++  append_to_name(buffer[j]);
++  if (k+wcstombs(NULL,TEX_format_default+1+format_default_length-format_ext_length,0) >
++      file_name_size) {
++    k = n;
++    break;
++  }
++}
+ for (j=format_default_length-format_ext_length+1; j<=format_default_length; j++)
+   append_to_name(xord[TEX_format_default[j]]);
+ if (k <= file_name_size) name_length=k;@+else name_length=file_name_size;
+@@ -10223,7 +10245,11 @@
  if ((pool_ptr+name_length > pool_size)||(str_ptr==max_strings)||
   (cur_length > 0))
    return'?';
@@ -174,7 +181,7 @@
    return make_string();
    }
  }
-@@ -10353,7 +10376,7 @@
+@@ -10353,7 +10379,7 @@
  {@+uint8_t old_setting; /*previous |selector| setting*/
  int @!k; /*index into |months| and |buffer|*/
  uint16_t @!l; /*end of first input line*/
@@ -183,7 +190,7 @@
  old_setting=selector;
  if (job_name==0) job_name=@<|"texput"|@>;
  @.texput@>
-@@ -10395,8 +10418,8 @@
+@@ -10395,8 +10421,8 @@
  {  wlog("%s",banner);
  slow_print(format_ident);print(@<|"  "|@>);
  print_int(sys_day);print_char(' ');
@@ -194,7 +201,7 @@
  print_char(' ');print_int(sys_year);print_char(' ');
  print_two(sys_time/60);print_char(':');print_two(sys_time%60);
  }
-@@ -24301,6 +24324,7 @@
+@@ -24301,6 +24327,7 @@
  @^system dependencies@>
  
  @p int main(void) {@! /*|start_here|*/

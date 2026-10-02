@@ -149,10 +149,27 @@ except that |%c| is changed to |%lc|.
 
 \head * 4. The file name buffer *
 
-The name of the file to be opened, which is
+The name of file to be opened, which is
 stored in the {\it name\_of\_file\/} buffer,
 is encoded in \hbox{\UTF-8} (on most systems).
-Therefore, each character passed to {\it append\_to\_name\/},
+\medskip
+In the code, checking {\it format\_default\_length\/}
+for consistency,
+the number of bytes in the \UTF-8 representation of
+{\it TEX\_format\_default\/} must be used.
+But {\it TEX\_format\_default\/} is not yet known in this
+point of the program,
+hence the number of bytes can not be calculated.
+So we use maximum possible value.
+\verbatim
+< if (format_default_length >
+<     file_name_size)
+
+> if (format_default_length*MB_CUR_MAX >
+>     file_name_size)
+\endverbatim
+\medskip
+Each character passed to {\it append\_to\_name\/},
 before being added to {\it name\_of\_file\/},
 must
 be converted to \hbox{\UTF-8}. This is done using
@@ -193,32 +210,42 @@ function {\it mblen\/} [4].
 > name_length = k;
 \endverbatim
 \medskip
-Let us assume that a format name can consist only of
-{\font\rm=cmcsc10 \rm ASCII} characters.
-Then in the function {\it pack\_buffered\_name\/}
-we can preserve original algorithm for calculating {\it b}.
+In the function {\it pack\_buffered\_name\/},
+the code that drops excess characters
+assumes that each character is one byte:
+\verbatim
+if (n+b-a+1+format_ext_length >
+    file_name_size)
+  b=a+file_name_size-n-1-format_ext_length;
+\endverbatim
+But the number of bytes used to represent
+a character in \hbox{\UTF-8} may be more than one.
+Therefore, we use an equivalent method to drop excess
+characters, the one which will work with multibyte characters:
+After appending
+each character from
+\hbox{\it buffer\/$[a\mathrel{.\,.}b]$\/}
+to {\it name\_of\_file\/}, we check if
+format extension fits in {\it name\_of\_file\/}.
+If it does not fit, we roll back to previous
+character and exit the loop.
 We use the C~library function {\it wcstombs\/} [4] for
 calculating the number of bytes which will be occupied in
-the {\it name\_of\_file\/} buffer by the first {\it n\/}
-and by the last {\it format\_ext\_length\/} characters
-of {\it TEX\_format\_default}.
+the {\it name\_of\_file\/} buffer by the last
+{\it format\_ext\_length\/} characters
+of {\it TEX\_format\_default\/}.
 \verbatim
-< if (n+b-a+1+format_ext_length >
-<     file_name_size)
-<   b=a+file_name_size-n-1-format_ext_length;
+< for (j=a; j<=b; j++)
+<   append_to_name(buffer[j]);
 
-> int t =
->   wcstombs(NULL,TEX_format_default+1,0)-
->   wcstombs(NULL,TEX_format_default+1+n,0);
-> int e =
->   wcstombs(NULL,TEX_format_default+1+
->     format_default_length-
->     format_ext_length,0);
-> if (t+b-a+1+e > file_name_size)
->   b=a+file_name_size-t-1-e;
+> for (j=a; j<=b; j++) { n=k;
+>   append_to_name(buffer[j]);
+>   if (k+wcstombs(NULL,TEX_format_default+1+
+>     format_default_length-format_ext_length
+>     ,0) > file_name_size) { k=n; break; } }
 \endverbatim
 \medskip
-In {\it make\_name\_string},
+In {\it make\_name\_string\/},
 each (multibyte) character from {\it name\_of\_file\/}
 must be converted from \UTF-8 to Unicode,
 before being converted to \TeX's internal encoding.
@@ -231,22 +258,6 @@ This is done using the C~library function
 >   k += mbtowc(&wc, name_of_file+k,
 >               MB_CUR_MAX) - 1;
 >   append_char(xord[wc]); }
-\endverbatim
-\medskip
-In the code checking {\it format\_default\_length\/}
-for consistency,
-the number of bytes in the \UTF-8 representation of
-{\it TEX\_format\_default\/} must be used.
-But {\it TEX\_format\_default\/} is not yet known in this
-point of the program,
-hence the number of bytes can not be calculated.
-So we use maximum possible value.
-\verbatim
-< if (format_default_length >
-<     file_name_size)
-
-> if (format_default_length*MB_CUR_MAX >
->     file_name_size)
 \endverbatim
 
 \head * References *
