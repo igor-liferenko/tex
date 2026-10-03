@@ -1,4 +1,4 @@
-Add \hyphenate control sequence, which inserts hyph_node whatsit (used in hyph.ch)
+Add \hyphen@te control sequence, which inserts hyph_node whatsit (used in hyph.ch)
 
 @x
 @d language_node 4 /*|subtype| in whatsits that change the current language*/
