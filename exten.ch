@@ -1,12 +1,5 @@
 Add \hyphenate control sequence, which inserts hyph_node whatsit (used in hyph.ch)
 
-Do not print [] (use example in the beginning of hyph.ch to see what this change does).
-@x
-while (p > mem_min)
-@y
-while (p > mem_min) if (type(p)==whatsit_node && subtype(p)==hyph_node) p=link(p); else
-@z
-
 @x
 @d language_node 4 /*|subtype| in whatsits that change the current language*/
 @y
