@@ -2,7 +2,7 @@ all:
 	make -C web2w
 	tie -m tex.w web2w/ctex.w web2w/ctex.ch >/dev/null
 	patch -s tex.w utex.patch
-	tie -c tex.ch tex.w $(CHF) path.ch constants.ch special.ch pool.ch print.ch time.ch paper+origin.ch comment.ch >/dev/null
+	tie -c tex.ch tex.w $(CHF) path.ch constants.ch special.ch print.ch time.ch paper+origin.ch >/dev/null
 	ctangle tex tex
 	@./pool-size.sh
 	gcc -DINIT tex.c -o initex -lm
