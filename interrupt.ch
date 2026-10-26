@@ -1,7 +1,3 @@
-From another terminal emulator run:
-
-    pkill -USR1 -f /tex/ -t TTY
-
 @x
 @h
 @y
@@ -27,6 +23,6 @@ struct sigaction sa;
 sa.sa_handler = catchint;
 sigemptyset(&sa.sa_mask);
 sa.sa_flags = SA_RESTART;
-sigaction(SIGUSR1, &sa, NULL);
+sigaction(SIGINT, &sa, NULL);
 initialize(); /*set global variables to their starting values*/ 
 @z
