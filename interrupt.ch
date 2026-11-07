@@ -10,7 +10,7 @@ pending data, and spurious ^C is printed on terminal).
 @z
 
 @x
-int @!interrupt; /*should \TeX\ pause for instructions?*/ 
+int @!interrupt; /*should \TeX\ pause for instructions?*/
 @y
 volatile
 int @!interrupt; /*should \TeX\ pause for instructions?*/
