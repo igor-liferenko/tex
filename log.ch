@@ -1,4 +1,4 @@
-Disable file stream buffering to make log-file contain needed data when program stops.
+Disable file stream buffering to view log-file while TeX is still running.
 
 @x
 while (!a_open_out(&log_file)) @<Try to get a different log file name@>;
