@@ -1,3 +1,7 @@
+NOTE: interrupt must not be sent when TeX is waiting for input from terminal
+(because there is nothing to interrupt; moreover, TTY line discipline destroys
+pending data, and spurious ^C is printed on terminal).
+
 @x
 @h
 @y
